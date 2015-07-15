@@ -16,8 +16,7 @@ class DDC2895Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_schemaTool->createSchema(array(
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC2895'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -28,7 +27,7 @@ class DDC2895Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals(
             array(
                 "prePersist" => array("setLastModifiedPreUpdate"),
-                "preUpdate" => array("setLastModifiedPreUpdate"),
+                "preUpdate"  => array("setLastModifiedPreUpdate"),
             ),
             $cm->lifecycleCallbacks
         );
@@ -43,7 +42,6 @@ class DDC2895Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $ddc2895 = $this->_em->find(get_class($ddc2895), $ddc2895->id);
 
         $this->assertNotNull($ddc2895->getLastModified());
-
     }
 }
 
@@ -71,7 +69,7 @@ abstract class AbstractDDC2895
     /**
      * @param \DateTime $lastModified
      */
-    public function setLastModified( $lastModified )
+    public function setLastModified($lastModified)
     {
         $this->lastModified = $lastModified;
     }
@@ -97,7 +95,7 @@ class DDC2895 extends AbstractDDC2895
     /**
      * @param mixed $id
      */
-    public function setId( $id )
+    public function setId($id)
     {
         $this->id = $id;
     }

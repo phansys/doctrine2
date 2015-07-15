@@ -62,7 +62,7 @@ class OneToManyPersister extends AbstractCollectionPersister
     {
         $mapping = $collection->getMapping();
 
-        if ( ! isset($mapping['indexBy'])) {
+        if (! isset($mapping['indexBy'])) {
             throw new \BadMethodCallException("Selecting a collection by index is only supported on indexed collections.");
         }
 
@@ -115,7 +115,7 @@ class OneToManyPersister extends AbstractCollectionPersister
     {
         $mapping = $collection->getMapping();
 
-        if ( ! isset($mapping['indexBy'])) {
+        if (! isset($mapping['indexBy'])) {
             throw new \BadMethodCallException("Selecting a collection by index is only supported on indexed collections.");
         }
 
@@ -137,7 +137,7 @@ class OneToManyPersister extends AbstractCollectionPersister
      */
     public function contains(PersistentCollection $collection, $element)
     {
-        if ( ! $this->isValidEntityState($element)) {
+        if (! $this->isValidEntityState($element)) {
             return false;
         }
 
@@ -159,12 +159,12 @@ class OneToManyPersister extends AbstractCollectionPersister
     {
         $mapping = $collection->getMapping();
 
-        if ( ! $mapping['orphanRemoval']) {
+        if (! $mapping['orphanRemoval']) {
             // no-op: this is not the owning side, therefore no operations should be applied
             return false;
         }
 
-        if ( ! $this->isValidEntityState($element)) {
+        if (! $this->isValidEntityState($element)) {
             return false;
         }
 

@@ -97,7 +97,7 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testFunctionLocate()
     {
-        $dql = "SELECT m, LOCATE('e', LOWER(m.name)) AS loc, LOCATE('e', LOWER(m.name), 7) AS loc2 ".
+        $dql = "SELECT m, LOCATE('e', LOWER(m.name)) AS loc, LOCATE('e', LOWER(m.name), 7) AS loc2 " .
                "FROM Doctrine\Tests\Models\Company\CompanyManager m ORDER BY m.salary ASC";
 
         $result = $this->_em->createQuery($dql)
@@ -145,7 +145,7 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertEquals(4, count($result));
         $this->assertEquals(316, round($result[0]['sqrtsalary']));
-        $this->assertEquals(447,  round($result[1]['sqrtsalary']));
+        $this->assertEquals(447, round($result[1]['sqrtsalary']));
         $this->assertEquals(632, round($result[2]['sqrtsalary']));
         $this->assertEquals(894, round($result[3]['sqrtsalary']));
     }
@@ -164,7 +164,7 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testFunctionSubstring()
     {
-        $dql = "SELECT m, SUBSTRING(m.name, 1, 3) AS str1, SUBSTRING(m.name, 5) AS str2 ".
+        $dql = "SELECT m, SUBSTRING(m.name, 1, 3) AS str1, SUBSTRING(m.name, 5) AS str2 " .
                 "FROM Doctrine\Tests\Models\Company\CompanyManager m ORDER BY m.name";
 
         $result = $this->_em->createQuery($dql)
@@ -184,8 +184,8 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testFunctionTrim()
     {
-        $dql = "SELECT m, TRIM(TRAILING '.' FROM m.name) AS str1, ".
-               " TRIM(LEADING '.' FROM m.name) AS str2, TRIM(CONCAT(' ', CONCAT(m.name, ' '))) AS str3 ".
+        $dql = "SELECT m, TRIM(TRAILING '.' FROM m.name) AS str1, " .
+               " TRIM(LEADING '.' FROM m.name) AS str2, TRIM(CONCAT(' ', CONCAT(m.name, ' '))) AS str3 " .
                "FROM Doctrine\Tests\Models\Company\CompanyManager m ORDER BY m.salary ASC";
 
         $result = $this->_em->createQuery($dql)->getArrayResult();
@@ -274,12 +274,12 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testDateDiff()
     {
         $query = $this->_em->createQuery("SELECT DATE_DIFF(CURRENT_TIMESTAMP(), DATE_ADD(CURRENT_TIMESTAMP(), 10, 'day')) AS diff FROM Doctrine\Tests\Models\Company\CompanyManager m");
-        $arg = $query->getArrayResult();
+        $arg   = $query->getArrayResult();
 
         $this->assertEquals(-10, $arg[0]['diff'], "Should be roughly -10 (or -9)", 1);
 
         $query = $this->_em->createQuery("SELECT DATE_DIFF(DATE_ADD(CURRENT_TIMESTAMP(), 10, 'day'), CURRENT_TIMESTAMP()) AS diff FROM Doctrine\Tests\Models\Company\CompanyManager m");
-        $arg = $query->getArrayResult();
+        $arg   = $query->getArrayResult();
 
         $this->assertEquals(10, $arg[0]['diff'], "Should be roughly 10 (or 9)", 1);
     }
@@ -302,9 +302,9 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testDateAddSecond()
     {
-        $dql     = "SELECT CURRENT_TIMESTAMP() now, DATE_ADD(CURRENT_TIMESTAMP(), 10, 'second') AS add FROM Doctrine\Tests\Models\Company\CompanyManager m";
-        $query   = $this->_em->createQuery($dql)->setMaxResults(1);
-        $result  = $query->getArrayResult();
+        $dql    = "SELECT CURRENT_TIMESTAMP() now, DATE_ADD(CURRENT_TIMESTAMP(), 10, 'second') AS add FROM Doctrine\Tests\Models\Company\CompanyManager m";
+        $query  = $this->_em->createQuery($dql)->setMaxResults(1);
+        $result = $query->getArrayResult();
 
         $this->assertCount(1, $result);
         $this->assertArrayHasKey('now', $result[0]);
@@ -338,7 +338,7 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testBitOrComparison()
     {
-        $dql    = 'SELECT m, ' .
+        $dql = 'SELECT m, ' .
                     'BIT_OR(4, 2) AS bit_or,' .
                     'BIT_OR( (m.salary/100000) , 2 ) AS salary_bit_or ' .
                     'FROM Doctrine\Tests\Models\Company\CompanyManager m ' .
@@ -362,7 +362,7 @@ class QueryDqlFunctionTest extends \Doctrine\Tests\OrmFunctionalTestCase
     */
     public function testBitAndComparison()
     {
-        $dql    = 'SELECT m, ' .
+        $dql = 'SELECT m, ' .
                     'BIT_AND(4, 2) AS bit_and,' .
                     'BIT_AND( (m.salary/100000) , 2 ) AS salary_bit_and ' .
                     'FROM Doctrine\Tests\Models\Company\CompanyManager m ' .

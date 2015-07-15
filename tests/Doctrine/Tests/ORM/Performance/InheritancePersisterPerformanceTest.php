@@ -49,14 +49,14 @@ class InheritancePersisterPerformanceTest extends \Doctrine\Tests\OrmFunctionalT
         $this->_em->flush();
         $this->_em->clear();
 
-        $start = microtime(true);
+        $start     = microtime(true);
         $contracts = $this->_em->getRepository('Doctrine\Tests\Models\Company\CompanyContract')->findAll();
         echo "99 CompanyContract: " . number_format(microtime(true) - $start, 6) . "\n";
         $this->assertEquals(99, count($contracts));
 
         $this->_em->clear();
 
-        $start = microtime(true);
+        $start     = microtime(true);
         $contracts = $this->_em->getRepository('Doctrine\Tests\Models\Company\CompanyContract')->findAll();
         echo "99 CompanyContract: " . number_format(microtime(true) - $start, 6) . "\n";
         $this->assertEquals(99, count($contracts));

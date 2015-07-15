@@ -25,14 +25,13 @@ namespace Doctrine\Tests\Models\DDC889;
  */
 class DDC889SuperClass
 {
-
     /** @Column() */
     protected $name;
 
     public static function loadMetadata(\Doctrine\ORM\Mapping\ClassMetadataInfo $metadata)
     {
         $metadata->mapField(array(
-           'fieldName'  => 'name',
+           'fieldName' => 'name',
         ));
 
         $metadata->isMappedSuperclass = true;

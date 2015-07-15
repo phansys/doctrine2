@@ -22,11 +22,9 @@ namespace Doctrine\ORM;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Cache\QueryCacheKey;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
-
 use Doctrine\ORM\Cache;
 use Doctrine\ORM\Query\QueryException;
 
@@ -165,10 +163,10 @@ abstract class AbstractQuery
      */
     public function __construct(EntityManagerInterface $em)
     {
-        $this->_em          = $em;
-        $this->parameters   = new ArrayCollection();
-        $this->_hints       = $em->getConfiguration()->getDefaultQueryHints();
-        $this->hasCache     = $this->_em->getConfiguration()->isSecondLevelCacheEnabled();
+        $this->_em        = $em;
+        $this->parameters = new ArrayCollection();
+        $this->_hints     = $em->getConfiguration()->getDefaultQueryHints();
+        $this->hasCache   = $this->_em->getConfiguration()->isSecondLevelCacheEnabled();
 
         if ($this->hasCache) {
             $this->cacheLogger = $em->getConfiguration()
@@ -325,8 +323,7 @@ abstract class AbstractQuery
     public function getParameter($key)
     {
         $filteredParameters = $this->parameters->filter(
-            function ($parameter) use ($key)
-            {
+            function ($parameter) use ($key) {
                 // Must not be identical because of string to integer conversion
                 return ($key == $parameter->getName());
             }
@@ -374,8 +371,7 @@ abstract class AbstractQuery
     public function setParameter($key, $value, $type = null)
     {
         $filteredParameters = $this->parameters->filter(
-            function ($parameter) use ($key)
-            {
+            function ($parameter) use ($key) {
                 // Must not be identical because of string to integer conversion
                 return ($key == $parameter->getName());
             }
@@ -474,7 +470,7 @@ abstract class AbstractQuery
             return $this->_em->getClassMetadata($alias)->getName();
         };
 
-        $rsm->aliasMap = array_map($translate, $rsm->aliasMap);
+        $rsm->aliasMap         = array_map($translate, $rsm->aliasMap);
         $rsm->declaringClasses = array_map($translate, $rsm->declaringClasses);
     }
 
@@ -504,7 +500,7 @@ abstract class AbstractQuery
     {
         if ($profile !== null && ! $profile->getResultCacheDriver()) {
             $resultCacheDriver = $this->_em->getConfiguration()->getHydrationCacheImpl();
-            $profile = $profile->setResultCacheDriver($resultCacheDriver);
+            $profile           = $profile->setResultCacheDriver($resultCacheDriver);
         }
 
         $this->_hydrationCacheProfile = $profile;
@@ -532,9 +528,9 @@ abstract class AbstractQuery
      */
     public function setResultCacheProfile(QueryCacheProfile $profile = null)
     {
-        if ( ! $profile->getResultCacheDriver()) {
+        if (! $profile->getResultCacheDriver()) {
             $resultCacheDriver = $this->_em->getConfiguration()->getResultCacheImpl();
-            $profile = $profile->setResultCacheDriver($resultCacheDriver);
+            $profile           = $profile->setResultCacheDriver($resultCacheDriver);
         }
 
         $this->_queryCacheProfile = $profile;
@@ -773,7 +769,7 @@ abstract class AbstractQuery
             return null;
         }
 
-        if ( ! is_array($result)) {
+        if (! is_array($result)) {
             return $result;
         }
 
@@ -807,7 +803,7 @@ abstract class AbstractQuery
             throw new NoResultException;
         }
 
-        if ( ! is_array($result)) {
+        if (! is_array($result)) {
             return $result;
         }
 
@@ -897,7 +893,7 @@ abstract class AbstractQuery
             $this->setHydrationMode($hydrationMode);
         }
 
-        if ( ! empty($parameters)) {
+        if (! empty($parameters)) {
             $this->setParameters($parameters);
         }
 
@@ -938,11 +934,11 @@ abstract class AbstractQuery
             $this->setHydrationMode($hydrationMode);
         }
 
-        if ( ! empty($parameters)) {
+        if (! empty($parameters)) {
             $this->setParameters($parameters);
         }
 
-        $setCacheEntry = function() {};
+        $setCacheEntry = function () {};
 
         if ($this->_hydrationCacheProfile !== null) {
             list($cacheKey, $realCacheKey) = $this->getHydrationCacheId();
@@ -955,11 +951,11 @@ abstract class AbstractQuery
                 return $result[$realCacheKey];
             }
 
-            if ( ! $result) {
+            if (! $result) {
                 $result = array();
             }
 
-            $setCacheEntry = function($data) use ($cache, $result, $cacheKey, $realCacheKey, $queryCacheProfile) {
+            $setCacheEntry = function ($data) use ($cache, $result, $cacheKey, $realCacheKey, $queryCacheProfile) {
                 $result[$realCacheKey] = $data;
 
                 $cache->save($cacheKey, $result, $queryCacheProfile->getLifetime());
@@ -1103,7 +1099,7 @@ abstract class AbstractQuery
     {
         $query  = $this->getSQL();
         $hints  = $this->getHints();
-        $params = array_map(function(Parameter $parameter) {
+        $params = array_map(function (Parameter $parameter) {
             // Small optimization
             // Does not invoke processParameterValue for scalar values
             if (is_scalar($value = $parameter->getValue())) {

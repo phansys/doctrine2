@@ -40,9 +40,9 @@ class State
 
     public function __construct($name, Country $country = null)
     {
-        $this->name     = $name;
-        $this->country  = $country;
-        $this->cities   = new ArrayCollection();
+        $this->name    = $name;
+        $this->country = $country;
+        $this->cities  = new ArrayCollection();
     }
 
     public function getId()

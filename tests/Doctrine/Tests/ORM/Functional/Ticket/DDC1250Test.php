@@ -17,19 +17,18 @@ class DDC1250Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_schemaTool->createSchema(array(
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1250ClientHistory'),
             ));
-        } catch(\PDOException $e) {
-
+        } catch (\PDOException $e) {
         }
     }
 
     public function testIssue()
     {
-        $c1 = new DDC1250ClientHistory;
-        $c2 = new DDC1250ClientHistory;
+        $c1                         = new DDC1250ClientHistory;
+        $c2                         = new DDC1250ClientHistory;
         $c1->declinedClientsHistory = $c2;
-        $c1->declinedBy = $c2;
-        $c2->declinedBy = $c1;
-        $c2->declinedClientsHistory= $c1;
+        $c1->declinedBy             = $c2;
+        $c2->declinedBy             = $c1;
+        $c2->declinedClientsHistory = $c1;
 
         $this->_em->persist($c1);
         $this->_em->persist($c2);

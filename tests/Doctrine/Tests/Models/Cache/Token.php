@@ -1,6 +1,7 @@
 <?php
 
 namespace Doctrine\Tests\Models\Cache;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -65,7 +66,7 @@ class Token
     public function addLogin(Login $login)
     {
         $this->logins[] = $login;
-        $login->token = $this;
+        $login->token   = $this;
     }
 
     /**
@@ -91,5 +92,4 @@ class Token
     {
         return $this->complexAction;
     }
-
 }

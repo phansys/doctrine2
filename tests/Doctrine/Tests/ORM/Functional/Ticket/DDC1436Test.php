@@ -1,6 +1,7 @@
 <?php
 
 namespace Doctrine\Tests\ORM\Functional\Ticket;
+
 use Doctrine\ORM\UnitOfWork;
 
 /**
@@ -86,4 +87,3 @@ class DDC1436Page
         $this->parent = $parent;
     }
 }
-

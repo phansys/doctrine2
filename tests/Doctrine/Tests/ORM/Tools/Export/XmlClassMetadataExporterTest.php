@@ -20,6 +20,7 @@
  */
 
 namespace Doctrine\Tests\ORM\Tools\Export;
+
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\Export\Driver\XmlExporter;
@@ -44,22 +45,23 @@ class XmlClassMetadataExporterTest extends AbstractClassMetadataExporterTest
     /**
      * @group DDC-3428
      */
-    public function testSequenceGenerator() {
+    public function testSequenceGenerator()
+    {
         $exporter = new XmlExporter();
         $metadata = new ClassMetadata('entityTest');
 
         $metadata->mapField(array(
-            "fieldName" => 'id',
-            "type" => 'integer',
+            "fieldName"  => 'id',
+            "type"       => 'integer',
             "columnName" => 'id',
-            "id" => true,
+            "id"         => true,
         ));
 
         $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_SEQUENCE);
         $metadata->setSequenceGeneratorDefinition(array(
-            'sequenceName' => 'seq_entity_test_id',
+            'sequenceName'   => 'seq_entity_test_id',
             'allocationSize' => 5,
-            'initialValue' => 1
+            'initialValue'   => 1
         ));
 
         $expectedFileContent = <<<'XML'
@@ -86,15 +88,16 @@ XML;
      * @group 1216
      * @group DDC-3439
      */
-    public function testFieldOptionsExport() {
+    public function testFieldOptionsExport()
+    {
         $exporter = new XmlExporter();
         $metadata = new ClassMetadata('entityTest');
 
         $metadata->mapField(array(
-            "fieldName" => 'myField',
-            "type" => 'string',
+            "fieldName"  => 'myField',
+            "type"       => 'string',
             "columnName" => 'my_field',
-            "options" => array(
+            "options"    => array(
                 "default" => "default_string",
                 "comment" => "The comment for the field",
             ),

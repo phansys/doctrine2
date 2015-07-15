@@ -2,15 +2,14 @@
 
 namespace Doctrine\Tests\ORM\Functional;
 
-use Doctrine\Tests\Models\Company\CompanyPerson,
-    Doctrine\Tests\Models\Company\CompanyEmployee,
-    Doctrine\Tests\Models\Company\CompanyManager,
-    Doctrine\Tests\Models\Company\CompanyOrganization,
-    Doctrine\Tests\Models\Company\CompanyEvent,
-    Doctrine\Tests\Models\Company\CompanyAuction,
-    Doctrine\Tests\Models\Company\CompanyRaffle,
-    Doctrine\Tests\Models\Company\CompanyCar;
-
+use Doctrine\Tests\Models\Company\CompanyPerson;
+use Doctrine\Tests\Models\Company\CompanyEmployee;
+use Doctrine\Tests\Models\Company\CompanyManager;
+use Doctrine\Tests\Models\Company\CompanyOrganization;
+use Doctrine\Tests\Models\Company\CompanyEvent;
+use Doctrine\Tests\Models\Company\CompanyAuction;
+use Doctrine\Tests\Models\Company\CompanyRaffle;
+use Doctrine\Tests\Models\Company\CompanyCar;
 use Doctrine\Common\Collections\Criteria;
 
 /**
@@ -20,7 +19,8 @@ use Doctrine\Common\Collections\Criteria;
  */
 class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('company');
         parent::setUp();
         //$this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
@@ -86,13 +86,14 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $numUpdated = $query->execute();
         $this->assertEquals(1, $numUpdated);
 
-        $query = $this->_em->createQuery("delete from Doctrine\Tests\Models\Company\CompanyPerson p");
+        $query      = $this->_em->createQuery("delete from Doctrine\Tests\Models\Company\CompanyPerson p");
         $numDeleted = $query->execute();
         $this->assertEquals(2, $numDeleted);
     }
 
-    public function testMultiLevelUpdateAndFind() {
-    	$manager = new CompanyManager;
+    public function testMultiLevelUpdateAndFind()
+    {
+        $manager = new CompanyManager;
         $manager->setName('Roman S. Borschel');
         $manager->setSalary(100000);
         $manager->setDepartment('IT');
@@ -117,7 +118,8 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertTrue(is_numeric($manager->getId()));
     }
 
-    public function testFindOnBaseClass() {
+    public function testFindOnBaseClass()
+    {
         $manager = new CompanyManager;
         $manager->setName('Roman S. Borschel');
         $manager->setSalary(100000);
@@ -138,8 +140,9 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         //$this->assertInstanceOf('Doctrine\Tests\Models\Company\CompanyCar', $person->getCar());
     }
 
-    public function testSelfReferencingOneToOne() {
-    	$manager = new CompanyManager;
+    public function testSelfReferencingOneToOne()
+    {
+        $manager = new CompanyManager;
         $manager->setName('John Smith');
         $manager->setSalary(100000);
         $manager->setDepartment('IT');
@@ -209,7 +212,7 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testLazyLoading1()
     {
-        $org = new CompanyOrganization;
+        $org    = new CompanyOrganization;
         $event1 = new CompanyAuction;
         $event1->setData('auction');
         $org->addEvent($event1);
@@ -249,7 +252,7 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testLazyLoading2()
     {
-        $org = new CompanyOrganization;
+        $org    = new CompanyOrganization;
         $event1 = new CompanyAuction;
         $event1->setData('auction');
         $org->setMainEvent($event1);
@@ -263,7 +266,7 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $result = $q->getResult();
         $this->assertEquals(1, count($result));
-        $this->assertInstanceOf('Doctrine\Tests\Models\Company\CompanyAuction', $result[0], sprintf("Is of class %s",get_class($result[0])));
+        $this->assertInstanceOf('Doctrine\Tests\Models\Company\CompanyAuction', $result[0], sprintf("Is of class %s", get_class($result[0])));
 
         $this->_em->clear();
 
@@ -305,7 +308,6 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
             ->setParameter(1, 'IT');
 
         $result = $query->execute();
-
     }
 
     /**
@@ -360,7 +362,7 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $dql = "SELECT m FROM Doctrine\Tests\Models\Company\CompanyManager m WHERE m.spouse = ?1";
+        $dql        = "SELECT m FROM Doctrine\Tests\Models\Company\CompanyManager m WHERE m.spouse = ?1";
         $dqlManager = $this->_em->createQuery($dql)->setParameter(1, $person->getId())->getSingleResult();
 
         $this->assertEquals($manager->getId(), $dqlManager->getId());
@@ -388,12 +390,12 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $repos = $this->_em->getRepository('Doctrine\Tests\Models\Company\CompanyManager');
+        $repos    = $this->_em->getRepository('Doctrine\Tests\Models\Company\CompanyManager');
         $pmanager = $repos->findOneBy(array('spouse' => $person->getId()));
 
         $this->assertEquals($manager->getId(), $pmanager->getId());
 
-        $repos = $this->_em->getRepository('Doctrine\Tests\Models\Company\CompanyPerson');
+        $repos    = $this->_em->getRepository('Doctrine\Tests\Models\Company\CompanyPerson');
         $pmanager = $repos->findOneBy(array('spouse' => $person->getId()));
 
         $this->assertEquals($manager->getId(), $pmanager->getId());
@@ -483,13 +485,13 @@ class ClassTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
 
         $repository = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyEmployee");
-        $users = $repository->matching(new Criteria(
+        $users      = $repository->matching(new Criteria(
             Criteria::expr()->eq('department', 'IT')
         ));
         $this->assertEquals(1, count($users));
 
         $repository = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyManager");
-        $users = $repository->matching(new Criteria(
+        $users      = $repository->matching(new Criteria(
             Criteria::expr()->eq('department', 'IT')
         ));
         $this->assertEquals(1, count($users));

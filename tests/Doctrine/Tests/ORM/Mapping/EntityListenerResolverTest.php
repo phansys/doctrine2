@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping\DefaultEntityListenerResolver;
  */
 class EntityListenerResolverTest extends \Doctrine\Tests\OrmTestCase
 {
-
     /**
      * @var \Doctrine\ORM\Mapping\DefaultEntityListenerResolver
      */
@@ -18,13 +17,13 @@ class EntityListenerResolverTest extends \Doctrine\Tests\OrmTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->resolver  = new DefaultEntityListenerResolver();
+        $this->resolver = new DefaultEntityListenerResolver();
     }
 
     public function testResolve()
     {
-        $className  = '\Doctrine\Tests\Models\Company\CompanyContractListener';
-        $object     = $this->resolver->resolve($className);
+        $className = '\Doctrine\Tests\Models\Company\CompanyContractListener';
+        $object    = $this->resolver->resolve($className);
 
         $this->assertInstanceOf($className, $object);
         $this->assertSame($object, $this->resolver->resolve($className));
@@ -32,8 +31,8 @@ class EntityListenerResolverTest extends \Doctrine\Tests\OrmTestCase
 
     public function testRegisterAndResolve()
     {
-        $className  = '\Doctrine\Tests\Models\Company\CompanyContractListener';
-        $object     = new $className();
+        $className = '\Doctrine\Tests\Models\Company\CompanyContractListener';
+        $object    = new $className();
 
         $this->resolver->register($object);
 
@@ -42,8 +41,8 @@ class EntityListenerResolverTest extends \Doctrine\Tests\OrmTestCase
 
     public function testClearOne()
     {
-        $className1  = '\Doctrine\Tests\Models\Company\CompanyContractListener';
-        $className2  = '\Doctrine\Tests\Models\Company\CompanyFlexUltraContractListener';
+        $className1 = '\Doctrine\Tests\Models\Company\CompanyContractListener';
+        $className2 = '\Doctrine\Tests\Models\Company\CompanyFlexUltraContractListener';
 
         $obj1 = $this->resolver->resolve($className1);
         $obj2 = $this->resolver->resolve($className2);
@@ -65,8 +64,8 @@ class EntityListenerResolverTest extends \Doctrine\Tests\OrmTestCase
 
     public function testClearAll()
     {
-        $className1  = '\Doctrine\Tests\Models\Company\CompanyContractListener';
-        $className2  = '\Doctrine\Tests\Models\Company\CompanyFlexUltraContractListener';
+        $className1 = '\Doctrine\Tests\Models\Company\CompanyContractListener';
+        $className2 = '\Doctrine\Tests\Models\Company\CompanyFlexUltraContractListener';
 
         $obj1 = $this->resolver->resolve($className1);
         $obj2 = $this->resolver->resolve($className2);

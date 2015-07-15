@@ -143,9 +143,9 @@ EOT
             ->getMetadataDriverImpl()
             ->getAllClassNames();
 
-        if ( ! $entityClassNames) {
+        if (! $entityClassNames) {
             throw new \InvalidArgumentException(
-                'You do not have any mapped Doctrine ORM entities according to the current configuration. '.
+                'You do not have any mapped Doctrine ORM entities according to the current configuration. ' .
                 'If you have entities or mapping files you should check your mapping configuration for errors.'
             );
         }
@@ -176,7 +176,7 @@ EOT
             }
         );
 
-        if ( ! $matches) {
+        if (! $matches) {
             throw new \InvalidArgumentException(sprintf(
                 'Could not find any mapped Entity classes matching "%s"',
                 $entityName

@@ -9,7 +9,8 @@ namespace Doctrine\Tests\ORM\Functional;
  */
 class DefaultValuesTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         try {
             $this->_schemaTool->createSchema(array(
@@ -24,24 +25,25 @@ class DefaultValuesTest extends \Doctrine\Tests\OrmFunctionalTestCase
     /**
      * @group non-cacheable
      */
-    public function testSimpleDetachMerge() {
-        $user = new DefaultValueUser;
+    public function testSimpleDetachMerge()
+    {
+        $user       = new DefaultValueUser;
         $user->name = 'romanb';
         $this->_em->persist($user);
         $this->_em->flush();
         $this->_em->clear();
 
         $userId = $user->id; // e.g. from $_REQUEST
-        $user2 = $this->_em->getReference(get_class($user), $userId);
+        $user2  = $this->_em->getReference(get_class($user), $userId);
 
         $this->_em->flush();
         $this->assertFalse($user2->__isInitialized__);
 
-        $a = new DefaultValueAddress;
+        $a          = new DefaultValueAddress;
         $a->country = 'de';
-        $a->zip = '12345';
-        $a->city = 'Berlin';
-        $a->street = 'Sesamestreet';
+        $a->zip     = '12345';
+        $a->city    = 'Berlin';
+        $a->street  = 'Sesamestreet';
 
         $a->user = $user2;
         $this->_em->persist($a);
@@ -61,7 +63,7 @@ class DefaultValuesTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testGetPartialReferenceWithDefaultValueNotEvaluatedInFlush()
     {
-        $user = new DefaultValueUser;
+        $user       = new DefaultValueUser;
         $user->name = 'romanb';
         $user->type = 'Normaluser';
 
@@ -105,7 +107,10 @@ class DefaultValueUser
      */
     public $address;
 
-    public function getId() {return $this->id;}
+    public function getId()
+    {
+        return $this->id;
+    }
 }
 
 /**
@@ -147,5 +152,8 @@ class DefaultValueAddress
      */
     public $user;
 
-    public function getUser() {return $this->user;}
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

@@ -44,26 +44,30 @@ class NavPointOfInterest
 
     public function __construct($lat, $long, $name, $country)
     {
-        $this->lat = $lat;
-        $this->long = $long;
-        $this->name = $name;
-        $this->country = $country;
+        $this->lat      = $lat;
+        $this->long     = $long;
+        $this->name     = $name;
+        $this->country  = $country;
         $this->visitors = new \Doctrine\Common\Collections\ArrayCollection;
     }
 
-    public function getLong() {
+    public function getLong()
+    {
         return $this->long;
     }
 
-    public function getLat() {
+    public function getLat()
+    {
         return $this->lat;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 

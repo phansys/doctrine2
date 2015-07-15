@@ -250,7 +250,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         return array_udiff_assoc(
             $this->snapshot,
             $this->collection->toArray(),
-            function($a, $b) { return $a === $b ? 0 : 1; }
+            function ($a, $b) { return $a === $b ? 0 : 1; }
         );
     }
 
@@ -265,7 +265,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         return array_udiff_assoc(
             $this->collection->toArray(),
             $this->snapshot,
-            function($a, $b) { return $a === $b ? 0 : 1; }
+            function ($a, $b) { return $a === $b ? 0 : 1; }
         );
     }
 
@@ -347,7 +347,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         //       association (table). Without initializing the collection.
         $removed = parent::remove($key);
 
-        if ( ! $removed) {
+        if (! $removed) {
             return $removed;
         }
 
@@ -368,7 +368,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function removeElement($element)
     {
-        if ( ! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
+        if (! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             if ($this->collection->contains($element)) {
                 return $this->collection->removeElement($element);
             }
@@ -384,7 +384,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
 
         $removed = parent::removeElement($element);
 
-        if ( ! $removed) {
+        if (! $removed) {
             return $removed;
         }
 
@@ -420,7 +420,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function contains($element)
     {
-        if ( ! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
+        if (! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
             return $this->collection->contains($element) || $persister->contains($this, $element);
@@ -434,7 +434,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function get($key)
     {
-        if ( ! $this->initialized
+        if (! $this->initialized
             && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY
             && isset($this->association['indexBy'])
         ) {
@@ -453,7 +453,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function count()
     {
-        if ( ! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
+        if (! $this->initialized && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
             return $persister->count($this) + ($this->isDirty ? $this->collection->count() : 0);
@@ -515,7 +515,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function offsetSet($offset, $value)
     {
-        if ( ! isset($offset)) {
+        if (! isset($offset)) {
             return $this->add($value);
         }
 
@@ -602,7 +602,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      */
     public function slice($offset, $length = null)
     {
-        if ( ! $this->initialized && ! $this->isDirty && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
+        if (! $this->initialized && ! $this->isDirty && $this->association['fetch'] === Mapping\ClassMetadataInfo::FETCH_EXTRA_LAZY) {
             $persister = $this->em->getUnitOfWork()->getCollectionPersister($this->association);
 
             return $persister->slice($this, $offset, $length);

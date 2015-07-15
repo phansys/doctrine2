@@ -15,8 +15,8 @@ class DDC531Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $item1 = new DDC531Item;
-        $item2 = new DDC531Item;
+        $item1         = new DDC531Item;
+        $item2         = new DDC531Item;
         $item2->parent = $item1;
         $item1->getChildren()->add($item2);
         $this->_em->persist($item1);

@@ -40,12 +40,12 @@ class DDC1719Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $e1Id   = $e1->id;
-        $e2Id   = $e2->id;
+        $e1Id = $e1->id;
+        $e2Id = $e2->id;
 
         // Retrieve
-        $e1     = $this->_em->find(self::CLASS_NAME, $e1Id);
-        $e2     = $this->_em->find(self::CLASS_NAME, $e2Id);
+        $e1 = $this->_em->find(self::CLASS_NAME, $e1Id);
+        $e2 = $this->_em->find(self::CLASS_NAME, $e2Id);
 
         $this->assertInstanceOf(self::CLASS_NAME, $e1);
         $this->assertInstanceOf(self::CLASS_NAME, $e2);
@@ -88,7 +88,6 @@ class DDC1719Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertNull($e1);
         $this->assertNull($e2);
     }
-
 }
 
 /**
@@ -97,7 +96,6 @@ class DDC1719Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1719SimpleEntity
 {
-
     /**
      * @Id
      * @Column(type="integer", name="`simple-entity-id`")
@@ -117,5 +115,4 @@ class DDC1719SimpleEntity
     {
         $this->value = $value;
     }
-
 }

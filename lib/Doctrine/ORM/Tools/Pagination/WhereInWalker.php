@@ -95,19 +95,18 @@ class WhereInWalker extends TreeWalkerAdapter
         $count = $this->_getQuery()->getHint(self::HINT_PAGINATOR_ID_COUNT);
 
         if ($count > 0) {
-            $arithmeticExpression = new ArithmeticExpression();
+            $arithmeticExpression                             = new ArithmeticExpression();
             $arithmeticExpression->simpleArithmeticExpression = new SimpleArithmeticExpression(
                 array($pathExpression)
             );
-            $expression = new InExpression($arithmeticExpression);
+            $expression             = new InExpression($arithmeticExpression);
             $expression->literals[] = new InputParameter(":" . self::PAGINATOR_ID_ALIAS);
-
         } else {
-            $expression = new NullComparisonExpression($pathExpression);
+            $expression      = new NullComparisonExpression($pathExpression);
             $expression->not = false;
         }
 
-        $conditionalPrimary = new ConditionalPrimary;
+        $conditionalPrimary                              = new ConditionalPrimary;
         $conditionalPrimary->simpleConditionalExpression = $expression;
         if ($AST->whereClause) {
             if ($AST->whereClause->conditionalExpression instanceof ConditionalTerm) {
@@ -122,8 +121,8 @@ class WhereInWalker extends TreeWalkerAdapter
             } elseif ($AST->whereClause->conditionalExpression instanceof ConditionalExpression
                 || $AST->whereClause->conditionalExpression instanceof ConditionalFactor
             ) {
-                $tmpPrimary = new ConditionalPrimary;
-                $tmpPrimary->conditionalExpression = $AST->whereClause->conditionalExpression;
+                $tmpPrimary                              = new ConditionalPrimary;
+                $tmpPrimary->conditionalExpression       = $AST->whereClause->conditionalExpression;
                 $AST->whereClause->conditionalExpression = new ConditionalTerm(array(
                     $tmpPrimary,
                     $conditionalPrimary

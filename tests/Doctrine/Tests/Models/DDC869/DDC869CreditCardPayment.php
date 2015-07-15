@@ -25,16 +25,14 @@ namespace Doctrine\Tests\Models\DDC869;
  */
 class DDC869CreditCardPayment extends DDC869Payment
 {
-
     /** @column(type="string") */
     protected $creditCardNumber;
 
     public static function loadMetadata(\Doctrine\ORM\Mapping\ClassMetadataInfo $metadata)
     {
         $metadata->mapField(array(
-           'fieldName'  => 'creditCardNumber',
-           'type'       => 'string',
+           'fieldName' => 'creditCardNumber',
+           'type'      => 'string',
         ));
     }
-
 }

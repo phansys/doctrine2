@@ -227,7 +227,7 @@ class PostLoadEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testEventRaisedCorrectTimesWhenOtherEntityLoadedInEventHandler()
     {
         $eventManager = $this->_em->getEventManager();
-        $listener = new PostLoadListenerLoadEntityInEventHandler();
+        $listener     = new PostLoadListenerLoadEntityInEventHandler();
         $eventManager->addEventListener(array(Events::postLoad), $listener);
 
         $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
@@ -237,15 +237,15 @@ class PostLoadEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     private function loadFixture()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'developer';
+        $user->status   = 'developer';
 
-        $address = new CmsAddress;
+        $address          = new CmsAddress;
         $address->country = 'Germany';
-        $address->city = 'Berlin';
-        $address->zip = '12345';
+        $address->city    = 'Berlin';
+        $address->zip     = '12345';
 
         $user->setAddress($address);
 
@@ -254,10 +254,10 @@ class PostLoadEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $user->setEmail($email);
 
-        $ph1 = new CmsPhonenumber;
+        $ph1              = new CmsPhonenumber;
         $ph1->phonenumber = "0301234";
 
-        $ph2 = new CmsPhonenumber;
+        $ph2              = new CmsPhonenumber;
         $ph2->phonenumber = "987654321";
 
         $user->addPhonenumber($ph1);
@@ -294,7 +294,7 @@ class PostLoadListenerCheckAssociationsArePopulated
             if ($this->checked) {
                 throw new \RuntimeException('Expected to be one user!');
             }
-            $this->checked = true;
+            $this->checked   = true;
             $this->populated = null !== $object->getEmail();
         }
     }
@@ -307,7 +307,7 @@ class PostLoadListenerLoadEntityInEventHandler
     public function postLoad(LifecycleEventArgs $event)
     {
         $object = $event->getObject();
-        $class = ClassUtils::getClass($object);
+        $class  = ClassUtils::getClass($object);
         if (!isset($this->firedByClasses[$class])) {
             $this->firedByClasses[$class] = 1;
         } else {

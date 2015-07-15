@@ -2,14 +2,14 @@
 
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
-use Doctrine\Tests\Models\Company\CompanyPerson,
-    Doctrine\Tests\Models\Company\CompanyEmployee,
-    Doctrine\Tests\Models\Company\CompanyManager,
-    Doctrine\Tests\Models\Company\CompanyOrganization,
-    Doctrine\Tests\Models\Company\CompanyEvent,
-    Doctrine\Tests\Models\Company\CompanyAuction,
-    Doctrine\Tests\Models\Company\CompanyRaffle,
-    Doctrine\Tests\Models\Company\CompanyCar;
+use Doctrine\Tests\Models\Company\CompanyPerson;
+use Doctrine\Tests\Models\Company\CompanyEmployee;
+use Doctrine\Tests\Models\Company\CompanyManager;
+use Doctrine\Tests\Models\Company\CompanyOrganization;
+use Doctrine\Tests\Models\Company\CompanyEvent;
+use Doctrine\Tests\Models\Company\CompanyAuction;
+use Doctrine\Tests\Models\Company\CompanyRaffle;
+use Doctrine\Tests\Models\Company\CompanyCar;
 
 /**
  * Functional tests for the Class Table Inheritance mapping strategy.
@@ -18,7 +18,8 @@ use Doctrine\Tests\Models\Company\CompanyPerson,
  */
 class DDC331Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('company');
         parent::setUp();
     }

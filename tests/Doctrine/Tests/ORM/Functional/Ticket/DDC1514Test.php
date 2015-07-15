@@ -26,22 +26,22 @@ class DDC1514Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $a1 = new DDC1514EntityA();
+        $a1        = new DDC1514EntityA();
         $a1->title = "1foo";
 
-        $a2 = new DDC1514EntityA();
+        $a2        = new DDC1514EntityA();
         $a2->title = "2bar";
 
-        $b1 = new DDC1514EntityB();
+        $b1              = new DDC1514EntityB();
         $b1->entityAFrom = $a1;
-        $b1->entityATo = $a2;
+        $b1->entityATo   = $a2;
 
-        $b2 = new DDC1514EntityB();
+        $b2              = new DDC1514EntityB();
         $b2->entityAFrom = $a2;
-        $b2->entityATo = $a1;
+        $b2->entityATo   = $a1;
 
-        $c = new DDC1514EntityC();
-        $c->title = "baz";
+        $c           = new DDC1514EntityC();
+        $c->title    = "baz";
         $a2->entityC = $c;
 
         $this->_em->persist($a1);
@@ -52,7 +52,7 @@ class DDC1514Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $dql = "SELECT a, b, ba, c FROM " . __NAMESPACE__ . "\DDC1514EntityA AS a LEFT JOIN a.entitiesB AS b LEFT JOIN b.entityATo AS ba LEFT JOIN a.entityC AS c ORDER BY a.title";
+        $dql     = "SELECT a, b, ba, c FROM " . __NAMESPACE__ . "\DDC1514EntityA AS a LEFT JOIN a.entitiesB AS b LEFT JOIN b.entityATo AS ba LEFT JOIN a.entityC AS c ORDER BY a.title";
         $results = $this->_em->createQuery($dql)->getResult();
 
         $this->assertEquals($a1->id, $results[0]->id);

@@ -20,13 +20,13 @@ class DDC2074Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testShouldNotScheduleDeletionOnClonedInstances()
     {
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceProduct');
-        $product = new ECommerceProduct();
-        $category = new ECommerceCategory();
+        $class      = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceProduct');
+        $product    = new ECommerceProduct();
+        $category   = new ECommerceCategory();
         $collection = new PersistentCollection($this->_em, $class, new ArrayCollection(array($category)));
         $collection->setOwner($product, $class->associationMappings['categories']);
 
-        $uow = $this->_em->getUnitOfWork();
+        $uow              = $this->_em->getUnitOfWork();
         $clonedCollection = clone $collection;
         $clonedCollection->clear();
 
@@ -35,7 +35,7 @@ class DDC2074Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testSavingClonedPersistentCollection()
     {
-        $product = new ECommerceProduct();
+        $product  = new ECommerceProduct();
         $category = new ECommerceCategory();
         $category->setName('foo');
         $product->addCategory($category);

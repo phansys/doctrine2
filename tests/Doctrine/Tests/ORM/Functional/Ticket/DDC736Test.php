@@ -63,7 +63,7 @@ class DDC736Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $dql = "select c, c.name, ca, ca.payment from Doctrine\Tests\Models\ECommerce\ECommerceCart ca join ca.customer c";
+        $dql    = "select c, c.name, ca, ca.payment from Doctrine\Tests\Models\ECommerce\ECommerceCart ca join ca.customer c";
         $result = $this->_em->createQuery($dql)
                             ->setHint(Query::HINT_CUSTOM_TREE_WALKERS, array('Doctrine\Tests\ORM\Functional\Ticket\DisableFetchJoinTreeWalker'))
                             ->getResult();
@@ -86,7 +86,7 @@ class DisableFetchJoinTreeWalker extends \Doctrine\ORM\Query\TreeWalkerAdapter
      */
     public function walkSelectClause($selectClause)
     {
-        foreach ($selectClause->selectExpressions AS $key => $selectExpr) {
+        foreach ($selectClause->selectExpressions as $key => $selectExpr) {
             /* @var $selectExpr \Doctrine\ORM\Query\AST\SelectExpression */
             if ($selectExpr->expression == "c") {
                 unset($selectClause->selectExpressions[$key]);
@@ -95,4 +95,3 @@ class DisableFetchJoinTreeWalker extends \Doctrine\ORM\Query\TreeWalkerAdapter
         }
     }
 }
-

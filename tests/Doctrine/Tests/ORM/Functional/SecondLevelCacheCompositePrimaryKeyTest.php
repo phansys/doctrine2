@@ -19,14 +19,14 @@ class SecondLevelCacheCompositePrimaryKeyTest extends SecondLevelCacheAbstractTe
         $this->_em->clear();
         $this->evictRegions();
 
-        $leavingFromId  = $this->cities[0]->getId();
-        $goingToId      = $this->cities[1]->getId();
-        $leavingFrom    = $this->_em->find(City::CLASSNAME, $leavingFromId);
-        $goingTo        = $this->_em->find(City::CLASSNAME, $goingToId);
-        $flight         = new Flight($leavingFrom, $goingTo);
-        $id             = array(
-            'leavingFrom'   => $leavingFromId,
-            'goingTo'       => $goingToId,
+        $leavingFromId = $this->cities[0]->getId();
+        $goingToId     = $this->cities[1]->getId();
+        $leavingFrom   = $this->_em->find(City::CLASSNAME, $leavingFromId);
+        $goingTo       = $this->_em->find(City::CLASSNAME, $goingToId);
+        $flight        = new Flight($leavingFrom, $goingTo);
+        $id            = array(
+            'leavingFrom' => $leavingFromId,
+            'goingTo'     => $goingToId,
         );
 
         $flight->setDeparture(new \DateTime('tomorrow'));
@@ -65,14 +65,14 @@ class SecondLevelCacheCompositePrimaryKeyTest extends SecondLevelCacheAbstractTe
         $this->_em->clear();
         $this->evictRegions();
 
-        $leavingFromId  = $this->cities[0]->getId();
-        $goingToId      = $this->cities[1]->getId();
-        $leavingFrom    = $this->_em->find(City::CLASSNAME, $leavingFromId);
-        $goingTo        = $this->_em->find(City::CLASSNAME, $goingToId);
-        $flight         = new Flight($leavingFrom, $goingTo);
-        $id             = array(
-            'leavingFrom'   => $leavingFromId,
-            'goingTo'       => $goingToId,
+        $leavingFromId = $this->cities[0]->getId();
+        $goingToId     = $this->cities[1]->getId();
+        $leavingFrom   = $this->_em->find(City::CLASSNAME, $leavingFromId);
+        $goingTo       = $this->_em->find(City::CLASSNAME, $goingToId);
+        $flight        = new Flight($leavingFrom, $goingTo);
+        $id            = array(
+            'leavingFrom' => $leavingFromId,
+            'goingTo'     => $goingToId,
         );
 
         $flight->setDeparture(new \DateTime('tomorrow'));
@@ -107,16 +107,16 @@ class SecondLevelCacheCompositePrimaryKeyTest extends SecondLevelCacheAbstractTe
         $this->_em->clear();
         $this->evictRegions();
 
-        $now            = new \DateTime('now');
-        $tomorrow       = new \DateTime('tomorrow');
-        $leavingFromId  = $this->cities[0]->getId();
-        $goingToId      = $this->cities[1]->getId();
-        $leavingFrom    = $this->_em->find(City::CLASSNAME, $leavingFromId);
-        $goingTo        = $this->_em->find(City::CLASSNAME, $goingToId);
-        $flight         = new Flight($leavingFrom, $goingTo);
-        $id             = array(
-            'leavingFrom'   => $leavingFromId,
-            'goingTo'       => $goingToId,
+        $now           = new \DateTime('now');
+        $tomorrow      = new \DateTime('tomorrow');
+        $leavingFromId = $this->cities[0]->getId();
+        $goingToId     = $this->cities[1]->getId();
+        $leavingFrom   = $this->_em->find(City::CLASSNAME, $leavingFromId);
+        $goingTo       = $this->_em->find(City::CLASSNAME, $goingToId);
+        $flight        = new Flight($leavingFrom, $goingTo);
+        $id            = array(
+            'leavingFrom' => $leavingFromId,
+            'goingTo'     => $goingToId,
         );
 
         $flight->setDeparture($now);

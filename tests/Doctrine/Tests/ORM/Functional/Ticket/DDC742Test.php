@@ -29,7 +29,7 @@ class DDC742Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC742User'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC742Comment')
             ));
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
         }
 
         // make sure classes will be deserialized from caches
@@ -39,17 +39,17 @@ class DDC742Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $user = new DDC742User();
-        $user->title = "Foo";
+        $user                   = new DDC742User();
+        $user->title            = "Foo";
         $user->favoriteComments = new ArrayCollection();
 
-        $comment1 = new DDC742Comment();
+        $comment1          = new DDC742Comment();
         $comment1->content = "foo";
 
-        $comment2 = new DDC742Comment();
+        $comment2          = new DDC742Comment();
         $comment2->content = "bar";
 
-        $comment3 = new DDC742Comment();
+        $comment3          = new DDC742Comment();
         $comment3->content = "baz";
 
         $user->favoriteComments->add($comment1);
@@ -62,7 +62,7 @@ class DDC742Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $user = $this->_em->find(get_class($user), $user->id);
+        $user     = $this->_em->find(get_class($user), $user->id);
         $comment3 = $this->_em->find(get_class($comment3), $comment3->id);
         $user->favoriteComments->add($comment3);
         $this->_em->flush();

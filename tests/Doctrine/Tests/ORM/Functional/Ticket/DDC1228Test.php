@@ -19,15 +19,14 @@ class DDC1228Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1228User'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1228Profile'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
     public function testOneToOnePersist()
     {
-        $user = new DDC1228User;
-        $profile = new DDC1228Profile();
+        $user          = new DDC1228User;
+        $profile       = new DDC1228Profile();
         $profile->name = "Foo";
         $user->profile = $profile;
 
@@ -54,8 +53,8 @@ class DDC1228Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testRefresh()
     {
-        $user = new DDC1228User;
-        $profile = new DDC1228Profile();
+        $user          = new DDC1228User;
+        $profile       = new DDC1228Profile();
         $profile->name = "Foo";
         $user->profile = $profile;
 

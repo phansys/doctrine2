@@ -42,7 +42,7 @@ class CustomTypeParent
     public function __construct()
     {
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFriends     = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function addMyFriend(CustomTypeParent $friend)

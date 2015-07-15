@@ -18,7 +18,7 @@ class SchemaValidatorTest extends \Doctrine\Tests\OrmTestCase
 
     public function setUp()
     {
-        $this->em = $this->_getTestEntityManager();
+        $this->em        = $this->_getTestEntityManager();
         $this->validator = new SchemaValidator($this->em);
     }
 
@@ -127,9 +127,9 @@ class SchemaValidatorTest extends \Doctrine\Tests\OrmTestCase
     public function testInvalidTripleAssociationAsKeyMapping()
     {
         $classThree = $this->em->getClassMetadata(__NAMESPACE__ . '\DDC1649Three');
-        $ce = $this->validator->validateClass($classThree);
+        $ce         = $this->validator->validateClass($classThree);
 
-        $this->assertEquals(Array(
+        $this->assertEquals(array(
             "Cannot map association 'Doctrine\Tests\ORM\Tools\DDC1649Three#two as identifier, because the target entity 'Doctrine\Tests\ORM\Tools\DDC1649Two' also maps an association as identifier.",
             "The referenced column name 'id' has to be a primary key column on the target entity class 'Doctrine\Tests\ORM\Tools\DDC1649Two'."
         ), $ce);
@@ -141,7 +141,7 @@ class SchemaValidatorTest extends \Doctrine\Tests\OrmTestCase
     public function testInvalidBiDirectionalRelationMappingMissingInversedByAttribute()
     {
         $class = $this->em->getClassMetadata(__NAMESPACE__ . '\DDC3274One');
-        $ce = $this->validator->validateClass($class);
+        $ce    = $this->validator->validateClass($class);
 
         $this->assertEquals(
             array(
@@ -159,7 +159,7 @@ class SchemaValidatorTest extends \Doctrine\Tests\OrmTestCase
     public function testInvalidOrderByInvalidField()
     {
         $class = $this->em->getClassMetadata(__NAMESPACE__ . '\DDC3322One');
-        $ce = $this->validator->validateClass($class);
+        $ce    = $this->validator->validateClass($class);
 
         $this->assertEquals(
             array(
@@ -176,7 +176,7 @@ class SchemaValidatorTest extends \Doctrine\Tests\OrmTestCase
     public function testInvalidOrderByCollectionValuedAssociation()
     {
         $class = $this->em->getClassMetadata(__NAMESPACE__ . '\DDC3322Two');
-        $ce = $this->validator->validateClass($class);
+        $ce    = $this->validator->validateClass($class);
 
         $this->assertEquals(
             array(
@@ -193,7 +193,7 @@ class SchemaValidatorTest extends \Doctrine\Tests\OrmTestCase
     public function testInvalidOrderByAssociationInverseSide()
     {
         $class = $this->em->getClassMetadata(__NAMESPACE__ . '\DDC3322Three');
-        $ce = $this->validator->validateClass($class);
+        $ce    = $this->validator->validateClass($class);
 
         $this->assertEquals(
             array(

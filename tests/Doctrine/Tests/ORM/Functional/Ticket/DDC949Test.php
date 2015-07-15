@@ -18,10 +18,10 @@ class DDC949Test extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testBooleanThroughRepository()
     {
-        $true = new BooleanModel();
+        $true               = new BooleanModel();
         $true->booleanField = true;
 
-        $false = new BooleanModel();
+        $false               = new BooleanModel();
         $false->booleanField = false;
 
         $this->_em->persist($true);
@@ -29,7 +29,7 @@ class DDC949Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $true = $this->_em->getRepository('Doctrine\Tests\Models\Generic\BooleanModel')->findOneBy(array('booleanField' => true));
+        $true  = $this->_em->getRepository('Doctrine\Tests\Models\Generic\BooleanModel')->findOneBy(array('booleanField' => true));
         $false = $this->_em->getRepository('Doctrine\Tests\Models\Generic\BooleanModel')->findOneBy(array('booleanField' => false));
 
         $this->assertInstanceOf('Doctrine\Tests\Models\Generic\BooleanModel', $true, "True model not found");

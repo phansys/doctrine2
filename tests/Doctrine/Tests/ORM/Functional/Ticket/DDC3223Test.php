@@ -27,7 +27,7 @@ class DDC3223Test extends OrmFunctionalTestCase
     {
         $profileStatus = new ProfileStatus();
 
-        $participant = new Journalist();
+        $participant                = new Journalist();
         $participant->profileStatus = $profileStatus;
 
         $this->_em->persist($profileStatus);

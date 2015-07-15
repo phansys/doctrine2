@@ -8,8 +8,8 @@ namespace Doctrine\Tests\Models\DDC3597;
  * @author Volker von Hoesslin <volker.von.hoesslin@empora.com>
  * @Entity
  */
-abstract class DDC3597Media extends DDC3597Root {
-
+abstract class DDC3597Media extends DDC3597Root
+{
     const CLASSNAME = __CLASS__;
 
     /**
@@ -32,45 +32,48 @@ abstract class DDC3597Media extends DDC3597Root {
      */
     private $format;
 
-    function __construct($distributionHash) {
+    public function __construct($distributionHash)
+    {
         $this->distributionHash = $distributionHash;
     }
 
     /**
      * @return string
      */
-    public function getDistributionHash() {
+    public function getDistributionHash()
+    {
         return $this->distributionHash;
     }
 
     /**
      * @return int
      */
-    public function getSize() {
+    public function getSize()
+    {
         return $this->size;
     }
 
     /**
      * @param int $size
      */
-    public function setSize($size) {
+    public function setSize($size)
+    {
         $this->size = $size;
     }
 
     /**
      * @return string
      */
-    public function getFormat() {
+    public function getFormat()
+    {
         return $this->format;
     }
 
     /**
      * @param string $format
      */
-    public function setFormat($format) {
+    public function setFormat($format)
+    {
         $this->format = $format;
     }
-
-
-
 }

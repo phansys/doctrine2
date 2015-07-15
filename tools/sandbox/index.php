@@ -16,7 +16,7 @@ $em = require_once __DIR__ . '/bootstrap.php';
 
 ## PUT YOUR TEST CODE BELOW
 
-$user = new User;
+$user    = new User;
 $address = new Address;
 
 echo 'Hello World!' . PHP_EOL;

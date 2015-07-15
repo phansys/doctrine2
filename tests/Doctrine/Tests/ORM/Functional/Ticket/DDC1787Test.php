@@ -18,7 +18,7 @@ class DDC1787Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $bar = new DDC1787Bar;
+        $bar  = new DDC1787Bar;
         $bar2 = new DDC1787Bar;
 
         $this->_em->persist($bar);

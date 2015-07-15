@@ -3,7 +3,6 @@
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\Tests\Models\CMS\CmsComment;
 use Doctrine\Tests\Models\CMS\CmsArticle;
 use Doctrine\Tests\Models\CMS\CmsUser;
@@ -27,19 +26,19 @@ class DDC1545Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     private function initDb($link)
     {
-        $article = new CmsArticle();
+        $article        = new CmsArticle();
         $article->topic = 'foo';
-        $article->text = 'foo';
+        $article->text  = 'foo';
 
-        $user = new CmsUser();
-        $user->status = 'foo';
+        $user           = new CmsUser();
+        $user->status   = 'foo';
         $user->username = 'foo';
-        $user->name = 'foo';
+        $user->name     = 'foo';
 
-        $user2 = new CmsUser();
-        $user2->status = 'bar';
+        $user2           = new CmsUser();
+        $user2->status   = 'bar';
         $user2->username = 'bar';
-        $user2->name = 'bar';
+        $user2->name     = 'bar';
 
         if ($link) {
             $article->user = $user;
@@ -52,8 +51,8 @@ class DDC1545Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         $this->articleId = $article->id;
-        $this->userId = $user->id;
-        $this->user2Id = $user2->id;
+        $this->userId    = $user->id;
+        $this->user2Id   = $user2->id;
     }
 
     public function testLinkObjects()

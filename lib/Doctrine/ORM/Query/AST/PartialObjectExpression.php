@@ -38,6 +38,6 @@ class PartialObjectExpression extends Node
     public function __construct($identificationVariable, array $partialFieldSet)
     {
         $this->identificationVariable = $identificationVariable;
-        $this->partialFieldSet = $partialFieldSet;
+        $this->partialFieldSet        = $partialFieldSet;
     }
 }

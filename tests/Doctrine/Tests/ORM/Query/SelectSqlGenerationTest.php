@@ -27,14 +27,14 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         try {
             $query = $this->_em->createQuery($dqlToBeTested);
 
-            foreach ($queryParams AS $name => $value) {
+            foreach ($queryParams as $name => $value) {
                 $query->setParameter($name, $value);
             }
 
             $query->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
                   ->useQueryCache(false);
 
-            foreach ($queryHints AS $name => $value) {
+            foreach ($queryHints as $name => $value) {
                 $query->setHint($name, $value);
             }
 
@@ -48,7 +48,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
             $query->free();
         } catch (\Exception $e) {
-            $this->fail($e->getMessage() ."\n".$e->getTraceAsString());
+            $this->fail($e->getMessage() . "\n" . $e->getTraceAsString());
         }
     }
 
@@ -66,14 +66,14 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
         $query = $this->_em->createQuery($dqlToBeTested);
 
-        foreach ($queryParams AS $name => $value) {
+        foreach ($queryParams as $name => $value) {
             $query->setParameter($name, $value);
         }
 
         $query->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
               ->useQueryCache(false);
 
-        foreach ($queryHints AS $name => $value) {
+        foreach ($queryHints as $name => $value) {
             $query->setHint($name, $value);
         }
 
@@ -268,7 +268,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testSupportsAggregateCountFunctionWithSimpleArithmetic()
     {
-        $connMock = $this->_em->getConnection();
+        $connMock    = $this->_em->getConnection();
         $orgPlatform = $connMock->getDatabasePlatform();
 
         $connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\MySqlPlatform);
@@ -569,7 +569,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
     public function testSupportsConcatFunctionForMysqlAndPostgresql()
     {
-        $connMock = $this->_em->getConnection();
+        $connMock    = $this->_em->getConnection();
         $orgPlatform = $connMock->getDatabasePlatform();
 
         $connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\MySqlPlatform);
@@ -620,7 +620,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         $q = $this->_em->createQuery('SELECT u.id FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE :param MEMBER OF u.phonenumbers');
         $q->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true);
 
-        $phone = new \Doctrine\Tests\Models\CMS\CmsPhonenumber;
+        $phone              = new \Doctrine\Tests\Models\CMS\CmsPhonenumber;
         $phone->phonenumber = 101;
         $q->setParameter('param', $phone);
 
@@ -636,7 +636,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         $q = $this->_em->createQuery('SELECT u.id FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE :param MEMBER OF u.groups');
         $q->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true);
 
-        $group = new \Doctrine\Tests\Models\CMS\CmsGroup;
+        $group     = new \Doctrine\Tests\Models\CMS\CmsGroup;
         $group->id = 101;
         $q->setParameter('param', $group);
 
@@ -651,9 +651,9 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         $q = $this->_em->createQuery('SELECT u.id FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE :param MEMBER OF u.groups');
         $q->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true);
 
-        $group = new \Doctrine\Tests\Models\CMS\CmsGroup;
-        $group->id = 101;
-        $group2 = new \Doctrine\Tests\Models\CMS\CmsGroup;
+        $group      = new \Doctrine\Tests\Models\CMS\CmsGroup;
+        $group->id  = 101;
+        $group2     = new \Doctrine\Tests\Models\CMS\CmsGroup;
         $group2->id = 105;
         $q->setParameter('param', array($group, $group2));
 
@@ -667,7 +667,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
     {
         // "Get all persons who have $person as a friend."
         // Tough one: Many-many self-referencing ("friends") with class table inheritance
-        $q = $this->_em->createQuery('SELECT p FROM Doctrine\Tests\Models\Company\CompanyPerson p WHERE :param MEMBER OF p.friends');
+        $q      = $this->_em->createQuery('SELECT p FROM Doctrine\Tests\Models\Company\CompanyPerson p WHERE :param MEMBER OF p.friends');
         $person = new \Doctrine\Tests\Models\Company\CompanyPerson;
         $this->_em->getClassMetadata(get_class($person))->setIdentifierValues($person, array('id' => 101));
         $q->setParameter('param', $person);
@@ -976,7 +976,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
     {
         $this->assertSqlGeneration(
             "SELECT r, l FROM Doctrine\Tests\Models\Routing\RoutingRoute r JOIN r.legs l",
-            "SELECT r0_.id AS id_0, r1_.id AS id_1, r1_.departureDate AS departureDate_2, r1_.arrivalDate AS arrivalDate_3 FROM RoutingRoute r0_ INNER JOIN RoutingRouteLegs r2_ ON r0_.id = r2_.route_id INNER JOIN RoutingLeg r1_ ON r1_.id = r2_.leg_id ".
+            "SELECT r0_.id AS id_0, r1_.id AS id_1, r1_.departureDate AS departureDate_2, r1_.arrivalDate AS arrivalDate_3 FROM RoutingRoute r0_ INNER JOIN RoutingRouteLegs r2_ ON r0_.id = r2_.route_id INNER JOIN RoutingLeg r1_ ON r1_.id = r2_.leg_id " .
             "ORDER BY r1_.departureDate ASC"
         );
     }
@@ -1001,7 +1001,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
         $this->assertSqlGeneration(
             "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.username = 'gblanco'",
-            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 ".
+            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 " .
             "FROM cms_users c0_ WHERE c0_.username = 'gblanco' FOR UPDATE",
             array(Query::HINT_LOCK_MODE => \Doctrine\DBAL\LockMode::PESSIMISTIC_WRITE)
         );
@@ -1017,7 +1017,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
         $this->assertSqlGeneration(
             "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.username = 'gblanco'",
-            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 ".
+            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 " .
             "FROM cms_users c0_ WHERE c0_.username = 'gblanco' FOR SHARE",
             array(Query::HINT_LOCK_MODE => \Doctrine\DBAL\LockMode::PESSIMISTIC_READ)
                 );
@@ -1031,7 +1031,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
     {
         $this->assertSqlGeneration(
             "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.username = 'gblanco'",
-            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 ".
+            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 " .
             "FROM cms_users c0_ WHERE c0_.username = 'gblanco'",
             array(Query::HINT_LOCK_MODE => \Doctrine\DBAL\LockMode::NONE)
                 );
@@ -1058,7 +1058,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
         $this->assertSqlGeneration(
             "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.username = 'gblanco'",
-            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 ".
+            "SELECT c0_.id AS id_0, c0_.status AS status_1, c0_.username AS username_2, c0_.name AS name_3 " .
             "FROM cms_users c0_ WHERE c0_.username = 'gblanco' LOCK IN SHARE MODE",
             array(Query::HINT_LOCK_MODE => \Doctrine\DBAL\LockMode::PESSIMISTIC_READ)
         );
@@ -1074,7 +1074,7 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
 
         $this->assertSqlGeneration(
             "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.username = 'gblanco'",
-            "SELECT c0_.id AS ID_0, c0_.status AS STATUS_1, c0_.username AS USERNAME_2, c0_.name AS NAME_3 ".
+            "SELECT c0_.id AS ID_0, c0_.status AS STATUS_1, c0_.username AS USERNAME_2, c0_.name AS NAME_3 " .
             "FROM cms_users c0_ WHERE c0_.username = 'gblanco' FOR UPDATE",
             array(Query::HINT_LOCK_MODE => \Doctrine\DBAL\LockMode::PESSIMISTIC_READ)
         );
@@ -1169,7 +1169,6 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         }
 
         $this->assertTrue($exceptionThrown);
-
     }
 
     public function testSubSelectAliasesFromOuterQuery()
@@ -1674,7 +1673,8 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
         );
     }
 
-    public function testSupportsParenthesisExpressionInSubSelect() {
+    public function testSupportsParenthesisExpressionInSubSelect()
+    {
         $this->assertSqlGeneration(
             'SELECT u.id, (SELECT (1000*SUM(subU.id)/SUM(subU.id)) FROM Doctrine\Tests\Models\CMS\CmsUser subU where subU.id = u.id) AS subSelect FROM Doctrine\Tests\Models\CMS\CmsUser u',
             'SELECT c0_.id AS id_0, (SELECT (1000 * SUM(c1_.id) / SUM(c1_.id)) FROM cms_users c1_ WHERE c1_.id = c0_.id) AS sclr_1 FROM cms_users c0_'
@@ -2019,40 +2019,40 @@ class SelectSqlGenerationTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testSupportsMoreThanTwoParametersInConcatFunction()
     {
-    	$connMock    = $this->_em->getConnection();
-    	$orgPlatform = $connMock->getDatabasePlatform();
+        $connMock    = $this->_em->getConnection();
+        $orgPlatform = $connMock->getDatabasePlatform();
 
-    	$connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\MySqlPlatform);
-    	$this->assertSqlGeneration(
+        $connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\MySqlPlatform);
+        $this->assertSqlGeneration(
             "SELECT u.id FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE CONCAT(u.name, u.status, 's') = ?1",
             "SELECT c0_.id AS id_0 FROM cms_users c0_ WHERE CONCAT(c0_.name, c0_.status, 's') = ?"
-    	);
-    	$this->assertSqlGeneration(
+        );
+        $this->assertSqlGeneration(
             "SELECT CONCAT(u.id, u.name, u.status) FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.id = ?1",
             "SELECT CONCAT(c0_.id, c0_.name, c0_.status) AS sclr_0 FROM cms_users c0_ WHERE c0_.id = ?"
-    	);
+        );
 
-    	$connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\PostgreSqlPlatform);
-    	$this->assertSqlGeneration(
+        $connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\PostgreSqlPlatform);
+        $this->assertSqlGeneration(
             "SELECT u.id FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE CONCAT(u.name, u.status, 's') = ?1",
             "SELECT c0_.id AS id_0 FROM cms_users c0_ WHERE c0_.name || c0_.status || 's' = ?"
-    	);
-    	$this->assertSqlGeneration(
+        );
+        $this->assertSqlGeneration(
             "SELECT CONCAT(u.id, u.name, u.status) FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.id = ?1",
             "SELECT c0_.id || c0_.name || c0_.status AS sclr_0 FROM cms_users c0_ WHERE c0_.id = ?"
-    	);
+        );
 
-    	$connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\SQLServerPlatform());
-    	$this->assertSqlGeneration(
+        $connMock->setDatabasePlatform(new \Doctrine\DBAL\Platforms\SQLServerPlatform());
+        $this->assertSqlGeneration(
             "SELECT u.id FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE CONCAT(u.name, u.status, 's') = ?1",
             "SELECT c0_.id AS id_0 FROM cms_users c0_ WHERE (c0_.name + c0_.status + 's') = ?"
-    	);
-    	$this->assertSqlGeneration(
+        );
+        $this->assertSqlGeneration(
             "SELECT CONCAT(u.id, u.name, u.status) FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.id = ?1",
             "SELECT (c0_.id + c0_.name + c0_.status) AS sclr_0 FROM cms_users c0_ WHERE c0_.id = ?"
-    	);
+        );
 
-    	$connMock->setDatabasePlatform($orgPlatform);
+        $connMock->setDatabasePlatform($orgPlatform);
     }
 
      /**
@@ -2290,7 +2290,6 @@ class DDC1384Model
  */
 class DDC1474Entity
 {
-
     /**
      * @Id
      * @Column(type="integer")
@@ -2334,5 +2333,4 @@ class DDC1474Entity
     {
         $this->value = $value;
     }
-
 }

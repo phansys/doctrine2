@@ -48,7 +48,7 @@ class GeneralCaseExpression extends Node
      */
     public function __construct(array $whenClauses, $elseScalarExpression)
     {
-        $this->whenClauses = $whenClauses;
+        $this->whenClauses          = $whenClauses;
         $this->elseScalarExpression = $elseScalarExpression;
     }
 

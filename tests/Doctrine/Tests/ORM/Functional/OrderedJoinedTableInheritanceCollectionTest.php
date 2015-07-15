@@ -11,7 +11,8 @@ use Doctrine\ORM\Query;
  */
 class OrderedJoinedTableInheritanceCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         try {
             $this->_schemaTool->createSchema(array(
@@ -23,12 +24,12 @@ class OrderedJoinedTableInheritanceCollectionTest extends \Doctrine\Tests\OrmFun
             // Swallow all exceptions. We do not test the schema tool here.
         }
 
-        $dog = new OJTIC_Dog();
+        $dog       = new OJTIC_Dog();
         $dog->name = "Poofy";
 
-        $dog1 = new OJTIC_Dog();
+        $dog1       = new OJTIC_Dog();
         $dog1->name = "Zampa";
-        $dog2 = new OJTIC_Dog();
+        $dog2       = new OJTIC_Dog();
         $dog2->name = "Aari";
 
         $dog1->mother = $dog;
@@ -119,7 +120,6 @@ abstract class OJTIC_Pet
  */
 class OJTIC_Cat extends OJTIC_Pet
 {
-
 }
 
 /**
@@ -127,5 +127,4 @@ class OJTIC_Cat extends OJTIC_Pet
  */
 class OJTIC_Dog extends OJTIC_Pet
 {
-
 }

@@ -195,7 +195,7 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
 
     public function testPostFlushFailure()
     {
-        $listener = new ListenerSecondLevelCacheTest(array(Events::postFlush => function(){
+        $listener = new ListenerSecondLevelCacheTest(array(Events::postFlush => function () {
             throw new \RuntimeException('post flush failure');
         }));
 
@@ -207,11 +207,9 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
         $this->cache->evictEntityRegion(Country::CLASSNAME);
 
         try {
-
             $this->_em->persist($country);
             $this->_em->flush();
             $this->fail('Should throw exception');
-
         } catch (\RuntimeException $exc) {
             $this->assertNotNull($country->getId());
             $this->assertEquals('post flush failure', $exc->getMessage());
@@ -225,7 +223,7 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
         $this->loadFixturesStates();
         $this->_em->clear();
 
-        $listener = new ListenerSecondLevelCacheTest(array(Events::postUpdate => function(){
+        $listener = new ListenerSecondLevelCacheTest(array(Events::postUpdate => function () {
             throw new \RuntimeException('post update failure');
         }));
 
@@ -234,9 +232,9 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
 
         $this->cache->evictEntityRegion(State::CLASSNAME);
 
-        $stateId    = $this->states[0]->getId();
-        $stateName  = $this->states[0]->getName();
-        $state      = $this->_em->find(State::CLASSNAME, $stateId);
+        $stateId   = $this->states[0]->getId();
+        $stateName = $this->states[0]->getName();
+        $state     = $this->_em->find(State::CLASSNAME, $stateId);
         
         $this->assertTrue($this->cache->containsEntity(State::CLASSNAME, $stateId));
         $this->assertInstanceOf(State::CLASSNAME, $state);
@@ -249,7 +247,6 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
         try {
             $this->_em->flush();
             $this->fail('Should throw exception');
-
         } catch (\Exception $exc) {
             $this->assertEquals('post update failure', $exc->getMessage());
         }
@@ -269,7 +266,7 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
         $this->loadFixturesCountries();
         $this->_em->clear();
 
-        $listener = new ListenerSecondLevelCacheTest(array(Events::postRemove => function(){
+        $listener = new ListenerSecondLevelCacheTest(array(Events::postRemove => function () {
             throw new \RuntimeException('post remove failure');
         }));
 
@@ -278,8 +275,8 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
 
         $this->cache->evictEntityRegion(Country::CLASSNAME);
 
-        $countryId  = $this->countries[0]->getId();
-        $country    = $this->_em->find(Country::CLASSNAME, $countryId);
+        $countryId = $this->countries[0]->getId();
+        $country   = $this->_em->find(Country::CLASSNAME, $countryId);
 
         $this->assertTrue($this->cache->containsEntity(Country::CLASSNAME, $countryId));
         $this->assertInstanceOf(Country::CLASSNAME, $country);
@@ -289,7 +286,6 @@ class SecondLevelCacheTest extends SecondLevelCacheAbstractTest
         try {
             $this->_em->flush();
             $this->fail('Should throw exception');
-
         } catch (\Exception $exc) {
             $this->assertEquals('post remove failure', $exc->getMessage());
         }

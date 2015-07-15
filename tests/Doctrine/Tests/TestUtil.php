@@ -97,7 +97,7 @@ class TestUtil
             // Connect to tmpdb in order to drop and create the real test db.
             $tmpConn = DriverManager::getConnection($tmpDbParams);
 
-            $platform  = $tmpConn->getDatabasePlatform();
+            $platform = $tmpConn->getDatabasePlatform();
 
             if ($platform->supportsCreateDropDatabase()) {
                 $dbname = $realConn->getDatabase();
@@ -110,7 +110,7 @@ class TestUtil
                 $sm = $realConn->getSchemaManager();
 
                 $schema = $sm->createSchema();
-                $stmts = $schema->toDropSql($realConn->getDatabasePlatform());
+                $stmts  = $schema->toDropSql($realConn->getDatabasePlatform());
 
                 foreach ($stmts as $stmt) {
                     $realConn->exec($stmt);
@@ -152,12 +152,12 @@ class TestUtil
     private static function getParamsForTemporaryConnection()
     {
         $connectionParams = array(
-            'driver' => $GLOBALS['tmpdb_type'],
-            'user' => $GLOBALS['tmpdb_username'],
+            'driver'   => $GLOBALS['tmpdb_type'],
+            'user'     => $GLOBALS['tmpdb_username'],
             'password' => $GLOBALS['tmpdb_password'],
-            'host' => $GLOBALS['tmpdb_host'],
-            'dbname' => null,
-            'port' => $GLOBALS['tmpdb_port']
+            'host'     => $GLOBALS['tmpdb_host'],
+            'dbname'   => null,
+            'port'     => $GLOBALS['tmpdb_port']
         );
 
         if (isset($GLOBALS['tmpdb_name'])) {
@@ -178,12 +178,12 @@ class TestUtil
     private static function getParamsForMainConnection()
     {
         $connectionParams = array(
-            'driver' => $GLOBALS['db_type'],
-            'user' => $GLOBALS['db_username'],
+            'driver'   => $GLOBALS['db_type'],
+            'user'     => $GLOBALS['db_username'],
             'password' => $GLOBALS['db_password'],
-            'host' => $GLOBALS['db_host'],
-            'dbname' => $GLOBALS['db_name'],
-            'port' => $GLOBALS['db_port']
+            'host'     => $GLOBALS['db_host'],
+            'dbname'   => $GLOBALS['db_name'],
+            'port'     => $GLOBALS['db_port']
         );
 
         if (isset($GLOBALS['db_server'])) {

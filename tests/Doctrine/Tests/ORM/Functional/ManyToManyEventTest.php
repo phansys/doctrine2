@@ -23,7 +23,7 @@ class ManyToManyEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->useModelSet('cms');
         parent::setUp();
         $this->listener = new PostUpdateListener();
-        $evm = $this->_em->getEventManager();
+        $evm            = $this->_em->getEventManager();
         $evm->addEventListener(Events::postUpdate, $this->listener);
     }
 
@@ -34,7 +34,7 @@ class ManyToManyEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->assertFalse($this->listener->wasNotified);
 
-        $group = new CmsGroup();
+        $group       = new CmsGroup();
         $group->name = "admins";
         $user->addGroup($group);
         $this->_em->persist($user);
@@ -48,11 +48,11 @@ class ManyToManyEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     private function createNewValidUser()
     {
-        $user = new CmsUser();
+        $user           = new CmsUser();
         $user->username = 'fran6co';
-        $user->name = 'Francisco Facioni';
-        $group = new CmsGroup();
-        $group->name = "users";
+        $user->name     = 'Francisco Facioni';
+        $group          = new CmsGroup();
+        $group->name    = "users";
         $user->addGroup($group);
         return $user;
     }
@@ -73,5 +73,3 @@ class PostUpdateListener
         $this->wasNotified = true;
     }
 }
-
-

@@ -17,22 +17,22 @@ class DDC3033Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC3033Product'),
         ));
 
-        $user = new DDC3033User();
+        $user       = new DDC3033User();
         $user->name = "Test User";
         $this->_em->persist($user);
 
-        $user2 = new DDC3033User();
+        $user2       = new DDC3033User();
         $user2->name = "Test User 2";
         $this->_em->persist($user2);
 
-        $product = new DDC3033Product();
-        $product->title = "Test product";
+        $product           = new DDC3033Product();
+        $product->title    = "Test product";
         $product->buyers[] = $user;
 
         $this->_em->persist($product);
         $this->_em->flush();
 
-        $product->title = "Test Change title";
+        $product->title    = "Test Change title";
         $product->buyers[] = $user2;
 
         $this->_em->persist($product);

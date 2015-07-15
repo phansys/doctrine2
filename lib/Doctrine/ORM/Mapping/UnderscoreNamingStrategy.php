@@ -92,7 +92,7 @@ class UnderscoreNamingStrategy implements NamingStrategy
      */
     public function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null)
     {
-        return $this->underscore($propertyName).'_'.$embeddedColumnName;
+        return $this->underscore($propertyName) . '_' . $embeddedColumnName;
     }
 
     /**

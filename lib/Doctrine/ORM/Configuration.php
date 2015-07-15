@@ -192,7 +192,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getEntityNamespace($entityNamespaceAlias)
     {
-        if ( ! isset($this->_attributes['entityNamespaces'][$entityNamespaceAlias])) {
+        if (! isset($this->_attributes['entityNamespaces'][$entityNamespaceAlias])) {
             throw ORMException::unknownEntityNamespace($entityNamespaceAlias);
         }
 
@@ -331,7 +331,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getNamedQuery($name)
     {
-        if ( ! isset($this->_attributes['namedQueries'][$name])) {
+        if (! isset($this->_attributes['namedQueries'][$name])) {
             throw ORMException::namedQueryNotFound($name);
         }
 
@@ -364,7 +364,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getNamedNativeQuery($name)
     {
-        if ( ! isset($this->_attributes['namedNativeQueries'][$name])) {
+        if (! isset($this->_attributes['namedNativeQueries'][$name])) {
             throw ORMException::namedNativeQueryNotFound($name);
         }
 
@@ -384,7 +384,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     {
         $queryCacheImpl = $this->getQueryCacheImpl();
 
-        if ( ! $queryCacheImpl) {
+        if (! $queryCacheImpl) {
             throw ORMException::queryCacheNotConfigured();
         }
 
@@ -394,7 +394,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
 
         $metadataCacheImpl = $this->getMetadataCacheImpl();
 
-        if ( ! $metadataCacheImpl) {
+        if (! $metadataCacheImpl) {
             throw ORMException::metadataCacheNotConfigured();
         }
 
@@ -641,7 +641,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getClassMetadataFactoryName()
     {
-        if ( ! isset($this->_attributes['classMetadataFactoryName'])) {
+        if (! isset($this->_attributes['classMetadataFactoryName'])) {
             $this->_attributes['classMetadataFactoryName'] = 'Doctrine\ORM\Mapping\ClassMetadataFactory';
         }
 
@@ -689,7 +689,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     {
         $reflectionClass = new \ReflectionClass($className);
 
-        if ( ! $reflectionClass->implementsInterface('Doctrine\Common\Persistence\ObjectRepository')) {
+        if (! $reflectionClass->implementsInterface('Doctrine\Common\Persistence\ObjectRepository')) {
             throw ORMException::invalidEntityRepository($className);
         }
 
@@ -733,7 +733,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getNamingStrategy()
     {
-        if ( ! isset($this->_attributes['namingStrategy'])) {
+        if (! isset($this->_attributes['namingStrategy'])) {
             $this->_attributes['namingStrategy'] = new DefaultNamingStrategy();
         }
 
@@ -763,7 +763,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getQuoteStrategy()
     {
-        if ( ! isset($this->_attributes['quoteStrategy'])) {
+        if (! isset($this->_attributes['quoteStrategy'])) {
             $this->_attributes['quoteStrategy'] = new DefaultQuoteStrategy();
         }
 
@@ -789,7 +789,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getEntityListenerResolver()
     {
-        if ( ! isset($this->_attributes['entityListenerResolver'])) {
+        if (! isset($this->_attributes['entityListenerResolver'])) {
             $this->_attributes['entityListenerResolver'] = new DefaultEntityListenerResolver();
         }
 
@@ -863,7 +863,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getSecondLevelCacheConfiguration()
     {
-        if ( ! isset($this->_attributes['secondLevelCacheConfiguration']) && $this->isSecondLevelCacheEnabled()) {
+        if (! isset($this->_attributes['secondLevelCacheConfiguration']) && $this->isSecondLevelCacheEnabled()) {
             $this->_attributes['secondLevelCacheConfiguration'] = new CacheConfiguration();
         }
 

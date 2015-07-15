@@ -58,7 +58,7 @@ abstract class AbstractCommand extends Command
 
         $metadatas = $em->getMetadataFactory()->getAllMetadata();
 
-        if ( ! empty($metadatas)) {
+        if (! empty($metadatas)) {
             // Create SchemaTool
             $tool = new SchemaTool($em);
 

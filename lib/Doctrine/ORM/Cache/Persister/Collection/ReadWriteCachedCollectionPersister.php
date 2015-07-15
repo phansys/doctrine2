@@ -99,8 +99,8 @@ class ReadWriteCachedCollectionPersister extends AbstractCollectionPersister
         }
 
         $this->queuedCache['delete'][spl_object_hash($collection)] = array(
-            'key'   => $key,
-            'lock'  => $lock
+            'key'  => $key,
+            'lock' => $lock
         );
     }
 
@@ -112,7 +112,7 @@ class ReadWriteCachedCollectionPersister extends AbstractCollectionPersister
         $isInitialized = $collection->isInitialized();
         $isDirty       = $collection->isDirty();
 
-        if ( ! $isInitialized && ! $isDirty) {
+        if (! $isInitialized && ! $isDirty) {
             return;
         }
 
@@ -127,8 +127,8 @@ class ReadWriteCachedCollectionPersister extends AbstractCollectionPersister
         }
 
         $this->queuedCache['update'][spl_object_hash($collection)] = array(
-            'key'   => $key,
-            'lock'  => $lock
+            'key'  => $key,
+            'lock' => $lock
         );
     }
 }

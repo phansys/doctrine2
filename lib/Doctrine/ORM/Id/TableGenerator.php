@@ -64,8 +64,8 @@ class TableGenerator extends AbstractIdGenerator
      */
     public function __construct($tableName, $sequenceName = 'default', $allocationSize = 10)
     {
-        $this->_tableName = $tableName;
-        $this->_sequenceName = $sequenceName;
+        $this->_tableName      = $tableName;
+        $this->_sequenceName   = $sequenceName;
         $this->_allocationSize = $allocationSize;
     }
 
@@ -86,7 +86,7 @@ class TableGenerator extends AbstractIdGenerator
 
                 if ($currentLevel != null) {
                     $this->_nextValue = $currentLevel;
-                    $this->_maxValue = $this->_nextValue + $this->_allocationSize;
+                    $this->_maxValue  = $this->_nextValue + $this->_allocationSize;
 
                     $updateSql = $conn->getDatabasePlatform()->getTableHiLoUpdateNextValSql(
                         $this->_tableName, $this->_sequenceName, $this->_allocationSize

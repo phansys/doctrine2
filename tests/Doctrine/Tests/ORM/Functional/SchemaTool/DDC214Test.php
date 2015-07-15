@@ -9,7 +9,7 @@ use Doctrine\ORM\Tools;
  */
 class DDC214Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    private $classes = array();
+    private $classes    = array();
     private $schemaTool = null;
 
     public function setUp()
@@ -63,26 +63,26 @@ class DDC214Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function assertCreatedSchemaNeedsNoUpdates($classes)
     {
         $classMetadata = array();
-        foreach ($classes AS $class) {
+        foreach ($classes as $class) {
             $classMetadata[] = $this->_em->getClassMetadata($class);
         }
 
         try {
             $this->schemaTool->createSchema($classMetadata);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             // was already created
         }
 
         $sm = $this->_em->getConnection()->getSchemaManager();
 
         $fromSchema = $sm->createSchema();
-        $toSchema = $this->schemaTool->getSchemaFromMetadata($classMetadata);
+        $toSchema   = $this->schemaTool->getSchemaFromMetadata($classMetadata);
 
         $comparator = new \Doctrine\DBAL\Schema\Comparator();
         $schemaDiff = $comparator->compare($fromSchema, $toSchema);
 
         $sql = $schemaDiff->toSql($this->_em->getConnection()->getDatabasePlatform());
-        $sql = array_filter($sql, function($sql) { return strpos($sql, 'DROP') === false; });
+        $sql = array_filter($sql, function ($sql) { return strpos($sql, 'DROP') === false; });
 
         $this->assertEquals(0, count($sql), "SQL: " . implode(PHP_EOL, $sql));
     }

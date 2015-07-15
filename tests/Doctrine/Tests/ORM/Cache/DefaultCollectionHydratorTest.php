@@ -40,8 +40,8 @@ class DefaultCollectionHydratorTest extends OrmFunctionalTestCase
 
     public function testLoadCacheCollection()
     {
-        $targetRegion   = $this->_em->getCache()->getEntityCacheRegion(City::CLASSNAME);
-        $entry          = new CollectionCacheEntry(array(
+        $targetRegion = $this->_em->getCache()->getEntityCacheRegion(City::CLASSNAME);
+        $entry        = new CollectionCacheEntry(array(
             new EntityCacheKey(City::CLASSNAME, array('id'=>31)),
             new EntityCacheKey(City::CLASSNAME, array('id'=>32)),
         ));
@@ -49,11 +49,11 @@ class DefaultCollectionHydratorTest extends OrmFunctionalTestCase
         $targetRegion->put(new EntityCacheKey(City::CLASSNAME, array('id'=>31)), new EntityCacheEntry(City::CLASSNAME, array('id'=>31, 'name'=>'Foo')));
         $targetRegion->put(new EntityCacheKey(City::CLASSNAME, array('id'=>32)), new EntityCacheEntry(City::CLASSNAME, array('id'=>32, 'name'=>'Bar')));
 
-        $sourceClass    = $this->_em->getClassMetadata(State::CLASSNAME);
-        $targetClass    = $this->_em->getClassMetadata(City::CLASSNAME);
-        $key            = new CollectionCacheKey($sourceClass->name, 'cities', array('id'=>21));
-        $collection     = new PersistentCollection($this->_em, $targetClass, new ArrayCollection());
-        $list           = $this->structure->loadCacheEntry($sourceClass, $key, $entry, $collection);
+        $sourceClass = $this->_em->getClassMetadata(State::CLASSNAME);
+        $targetClass = $this->_em->getClassMetadata(City::CLASSNAME);
+        $key         = new CollectionCacheKey($sourceClass->name, 'cities', array('id'=>21));
+        $collection  = new PersistentCollection($this->_em, $targetClass, new ArrayCollection());
+        $list        = $this->structure->loadCacheEntry($sourceClass, $key, $entry, $collection);
 
         $this->assertNotNull($list);
         $this->assertCount(2, $list);
@@ -74,5 +74,4 @@ class DefaultCollectionHydratorTest extends OrmFunctionalTestCase
         $this->assertEquals(UnitOfWork::STATE_MANAGED, $this->_em->getUnitOfWork()->getEntityState($collection[0]));
         $this->assertEquals(UnitOfWork::STATE_MANAGED, $this->_em->getUnitOfWork()->getEntityState($collection[1]));
     }
-
 }

@@ -110,14 +110,14 @@ class YamlExporter extends AbstractExporter
             $fieldMappings[$name] = $fieldMapping;
         }
 
-        if ( ! $metadata->isIdentifierComposite && $idGeneratorType = $this->_getIdGeneratorTypeString($metadata->generatorType)) {
+        if (! $metadata->isIdentifierComposite && $idGeneratorType = $this->_getIdGeneratorTypeString($metadata->generatorType)) {
             $ids[$metadata->getSingleIdentifierFieldName()]['generator']['strategy'] = $idGeneratorType;
         }
 
         $array['id'] = $ids;
 
         if ($fieldMappings) {
-            if ( ! isset($array['fields'])) {
+            if (! isset($array['fields'])) {
                 $array['fields'] = array();
             }
             $array['fields'] = array_merge($array['fields'], $fieldMappings);
@@ -151,7 +151,7 @@ class YamlExporter extends AbstractExporter
 
             $associationMappingArray = array(
                 'targetEntity' => $associationMapping['targetEntity'],
-                'cascade'     => $cascade,
+                'cascade'      => $cascade,
             );
 
             if (isset($associationMapping['fetch'])) {
@@ -163,7 +163,7 @@ class YamlExporter extends AbstractExporter
             }
 
             if ($associationMapping['type'] & ClassMetadataInfo::TO_ONE) {
-                $joinColumns = $associationMapping['joinColumns'];
+                $joinColumns    = $associationMapping['joinColumns'];
                 $newJoinColumns = array();
 
                 foreach ($joinColumns as $joinColumn) {
@@ -196,7 +196,7 @@ class YamlExporter extends AbstractExporter
                     'orderBy'       => isset($associationMapping['orderBy']) ? $associationMapping['orderBy'] : null
                 );
 
-                $associationMappingArray = array_merge($associationMappingArray, $oneToManyMappingArray);
+                $associationMappingArray   = array_merge($associationMappingArray, $oneToManyMappingArray);
                 $array['oneToMany'][$name] = $associationMappingArray;
             } elseif ($associationMapping['type'] == ClassMetadataInfo::MANY_TO_MANY) {
                 $manyToManyMappingArray = array(
@@ -206,7 +206,7 @@ class YamlExporter extends AbstractExporter
                     'orderBy'    => isset($associationMapping['orderBy']) ? $associationMapping['orderBy'] : null
                 );
 
-                $associationMappingArray = array_merge($associationMappingArray, $manyToManyMappingArray);
+                $associationMappingArray    = array_merge($associationMappingArray, $manyToManyMappingArray);
                 $array['manyToMany'][$name] = $associationMappingArray;
             }
         }

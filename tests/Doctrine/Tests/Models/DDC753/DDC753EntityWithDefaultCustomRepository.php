@@ -25,7 +25,6 @@ namespace Doctrine\Tests\Models\DDC753;
  */
 class DDC753EntityWithDefaultCustomRepository
 {
-
     /**
      * @Id
      * @Column(type="integer")
@@ -35,5 +34,4 @@ class DDC753EntityWithDefaultCustomRepository
 
     /** @column(type="string") */
     protected $name;
-
 }

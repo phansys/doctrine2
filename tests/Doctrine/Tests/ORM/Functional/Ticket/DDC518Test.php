@@ -12,8 +12,8 @@ class DDC518Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testMergeWithRelatedNew()
     {
-        $article = new \Doctrine\Tests\Models\CMS\CmsArticle();
-        $article->text = "foo";
+        $article        = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article->text  = "foo";
         $article->topic = "bar";
 
         $this->_em->persist($article);
@@ -21,11 +21,11 @@ class DDC518Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->detach($article);
         $this->_em->clear();
 
-        $user = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $user           = new \Doctrine\Tests\Models\CMS\CmsUser();
         $user->username = "beberlei";
-        $user->name = "Benjamin Eberlei";
-        $user->status = "active";
-        $article->user = $user;
+        $user->name     = "Benjamin Eberlei";
+        $user->status   = "active";
+        $article->user  = $user;
 
         $this->_em->persist($user);
         $managedArticle = $this->_em->merge($article);

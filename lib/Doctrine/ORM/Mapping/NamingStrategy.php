@@ -37,7 +37,7 @@ interface NamingStrategy
      *
      * @return string A table name.
      */
-    function classToTableName($className);
+    public function classToTableName($className);
 
     /**
      * Returns a column name for a property.
@@ -47,7 +47,7 @@ interface NamingStrategy
      *
      * @return string A column name.
      */
-    function propertyToColumnName($propertyName, $className = null);
+    public function propertyToColumnName($propertyName, $className = null);
 
     /**
      * Returns a column name for an embedded property.
@@ -57,14 +57,14 @@ interface NamingStrategy
      *
      * @return string
      */
-    function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null);
+    public function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null);
 
     /**
      * Returns the default reference column name.
      *
      * @return string A column name.
      */
-    function referenceColumnName();
+    public function referenceColumnName();
 
     /**
      * Returns a join column name for a property.
@@ -75,7 +75,7 @@ interface NamingStrategy
      *
      * @return string A join column name.
      */
-    function joinColumnName($propertyName/*, $className = null*/);
+    public function joinColumnName($propertyName/*, $className = null*/);
 
     /**
      * Returns a join table name.
@@ -86,7 +86,7 @@ interface NamingStrategy
      *
      * @return string A join table name.
      */
-    function joinTableName($sourceEntity, $targetEntity, $propertyName = null);
+    public function joinTableName($sourceEntity, $targetEntity, $propertyName = null);
 
     /**
      * Returns the foreign key column name for the given parameters.
@@ -96,5 +96,5 @@ interface NamingStrategy
      *
      * @return string A join column name.
      */
-    function joinKeyColumnName($entityName, $referencedColumnName = null);
+    public function joinKeyColumnName($entityName, $referencedColumnName = null);
 }

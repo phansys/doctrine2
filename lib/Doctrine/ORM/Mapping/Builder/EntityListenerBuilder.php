@@ -34,7 +34,7 @@ class EntityListenerBuilder
     /**
      * @var array Hash-map to handle event names.
      */
-    static private $events = array(
+    private static $events = array(
         Events::preRemove   => true,
         Events::postRemove  => true,
         Events::prePersist  => true,
@@ -53,16 +53,16 @@ class EntityListenerBuilder
      *
      * @throws \Doctrine\ORM\Mapping\MappingException           When the listener class not found.
      */
-    static public function bindEntityListener(ClassMetadata $metadata, $className)
+    public static function bindEntityListener(ClassMetadata $metadata, $className)
     {
         $class = $metadata->fullyQualifiedClassName($className);
 
-        if ( ! class_exists($class)) {
+        if (! class_exists($class)) {
             throw MappingException::entityListenerClassNotFound($class, $className);
         }
 
         foreach (get_class_methods($class) as $method) {
-            if ( ! isset(self::$events[$method])) {
+            if (! isset(self::$events[$method])) {
                 continue;
             }
 

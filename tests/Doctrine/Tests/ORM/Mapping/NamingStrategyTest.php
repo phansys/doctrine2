@@ -15,7 +15,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
     /**
      * @return DefaultNamingStrategy
      */
-    static private function defaultNaming()
+    private static function defaultNaming()
     {
         return new DefaultNamingStrategy();
     }
@@ -23,7 +23,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
     /**
      * @return UnderscoreNamingStrategy
      */
-    static private function underscoreNamingLower()
+    private static function underscoreNamingLower()
     {
         return new UnderscoreNamingStrategy(CASE_LOWER);
     }
@@ -31,7 +31,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
     /**
      * @return UnderscoreNamingStrategy
      */
-    static private function underscoreNamingUpper()
+    private static function underscoreNamingUpper()
     {
         return new UnderscoreNamingStrategy(CASE_UPPER);
     }
@@ -41,7 +41,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
      *
      * @return array
      */
-    static public function dataClassToTableName()
+    public static function dataClassToTableName()
     {
         return array(
             // DefaultNamingStrategy
@@ -84,7 +84,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
      * 
      * @return array
      */
-    static public function dataPropertyToColumnName()
+    public static function dataPropertyToColumnName()
     {
         return array(
             // DefaultNamingStrategy
@@ -131,7 +131,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
      *
      * @return array
      */
-    static public function dataReferenceColumnName()
+    public static function dataReferenceColumnName()
     {
         return array(
             // DefaultNamingStrategy
@@ -159,7 +159,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
      *
      * @return array
      */
-    static public function dataJoinColumnName()
+    public static function dataJoinColumnName()
     {
         return array(
             // DefaultNamingStrategy
@@ -192,7 +192,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
      *
      * @return array
      */
-    static public function dataJoinTableName()
+    public static function dataJoinTableName()
     {
         return array(
             // DefaultNamingStrategy
@@ -248,7 +248,7 @@ class NamingStrategyTest extends \Doctrine\Tests\OrmTestCase
      *
      * @return array
      */
-    static public function dataJoinKeyColumnName()
+    public static function dataJoinKeyColumnName()
     {
         return array(
             // DefaultNamingStrategy

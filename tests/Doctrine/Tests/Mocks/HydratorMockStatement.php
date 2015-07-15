@@ -45,7 +45,9 @@ class HydratorMockStatement implements \IteratorAggregate, \Doctrine\DBAL\Driver
     public function fetchColumn($columnNumber = 0)
     {
         $row = current($this->_resultSet);
-        if ( ! is_array($row)) return false;
+        if (! is_array($row)) {
+            return false;
+        }
         $val = array_shift($row);
         return $val !== null ? $val : false;
     }

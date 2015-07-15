@@ -3,7 +3,6 @@
 
 namespace Doctrine\Tests\ORM\Functional;
 
-
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Logging\DebugStack;
 use Doctrine\DBAL\Logging\SQLLogger;

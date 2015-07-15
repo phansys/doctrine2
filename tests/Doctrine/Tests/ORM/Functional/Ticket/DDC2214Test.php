@@ -39,11 +39,11 @@ class DDC2214Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $foo = $this->_em->find(__NAMESPACE__ . '\\DDC2214Foo', $foo->id);
         $bar = $foo->bar;
 
-        $logger  = $this->_em->getConnection()->getConfiguration()->getSQLLogger();
+        $logger = $this->_em->getConnection()->getConfiguration()->getSQLLogger();
 
         $related = $this
             ->_em
-            ->createQuery('SELECT b FROM '.__NAMESPACE__ . '\DDC2214Bar b WHERE b.id IN(:ids)')
+            ->createQuery('SELECT b FROM ' . __NAMESPACE__ . '\DDC2214Bar b WHERE b.id IN(:ids)')
             ->setParameter('ids', array($bar))
             ->getResult();
 

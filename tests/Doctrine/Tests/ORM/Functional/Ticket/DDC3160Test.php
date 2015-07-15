@@ -14,7 +14,8 @@ use Doctrine\Tests\OrmFunctionalTestCase;
  */
 class DDC3160Test extends OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('cms');
         parent::setUp();
     }
@@ -27,10 +28,10 @@ class DDC3160Test extends OrmFunctionalTestCase
         $listener = new DDC3160OnFlushListener();
         $this->_em->getEventManager()->addEventListener(Events::onFlush, $listener);
 
-        $user = new CmsUser;
+        $user           = new CmsUser;
         $user->username = 'romanb';
-        $user->name = 'Roman';
-        $user->status = 'Dev';
+        $user->name     = 'Roman';
+        $user->status   = 'Dev';
 
         $this->_em->persist($user);
         $this->_em->flush();
@@ -50,14 +51,14 @@ class DDC3160OnFlushListener
 
     public function onFlush(OnFlushEventArgs $args)
     {
-        $em = $args->getEntityManager();
+        $em  = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             $this->inserts++;
             if ($entity instanceof CmsUser) {
                 $entity->username = 'romanc';
-                $cm = $em->getClassMetadata(get_class($entity));
+                $cm               = $em->getClassMetadata(get_class($entity));
                 $uow->recomputeSingleEntityChangeSet($cm, $entity);
             }
         }
@@ -67,4 +68,3 @@ class DDC3160OnFlushListener
         }
     }
 }
-

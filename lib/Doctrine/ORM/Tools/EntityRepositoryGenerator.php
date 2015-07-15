@@ -58,9 +58,9 @@ class <className> extends <repositoryName>
     public function generateEntityRepositoryClass($fullClassName)
     {
         $variables = array(
-            '<namespace>'       => $this->generateEntityRepositoryNamespace($fullClassName),
-            '<repositoryName>'  => $this->generateEntityRepositoryName($fullClassName),
-            '<className>'       => $this->generateClassName($fullClassName)
+            '<namespace>'      => $this->generateEntityRepositoryNamespace($fullClassName),
+            '<repositoryName>' => $this->generateEntityRepositoryName($fullClassName),
+            '<className>'      => $this->generateClassName($fullClassName)
         );
 
         return str_replace(array_keys($variables), array_values($variables), self::$_template);
@@ -146,11 +146,11 @@ class <className> extends <repositoryName>
               . str_replace('\\', \DIRECTORY_SEPARATOR, $fullClassName) . '.php';
         $dir = dirname($path);
 
-        if ( ! is_dir($dir)) {
+        if (! is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
 
-        if ( ! file_exists($path)) {
+        if (! file_exists($path)) {
             file_put_contents($path, $code);
         }
     }
@@ -166,5 +166,4 @@ class <className> extends <repositoryName>
 
         return $this;
     }
-
 }

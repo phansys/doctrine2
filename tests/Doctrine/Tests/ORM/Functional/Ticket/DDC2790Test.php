@@ -28,9 +28,9 @@ class DDC2790Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->_em->getEventManager()->addEventListener(Events::onFlush, new OnFlushListener);
 
-        $entity = new CmsUser;
+        $entity           = new CmsUser;
         $entity->username = 'romanb';
-        $entity->name = 'Roman';
+        $entity->name     = 'Roman';
 
         $qb = $this->_em->createQueryBuilder();
         $qb->from(get_class($entity), 'c');
@@ -63,14 +63,13 @@ class OnFlushListener
      */
     public function onFlush(OnFlushEventArgs $args)
     {
-        $em = $args->getEntityManager();
-        $uow = $em->getUnitOfWork();
+        $em        = $args->getEntityManager();
+        $uow       = $em->getUnitOfWork();
         $deletions = $uow->getScheduledEntityDeletions();
-        $updates = $uow->getScheduledEntityUpdates();
+        $updates   = $uow->getScheduledEntityUpdates();
 
         $undelete = array_intersect_key($deletions, $updates);
-        foreach ($undelete as $d)
-        {
+        foreach ($undelete as $d) {
             $em->persist($d);
         }
     }

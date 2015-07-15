@@ -55,7 +55,7 @@ class DDC1080Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $foo = $this->_em->find('Doctrine\Tests\ORM\Functional\Ticket\DDC1080Foo', $foo1->getFooId());
+        $foo     = $this->_em->find('Doctrine\Tests\ORM\Functional\Ticket\DDC1080Foo', $foo1->getFooId());
         $fooBars = $foo->getFooBars();
 
         $this->assertEquals(3, count($fooBars), "Should return three foobars.");
@@ -69,7 +69,6 @@ class DDC1080Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1080Foo
 {
-
     /**
      * @Id
      * @Column(name="fooID", type="integer")
@@ -139,7 +138,6 @@ class DDC1080Foo
     {
         $this->_fooBars = $fooBars;
     }
-
 }
 /**
  * @Entity
@@ -147,7 +145,6 @@ class DDC1080Foo
  */
 class DDC1080Bar
 {
-
     /**
      * @Id
      * @Column(name="barID", type="integer")
@@ -217,7 +214,6 @@ class DDC1080Bar
     {
         $this->_fooBars = $fooBars;
     }
-
 }
 
 /**
@@ -226,7 +222,6 @@ class DDC1080Bar
  */
 class DDC1080FooBar
 {
-
     /**
      * @ManyToOne(targetEntity="DDC1080Foo")
      * @JoinColumn(name="fooID", referencedColumnName="fooID")
@@ -310,6 +305,4 @@ class DDC1080FooBar
         $this->_orderNr = $orderNr;
         return $this;
     }
-
 }
-

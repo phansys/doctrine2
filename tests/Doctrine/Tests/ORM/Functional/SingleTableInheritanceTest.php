@@ -220,7 +220,7 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $contracts = $this->_em->createQuery('SELECT c FROM Doctrine\Tests\Models\Company\CompanyContract c ORDER BY c.id')->getScalarResult();
 
-        $discrValues = \array_map(function($a) {
+        $discrValues = \array_map(function ($a) {
             return $a['c_discr'];
         }, $contracts);
 
@@ -233,7 +233,7 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $dql = 'SELECT c FROM Doctrine\Tests\Models\Company\CompanyFixContract c WHERE c.fixPrice = ?1';
+        $dql      = 'SELECT c FROM Doctrine\Tests\Models\Company\CompanyFixContract c WHERE c.fixPrice = ?1';
         $contract = $this->_em->createQuery($dql)->setParameter(1, 1000)->getSingleResult();
 
         $this->assertInstanceOf('Doctrine\Tests\Models\Company\CompanyFixContract', $contract);
@@ -247,12 +247,12 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $dql = 'UPDATE Doctrine\Tests\Models\Company\CompanyFlexContract c SET c.hoursWorked = c.hoursWorked * 2 WHERE c.hoursWorked = 150';
+        $dql      = 'UPDATE Doctrine\Tests\Models\Company\CompanyFlexContract c SET c.hoursWorked = c.hoursWorked * 2 WHERE c.hoursWorked = 150';
         $affected = $this->_em->createQuery($dql)->execute();
 
         $this->assertEquals(1, $affected);
 
-        $flexContract = $this->_em->find('Doctrine\Tests\Models\Company\CompanyContract', $this->flex->getId());
+        $flexContract  = $this->_em->find('Doctrine\Tests\Models\Company\CompanyContract', $this->flex->getId());
         $ultraContract = $this->_em->find('Doctrine\Tests\Models\Company\CompanyContract', $this->ultra->getId());
 
         $this->assertEquals(300, $ultraContract->getHoursWorked());
@@ -263,12 +263,12 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $dql = 'UPDATE Doctrine\Tests\Models\Company\CompanyContract c SET c.completed = true WHERE c.completed = false';
+        $dql      = 'UPDATE Doctrine\Tests\Models\Company\CompanyContract c SET c.completed = true WHERE c.completed = false';
         $affected = $this->_em->createQuery($dql)->execute();
 
         $this->assertEquals(1, $affected);
 
-        $dql = 'UPDATE Doctrine\Tests\Models\Company\CompanyContract c SET c.completed = false';
+        $dql      = 'UPDATE Doctrine\Tests\Models\Company\CompanyContract c SET c.completed = false';
         $affected = $this->_em->createQuery($dql)->execute();
 
         $this->assertEquals(3, $affected);
@@ -278,7 +278,7 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $dql = 'DELETE Doctrine\Tests\Models\Company\CompanyFlexContract c';
+        $dql      = 'DELETE Doctrine\Tests\Models\Company\CompanyFlexContract c';
         $affected = $this->_em->createQuery($dql)->execute();
 
         $this->assertEquals(2, $affected);
@@ -288,7 +288,7 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $dql = "DELETE Doctrine\Tests\Models\Company\CompanyContract c WHERE c.completed = true";
+        $dql      = "DELETE Doctrine\Tests\Models\Company\CompanyContract c WHERE c.completed = true";
         $affected = $this->_em->createQuery($dql)->execute();
 
         $this->assertEquals(2, $affected);
@@ -320,19 +320,19 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $repos = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyContract");
+        $repos     = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyContract");
         $contracts = $repos->findBy(array('salesPerson' => $this->salesPerson->getId()));
         $this->assertEquals(3, count($contracts), "There should be 3 entities related to " . $this->salesPerson->getId() . " for 'Doctrine\Tests\Models\Company\CompanyContract'");
 
-        $repos = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFixContract");
+        $repos     = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFixContract");
         $contracts = $repos->findBy(array('salesPerson' => $this->salesPerson->getId()));
         $this->assertEquals(1, count($contracts), "There should be 1 entities related to " . $this->salesPerson->getId() . " for 'Doctrine\Tests\Models\Company\CompanyFixContract'");
 
-        $repos = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFlexContract");
+        $repos     = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFlexContract");
         $contracts = $repos->findBy(array('salesPerson' => $this->salesPerson->getId()));
         $this->assertEquals(2, count($contracts), "There should be 2 entities related to " . $this->salesPerson->getId() . " for 'Doctrine\Tests\Models\Company\CompanyFlexContract'");
 
-        $repos = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFlexUltraContract");
+        $repos     = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFlexUltraContract");
         $contracts = $repos->findBy(array('salesPerson' => $this->salesPerson->getId()));
         $this->assertEquals(1, count($contracts), "There should be 1 entities related to " . $this->salesPerson->getId() . " for 'Doctrine\Tests\Models\Company\CompanyFlexUltraContract'");
     }
@@ -345,13 +345,13 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->loadFullFixture();
 
         $repository = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyContract");
-        $contracts = $repository->matching(new Criteria(
+        $contracts  = $repository->matching(new Criteria(
             Criteria::expr()->eq('salesPerson', $this->salesPerson)
         ));
         $this->assertEquals(3, count($contracts));
 
         $repository = $this->_em->getRepository("Doctrine\Tests\Models\Company\CompanyFixContract");
-        $contracts = $repository->matching(new Criteria(
+        $contracts  = $repository->matching(new Criteria(
             Criteria::expr()->eq('salesPerson', $this->salesPerson)
         ));
         $this->assertEquals(1, count($contracts));
@@ -399,7 +399,7 @@ class SingleTableInheritanceTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->loadFullFixture();
 
-        $dql = 'SELECT f FROM Doctrine\Tests\Models\Company\CompanyFixContract f WHERE f.id = ?1';
+        $dql      = 'SELECT f FROM Doctrine\Tests\Models\Company\CompanyFixContract f WHERE f.id = ?1';
         $contract = $this->_em->createQuery($dql)
                               ->setFetchMode('Doctrine\Tests\Models\Company\CompanyFixContract', 'salesPerson', ClassMetadata::FETCH_EAGER)
                               ->setParameter(1, $this->fix->getId())

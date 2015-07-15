@@ -153,5 +153,4 @@ class SecondLevelCacheCriteriaTest extends SecondLevelCacheAbstractTest
         $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $matching);
         $this->assertCount(1, $matching);
     }
-
 }

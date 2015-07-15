@@ -23,7 +23,6 @@ abstract class PaginationTestCase extends OrmTestCase
 */
 class MyBlogPost
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
     /**
@@ -43,10 +42,8 @@ class MyBlogPost
  */
 class MyAuthor
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
-
 }
 
 /**
@@ -54,10 +51,8 @@ class MyAuthor
 */
 class MyCategory
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
-
 }
 
 
@@ -66,7 +61,6 @@ class MyCategory
  */
 class BlogPost
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
     /**
@@ -84,12 +78,10 @@ class BlogPost
  */
 class Author
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
     /** @Column(type="string") */
     public $name;
-
 }
 
 /**
@@ -97,14 +89,12 @@ class Author
  */
 class Person
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
     /** @Column(type="string") */
     public $name;
     /** @Column(type="string") */
     public $biography;
-
 }
 
 /**
@@ -112,17 +102,14 @@ class Person
  */
 class Category
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
-
 }
 
 
 /** @Entity @Table(name="groups") */
 class Group
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
     /** @ManyToMany(targetEntity="User", mappedBy="groups") */
@@ -132,7 +119,6 @@ class Group
 /** @Entity */
 class User
 {
-
     /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
     /**

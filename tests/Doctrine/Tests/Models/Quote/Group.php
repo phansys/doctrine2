@@ -8,7 +8,6 @@ namespace Doctrine\Tests\Models\Quote;
  */
 class Group
 {
-
     /**
      * @Id
      * @GeneratedValue
@@ -34,9 +33,9 @@ class Group
      */
     public $users;
 
-    public function __construct($name = null, Group $parent =  null)
+    public function __construct($name = null, Group $parent = null)
     {
-        $this->name     = $name;
-        $this->parent   = $parent;
+        $this->name   = $name;
+        $this->parent = $parent;
     }
 }

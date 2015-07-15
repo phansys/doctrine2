@@ -136,18 +136,18 @@ EOT
         $metadata = MetadataFilter::filter($metadata, $input->getOption('filter'));
 
         // Process destination directory
-        if ( ! is_dir($destPath = $input->getArgument('dest-path'))) {
+        if (! is_dir($destPath = $input->getArgument('dest-path'))) {
             mkdir($destPath, 0777, true);
         }
         $destPath = realpath($destPath);
 
-        if ( ! file_exists($destPath)) {
+        if (! file_exists($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Mapping destination directory '<info>%s</info>' does not exist.", $input->getArgument('dest-path'))
             );
         }
 
-        if ( ! is_writable($destPath)) {
+        if (! is_writable($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Mapping destination directory '<info>%s</info>' does not have write permissions.", $destPath)
             );

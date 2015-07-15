@@ -18,22 +18,22 @@ class DDC1300Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $foo = new DDC1300Foo();
+        $foo                = new DDC1300Foo();
         $foo->_fooReference = "foo";
 
         $this->_em->persist($foo);
         $this->_em->flush();
 
-        $locale = new DDC1300FooLocale();
-        $locale->_foo = $foo;
+        $locale          = new DDC1300FooLocale();
+        $locale->_foo    = $foo;
         $locale->_locale = "en";
-        $locale->_title = "blub";
+        $locale->_title  = "blub";
 
         $this->_em->persist($locale);
         $this->_em->flush();
 
-        $query = $this->_em->createQuery('SELECT f, fl FROM Doctrine\Tests\ORM\Functional\Ticket\DDC1300Foo f JOIN f._fooLocaleRefFoo fl');
-        $result =  $query->getResult();
+        $query  = $this->_em->createQuery('SELECT f, fl FROM Doctrine\Tests\ORM\Functional\Ticket\DDC1300Foo f JOIN f._fooLocaleRefFoo fl');
+        $result = $query->getResult();
 
         $this->assertEquals(1, count($result));
     }
@@ -74,7 +74,6 @@ class DDC1300Foo
     {
         $this->_fooLocaleRefFoo = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }
 
 /**
@@ -82,7 +81,6 @@ class DDC1300Foo
  */
 class DDC1300FooLocale
 {
-
     /**
      * @ManyToOne(targetEntity="DDC1300Foo")
      * @JoinColumn(name="fooID", referencedColumnName="fooID")
@@ -102,5 +100,4 @@ class DDC1300FooLocale
      * @Column(name="title", type="string", nullable=true, length=150)
      */
     public $_title = null;
-
 }

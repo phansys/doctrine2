@@ -14,5 +14,4 @@ class DDC1590User extends DDC1590Entity
      * @Column(type="string", length=255)
      */
     protected $name;
-
 }

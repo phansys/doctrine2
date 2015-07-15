@@ -48,8 +48,8 @@ class AssociationCacheEntry implements CacheEntry
      */
     public function __construct($class, array $identifier)
     {
-        $this->class       = $class;
-        $this->identifier  = $identifier;
+        $this->class      = $class;
+        $this->identifier = $identifier;
     }
 
     /**

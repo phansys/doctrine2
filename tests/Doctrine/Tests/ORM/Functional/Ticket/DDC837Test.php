@@ -23,21 +23,21 @@ class DDC837Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         //$this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
 
-        $c1 = new DDC837Class1();
-        $c1->title = "Foo";
+        $c1              = new DDC837Class1();
+        $c1->title       = "Foo";
         $c1->description = "Foo";
-        $aggregate1 = new DDC837Aggregate('test1');
-        $c1->aggregate = $aggregate1;
+        $aggregate1      = new DDC837Aggregate('test1');
+        $c1->aggregate   = $aggregate1;
 
-        $c2 = new DDC837Class2();
-        $c2->title = "Bar";
+        $c2              = new DDC837Class2();
+        $c2->title       = "Bar";
         $c2->description = "Bar";
-        $c2->text = "Bar";
-        $aggregate2 = new DDC837Aggregate('test2');
-        $c2->aggregate = $aggregate2;
+        $c2->text        = "Bar";
+        $aggregate2      = new DDC837Aggregate('test2');
+        $c2->aggregate   = $aggregate2;
 
-        $c3 = new DDC837Class3();
-        $c3->apples = "Baz";
+        $c3          = new DDC837Class3();
+        $c3->apples  = "Baz";
         $c3->bananas = "Baz";
 
         $this->_em->persist($c1);
@@ -67,18 +67,18 @@ class DDC837Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertInstanceOf(__NAMESPACE__ . '\DDC837Aggregate', $e2->aggregate);
         $this->assertEquals('test2', $e2->aggregate->getSysname());
 
-        $all = $this->_em->getRepository(__NAMESPACE__.'\DDC837Super')->findAll();
+        $all = $this->_em->getRepository(__NAMESPACE__ . '\DDC837Super')->findAll();
 
         foreach ($all as $obj) {
             if ($obj instanceof DDC837Class1) {
                 $this->assertEquals('Foo', $obj->title);
                 $this->assertEquals('Foo', $obj->description);
-            } else if ($obj instanceof DDC837Class2) {
+            } elseif ($obj instanceof DDC837Class2) {
                 $this->assertTrue($e2 === $obj);
                 $this->assertEquals('Bar', $obj->title);
                 $this->assertEquals('Bar', $obj->description);
                 $this->assertEquals('Bar', $obj->text);
-            } else if ($obj instanceof DDC837Class3) {
+            } elseif ($obj instanceof DDC837Class3) {
                 $this->assertEquals('Baz', $obj->apples);
                 $this->assertEquals('Baz', $obj->bananas);
             } else {

@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  */
 class ManyToManySelfReferentialAssociationTest extends AbstractManyToManyAssociationTestCase
 {
-    protected $_firstField = 'product_id';
+    protected $_firstField  = 'product_id';
     protected $_secondField = 'related_id';
-    protected $_table = 'ecommerce_products_related';
+    protected $_table       = 'ecommerce_products_related';
     private $firstProduct;
     private $secondProduct;
     private $firstRelated;
@@ -25,9 +25,9 @@ class ManyToManySelfReferentialAssociationTest extends AbstractManyToManyAssocia
     {
         $this->useModelSet('ecommerce');
         parent::setUp();
-        $this->firstProduct = new ECommerceProduct();
+        $this->firstProduct  = new ECommerceProduct();
         $this->secondProduct = new ECommerceProduct();
-        $this->firstRelated = new ECommerceProduct();
+        $this->firstRelated  = new ECommerceProduct();
         $this->firstRelated->setName("Business");
         $this->secondRelated = new ECommerceProduct();
         $this->secondRelated->setName("Home");
@@ -72,22 +72,22 @@ class ManyToManySelfReferentialAssociationTest extends AbstractManyToManyAssocia
     {
         $this->_createLoadingFixture();
 
-        $metadata = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceProduct');
+        $metadata                                          = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceProduct');
         $metadata->associationMappings['related']['fetch'] = ClassMetadata::FETCH_LAZY;
 
-        $query = $this->_em->createQuery('SELECT p FROM Doctrine\Tests\Models\ECommerce\ECommerceProduct p');
+        $query    = $this->_em->createQuery('SELECT p FROM Doctrine\Tests\Models\ECommerce\ECommerceProduct p');
         $products = $query->getResult();
         $this->assertLoadingOfOwningSide($products);
     }
 
     public function assertLoadingOfOwningSide($products)
     {
-        list ($firstProduct, $secondProduct) = $products;
+        list($firstProduct, $secondProduct) = $products;
         $this->assertEquals(2, count($firstProduct->getRelated()));
         $this->assertEquals(2, count($secondProduct->getRelated()));
 
-        $categories = $firstProduct->getRelated();
-        $firstRelatedBy = $categories[0]->getRelated();
+        $categories      = $firstProduct->getRelated();
+        $firstRelatedBy  = $categories[0]->getRelated();
         $secondRelatedBy = $categories[1]->getRelated();
 
         $this->assertEquals(2, count($firstRelatedBy));

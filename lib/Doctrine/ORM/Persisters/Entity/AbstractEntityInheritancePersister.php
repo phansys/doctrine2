@@ -41,8 +41,8 @@ abstract class AbstractEntityInheritancePersister extends BasicEntityPersister
         $data = parent::prepareInsertData($entity);
 
         // Populate the discriminator column
-        $discColumn = $this->class->discriminatorColumn;
-        $this->columnTypes[$discColumn['name']] = $discColumn['type'];
+        $discColumn                                                          = $this->class->discriminatorColumn;
+        $this->columnTypes[$discColumn['name']]                              = $discColumn['type'];
         $data[$this->getDiscriminatorColumnTableName()][$discColumn['name']] = $this->class->discriminatorValue;
 
         return $data;
@@ -69,8 +69,8 @@ abstract class AbstractEntityInheritancePersister extends BasicEntityPersister
         $this->currentPersisterContext->rsm->addFieldResult($alias, $columnAlias, $field, $class->name);
 
         if (isset($class->fieldMappings[$field]['requireSQLConversion'])) {
-            $type   = Type::getType($class->getTypeOfField($field));
-            $sql    = $type->convertToPHPValueSQL($sql, $this->platform);
+            $type = Type::getType($class->getTypeOfField($field));
+            $sql  = $type->convertToPHPValueSQL($sql, $this->platform);
         }
 
         return $sql . ' AS ' . $columnAlias;

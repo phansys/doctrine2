@@ -2,9 +2,9 @@
 
 namespace Doctrine\Tests\ORM\Mapping;
 
-use Doctrine\ORM\Mapping\ClassMetadata,
-    Doctrine\ORM\Mapping\Driver\XmlDriver,
-    Doctrine\ORM\Mapping\Driver\YamlDriver;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\Driver\XmlDriver;
+use Doctrine\ORM\Mapping\Driver\YamlDriver;
 
 class YamlMappingDriverTest extends AbstractMappingDriverTest
 {
@@ -57,7 +57,7 @@ class YamlMappingDriverTest extends AbstractMappingDriverTest
      */
     public function testSpacesShouldBeIgnoredWhenUseExplode()
     {
-        $metadata = $this->createClassMetadata(__NAMESPACE__.'\DDC2069Entity');
+        $metadata = $this->createClassMetadata(__NAMESPACE__ . '\DDC2069Entity');
         $unique   = $metadata->table['uniqueConstraints'][0]['columns'];
         $indexes  = $metadata->table['indexes'][0]['columns'];
 
@@ -73,7 +73,6 @@ class YamlMappingDriverTest extends AbstractMappingDriverTest
         $this->assertEquals(255, $nameField['length']);
         $this->assertEquals(255, $valueField['length']);
     }
-
 }
 
 class DDC2069Entity

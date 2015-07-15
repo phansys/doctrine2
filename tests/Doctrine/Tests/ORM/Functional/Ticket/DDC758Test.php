@@ -9,7 +9,6 @@ use Doctrine\Tests\Models\CMS\CmsGroup;
 
 class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     public function setUp()
     {
         $this->markTestSkipped('Destroys testsuite');
@@ -26,9 +25,9 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $metadata = $this->_em->getMetadataFactory()->getMetaDataFor($class);
         foreach ($metadata->associationMappings as $key => $associationMapping) {
             $metadata->associationMappings[$key]["isCascadePersist"] = false;
-            $metadata->associationMappings[$key]["isCascadeMerge"] = true;
-            $metadata->associationMappings[$key]["isCascadeRemove"] = false;
-            $metadata->associationMappings[$key]["isCascadeDetach"] = false;
+            $metadata->associationMappings[$key]["isCascadeMerge"]   = true;
+            $metadata->associationMappings[$key]["isCascadeRemove"]  = false;
+            $metadata->associationMappings[$key]["isCascadeDetach"]  = false;
         }
     }
 
@@ -43,15 +42,15 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->setCascadeMergeFor('Doctrine\Tests\Models\CMS\CmsGroup');
 
         // Put entities in the database
-        $cmsUser = new CmsUser();
+        $cmsUser           = new CmsUser();
         $cmsUser->username = "dave";
-        $cmsUser->name = "Dave Keen";
-        $cmsUser->status = "testing";
+        $cmsUser->name     = "Dave Keen";
+        $cmsUser->status   = "testing";
 
-        $group1 = new CmsGroup();
+        $group1       = new CmsGroup();
         $group1->name = "Group 1";
 
-        $group2 = new CmsGroup();
+        $group2       = new CmsGroup();
         $group2->name = "Group 2";
 
         $this->_em->persist($cmsUser);
@@ -60,27 +59,27 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
 
         $cmsUserId = $cmsUser->id;
-        $group1Id = $group1->id;
-        $group2Id = $group2->id;
+        $group1Id  = $group1->id;
+        $group2Id  = $group2->id;
 
         $this->_em->clear();
 
         // Now create detached versions of the entities with some new associations.
-        $cmsUser = new CmsUser();
-        $cmsUser->id = $cmsUserId;
+        $cmsUser           = new CmsUser();
+        $cmsUser->id       = $cmsUserId;
         $cmsUser->username = "dave";
-        $cmsUser->name = "Dave Keen";
-        $cmsUser->status = "testing";
-        $cmsUser->groups = new ArrayCollection();
+        $cmsUser->name     = "Dave Keen";
+        $cmsUser->status   = "testing";
+        $cmsUser->groups   = new ArrayCollection();
 
-        $group1 = new CmsGroup();
-        $group1->id = $group1Id;
-        $group1->name = "Group 1";
+        $group1        = new CmsGroup();
+        $group1->id    = $group1Id;
+        $group1->name  = "Group 1";
         $group1->users = new ArrayCollection();
 
-        $group2 = new CmsGroup();
-        $group2->id = $group2Id;
-        $group2->name = "Group 2";
+        $group2        = new CmsGroup();
+        $group2->id    = $group2Id;
+        $group2->name  = "Group 2";
         $group2->users = new ArrayCollection();
 
         $cmsUser->addGroup($group1);
@@ -92,7 +91,7 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $cmsUsers = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsUser')->findAll();
+        $cmsUsers  = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsUser')->findAll();
         $cmsGroups = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsGroup')->findAll();
 
         // Check the entities are in the database
@@ -119,15 +118,15 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->setCascadeMergeFor('Doctrine\Tests\Models\CMS\CmsUser');
         $this->setCascadeMergeFor('Doctrine\Tests\Models\CMS\CmsGroup');
 
-        $cmsUser = new CmsUser();
+        $cmsUser           = new CmsUser();
         $cmsUser->username = "dave";
-        $cmsUser->name = "Dave Keen";
-        $cmsUser->status = "testing";
+        $cmsUser->name     = "Dave Keen";
+        $cmsUser->status   = "testing";
 
-        $group1 = new CmsGroup();
+        $group1       = new CmsGroup();
         $group1->name = "Group 1";
 
-        $group2 = new CmsGroup();
+        $group2       = new CmsGroup();
         $group2->name = "Group 2";
 
         $cmsUser->addGroup($group1);
@@ -139,27 +138,27 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
 
         $cmsUserId = $cmsUser->id;
-        $group1Id = $group1->id;
-        $group2Id = $group2->id;
+        $group1Id  = $group1->id;
+        $group2Id  = $group2->id;
 
         $this->_em->clear();
 
         // Now create detached versions of the entities with NO associations.
-        $cmsUser = new CmsUser();
-        $cmsUser->id = $cmsUserId;
+        $cmsUser           = new CmsUser();
+        $cmsUser->id       = $cmsUserId;
         $cmsUser->username = "dave";
-        $cmsUser->name = "Dave Keen";
-        $cmsUser->status = "testing";
-        $cmsUser->groups = new ArrayCollection();
+        $cmsUser->name     = "Dave Keen";
+        $cmsUser->status   = "testing";
+        $cmsUser->groups   = new ArrayCollection();
 
-        $group1 = new CmsGroup();
-        $group1->id = $group1Id;
-        $group1->name = "Group 1";
+        $group1        = new CmsGroup();
+        $group1->id    = $group1Id;
+        $group1->name  = "Group 1";
         $group1->users = new ArrayCollection();
 
-        $group2 = new CmsGroup();
-        $group2->id = $group2Id;
-        $group2->name = "Group 2";
+        $group2        = new CmsGroup();
+        $group2->id    = $group2Id;
+        $group2->name  = "Group 2";
         $group2->users = new ArrayCollection();
 
         // Cascade merge of cmsUser followed by a flush should result in the association array collection being empty
@@ -168,7 +167,7 @@ class DDC758Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $cmsUsers = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsUser')->findAll();
+        $cmsUsers  = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsUser')->findAll();
         $cmsGroups = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsGroup')->findAll();
 
         // Check the entities are in the database

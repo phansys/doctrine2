@@ -22,10 +22,10 @@ class DDC2350Test extends OrmFunctionalTestCase
 
     public function testEagerCollectionsAreOnlyRetrievedOnce()
     {
-        $user = new DDC2350User();
-        $bug1 = new DDC2350Bug();
+        $user       = new DDC2350User();
+        $bug1       = new DDC2350Bug();
         $bug1->user = $user;
-        $bug2 = new DDC2350Bug();
+        $bug2       = new DDC2350Bug();
         $bug2->user = $user;
 
         $this->_em->persist($user);
@@ -35,7 +35,7 @@ class DDC2350Test extends OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $cnt = $this->getCurrentQueryCount();
+        $cnt  = $this->getCurrentQueryCount();
         $user = $this->_em->find(__NAMESPACE__ . '\DDC2350User', $user->id);
 
         $this->assertEquals($cnt + 1, $this->getCurrentQueryCount());

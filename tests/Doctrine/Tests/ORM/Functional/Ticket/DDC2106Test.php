@@ -61,4 +61,3 @@ class DDC2106Entity
         $this->children = new \Doctrine\Common\Collections\ArrayCollection;
     }
 }
-

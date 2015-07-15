@@ -14,15 +14,14 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC729A'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC729B'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
     public function testMergeManyToMany()
     {
-        $a = new DDC729A();
-        $b = new DDC729B();
+        $a            = new DDC729A();
+        $b            = new DDC729B();
         $a->related[] = $b;
 
         $this->_em->persist($a);
@@ -31,7 +30,7 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
         $aId = $a->id;
 
-        $a = new DDC729A();
+        $a     = new DDC729A();
         $a->id = $aId;
 
         $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $a->related);
@@ -52,9 +51,9 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testUnidirectionalMergeManyToMany()
     {
-        $a = new DDC729A();
-        $b1 = new DDC729B();
-        $b2 = new DDC729B();
+        $a            = new DDC729A();
+        $b1           = new DDC729B();
+        $b2           = new DDC729B();
         $a->related[] = $b1;
 
         $this->_em->persist($a);
@@ -64,7 +63,7 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
         $aId = $a->id;
 
-        $a = new DDC729A();
+        $a     = new DDC729A();
         $a->id = $aId;
 
         $a = $this->_em->merge($a);
@@ -82,9 +81,9 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testBidirectionalMergeManyToMany()
     {
-        $a = new DDC729A();
-        $b1 = new DDC729B();
-        $b2 = new DDC729B();
+        $a            = new DDC729A();
+        $b1           = new DDC729B();
+        $b2           = new DDC729B();
         $a->related[] = $b1;
 
         $this->_em->persist($a);
@@ -94,7 +93,7 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
         $aId = $a->id;
 
-        $a = new DDC729A();
+        $a     = new DDC729A();
         $a->id = $aId;
 
         $a = $this->_em->merge($a);
@@ -114,9 +113,9 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testBidirectionalMultiMergeManyToMany()
     {
-        $a = new DDC729A();
-        $b1 = new DDC729B();
-        $b2 = new DDC729B();
+        $a            = new DDC729A();
+        $b1           = new DDC729B();
+        $b2           = new DDC729B();
         $a->related[] = $b1;
 
         $this->_em->persist($a);
@@ -126,7 +125,7 @@ class DDC729Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
         $aId = $a->id;
 
-        $a = new DDC729A();
+        $a     = new DDC729A();
         $a->id = $aId;
 
         $a = $this->_em->merge($a);

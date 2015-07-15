@@ -178,9 +178,9 @@ class DDC2494TinyIntType extends Type
         $return = (string) $value;
 
         self::$calls[__FUNCTION__][] = array(
-            'value'     => $value,
-            'return'    => $return,
-            'platform'  => $platform,
+            'value'    => $value,
+            'return'   => $return,
+            'platform' => $platform,
         );
 
         return $return;
@@ -194,9 +194,9 @@ class DDC2494TinyIntType extends Type
         $return = (integer) $value;
 
         self::$calls[__FUNCTION__][] = array(
-            'value'     => $value,
-            'return'    => $return,
-            'platform'  => $platform,
+            'value'    => $value,
+            'return'   => $return,
+            'platform' => $platform,
         );
 
         return $return;

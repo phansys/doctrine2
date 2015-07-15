@@ -46,15 +46,15 @@ class PersistentCollectionCriteriaTest extends \Doctrine\Tests\OrmFunctionalTest
 
     public function loadTweetFixture()
     {
-        $author = new TweetUser();
+        $author       = new TweetUser();
         $author->name = 'ngal';
         $this->_em->persist($author);
 
-        $tweet1 = new Tweet();
+        $tweet1          = new Tweet();
         $tweet1->content = 'Foo';
         $author->addTweet($tweet1);
 
-        $tweet2 = new Tweet();
+        $tweet2          = new Tweet();
         $tweet2->content = 'Bar';
         $author->addTweet($tweet2);
 
@@ -69,7 +69,7 @@ class PersistentCollectionCriteriaTest extends \Doctrine\Tests\OrmFunctionalTest
 
     public function loadQuoteFixture()
     {
-        $user = new QuoteUser();
+        $user       = new QuoteUser();
         $user->name = 'mgal';
         $this->_em->persist($user);
 

@@ -40,12 +40,12 @@ foreach ($directories as $directory) {
     }
 }
 
-if ( ! file_exists($configFile)) {
+if (! file_exists($configFile)) {
     ConsoleRunner::printCliConfigTemplate();
     exit(1);
 }
 
-if ( ! is_readable($configFile)) {
+if (! is_readable($configFile)) {
     echo 'Configuration file [' . $configFile . '] does not have read permission.' . "\n";
     exit(1);
 }
@@ -54,7 +54,7 @@ $commands = array();
 
 $helperSet = require $configFile;
 
-if ( ! ($helperSet instanceof HelperSet)) {
+if (! ($helperSet instanceof HelperSet)) {
     foreach ($GLOBALS as $helperSetCandidate) {
         if ($helperSetCandidate instanceof HelperSet) {
             $helperSet = $helperSetCandidate;

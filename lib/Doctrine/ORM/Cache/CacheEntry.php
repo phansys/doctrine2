@@ -32,5 +32,4 @@ namespace Doctrine\ORM\Cache;
  */
 interface CacheEntry
 {
-
 }

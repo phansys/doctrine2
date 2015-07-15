@@ -7,7 +7,6 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
  */
 class DDC1430Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     protected function setUp()
     {
         parent::setUp();
@@ -19,7 +18,6 @@ class DDC1430Test extends \Doctrine\Tests\OrmFunctionalTestCase
             ));
             $this->loadFixtures();
         } catch (\Exception $exc) {
-
         }
     }
 
@@ -129,7 +127,6 @@ class DDC1430Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->flush();
     }
-
 }
 
 /**
@@ -137,7 +134,6 @@ class DDC1430Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1430Order
 {
-
     /**
      * @Id
      * @Column(name="order_id", type="integer")
@@ -223,8 +219,7 @@ class DDC1430Order
  */
 class DDC1430OrderProduct
 {
-
-     /**
+    /**
      * @Id
      * @Column(type="integer")
      * @GeneratedValue()
@@ -291,5 +286,4 @@ class DDC1430OrderProduct
     {
         $this->value = $value;
     }
-
 }

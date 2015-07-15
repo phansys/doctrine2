@@ -178,7 +178,7 @@ class Parser
      *
      * @return bool
      */
-    static public function isInternalFunction($functionName)
+    public static function isInternalFunction($functionName)
     {
         $functionName = strtolower($functionName);
 
@@ -337,7 +337,7 @@ class Parser
             $this->lexer->resetPeek();
         }
 
-        $this->lexer->token = null;
+        $this->lexer->token     = null;
         $this->lexer->lookahead = null;
     }
 
@@ -410,7 +410,7 @@ class Parser
         }
 
         foreach ($this->queryComponents as $dqlAlias => $qComp) {
-            if ( ! isset($this->identVariableExpressions[$dqlAlias])) {
+            if (! isset($this->identVariableExpressions[$dqlAlias])) {
                 continue;
             }
 
@@ -441,7 +441,7 @@ class Parser
 
         $tokenPos = (isset($token['position'])) ? $token['position'] : '-1';
 
-        $message  = "line 0, col {$tokenPos}: Error: ";
+        $message = "line 0, col {$tokenPos}: Error: ";
         $message .= ($expected !== '') ? "Expected {$expected}, got " : 'Unexpected ';
         $message .= ($this->lexer->lookahead === null) ? 'end of string.' : "'{$token['value']}'";
 
@@ -492,7 +492,7 @@ class Parser
      */
     private function peekBeyondClosingParenthesis($resetPeek = true)
     {
-        $token = $this->lexer->peek();
+        $token        = $this->lexer->peek();
         $numUnmatched = 1;
 
         while ($numUnmatched > 0 && $token !== null) {
@@ -580,7 +580,7 @@ class Parser
             $identVariable = $deferredItem['expression'];
 
             // Check if IdentificationVariable exists in queryComponents
-            if ( ! isset($this->queryComponents[$identVariable])) {
+            if (! isset($this->queryComponents[$identVariable])) {
                 $this->semanticalError(
                     "'$identVariable' is not defined.", $deferredItem['token']
                 );
@@ -589,7 +589,7 @@ class Parser
             $qComp = $this->queryComponents[$identVariable];
 
             // Check if queryComponent points to an AbstractSchemaName or a ResultVariable
-            if ( ! isset($qComp['metadata'])) {
+            if (! isset($qComp['metadata'])) {
                 $this->semanticalError(
                     "'$identVariable' does not point to a Class.", $deferredItem['token']
                 );
@@ -614,32 +614,32 @@ class Parser
     private function processDeferredNewObjectExpressions($AST)
     {
         foreach ($this->deferredNewObjectExpressions as $deferredItem) {
-            $expression     = $deferredItem['expression'];
-            $token          = $deferredItem['token'];
-            $className      = $expression->className;
-            $args           = $expression->args;
-            $fromClassName  = isset($AST->fromClause->identificationVariableDeclarations[0]->rangeVariableDeclaration->abstractSchemaName)
+            $expression    = $deferredItem['expression'];
+            $token         = $deferredItem['token'];
+            $className     = $expression->className;
+            $args          = $expression->args;
+            $fromClassName = isset($AST->fromClause->identificationVariableDeclarations[0]->rangeVariableDeclaration->abstractSchemaName)
                 ? $AST->fromClause->identificationVariableDeclarations[0]->rangeVariableDeclaration->abstractSchemaName
                 : null;
 
             // If the namespace is not given then assumes the first FROM entity namespace
             if (strpos($className, '\\') === false && ! class_exists($className) && strpos($fromClassName, '\\') !== false) {
-                $namespace  = substr($fromClassName, 0 , strrpos($fromClassName, '\\'));
-                $fqcn       = $namespace . '\\' . $className;
+                $namespace = substr($fromClassName, 0, strrpos($fromClassName, '\\'));
+                $fqcn      = $namespace . '\\' . $className;
 
                 if (class_exists($fqcn)) {
-                    $expression->className  = $fqcn;
-                    $className              = $fqcn;
+                    $expression->className = $fqcn;
+                    $className             = $fqcn;
                 }
             }
 
-            if ( ! class_exists($className)) {
+            if (! class_exists($className)) {
                 $this->semanticalError(sprintf('Class "%s" is not defined.', $className), $token);
             }
 
             $class = new \ReflectionClass($className);
 
-            if ( ! $class->isInstantiable()) {
+            if (! $class->isInstantiable()) {
                 $this->semanticalError(sprintf('Class "%s" can not be instantiated.', $className), $token);
             }
 
@@ -662,7 +662,7 @@ class Parser
     private function processDeferredPartialObjectExpressions()
     {
         foreach ($this->deferredPartialObjectExpressions as $deferredItem) {
-            $expr = $deferredItem['expression'];
+            $expr  = $deferredItem['expression'];
             $class = $this->queryComponents[$expr->identificationVariable]['metadata'];
 
             foreach ($expr->partialFieldSet as $field) {
@@ -702,7 +702,7 @@ class Parser
             $resultVariable = $deferredItem['expression'];
 
             // Check if ResultVariable exists in queryComponents
-            if ( ! isset($this->queryComponents[$resultVariable])) {
+            if (! isset($this->queryComponents[$resultVariable])) {
                 $this->semanticalError(
                     "'$resultVariable' is not defined.", $deferredItem['token']
                 );
@@ -711,7 +711,7 @@ class Parser
             $qComp = $this->queryComponents[$resultVariable];
 
             // Check if queryComponent points to an AbstractSchemaName or a ResultVariable
-            if ( ! isset($qComp['resultVariable'])) {
+            if (! isset($qComp['resultVariable'])) {
                 $this->semanticalError(
                     "'$resultVariable' does not point to a ResultVariable.", $deferredItem['token']
                 );
@@ -752,7 +752,7 @@ class Parser
             }
 
             // Check if field or association exists
-            if ( ! isset($class->associationMappings[$field]) && ! isset($class->fieldMappings[$field])) {
+            if (! isset($class->associationMappings[$field]) && ! isset($class->fieldMappings[$field])) {
                 $this->semanticalError(
                     'Class ' . $class->name . ' has no field or association named ' . $field,
                     $deferredItem['token']
@@ -772,7 +772,7 @@ class Parser
             // Validate if PathExpression is one of the expected types
             $expectedType = $pathExpression->expectedType;
 
-            if ( ! ($expectedType & $fieldType)) {
+            if (! ($expectedType & $fieldType)) {
                 // We need to recognize which was expected type(s)
                 $expectedStringTypes = array();
 
@@ -792,7 +792,7 @@ class Parser
                 }
 
                 // Build the error message
-                $semanticalError  = 'Invalid PathExpression. ';
+                $semanticalError = 'Invalid PathExpression. ';
                 $semanticalError .= (count($expectedStringTypes) == 1)
                     ? 'Must be a ' . $expectedStringTypes[0] . '.'
                     : implode(' or ', $expectedStringTypes) . ' expected.';
@@ -810,7 +810,7 @@ class Parser
      */
     private function processRootEntityAliasSelected()
     {
-        if ( ! count($this->identVariableExpressions)) {
+        if (! count($this->identVariableExpressions)) {
             return;
         }
 
@@ -822,7 +822,7 @@ class Parser
             }
         }
 
-        if ( ! $foundRootEntity) {
+        if (! $foundRootEntity) {
             $this->semanticalError('Cannot select entity through identification variables without choosing at least one root entity alias.');
         }
     }
@@ -939,7 +939,7 @@ class Parser
         $this->match(Lexer::T_IDENTIFIER);
 
         $aliasIdentVariable = $this->lexer->token['value'];
-        $exists = isset($this->queryComponents[$aliasIdentVariable]);
+        $exists             = isset($this->queryComponents[$aliasIdentVariable]);
 
         if ($exists) {
             $this->semanticalError("'$aliasIdentVariable' is already defined.", $this->lexer->token);
@@ -967,7 +967,7 @@ class Parser
 
         $exists = class_exists($schemaName, true);
 
-        if ( ! $exists) {
+        if (! $exists) {
             $this->semanticalError("Class '$schemaName' is not defined.", $this->lexer->token);
         }
 
@@ -984,7 +984,7 @@ class Parser
         $this->match(Lexer::T_IDENTIFIER);
 
         $resultVariable = $this->lexer->token['value'];
-        $exists = isset($this->queryComponents[$resultVariable]);
+        $exists         = isset($this->queryComponents[$resultVariable]);
 
         if ($exists) {
             $this->semanticalError("'$resultVariable' is already defined.", $this->lexer->token);
@@ -1023,9 +1023,9 @@ class Parser
     {
         $identVariable = $this->IdentificationVariable();
 
-        if ( ! isset($this->queryComponents[$identVariable])) {
+        if (! isset($this->queryComponents[$identVariable])) {
             $this->semanticalError(
-                'Identification Variable ' . $identVariable .' used in join path expression but was not defined before.'
+                'Identification Variable ' . $identVariable . ' used in join path expression but was not defined before.'
             );
         }
 
@@ -1038,7 +1038,7 @@ class Parser
         $qComp = $this->queryComponents[$identVariable];
         $class = $qComp['metadata'];
 
-        if ( ! $class->hasAssociation($field)) {
+        if (! $class->hasAssociation($field)) {
             $this->semanticalError('Class ' . $class->name . ' has no association named ' . $field);
         }
 
@@ -1058,7 +1058,7 @@ class Parser
     public function PathExpression($expectedTypes)
     {
         $identVariable = $this->IdentificationVariable();
-        $field = null;
+        $field         = null;
 
         if ($this->lexer->isNextToken(Lexer::T_DOT)) {
             $this->match(Lexer::T_DOT);
@@ -1069,7 +1069,7 @@ class Parser
             while ($this->lexer->isNextToken(Lexer::T_DOT)) {
                 $this->match(Lexer::T_DOT);
                 $this->match(Lexer::T_IDENTIFIER);
-                $field .= '.'.$this->lexer->token['value'];
+                $field .= '.' . $this->lexer->token['value'];
             }
         }
 
@@ -1160,7 +1160,7 @@ class Parser
         }
 
         // Process SelectExpressions (1..N)
-        $selectExpressions = array();
+        $selectExpressions   = array();
         $selectExpressions[] = $this->SelectExpression();
 
         while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -1199,7 +1199,7 @@ class Parser
     public function UpdateClause()
     {
         $this->match(Lexer::T_UPDATE);
-        $token = $this->lexer->lookahead;
+        $token              = $this->lexer->lookahead;
         $abstractSchemaName = $this->AbstractSchemaName();
 
         if ($this->lexer->isNextToken(Lexer::T_AS)) {
@@ -1224,7 +1224,7 @@ class Parser
 
         $this->match(Lexer::T_SET);
 
-        $updateItems = array();
+        $updateItems   = array();
         $updateItems[] = $this->UpdateItem();
 
         while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -1233,7 +1233,7 @@ class Parser
             $updateItems[] = $this->UpdateItem();
         }
 
-        $updateClause = new AST\UpdateClause($abstractSchemaName, $updateItems);
+        $updateClause                              = new AST\UpdateClause($abstractSchemaName, $updateItems);
         $updateClause->aliasIdentificationVariable = $aliasIdentificationVariable;
 
         return $updateClause;
@@ -1252,7 +1252,7 @@ class Parser
             $this->match(Lexer::T_FROM);
         }
 
-        $token = $this->lexer->lookahead;
+        $token        = $this->lexer->lookahead;
         $deleteClause = new AST\DeleteClause($this->AbstractSchemaName());
 
         if ($this->lexer->isNextToken(Lexer::T_AS)) {
@@ -1262,7 +1262,7 @@ class Parser
         $aliasIdentificationVariable = $this->AliasIdentificationVariable();
 
         $deleteClause->aliasIdentificationVariable = $aliasIdentificationVariable;
-        $class = $this->em->getClassMetadata($deleteClause->abstractSchemaName);
+        $class                                     = $this->em->getClassMetadata($deleteClause->abstractSchemaName);
 
         // Building queryComponent
         $queryComponent = array(
@@ -1288,7 +1288,7 @@ class Parser
     {
         $this->match(Lexer::T_FROM);
 
-        $identificationVariableDeclarations = array();
+        $identificationVariableDeclarations   = array();
         $identificationVariableDeclarations[] = $this->IdentificationVariableDeclaration();
 
         while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -1309,7 +1309,7 @@ class Parser
     {
         $this->match(Lexer::T_FROM);
 
-        $identificationVariables = array();
+        $identificationVariables   = array();
         $identificationVariables[] = $this->SubselectIdentificationVariableDeclaration();
 
         while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -1376,7 +1376,7 @@ class Parser
         $this->match(Lexer::T_ORDER);
         $this->match(Lexer::T_BY);
 
-        $orderByItems = array();
+        $orderByItems   = array();
         $orderByItems[] = $this->OrderByItem();
 
         while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -1444,7 +1444,7 @@ class Parser
         // Still need to decide between IdentificationVariable or ResultVariable
         $lookaheadValue = $this->lexer->lookahead['value'];
 
-        if ( ! isset($this->queryComponents[$lookaheadValue])) {
+        if (! isset($this->queryComponents[$lookaheadValue])) {
             $this->semanticalError('Cannot group by undefined identification or result variable.');
         }
 
@@ -1705,9 +1705,9 @@ class Parser
             $this->match(Lexer::T_AS);
         }
 
-        $token = $this->lexer->lookahead;
+        $token                       = $this->lexer->lookahead;
         $aliasIdentificationVariable = $this->AliasIdentificationVariable();
-        $classMetadata = $this->em->getClassMetadata($abstractSchemaName);
+        $classMetadata               = $this->em->getClassMetadata($abstractSchemaName);
 
         // Building queryComponent
         $queryComponent = array(
@@ -1790,7 +1790,7 @@ class Parser
             while ($this->lexer->isNextToken(Lexer::T_DOT)) {
                 $this->match(Lexer::T_DOT);
                 $this->match(Lexer::T_IDENTIFIER);
-                $field .= '.'.$this->lexer->token['value'];
+                $field .= '.' . $this->lexer->token['value'];
             }
     
             $partialFieldSet[] = $field;
@@ -1820,8 +1820,8 @@ class Parser
         $this->match(Lexer::T_NEW);
         $this->match(Lexer::T_IDENTIFIER);
 
-        $token      = $this->lexer->token;
-        $className  = $token['value'];
+        $token     = $this->lexer->token;
+        $className = $token['value'];
 
         if (strrpos($className, ':') !== false) {
             list($namespaceAlias, $simpleClassName) = explode(':', $className);
@@ -2029,7 +2029,7 @@ class Parser
         $this->match(Lexer::T_OPEN_PARENTHESIS);
 
         // Process ScalarExpressions (1..N)
-        $scalarExpressions = array();
+        $scalarExpressions   = array();
         $scalarExpressions[] = $this->ScalarExpression();
 
         while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -2247,7 +2247,7 @@ class Parser
         $aliasResultVariable = null;
 
         if ($this->lexer->isNextToken(Lexer::T_IDENTIFIER)) {
-            $token = $this->lexer->lookahead;
+            $token               = $this->lexer->lookahead;
             $aliasResultVariable = $this->AliasResultVariable();
 
             // Include AliasResultVariable in query components.
@@ -2340,8 +2340,8 @@ class Parser
         }
 
         if ($this->lexer->isNextToken(Lexer::T_IDENTIFIER)) {
-            $token = $this->lexer->lookahead;
-            $resultVariable = $this->AliasResultVariable();
+            $token                             = $this->lexer->lookahead;
+            $resultVariable                    = $this->AliasResultVariable();
             $expr->fieldIdentificationVariable = $resultVariable;
 
             // Include AliasResultVariable in query components.
@@ -2362,7 +2362,7 @@ class Parser
      */
     public function ConditionalExpression()
     {
-        $conditionalTerms = array();
+        $conditionalTerms   = array();
         $conditionalTerms[] = $this->ConditionalTerm();
 
         while ($this->lexer->isNextToken(Lexer::T_OR)) {
@@ -2387,7 +2387,7 @@ class Parser
      */
     public function ConditionalTerm()
     {
-        $conditionalFactors = array();
+        $conditionalFactors   = array();
         $conditionalFactors[] = $this->ConditionalFactor();
 
         while ($this->lexer->isNextToken(Lexer::T_AND)) {
@@ -2424,11 +2424,11 @@ class Parser
 
         // Phase 1 AST optimization: Prevent AST\ConditionalFactor
         // if only one AST\ConditionalPrimary is defined
-        if ( ! $not) {
+        if (! $not) {
             return $conditionalPrimary;
         }
 
-        $conditionalFactor = new AST\ConditionalFactor($conditionalPrimary);
+        $conditionalFactor      = new AST\ConditionalFactor($conditionalPrimary);
         $conditionalFactor->not = $not;
 
         return $conditionalFactor;
@@ -2443,7 +2443,7 @@ class Parser
     {
         $condPrimary = new AST\ConditionalPrimary;
 
-        if ( ! $this->lexer->isNextToken(Lexer::T_OPEN_PARENTHESIS)) {
+        if (! $this->lexer->isNextToken(Lexer::T_OPEN_PARENTHESIS)) {
             $condPrimary->simpleConditionalExpression = $this->SimpleConditionalExpression();
 
             return $condPrimary;
@@ -2480,9 +2480,9 @@ class Parser
             return $this->ExistsExpression();
         }
 
-        $token      = $this->lexer->lookahead;
-        $peek       = $this->lexer->glimpse();
-        $lookahead  = $token;
+        $token     = $this->lexer->lookahead;
+        $peek      = $this->lexer->glimpse();
+        $lookahead = $token;
 
         if ($this->lexer->isNextToken(Lexer::T_NOT)) {
             $token = $this->lexer->glimpse();
@@ -2709,7 +2709,7 @@ class Parser
      */
     public function SimpleArithmeticExpression()
     {
-        $terms = array();
+        $terms   = array();
         $terms[] = $this->ArithmeticTerm();
 
         while (($isPlus = $this->lexer->isNextToken(Lexer::T_PLUS)) || $this->lexer->isNextToken(Lexer::T_MINUS)) {
@@ -2735,7 +2735,7 @@ class Parser
      */
     public function ArithmeticTerm()
     {
-        $factors = array();
+        $factors   = array();
         $factors[] = $this->ArithmeticFactor();
 
         while (($isMult = $this->lexer->isNextToken(Lexer::T_MULTIPLY)) || $this->lexer->isNextToken(Lexer::T_DIVIDE)) {
@@ -2954,9 +2954,9 @@ class Parser
     public function AggregateExpression()
     {
         $lookaheadType = $this->lexer->lookahead['type'];
-        $isDistinct = false;
+        $isDistinct    = false;
 
-        if ( ! in_array($lookaheadType, array(Lexer::T_COUNT, Lexer::T_AVG, Lexer::T_MAX, Lexer::T_MIN, Lexer::T_SUM))) {
+        if (! in_array($lookaheadType, array(Lexer::T_COUNT, Lexer::T_AVG, Lexer::T_MAX, Lexer::T_MIN, Lexer::T_SUM))) {
             $this->syntaxError('One of: MAX, MIN, AVG, SUM, COUNT');
         }
 
@@ -2984,16 +2984,16 @@ class Parser
     public function QuantifiedExpression()
     {
         $lookaheadType = $this->lexer->lookahead['type'];
-        $value = $this->lexer->lookahead['value'];
+        $value         = $this->lexer->lookahead['value'];
 
-        if ( ! in_array($lookaheadType, array(Lexer::T_ALL, Lexer::T_ANY, Lexer::T_SOME))) {
+        if (! in_array($lookaheadType, array(Lexer::T_ALL, Lexer::T_ANY, Lexer::T_SOME))) {
             $this->syntaxError('ALL, ANY or SOME');
         }
 
         $this->match($lookaheadType);
         $this->match(Lexer::T_OPEN_PARENTHESIS);
 
-        $qExpr = new AST\QuantifiedExpression($this->Subselect());
+        $qExpr       = new AST\QuantifiedExpression($this->Subselect());
         $qExpr->type = $value;
 
         $this->match(Lexer::T_CLOSE_PARENTHESIS);
@@ -3008,7 +3008,7 @@ class Parser
      */
     public function BetweenExpression()
     {
-        $not = false;
+        $not        = false;
         $arithExpr1 = $this->ArithmeticExpression();
 
         if ($this->lexer->isNextToken(Lexer::T_NOT)) {
@@ -3021,7 +3021,7 @@ class Parser
         $this->match(Lexer::T_AND);
         $arithExpr3 = $this->ArithmeticExpression();
 
-        $betweenExpr = new AST\BetweenExpression($arithExpr1, $arithExpr2, $arithExpr3);
+        $betweenExpr      = new AST\BetweenExpression($arithExpr1, $arithExpr2, $arithExpr3);
         $betweenExpr->not = $not;
 
         return $betweenExpr;
@@ -3065,7 +3065,7 @@ class Parser
         if ($this->lexer->isNextToken(Lexer::T_SELECT)) {
             $inExpression->subselect = $this->Subselect();
         } else {
-            $literals = array();
+            $literals   = array();
             $literals[] = $this->InParameter();
 
             while ($this->lexer->isNextToken(Lexer::T_COMMA)) {
@@ -3149,7 +3149,7 @@ class Parser
     public function LikeExpression()
     {
         $stringExpr = $this->StringExpression();
-        $not = false;
+        $not        = false;
 
         if ($this->lexer->isNextToken(Lexer::T_NOT)) {
             $this->match(Lexer::T_NOT);
@@ -3174,7 +3174,7 @@ class Parser
             $escapeChar = new AST\Literal(AST\Literal::STRING, $this->lexer->token['value']);
         }
 
-        $likeExpr = new AST\LikeExpression($stringExpr, $stringPattern, $escapeChar);
+        $likeExpr      = new AST\LikeExpression($stringExpr, $stringPattern, $escapeChar);
         $likeExpr->not = $not;
 
         return $likeExpr;
@@ -3224,12 +3224,12 @@ class Parser
                 $lookaheadValue = $this->lexer->lookahead['value'];
 
                 // Validate existing component
-                if ( ! isset($this->queryComponents[$lookaheadValue])) {
+                if (! isset($this->queryComponents[$lookaheadValue])) {
                     $this->semanticalError('Cannot add having condition on undefined result variable.');
                 }
 
                 // Validating ResultVariable
-                if ( ! isset($this->queryComponents[$lookaheadValue]['resultVariable'])) {
+                if (! isset($this->queryComponents[$lookaheadValue]['resultVariable'])) {
                     $this->semanticalError('Cannot add having condition on a non result variable.');
                 }
 
@@ -3269,7 +3269,7 @@ class Parser
         $this->match(Lexer::T_EXISTS);
         $this->match(Lexer::T_OPEN_PARENTHESIS);
 
-        $existsExpression = new AST\ExistsExpression($this->Subselect());
+        $existsExpression      = new AST\ExistsExpression($this->Subselect());
         $existsExpression->not = $not;
 
         $this->match(Lexer::T_CLOSE_PARENTHESIS);
@@ -3297,7 +3297,7 @@ class Parser
                 if ($this->lexer->isNextToken(Lexer::T_EQUALS)) {
                     $this->match(Lexer::T_EQUALS);
                     $operator .= '=';
-                } else if ($this->lexer->isNextToken(Lexer::T_GREATER_THAN)) {
+                } elseif ($this->lexer->isNextToken(Lexer::T_GREATER_THAN)) {
                     $this->match(Lexer::T_GREATER_THAN);
                     $operator .= '>';
                 }
@@ -3333,7 +3333,7 @@ class Parser
      */
     public function FunctionDeclaration()
     {
-        $token = $this->lexer->lookahead;
+        $token    = $this->lexer->lookahead;
         $funcName = strtolower($token['value']);
 
         // Check for built-in functions first!
@@ -3359,7 +3359,7 @@ class Parser
      */
     private function CustomFunctionDeclaration()
     {
-        $token = $this->lexer->lookahead;
+        $token    = $this->lexer->lookahead;
         $funcName = strtolower($token['value']);
 
         // Check for custom functions afterwards

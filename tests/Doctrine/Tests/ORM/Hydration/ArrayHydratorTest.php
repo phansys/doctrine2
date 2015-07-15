@@ -31,11 +31,11 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb'
             ),
             array(
-                'u__id' => '2',
+                'u__id'   => '2',
                 'u__name' => 'jwage'
             )
         );
@@ -74,14 +74,14 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                's__id' => '1',
+                's__id'   => '1',
                 's__name' => 'romanb',
-                'sclr0' => 'ROMANB',
+                'sclr0'   => 'ROMANB',
             ),
             array(
-                's__id' => '2',
+                's__id'   => '2',
                 's__name' => 'jwage',
-                'sclr0' => 'JWAGE',
+                'sclr0'   => 'JWAGE',
             )
         );
 
@@ -124,11 +124,11 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb'
             ),
             array(
-                'u__id' => '2',
+                'u__id'   => '2',
                 'u__name' => 'jwage'
             )
         );
@@ -167,15 +167,15 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
-                'u__name' => 'romanb',
-                'a__id' => '1',
+                'u__id'    => '1',
+                'u__name'  => 'romanb',
+                'a__id'    => '1',
                 'a__topic' => 'Cool things.'
             ),
             array(
-                'u__id' => '2',
-                'u__name' => 'jwage',
-                'a__id' => '2',
+                'u__id'    => '2',
+                'u__name'  => 'jwage',
+                'a__id'    => '2',
                 'a__topic' => 'Cool things II.'
             )
         );
@@ -216,15 +216,15 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
-                'u__name' => 'romanb',
-                'a__id' => '1',
+                'u__id'    => '1',
+                'u__name'  => 'romanb',
+                'a__id'    => '1',
                 'a__topic' => 'Cool things.'
             ),
             array(
-                'u__id' => '2',
-                'u__name' => 'jwage',
-                'a__id' => '2',
+                'u__id'    => '2',
+                'u__name'  => 'jwage',
+                'a__id'    => '2',
                 'a__topic' => 'Cool things II.'
             )
         );
@@ -269,15 +269,15 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
-                'u__name' => 'romanb',
-                'a__id' => '1',
+                'u__id'    => '1',
+                'u__name'  => 'romanb',
+                'a__id'    => '1',
                 'a__topic' => 'Cool things.'
             ),
             array(
-                'u__id' => '2',
-                'u__name' => 'jwage',
-                'a__id' => '2',
+                'u__id'    => '2',
+                'u__name'  => 'jwage',
+                'a__id'    => '2',
                 'a__topic' => 'Cool things II.'
             )
         );
@@ -322,15 +322,15 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
-                'u__name' => 'romanb',
-                'a__id' => '1',
+                'u__id'    => '1',
+                'u__name'  => 'romanb',
+                'a__id'    => '1',
                 'a__topic' => 'Cool things.'
             ),
             array(
-                'u__id' => '2',
-                'u__name' => 'jwage',
-                'a__id' => '2',
+                'u__id'    => '2',
+                'u__name'  => 'jwage',
+                'a__id'    => '2',
                 'a__topic' => 'Cool things II.'
             )
         );
@@ -378,14 +378,14 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
+                'u__id'     => '1',
                 'u__status' => 'developer',
-                'sclr0' => '2',
+                'sclr0'     => '2',
             ),
             array(
-                'u__id' => '2',
+                'u__id'     => '2',
                 'u__status' => 'developer',
-                'sclr0' => '1',
+                'sclr0'     => '1',
             )
         );
 
@@ -433,21 +433,21 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91'
             )
         );
@@ -505,21 +505,21 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91'
             )
         );
@@ -589,52 +589,52 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
-                'a__id' => '1',
-                'a__topic' => 'Getting things done!'
+                'a__id'          => '1',
+                'a__topic'       => 'Getting things done!'
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
-                'a__id' => '1',
-                'a__topic' => 'Getting things done!'
+                'a__id'          => '1',
+                'a__topic'       => 'Getting things done!'
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
-                'a__id' => '2',
-                'a__topic' => 'ZendCon'
+                'a__id'          => '2',
+                'a__topic'       => 'ZendCon'
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
-                'a__id' => '2',
-                'a__topic' => 'ZendCon'
+                'a__id'          => '2',
+                'a__topic'       => 'ZendCon'
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91',
-                'a__id' => '3',
-                'a__topic' => 'LINQ'
+                'a__id'          => '3',
+                'a__topic'       => 'LINQ'
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91',
-                'a__id' => '4',
-                'a__topic' => 'PHP6'
+                'a__id'          => '4',
+                'a__topic'       => 'PHP6'
             ),
         );
 
@@ -682,7 +682,6 @@ class ArrayHydratorTest extends HydrationTestCase
      */
     public function testMixedQueryMultipleDeepMixedFetchJoin()
     {
-
         $rsm = new ResultSetMapping;
         $rsm->addEntityResult('Doctrine\Tests\Models\CMS\CmsUser', 'u');
         $rsm->addJoinedEntityResult(
@@ -716,64 +715,64 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
-                'a__id' => '1',
-                'a__topic' => 'Getting things done!',
-                'c__id' => '1',
-                'c__topic' => 'First!'
+                'a__id'          => '1',
+                'a__topic'       => 'Getting things done!',
+                'c__id'          => '1',
+                'c__topic'       => 'First!'
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
-                'a__id' => '1',
-                'a__topic' => 'Getting things done!',
-                'c__id' => '1',
-                'c__topic' => 'First!'
+                'a__id'          => '1',
+                'a__topic'       => 'Getting things done!',
+                'c__id'          => '1',
+                'c__topic'       => 'First!'
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
-                'a__id' => '2',
-                'a__topic' => 'ZendCon',
-                'c__id' => null,
-                'c__topic' => null
+                'a__id'          => '2',
+                'a__topic'       => 'ZendCon',
+                'c__id'          => null,
+                'c__topic'       => null
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
-                'a__id' => '2',
-                'a__topic' => 'ZendCon',
-                'c__id' => null,
-                'c__topic' => null
+                'a__id'          => '2',
+                'a__topic'       => 'ZendCon',
+                'c__id'          => null,
+                'c__topic'       => null
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91',
-                'a__id' => '3',
-                'a__topic' => 'LINQ',
-                'c__id' => null,
-                'c__topic' => null
+                'a__id'          => '3',
+                'a__topic'       => 'LINQ',
+                'c__id'          => null,
+                'c__topic'       => null
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91',
-                'a__id' => '4',
-                'a__topic' => 'PHP6',
-                'c__id' => null,
-                'c__topic' => null
+                'a__id'          => '4',
+                'a__topic'       => 'PHP6',
+                'c__id'          => null,
+                'c__topic'       => null
             ),
         );
 
@@ -857,34 +856,34 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'c__id' => '1',
+                'c__id'       => '1',
                 'c__position' => '0',
-                'c__name' => 'First',
-                'b__id' => '1',
+                'c__name'     => 'First',
+                'b__id'       => '1',
                 'b__position' => '0',
                 //'b__category_id' => '1'
             ),
             array(
-                'c__id' => '2',
+                'c__id'       => '2',
                 'c__position' => '0',
-                'c__name' => 'Second',
-                'b__id' => '2',
+                'c__name'     => 'Second',
+                'b__id'       => '2',
                 'b__position' => '0',
                 //'b__category_id' => '2'
             ),
             array(
-                'c__id' => '1',
+                'c__id'       => '1',
                 'c__position' => '0',
-                'c__name' => 'First',
-                'b__id' => '3',
+                'c__name'     => 'First',
+                'b__id'       => '3',
                 'b__position' => '1',
                 //'b__category_id' => '1'
             ),
             array(
-                'c__id' => '1',
+                'c__id'       => '1',
                 'c__position' => '0',
-                'c__name' => 'First',
-                'b__id' => '4',
+                'c__name'     => 'First',
+                'b__id'       => '4',
                 'b__position' => '2',
                 //'b__category_id' => '1'
             )
@@ -927,28 +926,28 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
+                'u__id'     => '1',
                 'u__status' => 'developer',
-                'a__id' => '1',
-                'a__topic' => 'The First',
-                'c__id' => '1',
-                'c__topic' => 'First Comment'
+                'a__id'     => '1',
+                'a__topic'  => 'The First',
+                'c__id'     => '1',
+                'c__topic'  => 'First Comment'
             ),
             array(
-                'u__id' => '1',
+                'u__id'     => '1',
                 'u__status' => 'developer',
-                'a__id' => '1',
-                'a__topic' => 'The First',
-                'c__id' => '2',
-                'c__topic' => 'Second Comment'
+                'a__id'     => '1',
+                'a__topic'  => 'The First',
+                'c__id'     => '2',
+                'c__topic'  => 'Second Comment'
             ),
             array(
-                'u__id' => '1',
+                'u__id'     => '1',
                 'u__status' => 'developer',
-                'a__id' => '42',
-                'a__topic' => 'The Answer',
-                'c__id' => null,
-                'c__topic' => null
+                'a__id'     => '42',
+                'a__topic'  => 'The Answer',
+                'c__id'     => null,
+                'c__topic'  => null
             ),
         );
 
@@ -991,11 +990,11 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb'
             ),
             array(
-                'u__id' => '2',
+                'u__id'   => '2',
                 'u__name' => 'jwage'
             )
         );
@@ -1012,7 +1011,7 @@ class ArrayHydratorTest extends HydrationTestCase
             if ($rowNum == 0) {
                 $this->assertEquals(1, $row[0]['id']);
                 $this->assertEquals('romanb', $row[0]['name']);
-            } else if ($rowNum == 1) {
+            } elseif ($rowNum == 1) {
                 $this->assertEquals(2, $row[0]['id']);
                 $this->assertEquals('jwage', $row[0]['name']);
             }
@@ -1035,11 +1034,11 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb'
             ),
             array(
-                'u__id' => '2',
+                'u__id'   => '2',
                 'u__name' => 'jwage'
             )
         );
@@ -1057,7 +1056,7 @@ class ArrayHydratorTest extends HydrationTestCase
             if ($rowNum == 0) {
                 $this->assertEquals(1, $row[0]['user']['id']);
                 $this->assertEquals('romanb', $row[0]['user']['name']);
-            } else if ($rowNum == 1) {
+            } elseif ($rowNum == 1) {
                 $this->assertEquals(2, $row[0]['user']['id']);
                 $this->assertEquals('jwage', $row[0]['user']['name']);
             }
@@ -1082,9 +1081,9 @@ class ArrayHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb',
-                'foo' => 'bar', // unknown!
+                'foo'     => 'bar', // unknown!
             ),
         );
 
@@ -1117,24 +1116,24 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
+                'u__id'     => '1',
                 'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'sclr0'     => 'ROMANB',
             ),
             array(
-                'u__id' => null,
+                'u__id'     => null,
                 'u__status' => null,
-                'sclr0' => 'ROMANB',
+                'sclr0'     => 'ROMANB',
             ),
             array(
-                'u__id' => '2',
+                'u__id'     => '2',
                 'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'sclr0'     => 'JWAGE',
             ),
             array(
-                'u__id' => null,
+                'u__id'     => null,
                 'u__status' => null,
-                'sclr0' => 'JWAGE',
+                'sclr0'     => 'JWAGE',
             ),
         );
 
@@ -1176,14 +1175,14 @@ class ArrayHydratorTest extends HydrationTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
+                'u__id'     => '1',
                 'u__status' => 'developer',
-                'sclr0' => 'ROMANB',
+                'sclr0'     => 'ROMANB',
             ),
             array(
-                'u__id' => '2',
+                'u__id'     => '2',
                 'u__status' => 'developer',
-                'sclr0' => 'JWAGE',
+                'sclr0'     => 'JWAGE',
             ),
         );
 

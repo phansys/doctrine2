@@ -65,7 +65,6 @@ class DDC2579Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC2579Entity
 {
-
     const CLASSNAME = __CLASS__;
 
     /**
@@ -92,7 +91,6 @@ class DDC2579Entity
         $this->assoc = $assoc;
         $this->value = $value;
     }
-
 }
 
 /**
@@ -130,14 +128,14 @@ class DDC2579AssocAssoc
 
     public function __construct(DDC2579Id $id)
     {
-        $this->associationId  = $id;
+        $this->associationId = $id;
     }
 }
 
 
 class DDC2579Type extends StringType
 {
-    const NAME = 'ddc2579';
+    const NAME      = 'ddc2579';
     const CLASSNAME = __CLASS__;
 
     /**

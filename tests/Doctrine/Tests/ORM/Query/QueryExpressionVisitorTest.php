@@ -20,13 +20,11 @@
 namespace Doctrine\Tests\ORM\Query;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\Common\Collections\Expr\Value;
 use Doctrine\Common\Collections\Expr\Comparison as CriteriaComparison;
 use Doctrine\ORM\Query\Expr\Comparison as QueryComparison;
 use Doctrine\Common\Collections\ExpressionBuilder as CriteriaBuilder;
 use Doctrine\ORM\Query\Expr as QueryBuilder;
-
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Query\QueryExpressionVisitor;
 
@@ -98,7 +96,7 @@ class QueryExpressionVisitorTest extends \PHPUnit_Framework_TestCase
 
     public function testWalkAndCompositeExpression()
     {
-        $cb = new CriteriaBuilder();
+        $cb   = new CriteriaBuilder();
         $expr = $this->visitor->walkCompositeExpression(
             $cb->andX(
                 $cb->eq("foo", 1),
@@ -112,7 +110,7 @@ class QueryExpressionVisitorTest extends \PHPUnit_Framework_TestCase
 
     public function testWalkOrCompositeExpression()
     {
-        $cb = new CriteriaBuilder();
+        $cb   = new CriteriaBuilder();
         $expr = $this->visitor->walkCompositeExpression(
             $cb->orX(
                 $cb->eq("foo", 1),

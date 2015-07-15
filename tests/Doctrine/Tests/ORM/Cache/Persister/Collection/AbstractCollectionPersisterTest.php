@@ -3,11 +3,9 @@
 namespace Doctrine\Tests\ORM\Cache\Persister\Collection;
 
 use Doctrine\Tests\OrmTestCase;
-
 use Doctrine\ORM\Cache\Region;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Persisters\Collection\CollectionPersister;
-
 use Doctrine\Tests\Models\Cache\State;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -77,9 +75,9 @@ abstract class AbstractCollectionPersisterTest extends OrmTestCase
         $this->enableSecondLevelCache();
         parent::setUp();
 
-        $this->em                   = $this->_getTestEntityManager();
-        $this->region               = $this->createRegion();
-        $this->collectionPersister  = $this->getMock(
+        $this->em                  = $this->_getTestEntityManager();
+        $this->region              = $this->createRegion();
+        $this->collectionPersister = $this->getMock(
             'Doctrine\ORM\Persisters\Collection\CollectionPersister',
             $this->collectionPersisterMockMethods
         );
@@ -187,7 +185,7 @@ abstract class AbstractCollectionPersisterTest extends OrmTestCase
             ->with($this->equalTo($collection), $this->equalTo(1), $this->equalTo(2))
             ->will($this->returnValue($slice));
 
-        $this->assertEquals($slice, $persister->slice($collection, 1 , 2));
+        $this->assertEquals($slice, $persister->slice($collection, 1, 2));
     }
 
     public function testInvokeContains()
@@ -204,7 +202,7 @@ abstract class AbstractCollectionPersisterTest extends OrmTestCase
             ->with($this->equalTo($collection), $this->equalTo($element))
             ->will($this->returnValue(false));
 
-        $this->assertFalse($persister->contains($collection,$element));
+        $this->assertFalse($persister->contains($collection, $element));
     }
 
     public function testInvokeContainsKey()

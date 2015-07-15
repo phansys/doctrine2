@@ -62,7 +62,7 @@ class ClassMetadataBuilder
     public function setMappedSuperClass()
     {
         $this->cm->isMappedSuperclass = true;
-        $this->cm->isEmbeddedClass = false;
+        $this->cm->isEmbeddedClass    = false;
 
         return $this;
     }
@@ -74,7 +74,7 @@ class ClassMetadataBuilder
      */
     public function setEmbeddable()
     {
-        $this->cm->isEmbeddedClass = true;
+        $this->cm->isEmbeddedClass    = true;
         $this->cm->isMappedSuperclass = false;
 
         return $this;
@@ -169,7 +169,7 @@ class ClassMetadataBuilder
      */
     public function addUniqueConstraint(array $columns, $name)
     {
-        if ( ! isset($this->cm->table['uniqueConstraints'])) {
+        if (! isset($this->cm->table['uniqueConstraints'])) {
             $this->cm->table['uniqueConstraints'] = array();
         }
 
@@ -189,7 +189,7 @@ class ClassMetadataBuilder
     public function addNamedQuery($name, $dqlQuery)
     {
         $this->cm->addNamedQuery(array(
-            'name' => $name,
+            'name'  => $name,
             'query' => $dqlQuery,
         ));
 
@@ -232,8 +232,8 @@ class ClassMetadataBuilder
     public function setDiscriminatorColumn($name, $type = 'string', $length = 255)
     {
         $this->cm->setDiscriminatorColumn(array(
-            'name' => $name,
-            'type' => $type,
+            'name'   => $name,
+            'type'   => $type,
             'length' => $length,
         ));
 
@@ -306,7 +306,7 @@ class ClassMetadataBuilder
     public function addField($name, $type, array $mapping = array())
     {
         $mapping['fieldName'] = $name;
-        $mapping['type'] = $type;
+        $mapping['type']      = $type;
 
         $this->cm->mapField($mapping);
 

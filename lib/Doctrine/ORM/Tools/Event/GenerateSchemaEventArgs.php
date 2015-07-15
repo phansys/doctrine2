@@ -49,7 +49,7 @@ class GenerateSchemaEventArgs extends EventArgs
      */
     public function __construct(EntityManagerInterface $em, Schema $schema)
     {
-        $this->em = $em;
+        $this->em     = $em;
         $this->schema = $schema;
     }
 

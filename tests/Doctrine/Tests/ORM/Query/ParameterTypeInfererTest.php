@@ -25,10 +25,9 @@ use PDO;
 
 class ParameterTypeInfererTest extends \Doctrine\Tests\OrmTestCase
 {
-
     public function providerParameterTypeInferer()
     {
-         $data = array(
+        $data = array(
             array(1,                 Type::INTEGER),
             array("bar",             PDO::PARAM_STR),
             array("1",               PDO::PARAM_STR),

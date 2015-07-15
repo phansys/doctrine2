@@ -46,12 +46,12 @@ class ConvertDoctrine1SchemaTest extends \Doctrine\Tests\OrmTestCase
     protected function _createEntityManager($metadataDriver)
     {
         $driverMock = new DriverMock();
-        $config = new \Doctrine\ORM\Configuration();
+        $config     = new \Doctrine\ORM\Configuration();
         $config->setProxyDir(__DIR__ . '/../../Proxies');
         $config->setProxyNamespace('Doctrine\Tests\Proxies');
         $eventManager = new EventManager();
-        $conn = new ConnectionMock(array(), $driverMock, $config, $eventManager);
-        $mockDriver = new MetadataDriverMock();
+        $conn         = new ConnectionMock(array(), $driverMock, $config, $eventManager);
+        $mockDriver   = new MetadataDriverMock();
         $config->setMetadataDriverImpl($metadataDriver);
 
         return EntityManagerMock::create($conn, $config, $eventManager);
@@ -59,11 +59,11 @@ class ConvertDoctrine1SchemaTest extends \Doctrine\Tests\OrmTestCase
 
     public function testTest()
     {
-        if ( ! class_exists('Symfony\Component\Yaml\Yaml', true)) {
+        if (! class_exists('Symfony\Component\Yaml\Yaml', true)) {
             $this->markTestSkipped('Please install Symfony YAML Component into the include path of your PHP installation.');
         }
 
-        $cme = new ClassMetadataExporter();
+        $cme       = new ClassMetadataExporter();
         $converter = new ConvertDoctrine1Schema(__DIR__ . '/doctrine1schema');
 
         $exporter = $cme->getExporter('yml', __DIR__ . '/convert');
@@ -75,12 +75,12 @@ class ConvertDoctrine1SchemaTest extends \Doctrine\Tests\OrmTestCase
         $this->assertTrue(file_exists(__DIR__ . '/convert/Profile.dcm.yml'));
 
         $metadataDriver = new \Doctrine\ORM\Mapping\Driver\YamlDriver(__DIR__ . '/convert');
-        $em = $this->_createEntityManager($metadataDriver);
-        $cmf = new DisconnectedClassMetadataFactory();
+        $em             = $this->_createEntityManager($metadataDriver);
+        $cmf            = new DisconnectedClassMetadataFactory();
         $cmf->setEntityManager($em);
-        $metadata = $cmf->getAllMetadata();
+        $metadata     = $cmf->getAllMetadata();
         $profileClass = $cmf->getMetadataFor('Profile');
-        $userClass = $cmf->getMetadataFor('User');
+        $userClass    = $cmf->getMetadataFor('User');
 
         $this->assertEquals(2, count($metadata));
         $this->assertEquals('Profile', $profileClass->name);

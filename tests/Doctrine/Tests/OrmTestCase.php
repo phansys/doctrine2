@@ -61,14 +61,12 @@ abstract class OrmTestCase extends DoctrineTestCase
             $reader = new \Doctrine\Common\Annotations\CachedReader(
                 new \Doctrine\Common\Annotations\AnnotationReader(), new ArrayCache()
             );
-        }
-        else if (version_compare(\Doctrine\Common\Version::VERSION, '2.2.0-DEV', '>=')) {
+        } elseif (version_compare(\Doctrine\Common\Version::VERSION, '2.2.0-DEV', '>=')) {
             // Register the ORM Annotations in the AnnotationRegistry
             $reader = new \Doctrine\Common\Annotations\SimpleAnnotationReader();
             $reader->addNamespace('Doctrine\ORM\Mapping');
             $reader = new \Doctrine\Common\Annotations\CachedReader($reader, new ArrayCache());
-        }
-        else if (version_compare(\Doctrine\Common\Version::VERSION, '2.1.0-BETA3-DEV', '>=')) {
+        } elseif (version_compare(\Doctrine\Common\Version::VERSION, '2.1.0-BETA3-DEV', '>=')) {
             $reader = new \Doctrine\Common\Annotations\AnnotationReader();
             $reader->setIgnoreNotImportedAnnotations(true);
             $reader->setEnableParsePhpImports(false);
@@ -126,10 +124,9 @@ abstract class OrmTestCase extends DoctrineTestCase
         ), true));
 
         if ($this->isSecondLevelCacheEnabled) {
-
-            $cacheConfig    = new \Doctrine\ORM\Cache\CacheConfiguration();
-            $cache          = $this->getSharedSecondLevelCacheDriverImpl();
-            $factory        = new DefaultCacheFactory($cacheConfig->getRegionsConfiguration(), $cache);
+            $cacheConfig = new \Doctrine\ORM\Cache\CacheConfiguration();
+            $cache       = $this->getSharedSecondLevelCacheDriverImpl();
+            $factory     = new DefaultCacheFactory($cacheConfig->getRegionsConfiguration(), $cache);
 
             $this->secondLevelCacheFactory = $factory;
 

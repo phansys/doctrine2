@@ -24,17 +24,17 @@ class CustomFunctionsTest extends OrmFunctionalTestCase
 
     public function testCustomFunctionDefinedWithCallback()
     {
-        $user = new CmsUser();
-        $user->name = 'Bob';
+        $user           = new CmsUser();
+        $user->name     = 'Bob';
         $user->username = 'Dylan';
         $this->_em->persist($user);
         $this->_em->flush();
 
         // Instead of defining the function with the class name, we use a callback
-        $this->_em->getConfiguration()->addCustomStringFunction('FOO', function($funcName) {
+        $this->_em->getConfiguration()->addCustomStringFunction('FOO', function ($funcName) {
             return new NoOp($funcName);
         });
-        $this->_em->getConfiguration()->addCustomNumericFunction('BAR', function($funcName) {
+        $this->_em->getConfiguration()->addCustomNumericFunction('BAR', function ($funcName) {
             return new NoOp($funcName);
         });
 
@@ -69,4 +69,3 @@ class NoOp extends FunctionNode
         return $this->field->dispatch($sqlWalker);
     }
 }
-

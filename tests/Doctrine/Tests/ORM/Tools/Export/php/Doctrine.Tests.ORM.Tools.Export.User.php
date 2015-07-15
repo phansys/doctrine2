@@ -4,7 +4,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 $metadata->setInheritanceType(ClassMetadataInfo::INHERITANCE_TYPE_NONE);
 $metadata->setPrimaryTable(array(
-   'name' => 'cms_users',
+   'name'    => 'cms_users',
    'options' => array('engine' => 'MyISAM', 'foo' => array('bar' => 'baz')),
   ));
 $metadata->setChangeTrackingPolicy(ClassMetadataInfo::CHANGETRACKING_DEFERRED_IMPLICIT);
@@ -12,72 +12,72 @@ $metadata->addLifecycleCallback('doStuffOnPrePersist', 'prePersist');
 $metadata->addLifecycleCallback('doOtherStuffOnPrePersistToo', 'prePersist');
 $metadata->addLifecycleCallback('doStuffOnPostPersist', 'postPersist');
 $metadata->mapField(array(
-   'id' => true,
-   'fieldName' => 'id',
-   'type' => 'integer',
+   'id'         => true,
+   'fieldName'  => 'id',
+   'type'       => 'integer',
    'columnName' => 'id',
   ));
 $metadata->mapField(array(
-   'fieldName' => 'name',
-   'type' => 'string',
-   'length' => 50,
-   'unique' => true,
-   'nullable' => true,
+   'fieldName'  => 'name',
+   'type'       => 'string',
+   'length'     => 50,
+   'unique'     => true,
+   'nullable'   => true,
    'columnName' => 'name',
   ));
 $metadata->mapField(array(
-   'fieldName' => 'email',
-   'type' => 'string',
-   'columnName' => 'user_email',
+   'fieldName'        => 'email',
+   'type'             => 'string',
+   'columnName'       => 'user_email',
    'columnDefinition' => 'CHAR(32) NOT NULL',
   ));
 $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
 $metadata->mapManyToOne(array(
-    'fieldName' => 'mainGroup',
+    'fieldName'    => 'mainGroup',
     'targetEntity' => 'Doctrine\\Tests\\ORM\Tools\\Export\\Group',
 ));
 $metadata->mapOneToOne(array(
-   'fieldName' => 'address',
+   'fieldName'    => 'address',
    'targetEntity' => 'Doctrine\\Tests\\ORM\\Tools\\Export\\Address',
-   'inversedBy' => 'user',
-   'cascade' =>
+   'inversedBy'   => 'user',
+   'cascade'      =>
    array(
    0 => 'persist',
    ),
-   'mappedBy' => NULL,
+   'mappedBy'    => null,
    'joinColumns' =>
    array(
    0 =>
    array(
-    'name' => 'address_id',
+    'name'                 => 'address_id',
     'referencedColumnName' => 'id',
-    'onDelete' => 'CASCADE',
+    'onDelete'             => 'CASCADE',
    ),
    ),
    'orphanRemoval' => true,
-   'fetch' => ClassMetadataInfo::FETCH_EAGER,
+   'fetch'         => ClassMetadataInfo::FETCH_EAGER,
   ));
 $metadata->mapOneToMany(array(
-   'fieldName' => 'phonenumbers',
+   'fieldName'    => 'phonenumbers',
    'targetEntity' => 'Doctrine\\Tests\\ORM\\Tools\\Export\\Phonenumber',
-   'cascade' =>
+   'cascade'      =>
    array(
    1 => 'persist',
    2 => 'merge',
    ),
-   'mappedBy' => 'user',
+   'mappedBy'      => 'user',
    'orphanRemoval' => true,
-   'fetch' => ClassMetadataInfo::FETCH_LAZY,
-   'orderBy' =>
+   'fetch'         => ClassMetadataInfo::FETCH_LAZY,
+   'orderBy'       =>
    array(
    'number' => 'ASC',
    ),
   ));
 $metadata->mapManyToMany(array(
-   'fieldName' => 'groups',
+   'fieldName'    => 'groups',
    'targetEntity' => 'Doctrine\\Tests\\ORM\\Tools\\Export\\Group',
-   'fetch' => ClassMetadataInfo::FETCH_EXTRA_LAZY,
-   'cascade' =>
+   'fetch'        => ClassMetadataInfo::FETCH_EXTRA_LAZY,
+   'cascade'      =>
    array(
    0 => 'remove',
    1 => 'persist',
@@ -85,29 +85,29 @@ $metadata->mapManyToMany(array(
    3 => 'merge',
    4 => 'detach',
    ),
-   'mappedBy' => NULL,
+   'mappedBy'  => null,
    'joinTable' =>
    array(
-   'name' => 'cms_users_groups',
+   'name'        => 'cms_users_groups',
    'joinColumns' =>
    array(
     0 =>
     array(
-    'name' => 'user_id',
+    'name'                 => 'user_id',
     'referencedColumnName' => 'id',
-    'unique' => false,
-    'nullable' => false,
+    'unique'               => false,
+    'nullable'             => false,
     ),
    ),
    'inverseJoinColumns' =>
    array(
     0 =>
     array(
-    'name' => 'group_id',
+    'name'                 => 'group_id',
     'referencedColumnName' => 'id',
-    'columnDefinition' => 'INT NULL',
+    'columnDefinition'     => 'INT NULL',
     ),
    ),
    ),
-   'orderBy' => NULL,
+   'orderBy' => null,
   ));

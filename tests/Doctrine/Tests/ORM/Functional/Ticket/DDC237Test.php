@@ -55,7 +55,6 @@ class DDC237Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertNotSame($z, $z2);
         $this->assertSame($z2->y, $x2->y);
         $this->assertInstanceOf('Doctrine\ORM\Proxy\Proxy', $z2->y);
-
     }
 }
 

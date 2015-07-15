@@ -43,7 +43,7 @@ class ExprTest extends \Doctrine\Tests\OrmTestCase
 
     protected function setUp()
     {
-        $this->_em = $this->_getTestEntityManager();
+        $this->_em   = $this->_getTestEntityManager();
         $this->_expr = new Expr;
     }
 
@@ -241,7 +241,7 @@ class ExprTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testLiteralExprProperlyQuotesStrings()
     {
-       $this->assertEquals("'00010001'", (string) $this->_expr->literal('00010001'));
+        $this->assertEquals("'00010001'", (string) $this->_expr->literal('00010001'));
     }
 
     public function testGreaterThanOrEqualToExpr()
@@ -274,11 +274,13 @@ class ExprTest extends \Doctrine\Tests\OrmTestCase
         $this->assertEquals('u.id IS NOT NULL', (string) $this->_expr->isNotNull('u.id'));
     }
 
-    public function testIsInstanceOfExpr() {
+    public function testIsInstanceOfExpr()
+    {
         $this->assertEquals('u INSTANCE OF Doctrine\Tests\Models\Company\CompanyEmployee', (string) $this->_expr->isInstanceOf('u', 'Doctrine\Tests\Models\Company\CompanyEmployee'));
     }
 
-    public function testIsMemberOfExpr() {
+    public function testIsMemberOfExpr()
+    {
         $this->assertEquals(':groupId MEMBER OF u.groups', (string) $this->_expr->isMemberOf(':groupId', 'u.groups'));
     }
 
@@ -426,14 +428,16 @@ class ExprTest extends \Doctrine\Tests\OrmTestCase
         $this->assertEquals(array('foo', 'bar'), $select->getParts());
     }
 
-    public function testAddEmpty() {
+    public function testAddEmpty()
+    {
         $andExpr = $this->_expr->andx();
         $andExpr->add($this->_expr->andx());
         
         $this->assertEquals(0, $andExpr->count());
     }
 
-    public function testAddNull() {
+    public function testAddNull()
+    {
         $andExpr = $this->_expr->andx();
         $andExpr->add(null);
         

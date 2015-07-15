@@ -24,26 +24,26 @@ class UnitOfWorkPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
 
         $users = array();
         for ($i=1; $i<=$n; ++$i) {
-            $user = new CmsUser;
-            $user->status = 'user';
+            $user           = new CmsUser;
+            $user->status   = 'user';
             $user->username = 'user' . $i;
-            $user->name = 'Mr.Smith-' . $i;
+            $user->name     = 'Mr.Smith-' . $i;
             $this->_em->persist($user);
             $users[] = $user;
         }
         $this->_em->flush();
 
 
-        foreach ($users AS $user) {
-            $user->status = 'other';
+        foreach ($users as $user) {
+            $user->status   = 'other';
             $user->username = $user->username . '++';
-            $user->name = str_replace('Mr.', 'Mrs.', $user->name);
+            $user->name     = str_replace('Mr.', 'Mrs.', $user->name);
         }
 
         $s = microtime(true);
         $this->_em->flush();
         $e = microtime(true);
 
-        echo ' Compute ChangeSet '.$n.' objects in ' . ($e - $s) . ' seconds' . PHP_EOL;
+        echo ' Compute ChangeSet ' . $n . ' objects in ' . ($e - $s) . ' seconds' . PHP_EOL;
     }
 }

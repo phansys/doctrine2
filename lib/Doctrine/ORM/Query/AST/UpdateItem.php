@@ -49,7 +49,7 @@ class UpdateItem extends Node
     public function __construct($pathExpression, $newValue)
     {
         $this->pathExpression = $pathExpression;
-        $this->newValue = $newValue;
+        $this->newValue       = $newValue;
     }
 
     /**

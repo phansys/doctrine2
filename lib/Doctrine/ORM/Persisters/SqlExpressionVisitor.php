@@ -20,7 +20,6 @@
 namespace Doctrine\ORM\Persisters;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-
 use Doctrine\Common\Collections\Expr\ExpressionVisitor;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\Value;
@@ -51,7 +50,7 @@ class SqlExpressionVisitor extends ExpressionVisitor
      */
     public function __construct(BasicEntityPersister $persister, ClassMetadata $classMetadata)
     {
-        $this->persister = $persister;
+        $this->persister     = $persister;
         $this->classMetadata = $classMetadata;
     }
 
@@ -71,7 +70,6 @@ class SqlExpressionVisitor extends ExpressionVisitor
             $value !== null &&
             ! is_object($value) &&
             ! in_array($comparison->getOperator(), array(Comparison::IN, Comparison::NIN))) {
-
             throw PersisterException::matchingAssocationFieldRequiresObject($this->classMetadata->name, $field);
         }
 
@@ -95,7 +93,7 @@ class SqlExpressionVisitor extends ExpressionVisitor
             $expressionList[] = $this->dispatch($child);
         }
 
-        switch($expr->getType()) {
+        switch ($expr->getType()) {
             case CompositeExpression::TYPE_AND:
                 return '(' . implode(' AND ', $expressionList) . ')';
 
@@ -119,4 +117,3 @@ class SqlExpressionVisitor extends ExpressionVisitor
         return '?';
     }
 }
-

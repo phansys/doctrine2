@@ -11,7 +11,7 @@ class SchemaToolTest extends \Doctrine\Tests\OrmTestCase
 {
     public function testAddUniqueIndexForUniqueFieldAnnotation()
     {
-        $em = $this->_getTestEntityManager();
+        $em         = $this->_getTestEntityManager();
         $schemaTool = new SchemaTool($em);
 
         $classes = array(
@@ -32,7 +32,7 @@ class SchemaToolTest extends \Doctrine\Tests\OrmTestCase
 
     public function testAnnotationOptionsAttribute()
     {
-        $em = $this->_getTestEntityManager();
+        $em         = $this->_getTestEntityManager();
         $schemaTool = new SchemaTool($em);
 
         $classes = array(
@@ -54,12 +54,12 @@ class SchemaToolTest extends \Doctrine\Tests\OrmTestCase
     {
         $customColumnDef = "MEDIUMINT(6) UNSIGNED NOT NULL";
 
-        $em = $this->_getTestEntityManager();
+        $em         = $this->_getTestEntityManager();
         $schemaTool = new SchemaTool($em);
 
-        $avatar = $em->getClassMetadata('Doctrine\Tests\Models\Forum\ForumAvatar');
+        $avatar                                          = $em->getClassMetadata('Doctrine\Tests\Models\Forum\ForumAvatar');
         $avatar->fieldMappings['id']['columnDefinition'] = $customColumnDef;
-        $user = $em->getClassMetadata('Doctrine\Tests\Models\Forum\ForumUser');
+        $user                                            = $em->getClassMetadata('Doctrine\Tests\Models\Forum\ForumUser');
 
         $classes = array($avatar, $user);
 
@@ -102,7 +102,7 @@ class SchemaToolTest extends \Doctrine\Tests\OrmTestCase
 
     public function testNullDefaultNotAddedToCustomSchemaOptions()
     {
-        $em = $this->_getTestEntityManager();
+        $em         = $this->_getTestEntityManager();
         $schemaTool = new SchemaTool($em);
 
         $classes = array(
@@ -135,7 +135,7 @@ class TestEntityWithAnnotationOptionsAttribute
 
 class GenerateSchemaEventListener
 {
-    public $tableCalls = 0;
+    public $tableCalls   = 0;
     public $schemaCalled = false;
 
     public function postGenerateSchemaTable(GenerateSchemaTableEventArgs $eventArgs)

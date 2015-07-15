@@ -17,7 +17,7 @@ class ReadOnlyTest extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_schemaTool->createSchema(array(
                 $this->_em->getClassMetadata('Doctrine\Tests\ORM\Functional\ReadOnlyEntity'),
             ));
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
         }
     }
 
@@ -27,7 +27,7 @@ class ReadOnlyTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($readOnly);
         $this->_em->flush();
 
-        $readOnly->name = "Test2";
+        $readOnly->name         = "Test2";
         $readOnly->numericValue = 4321;
 
         $this->_em->flush();
@@ -86,7 +86,7 @@ class ReadOnlyEntity
 
     public function __construct($name, $number)
     {
-        $this->name = $name;
+        $this->name         = $name;
         $this->numericValue = $number;
     }
 }

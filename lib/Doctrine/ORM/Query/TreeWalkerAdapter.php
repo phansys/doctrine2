@@ -54,8 +54,8 @@ abstract class TreeWalkerAdapter implements TreeWalker
      */
     public function __construct($query, $parserResult, array $queryComponents)
     {
-        $this->_query = $query;
-        $this->_parserResult = $parserResult;
+        $this->_query           = $query;
+        $this->_parserResult    = $parserResult;
         $this->_queryComponents = $queryComponents;
     }
 
@@ -336,7 +336,7 @@ abstract class TreeWalkerAdapter implements TreeWalker
     /**
      * {@inheritdoc}
      */
-    function walkInstanceOfExpression($instanceOfExpr)
+    public function walkInstanceOfExpression($instanceOfExpr)
     {
     }
 

@@ -31,8 +31,8 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testJoinedChildInsertSetsInitialVersionValue()
     {
-        $test = new OptimisticJoinedChild();
-        $test->name = 'child';
+        $test           = new OptimisticJoinedChild();
+        $test->name     = 'child';
         $test->whatever = 'whatever';
         $this->_em->persist($test);
         $this->_em->flush();
@@ -67,7 +67,7 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testJoinedParentInsertSetsInitialVersionValue()
     {
-        $test = new OptimisticJoinedParent();
+        $test       = new OptimisticJoinedParent();
         $test->name = 'parent';
         $this->_em->persist($test);
         $this->_em->flush();
@@ -116,7 +116,7 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testStandardInsertSetsInitialVersionValue()
     {
-        $test = new OptimisticStandard();
+        $test       = new OptimisticStandard();
         $test->name = 'test';
         $this->_em->persist($test);
         $this->_em->flush();
@@ -152,7 +152,7 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testLockWorksWithProxy()
     {
-        $test = new OptimisticStandard();
+        $test       = new OptimisticStandard();
         $test->name = 'test';
         $this->_em->persist($test);
         $this->_em->flush();
@@ -165,7 +165,7 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testOptimisticTimestampSetsDefaultValue()
     {
-        $test = new OptimisticTimestamp();
+        $test       = new OptimisticTimestamp();
         $test->name = 'Testing';
 
         $this->assertNull($test->version, "Pre-Condition");
@@ -195,7 +195,7 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         // Try and update the record and it should throw an exception
         $caughtException = null;
-        $test->name = 'Testing again';
+        $test->name      = 'Testing again';
         try {
             $this->_em->flush();
         } catch (OptimisticLockException $e) {
@@ -204,7 +204,6 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertNotNull($caughtException, "No OptimisticLockingException was thrown");
         $this->assertSame($test, $caughtException->getEntity());
-
     }
 
     /**
@@ -229,9 +228,7 @@ class OptimisticTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertNotNull($caughtException, "No OptimisticLockingException was thrown");
         $this->assertSame($test, $caughtException->getEntity());
-
     }
-
 }
 
 /**
@@ -294,7 +291,10 @@ class OptimisticStandard
      */
     private $version;
 
-    function getVersion() {return $this->version;}
+    public function getVersion()
+    {
+        return $this->version;
+    }
 }
 
 /**

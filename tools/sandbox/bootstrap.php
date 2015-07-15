@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 // Path to composer autoloader. You can use different provided by your favorite framework,
 // if you want to.
 $loaderPath = __DIR__ . '/../../vendor/autoload.php';
-if(!is_readable($loaderPath)){
+if (!is_readable($loaderPath)) {
     throw new LogicException('Run php composer.phar install at first');
 }
 $loader = require $loaderPath;
@@ -15,7 +15,7 @@ $loader = require $loaderPath;
 $loader->add('Entities', __DIR__);
 $loader->add('Proxies', __DIR__);
 
-$debug = true;
+$debug  = true;
 $config = new \Doctrine\ORM\Configuration();
 
 // Set up Metadata Drivers
@@ -39,10 +39,10 @@ $connectionOptions = array(
 );
 
 // Enable second-level cache
-$cacheConfig    = new \Doctrine\ORM\Cache\CacheConfiguration();
-$cacheDriver    = $debug ? new Cache\ArrayCache : new Cache\ApcCache;
-$cacheLogger    = new \Doctrine\ORM\Cache\Logging\StatisticsCacheLogger();
-$factory        = new \Doctrine\ORM\Cache\DefaultCacheFactory($cacheConfig->getRegionsConfiguration(), $cacheDriver);
+$cacheConfig = new \Doctrine\ORM\Cache\CacheConfiguration();
+$cacheDriver = $debug ? new Cache\ArrayCache : new Cache\ApcCache;
+$cacheLogger = new \Doctrine\ORM\Cache\Logging\StatisticsCacheLogger();
+$factory     = new \Doctrine\ORM\Cache\DefaultCacheFactory($cacheConfig->getRegionsConfiguration(), $cacheDriver);
 
 if ($debug) {
     $cacheConfig->setCacheLogger($cacheLogger);

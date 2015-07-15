@@ -29,7 +29,7 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testUpperCaseStringType()
     {
-        $entity = new CustomTypeUpperCase();
+        $entity                  = new CustomTypeUpperCase();
         $entity->lowerCaseString = 'foo';
 
         $this->_em->persist($entity);
@@ -42,7 +42,7 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $entity = $this->_em->find('\Doctrine\Tests\Models\CustomType\CustomTypeUpperCase', $id);
 
         $this->assertEquals('foo', $entity->lowerCaseString, 'Entity holds lowercase string');
-        $this->assertEquals('FOO', $this->_em->getConnection()->fetchColumn("select lowerCaseString from customtype_uppercases where id=".$entity->id.""), 'Database holds uppercase string');
+        $this->assertEquals('FOO', $this->_em->getConnection()->fetchColumn("select lowerCaseString from customtype_uppercases where id=" . $entity->id . ""), 'Database holds uppercase string');
     }
 
     /**
@@ -50,10 +50,9 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testUpperCaseStringTypeWhenColumnNameIsDefined()
     {
- 
-        $entity = new CustomTypeUpperCase();
-        $entity->lowerCaseString        = 'Some Value';
-        $entity->namedLowerCaseString   = 'foo';
+        $entity                       = new CustomTypeUpperCase();
+        $entity->lowerCaseString      = 'Some Value';
+        $entity->namedLowerCaseString = 'foo';
 
         $this->_em->persist($entity);
         $this->_em->flush();
@@ -64,10 +63,10 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $entity = $this->_em->find('\Doctrine\Tests\Models\CustomType\CustomTypeUpperCase', $id);
         $this->assertEquals('foo', $entity->namedLowerCaseString, 'Entity holds lowercase string');
-        $this->assertEquals('FOO', $this->_em->getConnection()->fetchColumn("select named_lower_case_string from customtype_uppercases where id=".$entity->id.""), 'Database holds uppercase string');
+        $this->assertEquals('FOO', $this->_em->getConnection()->fetchColumn("select named_lower_case_string from customtype_uppercases where id=" . $entity->id . ""), 'Database holds uppercase string');
 
 
-        $entity->namedLowerCaseString   = 'bar';
+        $entity->namedLowerCaseString = 'bar';
 
         $this->_em->persist($entity);
         $this->_em->flush();
@@ -79,14 +78,14 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $entity = $this->_em->find('\Doctrine\Tests\Models\CustomType\CustomTypeUpperCase', $id);
         $this->assertEquals('bar', $entity->namedLowerCaseString, 'Entity holds lowercase string');
-        $this->assertEquals('BAR', $this->_em->getConnection()->fetchColumn("select named_lower_case_string from customtype_uppercases where id=".$entity->id.""), 'Database holds uppercase string');
+        $this->assertEquals('BAR', $this->_em->getConnection()->fetchColumn("select named_lower_case_string from customtype_uppercases where id=" . $entity->id . ""), 'Database holds uppercase string');
     }
 
     public function testTypeValueSqlWithAssociations()
     {
-        $parent = new CustomTypeParent();
+        $parent                = new CustomTypeParent();
         $parent->customInteger = -1;
-        $parent->child = new CustomTypeChild();
+        $parent->child         = new CustomTypeChild();
 
         $friend1 = new CustomTypeParent();
         $friend2 = new CustomTypeParent();
@@ -106,7 +105,7 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $entity = $this->_em->find('Doctrine\Tests\Models\CustomType\CustomTypeParent', $parentId);
 
         $this->assertTrue($entity->customInteger < 0, 'Fetched customInteger negative');
-        $this->assertEquals(1, $this->_em->getConnection()->fetchColumn("select customInteger from customtype_parents where id=".$entity->id.""), 'Database has stored customInteger positive');
+        $this->assertEquals(1, $this->_em->getConnection()->fetchColumn("select customInteger from customtype_parents where id=" . $entity->id . ""), 'Database has stored customInteger positive');
 
         $this->assertNotNull($parent->child, 'Child attached');
         $this->assertCount(2, $entity->getMyFriends(), '2 friends attached');
@@ -114,9 +113,9 @@ class TypeValueSqlTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testSelectDQL()
     {
-        $parent = new CustomTypeParent();
+        $parent                = new CustomTypeParent();
         $parent->customInteger = -1;
-        $parent->child = new CustomTypeChild();
+        $parent->child         = new CustomTypeChild();
 
         $this->_em->persist($parent);
         $this->_em->flush();

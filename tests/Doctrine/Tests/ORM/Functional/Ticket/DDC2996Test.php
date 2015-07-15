@@ -17,8 +17,8 @@ class DDC2996Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC2996UserPreference'),
         ));
 
-        $pref = new DDC2996UserPreference();
-        $pref->user = new DDC2996User();
+        $pref        = new DDC2996UserPreference();
+        $pref->user  = new DDC2996User();
         $pref->value = "foo";
 
         $this->_em->persist($pref);
@@ -76,7 +76,7 @@ class DDC2996UserPreference
      */
     public function preFlush($event)
     {
-        $em = $event->getEntityManager();
+        $em  = $event->getEntityManager();
         $uow = $em->getUnitOfWork();
 
         if ($uow->getOriginalEntityData($this->user)) {

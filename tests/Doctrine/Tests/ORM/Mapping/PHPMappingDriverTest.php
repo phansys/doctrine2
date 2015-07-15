@@ -2,9 +2,9 @@
 
 namespace Doctrine\Tests\ORM\Mapping;
 
-use Doctrine\ORM\Mapping\ClassMetadata,
-    Doctrine\Common\Persistence\Mapping\Driver\PHPDriver,
-    Doctrine\ORM\Tools\Export\ClassMetadataExporter;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\Mapping\Driver\PHPDriver;
+use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
 
 class PHPMappingDriverTest extends AbstractMappingDriverTest
 {

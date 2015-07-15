@@ -17,8 +17,8 @@ class DDC1129Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testVersionFieldIgnoredInChangesetComputation()
     {
-        $article = new \Doctrine\Tests\Models\CMS\CmsArticle();
-        $article->text = "I don't know.";
+        $article        = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article->text  = "I don't know.";
         $article->topic = "Who is John Galt?";
 
         $this->_em->persist($article);
@@ -27,7 +27,7 @@ class DDC1129Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals(1, $article->version);
 
         $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsArticle');
-        $uow = $this->_em->getUnitOfWork();
+        $uow   = $this->_em->getUnitOfWork();
 
         $uow->computeChangeSet($class, $article);
         $changeSet = $uow->getEntityChangeSet($article);

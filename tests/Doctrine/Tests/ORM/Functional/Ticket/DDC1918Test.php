@@ -21,7 +21,7 @@ class DDC1918Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $groups = array();
         for ($i = 0; $i < 3; $i++) {
-            $group = new CmsGroup();
+            $group       = new CmsGroup();
             $group->name = "test";
             $this->_em->persist($group);
 
@@ -29,11 +29,11 @@ class DDC1918Test extends \Doctrine\Tests\OrmFunctionalTestCase
         }
 
         for ($i = 0; $i < 10; $i++) {
-            $user = new CmsUser();
+            $user           = new CmsUser();
             $user->username = "user$i";
-            $user->name = "user$i";
-            $user->status = "active";
-            $user->groups = $groups;
+            $user->name     = "user$i";
+            $user->status   = "active";
+            $user->groups   = $groups;
 
             $this->_em->persist($user);
         }

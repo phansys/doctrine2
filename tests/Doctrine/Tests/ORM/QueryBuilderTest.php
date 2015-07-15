@@ -22,7 +22,6 @@ namespace Doctrine\Tests\ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Cache;
-
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\Parameter;
@@ -51,7 +50,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
     protected function assertValidQueryBuilder(QueryBuilder $qb, $expectedDql)
     {
         $dql = $qb->getDql();
-        $q = $qb->getQuery();
+        $q   = $qb->getQuery();
 
         $this->assertEquals($expectedDql, $dql);
     }
@@ -560,7 +559,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
         $qb = $this->_em->createQueryBuilder();
         $qb->select('u')
             ->from('Doctrine\Tests\Models\CMS\CmsUser', 'u')
-            ->join('u.article','a');
+            ->join('u.article', 'a');
 
         $criteria = new Criteria();
         $criteria->orderBy(array('a.field' => Criteria::DESC));
@@ -705,7 +704,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
 
     public function testComplexWhere()
     {
-        $qb = $this->_em->createQueryBuilder();
+        $qb     = $this->_em->createQueryBuilder();
         $orExpr = $qb->expr()->orX();
         $orExpr->add($qb->expr()->eq('u.id', ':uid3'));
         $orExpr->add($qb->expr()->in('u.id', array(1)));
@@ -733,7 +732,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
 
     public function testWhereInWithObjectLiterals()
     {
-        $qb = $this->_em->createQueryBuilder();
+        $qb   = $this->_em->createQueryBuilder();
         $expr = $this->_em->getExpressionBuilder();
         $qb->select('u')
            ->from('Doctrine\Tests\Models\CMS\CmsUser', 'u')
@@ -748,7 +747,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
 
     public function testNegation()
     {
-        $expr = $this->_em->getExpressionBuilder();
+        $expr   = $this->_em->getExpressionBuilder();
         $orExpr = $expr->orX();
         $orExpr->add($expr->eq('u.id', ':uid3'));
         $orExpr->add($expr->not($expr->in('u.id', array(1))));
@@ -763,7 +762,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
 
     public function testSomeAllAny()
     {
-        $qb = $this->_em->createQueryBuilder();
+        $qb   = $this->_em->createQueryBuilder();
         $expr = $this->_em->getExpressionBuilder();
 
         //$subquery = $qb->subquery('Doctrine\Tests\Models\CMS\CmsArticle', 'a')->select('a.id');
@@ -773,12 +772,11 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
            ->where($expr->gt('u.id', $expr->all('select a.id from Doctrine\Tests\Models\CMS\CmsArticle a')));
 
         $this->assertValidQueryBuilder($qb, 'SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.id > ALL(select a.id from Doctrine\Tests\Models\CMS\CmsArticle a)');
-
     }
 
     public function testMultipleIsolatedQueryConstruction()
     {
-        $qb = $this->_em->createQueryBuilder();
+        $qb   = $this->_em->createQueryBuilder();
         $expr = $this->_em->getExpressionBuilder();
 
         $qb->select('u')->from('Doctrine\Tests\Models\CMS\CmsUser', 'u');
@@ -825,7 +823,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
 
     public function testSelectWithFuncExpression()
     {
-        $qb = $this->_em->createQueryBuilder();
+        $qb   = $this->_em->createQueryBuilder();
         $expr = $qb->expr();
         $qb->select($expr->count('e.id'));
 
@@ -903,7 +901,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('alias1')->from('Doctrine\Tests\Models\CMS\CmsUser', 'alias1');
-        $qb->join('alias1.articles','alias2');
+        $qb->join('alias1.articles', 'alias2');
 
         $criteria = new Criteria();
         $criteria->where($criteria->expr()->eq('field', 'value1'));
@@ -923,7 +921,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('alias1')->from('Doctrine\Tests\Models\CMS\CmsUser', 'alias1');
-        $qb->join('alias1.articles','alias2');
+        $qb->join('alias1.articles', 'alias2');
 
         $criteria = new Criteria();
         $criteria->where($criteria->expr()->eq('alias1.field', 'value1'));
@@ -943,7 +941,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('alias1')->from('Doctrine\Tests\Models\CMS\CmsUser', 'alias1');
-        $qb->join('alias1.articles','alias2');
+        $qb->join('alias1.articles', 'alias2');
 
         $criteria = new Criteria();
         $criteria->where($criteria->expr()->eq('alias1.field', 'value1'));
@@ -1030,7 +1028,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
     public function testEmptyStringLiteral()
     {
         $expr = $this->_em->getExpressionBuilder();
-        $qb = $this->_em->createQueryBuilder()
+        $qb   = $this->_em->createQueryBuilder()
             ->select('u')
             ->from('Doctrine\Tests\Models\CMS\CmsUser', 'u')
             ->where($expr->eq('u.username', $expr->literal("")));
@@ -1044,7 +1042,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
     public function testEmptyNumericLiteral()
     {
         $expr = $this->_em->getExpressionBuilder();
-        $qb = $this->_em->createQueryBuilder()
+        $qb   = $this->_em->createQueryBuilder()
             ->select('u')
             ->from('Doctrine\Tests\Models\CMS\CmsUser', 'u')
             ->where($expr->eq('u.username', $expr->literal(0)));
@@ -1140,7 +1138,7 @@ class QueryBuilderTest extends \Doctrine\Tests\OrmTestCase
           ->join('u.article', 'a');
 
         $dqlParts = $qb->getDQLParts();
-        $dql = $qb->getDQL();
+        $dql      = $qb->getDQL();
 
         $qb2 = $this->_em->createQueryBuilder();
         foreach (array_filter($dqlParts) as $name => $part) {

@@ -80,7 +80,7 @@ abstract class Role
     public function addAuthorization(Authorization $authorization)
     {
         $this->authorizations[] = $authorization;
-        $authorization->role = $this;
+        $authorization->role    = $this;
     }
 }
 
@@ -135,12 +135,12 @@ class User
     public function addRole(Role $role)
     {
         $this->roles[] = $role;
-        $role->user = $this;
+        $role->user    = $this;
     }
 
     public function addAuthorization(Authorization $authorization)
     {
         $this->authorizations[] = $authorization;
-        $authorization->user = $this;
+        $authorization->user    = $this;
     }
 }

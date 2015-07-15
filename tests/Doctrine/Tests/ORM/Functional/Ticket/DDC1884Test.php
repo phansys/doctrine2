@@ -1,10 +1,10 @@
 <?php
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
-use Doctrine\Tests\Models\Taxi\Car,
-    Doctrine\Tests\Models\Taxi\Driver,
-    Doctrine\Tests\Models\Taxi\Ride,
-    Doctrine\Tests\Models\Taxi\PaidRide;
+use Doctrine\Tests\Models\Taxi\Car;
+use Doctrine\Tests\Models\Taxi\Driver;
+use Doctrine\Tests\Models\Taxi\Ride;
+use Doctrine\Tests\Models\Taxi\PaidRide;
 
 /**
  * @group DDC-1884
@@ -18,7 +18,7 @@ class DDC1884Test extends \Doctrine\Tests\OrmFunctionalTestCase
         parent::setUp();
 
         list($bimmer, $crysler, $merc, $volvo) = $this->createCars('Doctrine\Tests\Models\Taxi\Car');
-        list($john, $foo) = $this->createDrivers('Doctrine\Tests\Models\Taxi\Driver');
+        list($john, $foo)                      = $this->createDrivers('Doctrine\Tests\Models\Taxi\Driver');
         $this->_em->flush();
 
         $ride1 = new Ride($john, $bimmer);
@@ -141,7 +141,7 @@ class DDC1884Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $qb = $this->_em->createQueryBuilder();
 
-        $result =  $qb->select('r, d, c')
+        $result = $qb->select('r, d, c')
             ->from('Doctrine\Tests\Models\Taxi\PaidRide', 'r')
             ->leftJoin('r.driver', 'd')
             ->leftJoin('r.car', 'c')

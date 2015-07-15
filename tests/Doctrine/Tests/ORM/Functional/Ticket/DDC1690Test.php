@@ -2,12 +2,13 @@
 
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
-use Doctrine\Common\NotifyPropertyChanged,
-    Doctrine\Common\PropertyChangedListener;
+use Doctrine\Common\NotifyPropertyChanged;
+use Doctrine\Common\PropertyChangedListener;
 
 class DDC1690Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         try {
             $this->_schemaTool->createSchema(array(
@@ -22,7 +23,7 @@ class DDC1690Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testChangeTracking()
     {
         $parent = new DDC1690Parent();
-        $child = new DDC1690Child();
+        $child  = new DDC1690Child();
         $parent->setName('parent');
         $child->setName('child');
 
@@ -42,11 +43,11 @@ class DDC1690Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals(1, count($child->listeners));
 
         $parentId = $parent->getId();
-        $childId = $child->getId();
+        $childId  = $child->getId();
         unset($parent, $child);
 
-        $parent = $this->_em->find(__NAMESPACE__.'\DDC1690Parent', $parentId);
-        $child = $this->_em->find(__NAMESPACE__.'\DDC1690Child', $childId);
+        $parent = $this->_em->find(__NAMESPACE__ . '\DDC1690Parent', $parentId);
+        $child  = $this->_em->find(__NAMESPACE__ . '\DDC1690Child', $childId);
 
         $this->assertEquals(1, count($parent->listeners));
         $this->assertInstanceOf(
@@ -59,14 +60,14 @@ class DDC1690Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertCount(1, $child->listeners);
         unset($parent, $child);
 
-        $parent = $this->_em->find(__NAMESPACE__.'\DDC1690Parent', $parentId);
-        $child = $parent->getChild();
+        $parent = $this->_em->find(__NAMESPACE__ . '\DDC1690Parent', $parentId);
+        $child  = $parent->getChild();
 
         $this->assertEquals(1, count($parent->listeners));
         $this->assertEquals(1, count($child->listeners));
         unset($parent, $child);
 
-        $child = $this->_em->find(__NAMESPACE__.'\DDC1690Child', $childId);
+        $child  = $this->_em->find(__NAMESPACE__ . '\DDC1690Child', $childId);
         $parent = $child->getParent();
 
         $this->assertEquals(1, count($parent->listeners));
@@ -74,16 +75,19 @@ class DDC1690Test extends \Doctrine\Tests\OrmFunctionalTestCase
     }
 }
 
-class NotifyBaseEntity implements NotifyPropertyChanged {
+class NotifyBaseEntity implements NotifyPropertyChanged
+{
     public $listeners = array();
 
-    public function addPropertyChangedListener(PropertyChangedListener $listener) {
+    public function addPropertyChangedListener(PropertyChangedListener $listener)
+    {
         if (!in_array($listener, $this->listeners)) {
             $this->listeners[] = $listener;
         }
     }
 
-    protected function onPropertyChanged($propName, $oldValue, $newValue) {
+    protected function onPropertyChanged($propName, $oldValue, $newValue)
+    {
         if ($this->listeners) {
             foreach ($this->listeners as $listener) {
                 $listener->propertyChanged($this, $propName, $oldValue, $newValue);
@@ -93,7 +97,8 @@ class NotifyBaseEntity implements NotifyPropertyChanged {
 }
 
 /** @Entity @ChangeTrackingPolicy("NOTIFY") */
-class DDC1690Parent extends NotifyBaseEntity {
+class DDC1690Parent extends NotifyBaseEntity
+{
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
 
@@ -103,30 +108,36 @@ class DDC1690Parent extends NotifyBaseEntity {
     /** @OneToOne(targetEntity="DDC1690Child") */
     private $child;
 
-    function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    function setName($name) {
+    public function setName($name)
+    {
         $this->onPropertyChanged('name', $this->name, $name);
         $this->name = $name;
     }
 
-    function setChild($child) {
+    public function setChild($child)
+    {
         $this->child = $child;
     }
 
-    function getChild() {
+    public function getChild()
+    {
         return $this->child;
     }
 }
 
 /** @Entity */
-class DDC1690Child extends NotifyBaseEntity {
+class DDC1690Child extends NotifyBaseEntity
+{
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
 
@@ -136,24 +147,29 @@ class DDC1690Child extends NotifyBaseEntity {
     /** @OneToOne(targetEntity="DDC1690Parent", mappedBy="child") */
     private $parent;
 
-    function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    function setName($name) {
+    public function setName($name)
+    {
         $this->onPropertyChanged('name', $this->name, $name);
         $this->name = $name;
     }
 
-    function setParent($parent) {
+    public function setParent($parent)
+    {
         $this->parent = $parent;
     }
 
-    function getParent() {
+    public function getParent()
+    {
         return $this->parent;
     }
 }

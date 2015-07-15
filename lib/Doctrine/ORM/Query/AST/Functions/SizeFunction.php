@@ -45,20 +45,20 @@ class SizeFunction extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        $platform       = $sqlWalker->getEntityManager()->getConnection()->getDatabasePlatform();
-        $quoteStrategy  = $sqlWalker->getEntityManager()->getConfiguration()->getQuoteStrategy();
-        $dqlAlias       = $this->collectionPathExpression->identificationVariable;
-        $assocField     = $this->collectionPathExpression->field;
+        $platform      = $sqlWalker->getEntityManager()->getConnection()->getDatabasePlatform();
+        $quoteStrategy = $sqlWalker->getEntityManager()->getConfiguration()->getQuoteStrategy();
+        $dqlAlias      = $this->collectionPathExpression->identificationVariable;
+        $assocField    = $this->collectionPathExpression->field;
 
-        $qComp  = $sqlWalker->getQueryComponent($dqlAlias);
-        $class  = $qComp['metadata'];
-        $assoc  = $class->associationMappings[$assocField];
-        $sql    = 'SELECT COUNT(*) FROM ';
+        $qComp = $sqlWalker->getQueryComponent($dqlAlias);
+        $class = $qComp['metadata'];
+        $assoc = $class->associationMappings[$assocField];
+        $sql   = 'SELECT COUNT(*) FROM ';
 
         if ($assoc['type'] == \Doctrine\ORM\Mapping\ClassMetadata::ONE_TO_MANY) {
-            $targetClass        = $sqlWalker->getEntityManager()->getClassMetadata($assoc['targetEntity']);
-            $targetTableAlias   = $sqlWalker->getSQLTableAlias($targetClass->getTableName());
-            $sourceTableAlias   = $sqlWalker->getSQLTableAlias($class->getTableName(), $dqlAlias);
+            $targetClass      = $sqlWalker->getEntityManager()->getClassMetadata($assoc['targetEntity']);
+            $targetTableAlias = $sqlWalker->getSQLTableAlias($targetClass->getTableName());
+            $sourceTableAlias = $sqlWalker->getSQLTableAlias($class->getTableName(), $dqlAlias);
 
             $sql .= $quoteStrategy->getTableName($targetClass, $platform) . ' ' . $targetTableAlias . ' WHERE ';
 
@@ -67,7 +67,11 @@ class SizeFunction extends FunctionNode
             $first = true;
 
             foreach ($owningAssoc['targetToSourceKeyColumns'] as $targetColumn => $sourceColumn) {
-                if ($first) $first = false; else $sql .= ' AND ';
+                if ($first) {
+                    $first = false;
+                } else {
+                    $sql .= ' AND ';
+                }
 
                 $sql .= $targetTableAlias . '.' . $sourceColumn
                       . ' = '
@@ -77,10 +81,10 @@ class SizeFunction extends FunctionNode
             $targetClass = $sqlWalker->getEntityManager()->getClassMetadata($assoc['targetEntity']);
 
             $owningAssoc = $assoc['isOwningSide'] ? $assoc : $targetClass->associationMappings[$assoc['mappedBy']];
-            $joinTable = $owningAssoc['joinTable'];
+            $joinTable   = $owningAssoc['joinTable'];
 
             // SQL table aliases
-            $joinTableAlias = $sqlWalker->getSQLTableAlias($joinTable['name']);
+            $joinTableAlias   = $sqlWalker->getSQLTableAlias($joinTable['name']);
             $sourceTableAlias = $sqlWalker->getSQLTableAlias($class->getTableName(), $dqlAlias);
 
             // join to target table
@@ -93,7 +97,11 @@ class SizeFunction extends FunctionNode
             $first = true;
 
             foreach ($joinColumns as $joinColumn) {
-                if ($first) $first = false; else $sql .= ' AND ';
+                if ($first) {
+                    $first = false;
+                } else {
+                    $sql .= ' AND ';
+                }
 
                 $sourceColumnName = $quoteStrategy->getColumnName(
                     $class->fieldNames[$joinColumn['referencedColumnName']], $class, $platform

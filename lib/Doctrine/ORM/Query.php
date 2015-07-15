@@ -40,7 +40,7 @@ final class Query extends AbstractQuery
     /**
      * A query object is in CLEAN state when it has NO unparsed/unprocessed DQL parts.
      */
-    const STATE_CLEAN  = 1;
+    const STATE_CLEAN = 1;
 
     /**
      * A query object is in state DIRTY when it has DQL parts that have not yet been
@@ -253,11 +253,11 @@ final class Query extends AbstractQuery
             return $this->_parserResult;
         }
 
-        $this->_state = self::STATE_CLEAN;
+        $this->_state       = self::STATE_CLEAN;
         $this->_parsedTypes = $types;
 
         // Check query cache.
-        if ( ! ($this->_useQueryCache && ($queryCache = $this->getQueryCacheDriver()))) {
+        if (! ($this->_useQueryCache && ($queryCache = $this->getQueryCacheDriver()))) {
             $parser = new Parser($this);
 
             $this->_parserResult = $parser->parse();
@@ -302,8 +302,8 @@ final class Query extends AbstractQuery
 
         // Prepare parameters
         $paramMappings = $this->_parserResult->getParameterMappings();
-        $paramCount = count($this->parameters);
-        $mappingCount = count($paramMappings);
+        $paramCount    = count($this->parameters);
+        $mappingCount  = count($paramMappings);
 
         if ($paramCount > $mappingCount) {
             throw QueryException::tooManyParameters($mappingCount, $paramCount);
@@ -354,11 +354,11 @@ final class Query extends AbstractQuery
         $types     = array();
 
         foreach ($this->parameters as $parameter) {
-            $key    = $parameter->getName();
-            $value  = $parameter->getValue();
-            $rsm    = $this->getResultSetMapping();
+            $key   = $parameter->getName();
+            $value = $parameter->getValue();
+            $rsm   = $this->getResultSetMapping();
 
-            if ( ! isset($paramMappings[$key])) {
+            if (! isset($paramMappings[$key])) {
                 throw QueryException::unknownParameter($key);
             }
 
@@ -379,7 +379,7 @@ final class Query extends AbstractQuery
 
             // optimized multi value sql positions away for now,
             // they are not allowed in DQL anyways.
-            $value = array($value);
+            $value      = array($value);
             $countValue = count($value);
 
             for ($i = 0, $l = count($sqlPositions); $i < $l; $i++) {
@@ -504,7 +504,7 @@ final class Query extends AbstractQuery
     {
         parent::free();
 
-        $this->_dql = null;
+        $this->_dql   = null;
         $this->_state = self::STATE_CLEAN;
     }
 
@@ -518,7 +518,7 @@ final class Query extends AbstractQuery
     public function setDQL($dqlQuery)
     {
         if ($dqlQuery !== null) {
-            $this->_dql = $dqlQuery;
+            $this->_dql   = $dqlQuery;
             $this->_state = self::STATE_DIRTY;
         }
 
@@ -664,7 +664,7 @@ final class Query extends AbstractQuery
     public function setLockMode($lockMode)
     {
         if (in_array($lockMode, array(LockMode::NONE, LockMode::PESSIMISTIC_READ, LockMode::PESSIMISTIC_WRITE), true)) {
-            if ( ! $this->_em->getConnection()->isTransactionActive()) {
+            if (! $this->_em->getConnection()->isTransactionActive()) {
                 throw TransactionRequiredException::transactionRequired();
             }
         }
@@ -718,7 +718,7 @@ final class Query extends AbstractQuery
      */
     protected function getHash()
     {
-        return sha1(parent::getHash(). '-'. $this->_firstResult . '-' . $this->_maxResults);
+        return sha1(parent::getHash() . '-' . $this->_firstResult . '-' . $this->_maxResults);
     }
 
     /**

@@ -78,13 +78,13 @@ EOT
         // Process destination directory
         $destPath = realpath($input->getArgument('dest-path'));
 
-        if ( ! file_exists($destPath)) {
+        if (! file_exists($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Entities destination directory '<info>%s</info>' does not exist.", $input->getArgument('dest-path'))
             );
         }
 
-        if ( ! is_writable($destPath)) {
+        if (! is_writable($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Entities destination directory '<info>%s</info>' does not have write permissions.", $destPath)
             );
@@ -92,7 +92,7 @@ EOT
 
         if (count($metadatas)) {
             $numRepositories = 0;
-            $generator = new EntityRepositoryGenerator();
+            $generator       = new EntityRepositoryGenerator();
 
             $generator->setDefaultRepositoryName($repositoryName);
 
@@ -110,12 +110,12 @@ EOT
 
             if ($numRepositories) {
                 // Outputting information message
-                $output->writeln(PHP_EOL . sprintf('Repository classes generated to "<info>%s</INFO>"', $destPath) );
+                $output->writeln(PHP_EOL . sprintf('Repository classes generated to "<info>%s</INFO>"', $destPath));
             } else {
-                $output->writeln('No Repository classes were found to be processed.' );
+                $output->writeln('No Repository classes were found to be processed.');
             }
         } else {
-            $output->writeln('No Metadata Classes to process.' );
+            $output->writeln('No Metadata Classes to process.');
         }
     }
 }

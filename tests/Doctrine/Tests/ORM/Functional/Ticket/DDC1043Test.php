@@ -17,10 +17,10 @@ class DDC1043Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testChangeSetPlusWeirdPHPCastingIntCastingRule()
     {
-        $user = new \Doctrine\Tests\Models\CMS\CmsUser();
-        $user->name = "John Galt";
+        $user           = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $user->name     = "John Galt";
         $user->username = "jgalt";
-        $user->status = "+44";
+        $user->status   = "+44";
 
         $this->_em->persist($user);
         $this->_em->flush();

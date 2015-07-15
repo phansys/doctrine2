@@ -28,5 +28,4 @@ namespace Doctrine\ORM\Cache;
  */
 class LockException extends CacheException
 {
-
 }

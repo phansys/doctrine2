@@ -8,32 +8,33 @@ use Doctrine\ORM\Query\ResultSetMapping;
 class SingleScalarHydratorTest extends HydrationTestCase
 {
     /** Result set provider for the HYDRATE_SINGLE_SCALAR tests */
-    public static function singleScalarResultSetProvider() {
+    public static function singleScalarResultSetProvider()
+    {
         return array(
           // valid
-          array('name' => 'result1',
+          array('name'      => 'result1',
                 'resultSet' => array(
                   array(
                       'u__name' => 'romanb'
                   )
                )),
           // valid
-          array('name' => 'result2',
+          array('name'      => 'result2',
                 'resultSet' => array(
                   array(
                       'u__id' => '1'
                   )
              )),
            // invalid
-           array('name' => 'result3',
+           array('name'     => 'result3',
                 'resultSet' => array(
                   array(
-                      'u__id' => '1',
+                      'u__id'   => '1',
                       'u__name' => 'romanb'
                   )
              )),
            // invalid
-           array('name' => 'result4',
+           array('name'     => 'result4',
                 'resultSet' => array(
                   array(
                       'u__id' => '1'
@@ -57,20 +58,21 @@ class SingleScalarHydratorTest extends HydrationTestCase
         $rsm->addFieldResult('u', 'u__id', 'id');
         $rsm->addFieldResult('u', 'u__name', 'name');
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\SingleScalarHydrator($this->_em);
 
         if ($name == 'result1') {
             $result = $hydrator->hydrateAll($stmt, $rsm);
             $this->assertEquals('romanb', $result);
-        } else if ($name == 'result2') {
+        } elseif ($name == 'result2') {
             $result = $hydrator->hydrateAll($stmt, $rsm);
             $this->assertEquals(1, $result);
-        } else if ($name == 'result3' || $name == 'result4') {
+        } elseif ($name == 'result3' || $name == 'result4') {
             try {
                 $result = $hydrator->hydrateAll($stmt, $rsm);
                 $this->fail();
-            } catch (\Doctrine\ORM\NonUniqueResultException $e) {}
+            } catch (\Doctrine\ORM\NonUniqueResultException $e) {
+            }
         }
     }
 }

@@ -44,7 +44,7 @@ class DDC1163Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->flush();
 
-        $this->productId = $specialProduct->getId();
+        $this->productId     = $specialProduct->getId();
         $this->proxyHolderId = $proxyHolder->getId();
     }
 
@@ -60,7 +60,7 @@ class DDC1163Test extends \Doctrine\Tests\OrmFunctionalTestCase
         /* @var $proxyHolder ProxyHolder */
         $proxyHolder = $this->_em->find(__NAMESPACE__ . '\\DDC1163ProxyHolder', $this->proxyHolderId);
 
-        $this->assertInstanceOf(__NAMESPACE__.'\\DDC1163SpecialProduct', $proxyHolder->getSpecialProduct());
+        $this->assertInstanceOf(__NAMESPACE__ . '\\DDC1163SpecialProduct', $proxyHolder->getSpecialProduct());
     }
 
     private function setPropertyAndAssignTagToSpecialProduct()
@@ -68,14 +68,14 @@ class DDC1163Test extends \Doctrine\Tests\OrmFunctionalTestCase
         /* @var $specialProduct SpecialProduct */
         $specialProduct = $this->_em->find(__NAMESPACE__ . '\\DDC1163SpecialProduct', $this->productId);
 
-        $this->assertInstanceOf(__NAMESPACE__.'\\DDC1163SpecialProduct', $specialProduct);
+        $this->assertInstanceOf(__NAMESPACE__ . '\\DDC1163SpecialProduct', $specialProduct);
         $this->assertInstanceOf('Doctrine\ORM\Proxy\Proxy', $specialProduct);
 
         $specialProduct->setSubclassProperty('foobar');
 
         // this screams violation of law of demeter ;)
         $this->assertEquals(
-            __NAMESPACE__.'\\DDC1163SpecialProduct',
+            __NAMESPACE__ . '\\DDC1163SpecialProduct',
             $this->_em->getUnitOfWork()->getEntityPersister(get_class($specialProduct))->getClassMetadata()->name
         );
 
@@ -90,7 +90,6 @@ class DDC1163Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1163ProxyHolder
 {
-
     /**
      * @var int
      * @Column(name="id", type="integer")
@@ -118,7 +117,6 @@ class DDC1163ProxyHolder
     {
         return $this->specialProduct;
     }
-
 }
 
 /**
@@ -129,7 +127,6 @@ class DDC1163ProxyHolder
  */
 abstract class DDC1163Product
 {
-
     /**
      * @var int
      * @Column(name="id", type="integer")
@@ -142,7 +139,6 @@ abstract class DDC1163Product
     {
         return $this->id;
     }
-
 }
 
 /**
@@ -150,7 +146,6 @@ abstract class DDC1163Product
  */
 class DDC1163SpecialProduct extends DDC1163Product
 {
-
     /**
      * @var string
      * @Column(name="subclass_property", type="string", nullable=true)
@@ -164,7 +159,6 @@ class DDC1163SpecialProduct extends DDC1163Product
     {
         $this->subclassProperty = $value;
     }
-
 }
 
 /**
@@ -172,7 +166,6 @@ class DDC1163SpecialProduct extends DDC1163Product
  */
 class DDC1163Tag
 {
-
     /**
      * @var int
      * @Column(name="id", type="integer")
@@ -209,5 +202,4 @@ class DDC1163Tag
     {
         $this->product = $product;
     }
-
 }

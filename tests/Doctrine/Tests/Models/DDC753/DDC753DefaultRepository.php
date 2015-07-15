@@ -31,5 +31,4 @@ class DDC753DefaultRepository extends EntityRepository
     {
         return true;
     }
-
 }

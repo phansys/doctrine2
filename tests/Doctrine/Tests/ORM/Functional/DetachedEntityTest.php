@@ -15,16 +15,18 @@ use Doctrine\ORM\UnitOfWork;
  */
 class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('cms');
         parent::setUp();
     }
 
-    public function testSimpleDetachMerge() {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+    public function testSimpleDetachMerge()
+    {
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
         $this->_em->persist($user);
         $this->_em->flush();
         $this->_em->clear();
@@ -47,12 +49,12 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testSerializeUnserializeModifyMerge()
     {
         //$this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
-        $user = new CmsUser;
-        $user->name = 'Guilherme';
+        $user           = new CmsUser;
+        $user->name     = 'Guilherme';
         $user->username = 'gblanco';
-        $user->status = 'developer';
+        $user->status   = 'developer';
 
-        $ph1 = new CmsPhonenumber;
+        $ph1              = new CmsPhonenumber;
         $ph1->phonenumber = "1234";
         $user->addPhonenumber($ph1);
 
@@ -70,7 +72,7 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertEquals(1, count($user->getPhonenumbers()), "Pre-Condition: 1 Phonenumber");
 
-        $ph2 = new CmsPhonenumber;
+        $ph2              = new CmsPhonenumber;
         $ph2->phonenumber = "56789";
         $user->addPhonenumber($ph2);
         $oldPhonenumbers = $user->getPhonenumbers();
@@ -104,7 +106,7 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testDetachedEntityThrowsExceptionOnFlush()
     {
-        $ph = new CmsPhonenumber();
+        $ph              = new CmsPhonenumber();
         $ph->phonenumber = '12345';
         $this->_em->persist($ph);
         $this->_em->flush();
@@ -113,21 +115,22 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
         try {
             $this->_em->flush();
             $this->fail();
-        } catch (\Exception $expected) {}
+        } catch (\Exception $expected) {
+        }
     }
 
     public function testUninitializedLazyAssociationsAreIgnoredOnMerge()
     {
-        $user = new CmsUser;
-        $user->name = 'Guilherme';
+        $user           = new CmsUser;
+        $user->name     = 'Guilherme';
         $user->username = 'gblanco';
-        $user->status = 'developer';
+        $user->status   = 'developer';
 
-        $address = new CmsAddress;
-        $address->city = 'Berlin';
+        $address          = new CmsAddress;
+        $address->city    = 'Berlin';
         $address->country = 'Germany';
-        $address->street = 'Sesamestreet';
-        $address->zip = 12345;
+        $address->street  = 'Sesamestreet';
+        $address->zip     = 12345;
         $address->setUser($user);
         $this->_em->persist($address);
         $this->_em->persist($user);
@@ -153,17 +156,17 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testUseDetachedEntityAsQueryParameter()
     {
-        $user = new CmsUser;
-        $user->name = 'Guilherme';
+        $user           = new CmsUser;
+        $user->name     = 'Guilherme';
         $user->username = 'gblanco';
-        $user->status = 'developer';
+        $user->status   = 'developer';
 
         $this->_em->persist($user);
 
         $this->_em->flush();
         $this->_em->detach($user);
 
-        $dql = "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.id = ?1";
+        $dql   = "SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u.id = ?1";
         $query = $this->_em->createQuery($dql);
         $query->setParameter(1, $user);
 
@@ -178,10 +181,10 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testDetachManagedUnpersistedEntity()
     {
-        $user = new CmsUser;
-        $user->name = 'Guilherme';
+        $user           = new CmsUser;
+        $user->name     = 'Guilherme';
         $user->username = 'gblanco';
-        $user->status = 'developer';
+        $user->status   = 'developer';
 
         $this->_em->persist($user);
         $this->_em->detach($user);
@@ -197,9 +200,9 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testMergeArticleWrongVersion()
     {
-        $article = new CmsArticle();
+        $article        = new CmsArticle();
         $article->topic = "test";
-        $article->text = "test";
+        $article->text  = "test";
 
         $this->_em->persist($article);
         $this->_em->flush();
@@ -213,4 +216,3 @@ class DetachedEntityTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->merge($article);
     }
 }
-

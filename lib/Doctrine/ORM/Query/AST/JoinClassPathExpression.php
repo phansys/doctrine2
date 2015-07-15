@@ -45,7 +45,7 @@ class JoinClassPathExpression extends Node
      */
     public function __construct($abstractSchemaName, $aliasIdentificationVar)
     {
-        $this->abstractSchemaName = $abstractSchemaName;
+        $this->abstractSchemaName          = $abstractSchemaName;
         $this->aliasIdentificationVariable = $aliasIdentificationVar;
     }
 

@@ -66,7 +66,7 @@ class Subselect extends Node
      */
     public function __construct($simpleSelectClause, $subselectFromClause)
     {
-        $this->simpleSelectClause = $simpleSelectClause;
+        $this->simpleSelectClause  = $simpleSelectClause;
         $this->subselectFromClause = $subselectFromClause;
     }
 

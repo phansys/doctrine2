@@ -18,12 +18,12 @@ class DDC1778Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->useModelSet('cms');
         parent::setUp();
 
-        $this->user = new CmsUser();
+        $this->user           = new CmsUser();
         $this->user->username = "beberlei";
-        $this->user->name = "Benjamin";
-        $this->user->status = "active";
+        $this->user->name     = "Benjamin";
+        $this->user->status   = "active";
 
-        $this->phone = new CmsPhoneNumber();
+        $this->phone              = new CmsPhoneNumber();
         $this->phone->phonenumber = '0123456789';
         $this->user->addPhoneNumber($this->phone);
 
@@ -32,7 +32,7 @@ class DDC1778Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $this->user = $this->_em->find('Doctrine\\Tests\\Models\\CMS\\CmsUser', $this->user->getId());
+        $this->user  = $this->_em->find('Doctrine\\Tests\\Models\\CMS\\CmsUser', $this->user->getId());
         $this->phone = $this->_em->find('Doctrine\\Tests\\Models\\CMS\\CmsPhonenumber', $this->phone->phonenumber);
     }
 

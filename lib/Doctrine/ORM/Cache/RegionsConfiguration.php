@@ -54,8 +54,8 @@ class RegionsConfiguration
      */
     public function __construct($defaultLifetime = 3600, $defaultLockLifetime = 60)
     {
-        $this->defaultLifetime      = (integer) $defaultLifetime;
-        $this->defaultLockLifetime  = (integer) $defaultLockLifetime;
+        $this->defaultLifetime     = (integer) $defaultLifetime;
+        $this->defaultLockLifetime = (integer) $defaultLockLifetime;
     }
 
     /**

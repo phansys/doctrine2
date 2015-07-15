@@ -31,7 +31,7 @@ class CommitOrderCalculator
 {
     const NOT_VISITED = 1;
     const IN_PROGRESS = 2;
-    const VISITED = 3;
+    const VISITED     = 3;
 
     /**
      * @var array
@@ -62,7 +62,7 @@ class CommitOrderCalculator
      */
     public function clear()
     {
-        $this->_classes = array();
+        $this->_classes        = array();
         $this->_relatedClasses = array();
     }
 
@@ -120,7 +120,7 @@ class CommitOrderCalculator
         }
 
         $this->_nodeStates[$node->name] = self::VISITED;
-        $this->_sorted[] = $node;
+        $this->_sorted[]                = $node;
     }
 
     /**

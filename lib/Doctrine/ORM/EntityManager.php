@@ -146,9 +146,9 @@ use Doctrine\Common\Util\ClassUtils;
      */
     protected function __construct(Connection $conn, Configuration $config, EventManager $eventManager)
     {
-        $this->conn              = $conn;
-        $this->config            = $config;
-        $this->eventManager      = $eventManager;
+        $this->conn         = $conn;
+        $this->config       = $config;
+        $this->eventManager = $eventManager;
 
         $metadataFactoryClassName = $config->getClassMetadataFactoryName();
 
@@ -166,9 +166,9 @@ use Doctrine\Common\Util\ClassUtils;
         );
 
         if ($config->isSecondLevelCacheEnabled()) {
-            $cacheConfig    = $config->getSecondLevelCacheConfiguration();
-            $cacheFactory   = $cacheConfig->getCacheFactory();
-            $this->cache    = $cacheFactory->createCache($this);
+            $cacheConfig  = $config->getSecondLevelCacheConfiguration();
+            $cacheFactory = $cacheConfig->getCacheFactory();
+            $this->cache  = $cacheFactory->createCache($this);
         }
     }
 
@@ -288,7 +288,7 @@ use Doctrine\Common\Util\ClassUtils;
     {
         $query = new Query($this);
 
-        if ( ! empty($dql)) {
+        if (! empty($dql)) {
             $query->setDql($dql);
         }
 
@@ -378,7 +378,7 @@ use Doctrine\Common\Util\ClassUtils;
     {
         $class = $this->metadataFactory->getMetadataFor(ltrim($entityName, '\\'));
 
-        if ( ! is_array($id)) {
+        if (! is_array($id)) {
             if ($class->isIdentifierComposite) {
                 throw ORMInvalidArgumentException::invalidCompositeIdentifier();
             }
@@ -399,7 +399,7 @@ use Doctrine\Common\Util\ClassUtils;
         $sortedId = array();
 
         foreach ($class->identifier as $identifier) {
-            if ( ! isset($id[$identifier])) {
+            if (! isset($id[$identifier])) {
                 throw ORMException::missingIdentifierField($class->name, $identifier);
             }
 
@@ -415,7 +415,7 @@ use Doctrine\Common\Util\ClassUtils;
 
         // Check identity map first
         if (($entity = $unitOfWork->tryGetById($sortedId, $class->rootEntityName)) !== false) {
-            if ( ! ($entity instanceof $class->name)) {
+            if (! ($entity instanceof $class->name)) {
                 return null;
             }
 
@@ -439,7 +439,7 @@ use Doctrine\Common\Util\ClassUtils;
 
         switch (true) {
             case LockMode::OPTIMISTIC === $lockMode:
-                if ( ! $class->isVersioned) {
+                if (! $class->isVersioned) {
                     throw OptimisticLockException::notVersioned($class->name);
                 }
 
@@ -452,7 +452,7 @@ use Doctrine\Common\Util\ClassUtils;
             case LockMode::NONE === $lockMode:
             case LockMode::PESSIMISTIC_READ === $lockMode:
             case LockMode::PESSIMISTIC_WRITE === $lockMode:
-                if ( ! $this->getConnection()->isTransactionActive()) {
+                if (! $this->getConnection()->isTransactionActive()) {
                     throw TransactionRequiredException::transactionRequired();
                 }
 
@@ -470,14 +470,14 @@ use Doctrine\Common\Util\ClassUtils;
     {
         $class = $this->metadataFactory->getMetadataFor(ltrim($entityName, '\\'));
 
-        if ( ! is_array($id)) {
+        if (! is_array($id)) {
             $id = array($class->identifier[0] => $id);
         }
 
         $sortedId = array();
 
         foreach ($class->identifier as $identifier) {
-            if ( ! isset($id[$identifier])) {
+            if (! isset($id[$identifier])) {
                 throw ORMException::missingIdentifierField($class->name, $identifier);
             }
 
@@ -493,7 +493,7 @@ use Doctrine\Common\Util\ClassUtils;
             return $this->find($entityName, $sortedId);
         }
 
-        if ( ! is_array($sortedId)) {
+        if (! is_array($sortedId)) {
             $sortedId = array($class->identifier[0] => $sortedId);
         }
 
@@ -516,7 +516,7 @@ use Doctrine\Common\Util\ClassUtils;
             return ($entity instanceof $class->name) ? $entity : null;
         }
 
-        if ( ! is_array($identifier)) {
+        if (! is_array($identifier)) {
             $identifier = array($class->identifier[0] => $identifier);
         }
 
@@ -570,8 +570,8 @@ use Doctrine\Common\Util\ClassUtils;
      */
     public function persist($entity)
     {
-        if ( ! is_object($entity)) {
-            throw ORMInvalidArgumentException::invalidObject('EntityManager#persist()' , $entity);
+        if (! is_object($entity)) {
+            throw ORMInvalidArgumentException::invalidObject('EntityManager#persist()', $entity);
         }
 
         $this->errorIfClosed();
@@ -593,8 +593,8 @@ use Doctrine\Common\Util\ClassUtils;
      */
     public function remove($entity)
     {
-        if ( ! is_object($entity)) {
-            throw ORMInvalidArgumentException::invalidObject('EntityManager#remove()' , $entity);
+        if (! is_object($entity)) {
+            throw ORMInvalidArgumentException::invalidObject('EntityManager#remove()', $entity);
         }
 
         $this->errorIfClosed();
@@ -614,8 +614,8 @@ use Doctrine\Common\Util\ClassUtils;
      */
     public function refresh($entity)
     {
-        if ( ! is_object($entity)) {
-            throw ORMInvalidArgumentException::invalidObject('EntityManager#refresh()' , $entity);
+        if (! is_object($entity)) {
+            throw ORMInvalidArgumentException::invalidObject('EntityManager#refresh()', $entity);
         }
 
         $this->errorIfClosed();
@@ -638,8 +638,8 @@ use Doctrine\Common\Util\ClassUtils;
      */
     public function detach($entity)
     {
-        if ( ! is_object($entity)) {
-            throw ORMInvalidArgumentException::invalidObject('EntityManager#detach()' , $entity);
+        if (! is_object($entity)) {
+            throw ORMInvalidArgumentException::invalidObject('EntityManager#detach()', $entity);
         }
 
         $this->unitOfWork->detach($entity);
@@ -658,8 +658,8 @@ use Doctrine\Common\Util\ClassUtils;
      */
     public function merge($entity)
     {
-        if ( ! is_object($entity)) {
-            throw ORMInvalidArgumentException::invalidObject('EntityManager#merge()' , $entity);
+        if (! is_object($entity)) {
+            throw ORMInvalidArgumentException::invalidObject('EntityManager#merge()', $entity);
         }
 
         $this->errorIfClosed();
@@ -826,7 +826,7 @@ use Doctrine\Common\Util\ClassUtils;
      */
     public static function create($conn, Configuration $config, EventManager $eventManager = null)
     {
-        if ( ! $config->getMetadataDriverImpl()) {
+        if (! $config->getMetadataDriverImpl()) {
             throw ORMException::missingMappingDriverImpl();
         }
 
@@ -839,7 +839,7 @@ use Doctrine\Common\Util\ClassUtils;
 
             case ($conn instanceof Connection):
                 if ($eventManager !== null && $conn->getEventManager() !== $eventManager) {
-                     throw ORMException::mismatchedEventManager();
+                    throw ORMException::mismatchedEventManager();
                 }
                 break;
 

@@ -70,9 +70,9 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->getHelper('em')->getEntityManager();
+        $em        = $this->getHelper('em')->getEntityManager();
         $validator = new SchemaValidator($em);
-        $exit = 0;
+        $exit      = 0;
 
         if ($input->getOption('skip-mapping')) {
             $output->writeln('<comment>[Mapping]  Skipped mapping check.</comment>');

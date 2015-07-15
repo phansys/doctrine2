@@ -36,10 +36,10 @@ class DefaultCacheFactoryTest extends OrmTestCase
         $this->enableSecondLevelCache();
         parent::setUp();
 
-        $this->em               = $this->_getTestEntityManager();
-        $this->regionsConfig    = new RegionsConfiguration;
-        $arguments              = array($this->regionsConfig, $this->getSharedSecondLevelCacheDriverImpl());
-        $this->factory          = $this->getMock('\Doctrine\ORM\Cache\DefaultCacheFactory', array(
+        $this->em            = $this->_getTestEntityManager();
+        $this->regionsConfig = new RegionsConfiguration;
+        $arguments           = array($this->regionsConfig, $this->getSharedSecondLevelCacheDriverImpl());
+        $this->factory       = $this->getMock('\Doctrine\ORM\Cache\DefaultCacheFactory', array(
             'getRegion'
         ), $arguments);
     }
@@ -259,8 +259,8 @@ class DefaultCacheFactoryTest extends OrmTestCase
         $factory = new DefaultCacheFactory($this->regionsConfig, $this->getSharedSecondLevelCacheDriverImpl());
 
         $factory->getRegion(array(
-            'usage'   => ClassMetadata::CACHE_USAGE_READ_WRITE,
-            'region'  => 'foo'
+            'usage'  => ClassMetadata::CACHE_USAGE_READ_WRITE,
+            'region' => 'foo'
         ));
     }
 
@@ -312,5 +312,4 @@ class DefaultCacheFactoryTest extends OrmTestCase
             ))
         );
     }
-
 }

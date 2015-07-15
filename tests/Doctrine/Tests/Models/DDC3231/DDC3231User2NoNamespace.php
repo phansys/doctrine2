@@ -17,5 +17,4 @@ class DDC3231User2NoNamespace
      * @Column(type="string", length=255)
      */
     protected $name;
-
 }

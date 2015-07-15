@@ -21,7 +21,6 @@ namespace Doctrine\ORM\Query\Exec;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
-
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\Query\AST;
 
@@ -70,20 +69,20 @@ class MultiTableUpdateExecutor extends AbstractSqlExecutor
      */
     public function __construct(AST\Node $AST, $sqlWalker)
     {
-        $em             = $sqlWalker->getEntityManager();
-        $conn           = $em->getConnection();
-        $platform       = $conn->getDatabasePlatform();
-        $quoteStrategy  = $em->getConfiguration()->getQuoteStrategy();
+        $em            = $sqlWalker->getEntityManager();
+        $conn          = $em->getConnection();
+        $platform      = $conn->getDatabasePlatform();
+        $quoteStrategy = $em->getConfiguration()->getQuoteStrategy();
 
-        $updateClause   = $AST->updateClause;
-        $primaryClass   = $sqlWalker->getEntityManager()->getClassMetadata($updateClause->abstractSchemaName);
-        $rootClass      = $em->getClassMetadata($primaryClass->rootEntityName);
+        $updateClause = $AST->updateClause;
+        $primaryClass = $sqlWalker->getEntityManager()->getClassMetadata($updateClause->abstractSchemaName);
+        $rootClass    = $em->getClassMetadata($primaryClass->rootEntityName);
 
-        $updateItems    = $updateClause->updateItems;
+        $updateItems = $updateClause->updateItems;
 
-        $tempTable      = $platform->getTemporaryTableName($rootClass->getTemporaryIdTableName());
-        $idColumnNames  = $rootClass->getIdentifierColumnNames();
-        $idColumnList   = implode(', ', $idColumnNames);
+        $tempTable     = $platform->getTemporaryTableName($rootClass->getTemporaryIdTableName());
+        $idColumnNames = $rootClass->getIdentifierColumnNames();
+        $idColumnList  = implode(', ', $idColumnNames);
 
         // 1. Create an INSERT INTO temptable ... SELECT identifiers WHERE $AST->getWhereClause()
         $sqlWalker->setSQLTableAlias($primaryClass->getTableName(), 't0', $updateClause->aliasIdentificationVariable);
@@ -91,7 +90,7 @@ class MultiTableUpdateExecutor extends AbstractSqlExecutor
         $this->_insertSql = 'INSERT INTO ' . $tempTable . ' (' . $idColumnList . ')'
                 . ' SELECT t0.' . implode(', t0.', $idColumnNames);
 
-        $rangeDecl = new AST\RangeVariableDeclaration($primaryClass->name, $updateClause->aliasIdentificationVariable);
+        $rangeDecl  = new AST\RangeVariableDeclaration($primaryClass->name, $updateClause->aliasIdentificationVariable);
         $fromClause = new AST\FromClause(array(new AST\IdentificationVariableDeclaration($rangeDecl, null, array())));
 
         $this->_insertSql .= $sqlWalker->walkFromClause($fromClause);
@@ -101,11 +100,11 @@ class MultiTableUpdateExecutor extends AbstractSqlExecutor
 
         // 3. Create and store UPDATE statements
         $classNames = array_merge($primaryClass->parentClasses, array($primaryClass->name), $primaryClass->subClasses);
-        $i = -1;
+        $i          = -1;
 
         foreach (array_reverse($classNames) as $className) {
-            $affected = false;
-            $class = $em->getClassMetadata($className);
+            $affected  = false;
+            $class     = $em->getClassMetadata($className);
             $updateSql = 'UPDATE ' . $quoteStrategy->getTableName($class, $platform) . ' SET ';
 
             foreach ($updateItems as $updateItem) {
@@ -115,7 +114,7 @@ class MultiTableUpdateExecutor extends AbstractSqlExecutor
                     isset($class->associationMappings[$field]) && ! isset($class->associationMappings[$field]['inherited'])) {
                     $newValue = $updateItem->newValue;
 
-                    if ( ! $affected) {
+                    if (! $affected) {
                         $affected = true;
                         ++$i;
                     } else {
@@ -148,7 +147,7 @@ class MultiTableUpdateExecutor extends AbstractSqlExecutor
         foreach ($idColumnNames as $idColumnName) {
             $columnDefinitions[$idColumnName] = array(
                 'notnull' => true,
-                'type' => Type::getType($rootClass->getTypeOfColumn($idColumnName))
+                'type'    => Type::getType($rootClass->getTypeOfColumn($idColumnName))
             );
         }
 

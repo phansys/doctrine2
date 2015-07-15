@@ -50,7 +50,7 @@ class PersisterHelper
             return array($class->fieldMappings[$fieldName]['type']);
         }
 
-        if ( ! isset($class->associationMappings[$fieldName])) {
+        if (! isset($class->associationMappings[$fieldName])) {
             return array();
         }
 
@@ -97,7 +97,7 @@ class PersisterHelper
 
         // iterate over to-one association mappings
         foreach ($class->associationMappings as $assoc) {
-            if ( ! isset($assoc['joinColumns'])) {
+            if (! isset($assoc['joinColumns'])) {
                 continue;
             }
 
@@ -113,7 +113,7 @@ class PersisterHelper
 
         // iterate over to-many association mappings
         foreach ($class->associationMappings as $assoc) {
-            if ( ! (isset($assoc['joinTable']) && isset($assoc['joinTable']['joinColumns']))) {
+            if (! (isset($assoc['joinTable']) && isset($assoc['joinTable']['joinColumns']))) {
                 continue;
             }
 

@@ -18,39 +18,38 @@ class DDC992Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC992Parent'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC992Child'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
     public function testIssue()
     {
-        $role = new DDC992Role();
-        $role->name = "Parent";
-        $child = new DDC992Role();
+        $role        = new DDC992Role();
+        $role->name  = "Parent";
+        $child       = new DDC992Role();
         $child->name = "child";
 
         $role->extendedBy[] = $child;
-        $child->extends[] = $role;
+        $child->extends[]   = $role;
 
         $this->_em->persist($role);
         $this->_em->persist($child);
         $this->_em->flush();
         $this->_em->clear();
 
-        $child = $this->_em->getRepository(get_class($role))->find($child->roleID);
+        $child   = $this->_em->getRepository(get_class($role))->find($child->roleID);
         $parents = count($child->extends);
         $this->assertEquals(1, $parents);
-        foreach ($child->extends AS $parent) {
+        foreach ($child->extends as $parent) {
             $this->assertEquals($role->getRoleID(), $parent->getRoleID());
         }
     }
 
     public function testOneToManyChild()
     {
-        $parent = new DDC992Parent();
-        $child = new DDC992Child();
-        $child->parent = $parent;
+        $parent           = new DDC992Parent();
+        $child            = new DDC992Child();
+        $child->parent    = $parent;
         $parent->childs[] = $child;
 
         $this->_em->persist($parent);
@@ -59,7 +58,7 @@ class DDC992Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         $parentRepository = $this->_em->getRepository(get_class($parent));
-        $childRepository = $this->_em->getRepository(get_class($child));
+        $childRepository  = $this->_em->getRepository(get_class($child));
 
         $parent = $parentRepository->find($parent->id);
         $this->assertEquals(1, count($parent->childs));
@@ -138,8 +137,9 @@ class DDC992Role
      */
     public $extends;
 
-    public function __construct() {
-        $this->extends = new ArrayCollection;
+    public function __construct()
+    {
+        $this->extends    = new ArrayCollection;
         $this->extendedBy = new ArrayCollection;
     }
 }

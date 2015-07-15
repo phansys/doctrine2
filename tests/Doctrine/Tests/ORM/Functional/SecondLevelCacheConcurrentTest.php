@@ -83,8 +83,8 @@ class SecondLevelCacheConcurrentTest extends SecondLevelCacheAbstractTest
         $this->_em->clear();
         $this->evictRegions();
 
-        $stateId    = $this->states[0]->getId();
-        $state      = $this->_em->find(State::CLASSNAME, $stateId);
+        $stateId = $this->states[0]->getId();
+        $state   = $this->_em->find(State::CLASSNAME, $stateId);
 
         $this->assertInstanceOf(State::CLASSNAME, $state);
         $this->assertInstanceOf(Country::CLASSNAME, $state->getCountry());
@@ -94,9 +94,9 @@ class SecondLevelCacheConcurrentTest extends SecondLevelCacheAbstractTest
         $this->_em->clear();
         $this->secondLevelCacheLogger->clearStats();
 
-        $stateId   = $this->states[0]->getId();
-        $cacheId   = new CollectionCacheKey(State::CLASSNAME, 'cities', array('id'=>$stateId));
-        $region    = $this->_em->getCache()->getCollectionCacheRegion(State::CLASSNAME, 'cities');
+        $stateId = $this->states[0]->getId();
+        $cacheId = new CollectionCacheKey(State::CLASSNAME, 'cities', array('id'=>$stateId));
+        $region  = $this->_em->getCache()->getCollectionCacheRegion(State::CLASSNAME, 'cities');
 
         $this->assertTrue($this->cache->containsCollection(State::CLASSNAME, 'cities', $stateId));
 

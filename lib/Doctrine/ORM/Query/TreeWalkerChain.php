@@ -86,10 +86,10 @@ class TreeWalkerChain implements TreeWalker
      */
     public function __construct($query, $parserResult, array $queryComponents)
     {
-        $this->_query = $query;
-        $this->_parserResult = $parserResult;
+        $this->_query           = $query;
+        $this->_parserResult    = $parserResult;
         $this->_queryComponents = $queryComponents;
-        $this->_walkers = new TreeWalkerChainIterator($this, $query, $parserResult);
+        $this->_walkers         = new TreeWalkerChainIterator($this, $query, $parserResult);
     }
 
     /**
@@ -429,7 +429,7 @@ class TreeWalkerChain implements TreeWalker
     /**
      * {@inheritdoc}
      */
-    function walkInstanceOfExpression($instanceOfExpr)
+    public function walkInstanceOfExpression($instanceOfExpr)
     {
         foreach ($this->_walkers as $walker) {
             $walker->walkInstanceOfExpression($instanceOfExpr);

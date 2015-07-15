@@ -61,7 +61,7 @@ class QueryCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testQueryCache_DependsOnFirstResult($query)
     {
-        $cache = $query->getQueryCacheDriver();
+        $cache      = $query->getQueryCacheDriver();
         $cacheCount = $this->getCacheSize($cache);
 
         $query->setFirstResult(10);
@@ -77,7 +77,7 @@ class QueryCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testQueryCache_DependsOnMaxResults($query)
     {
-        $cache = $query->getQueryCacheDriver();
+        $cache      = $query->getQueryCacheDriver();
         $cacheCount = $this->getCacheSize($cache);
 
         $query->setMaxResults(10);
@@ -92,7 +92,7 @@ class QueryCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testQueryCache_DependsOnHydrationMode($query)
     {
-        $cache = $query->getQueryCacheDriver();
+        $cache      = $query->getQueryCacheDriver();
         $cacheCount = $this->getCacheSize($cache);
 
         $query->getArrayResult();
@@ -126,7 +126,7 @@ class QueryCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $sqlExecMock = $this->getMock('Doctrine\ORM\Query\Exec\AbstractSqlExecutor', array('execute'));
         $sqlExecMock->expects($this->once())
                     ->method('execute')
-                    ->will($this->returnValue( 10 ));
+                    ->will($this->returnValue(10));
 
         $parserResultMock = $this->getMock('Doctrine\ORM\Query\ParserResult');
         $parserResultMock->expects($this->once())
@@ -148,4 +148,3 @@ class QueryCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $users = $query->getResult();
     }
 }
-

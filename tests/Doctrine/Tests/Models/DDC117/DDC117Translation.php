@@ -36,11 +36,11 @@ class DDC117Translation
 
     public function __construct($article, $language, $title)
     {
-        $this->article = $article;
-        $this->language = $language;
-        $this->title = $title;
+        $this->article           = $article;
+        $this->language          = $language;
+        $this->title             = $title;
         $this->reviewedByEditors = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastTranslatedBy = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lastTranslatedBy  = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getArticleId()

@@ -91,7 +91,7 @@ class SimpleObjectHydrator extends AbstractHydrator
                 $discrColumnName = $metaMappingDiscrColumnName;
             }
 
-            if ( ! isset($sqlResult[$discrColumnName])) {
+            if (! isset($sqlResult[$discrColumnName])) {
                 throw HydrationException::missingDiscriminatorColumn($entityName, $discrColumnName, key($this->_rsm->aliasMap));
             }
 
@@ -101,7 +101,7 @@ class SimpleObjectHydrator extends AbstractHydrator
 
             $discrMap = $this->class->discriminatorMap;
 
-            if ( ! isset($discrMap[$sqlResult[$discrColumnName]])) {
+            if (! isset($discrMap[$sqlResult[$discrColumnName]])) {
                 throw HydrationException::invalidDiscriminatorValue($sqlResult[$discrColumnName], array_keys($discrMap));
             }
 
@@ -118,7 +118,7 @@ class SimpleObjectHydrator extends AbstractHydrator
 
             $cacheKeyInfo = $this->hydrateColumnInfo($column);
 
-            if ( ! $cacheKeyInfo) {
+            if (! $cacheKeyInfo) {
                 continue;
             }
 
@@ -131,7 +131,7 @@ class SimpleObjectHydrator extends AbstractHydrator
             $fieldName = $cacheKeyInfo['fieldName'];
 
             // Prevent overwrite in case of inherit classes using same property name (See AbstractHydrator)
-            if ( ! isset($data[$fieldName]) || $value !== null) {
+            if (! isset($data[$fieldName]) || $value !== null) {
                 $data[$fieldName] = $value;
             }
         }

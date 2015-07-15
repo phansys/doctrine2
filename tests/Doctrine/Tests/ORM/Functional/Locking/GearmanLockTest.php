@@ -2,17 +2,17 @@
 
 namespace Doctrine\Tests\ORM\Functional\Locking;
 
-use Doctrine\Tests\Models\CMS\CmsArticle,
-    Doctrine\Tests\Models\CMS\CmsUser,
-    Doctrine\DBAL\LockMode,
-    Doctrine\ORM\EntityManager;
+use Doctrine\Tests\Models\CMS\CmsArticle;
+use Doctrine\Tests\Models\CMS\CmsUser;
+use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @group locking_functional
  */
 class GearmanLockTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    private $gearman = null;
+    private $gearman    = null;
     private $maxRunTime = 0;
     private $articleId;
 
@@ -30,8 +30,8 @@ class GearmanLockTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->gearman->addServer();
         $this->gearman->setCompleteCallback(array($this, "gearmanTaskCompleted"));
 
-        $article = new CmsArticle();
-        $article->text = "my article";
+        $article        = new CmsArticle();
+        $article->text  = "my article";
         $article->topic = "Hello";
 
         $this->_em->persist($article);
@@ -131,10 +131,10 @@ class GearmanLockTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->gearman->runTasks();
 
         $this->assertTrue($this->maxRunTime > $forTime,
-            "Because of locking this tests should have run at least " . $forTime . " seconds, ".
+            "Because of locking this tests should have run at least " . $forTime . " seconds, " .
             "but only did for " . $this->maxRunTime . " seconds.");
         $this->assertTrue($this->maxRunTime < $notLongerThan,
-            "The longest task should not run longer than " . $notLongerThan . " seconds, ".
+            "The longest task should not run longer than " . $notLongerThan . " seconds, " .
             "but did for " . $this->maxRunTime . " seconds."
         );
     }
@@ -143,17 +143,17 @@ class GearmanLockTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->startJob('findWithLock', array(
             'entityName' => $entityName,
-            'entityId' => $entityId,
-            'lockMode' => $lockMode,
+            'entityId'   => $entityId,
+            'lockMode'   => $lockMode,
         ));
     }
 
     protected function asyncDqlWithLock($dql, $params, $lockMode)
     {
         $this->startJob('dqlWithLock', array(
-            'dql' => $dql,
+            'dql'       => $dql,
             'dqlParams' => $params,
-            'lockMode' => $lockMode,
+            'lockMode'  => $lockMode,
         ));
     }
 
@@ -161,15 +161,15 @@ class GearmanLockTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->startJob('lock', array(
             'entityName' => $entityName,
-            'entityId' => $entityId,
-            'lockMode' => $lockMode,
+            'entityId'   => $entityId,
+            'lockMode'   => $lockMode,
         ));
     }
 
     protected function startJob($fn, $fixture)
     {
         $this->gearman->addTask($fn, serialize(array(
-            'conn' => $this->_em->getConnection()->getParams(),
+            'conn'    => $this->_em->getConnection()->getParams(),
             'fixture' => $fixture
         )));
 

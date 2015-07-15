@@ -15,7 +15,7 @@ class XmlMappingDriverTest extends AbstractMappingDriverTest
 
     public function testClassTableInheritanceDiscriminatorMap()
     {
-        $className = 'Doctrine\Tests\ORM\Mapping\CTI';
+        $className     = 'Doctrine\Tests\ORM\Mapping\CTI';
         $mappingDriver = $this->_loadDriver();
 
         $class = new ClassMetadata($className);
@@ -105,8 +105,8 @@ class XmlMappingDriverTest extends AbstractMappingDriverTest
         $this->assertEquals(
             array(
                 'name' => array(
-                    'class' => 'Doctrine\Tests\Models\ValueObjects\Name',
-                    'columnPrefix' => 'nm_',
+                    'class'         => 'Doctrine\Tests\Models\ValueObjects\Name',
+                    'columnPrefix'  => 'nm_',
                     'declaredField' => null,
                     'originalField' => null,
                 )
@@ -133,26 +133,26 @@ class XmlMappingDriverTest extends AbstractMappingDriverTest
      */
     public function testValidateXmlSchema($xmlMappingFile)
     {
-        $xsdSchemaFile  = __DIR__ . '/../../../../../doctrine-mapping.xsd';
-        $dom            = new \DOMDocument('UTF-8');
+        $xsdSchemaFile = __DIR__ . '/../../../../../doctrine-mapping.xsd';
+        $dom           = new \DOMDocument('UTF-8');
 
         $dom->load($xmlMappingFile);
 
         $this->assertTrue($dom->schemaValidate($xsdSchemaFile));
     }
 
-    static public function dataValidSchema()
+    public static function dataValidSchema()
     {
         $list    = glob(__DIR__ . '/xml/*.xml');
         $invalid = array(
             'Doctrine.Tests.Models.DDC889.DDC889Class.dcm'
         );
 
-        $list = array_filter($list, function($item) use ($invalid){
+        $list = array_filter($list, function ($item) use ($invalid) {
             return ! in_array(pathinfo($item, PATHINFO_FILENAME), $invalid);
         });
 
-        return array_map(function($item){
+        return array_map(function ($item) {
             return array($item);
         }, $list);
     }
@@ -173,6 +173,12 @@ class CTI
     public $id;
 }
 
-class CTIFoo extends CTI {}
-class CTIBar extends CTI {}
-class CTIBaz extends CTI {}
+class CTIFoo extends CTI
+{
+}
+class CTIBar extends CTI
+{
+}
+class CTIBaz extends CTI
+{
+}

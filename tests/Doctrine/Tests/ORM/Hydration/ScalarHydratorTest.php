@@ -20,17 +20,17 @@ class ScalarHydratorTest extends HydrationTestCase
         // Faked result set
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb'
                 ),
             array(
-                'u__id' => '2',
+                'u__id'   => '2',
                 'u__name' => 'jwage'
                 )
             );
 
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ScalarHydrator($this->_em);
 
         $result = $hydrator->hydrateAll($stmt, $rsm);
@@ -61,7 +61,7 @@ class ScalarHydratorTest extends HydrationTestCase
             ),
         );
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ScalarHydrator($this->_em);
 
         $result = $hydrator->hydrateAll($stmt, $rsm);
@@ -82,16 +82,16 @@ class ScalarHydratorTest extends HydrationTestCase
 
         $resultSet = array(
             array(
-                'u__id' => '1',
+                'u__id'   => '1',
                 'u__name' => 'romanb',
-                'foo1' => 'A',
-                'bar2' => 'B',
-                'baz3' => 'C',
-                'foo' => 'bar', // Unknown!
+                'foo1'    => 'A',
+                'bar2'    => 'B',
+                'baz3'    => 'C',
+                'foo'     => 'bar', // Unknown!
             ),
         );
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ScalarHydrator($this->_em);
 
         $result = $hydrator->hydrateAll($stmt, $rsm);

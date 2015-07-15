@@ -44,14 +44,14 @@ class TreeWalkerChainIterator implements \Iterator, \ArrayAccess
     public function __construct(TreeWalkerChain $treeWalkerChain, $query, $parserResult)
     {
         $this->treeWalkerChain = $treeWalkerChain;
-        $this->query = $query;
-        $this->parserResult = $parserResult;
+        $this->query           = $query;
+        $this->parserResult    = $parserResult;
     }
 
     /**
      * {@inheritdoc}
      */
-    function rewind()
+    public function rewind()
     {
         return reset($this->walkers);
     }
@@ -59,7 +59,7 @@ class TreeWalkerChainIterator implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    function current()
+    public function current()
     {
         return $this->offsetGet(key($this->walkers));
     }
@@ -67,7 +67,7 @@ class TreeWalkerChainIterator implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    function key()
+    public function key()
     {
         return key($this->walkers);
     }
@@ -75,7 +75,7 @@ class TreeWalkerChainIterator implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    function next()
+    public function next()
     {
         next($this->walkers);
 
@@ -85,7 +85,7 @@ class TreeWalkerChainIterator implements \Iterator, \ArrayAccess
     /**
      * {@inheritdoc}
      */
-    function valid()
+    public function valid()
     {
         return key($this->walkers) !== null;
     }

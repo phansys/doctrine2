@@ -16,7 +16,7 @@ class SequenceGeneratorTest extends \Doctrine\Tests\OrmTestCase
 
     protected function setUp()
     {
-        $this->_em = $this->_getTestEntityManager();
+        $this->_em     = $this->_getTestEntityManager();
         $this->_seqGen = new SequenceGenerator('seq', 10);
     }
 
@@ -31,8 +31,5 @@ class SequenceGeneratorTest extends \Doctrine\Tests\OrmTestCase
             $this->assertEquals((int)($i / 10) * 10 + 10, $this->_seqGen->getCurrentMaxValue());
             $this->assertEquals($i + 1, $this->_seqGen->getNextValue());
         }
-
-
     }
 }
-

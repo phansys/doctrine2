@@ -19,7 +19,8 @@ class OneToOneEagerLoadingTest extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata('Doctrine\Tests\ORM\Functional\Waggon'),
                 $this->_em->getClassMetadata('Doctrine\Tests\ORM\Functional\TrainOrder'),
             ));
-        } catch(\Exception $e) {}
+        } catch (\Exception $e) {
+        }
     }
 
     /**
@@ -27,7 +28,7 @@ class OneToOneEagerLoadingTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testEagerLoadOneToOneOwningSide()
     {
-        $train = new Train(new TrainOwner("Alexander"));
+        $train  = new Train(new TrainOwner("Alexander"));
         $driver = new TrainDriver("Benjamin");
         $waggon = new Waggon();
 
@@ -112,7 +113,7 @@ class OneToOneEagerLoadingTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testEagerLoadManyToOne()
     {
-        $train = new Train(new TrainOwner("Alexander"));
+        $train  = new Train(new TrainOwner("Alexander"));
         $waggon = new Waggon();
         $train->addWaggon($waggon);
 
@@ -130,7 +131,7 @@ class OneToOneEagerLoadingTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testEagerLoadWithNullableColumnsGeneratesLeftJoinOnBothSides()
     {
-        $train = new Train(new TrainOwner("Alexander"));
+        $train  = new Train(new TrainOwner("Alexander"));
         $driver = new TrainDriver("Benjamin");
         $train->setDriver($driver);
 

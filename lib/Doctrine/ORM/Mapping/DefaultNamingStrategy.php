@@ -55,7 +55,7 @@ class DefaultNamingStrategy implements NamingStrategy
      */
     public function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null)
     {
-        return $propertyName.'_'.$embeddedColumnName;
+        return $propertyName . '_' . $embeddedColumnName;
     }
 
     /**

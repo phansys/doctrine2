@@ -17,14 +17,14 @@ class DDC748Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testRefreshWithManyToOne()
     {
-        $user = new CmsUser();
-        $user->name = "beberlei";
-        $user->status = "active";
+        $user           = new CmsUser();
+        $user->name     = "beberlei";
+        $user->status   = "active";
         $user->username = "beberlei";
 
         $article = new CmsArticle();
         $article->setAuthor($user);
-        $article->text = "foo";
+        $article->text  = "foo";
         $article->topic = "bar";
 
         $this->_em->persist($user);
@@ -39,16 +39,16 @@ class DDC748Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testRefreshOneToOne()
     {
-        $user = new CmsUser();
-        $user->name = "beberlei";
-        $user->status = "active";
+        $user           = new CmsUser();
+        $user->name     = "beberlei";
+        $user->status   = "active";
         $user->username = "beberlei";
 
-        $address = new CmsAddress();
-        $address->city = "Bonn";
+        $address          = new CmsAddress();
+        $address->city    = "Bonn";
         $address->country = "Germany";
-        $address->street = "A street";
-        $address->zip = 12345;
+        $address->street  = "A street";
+        $address->zip     = 12345;
         $address->setUser($user);
 
         $this->_em->persist($user);

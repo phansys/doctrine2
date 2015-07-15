@@ -56,8 +56,8 @@ class GenerateSchemaTableEventArgs extends EventArgs
     public function __construct(ClassMetadata $classMetadata, Schema $schema, Table $classTable)
     {
         $this->classMetadata = $classMetadata;
-        $this->schema = $schema;
-        $this->classTable = $classTable;
+        $this->schema        = $schema;
+        $this->classTable    = $classTable;
     }
 
     /**

@@ -7,5 +7,5 @@ namespace Doctrine\Tests\Models\Cache;
  */
 class Bar extends Attraction
 {
-    const CLASSNAME = __CLASS__;   
+    const CLASSNAME = __CLASS__;
 }

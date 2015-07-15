@@ -48,8 +48,8 @@ class Func
      */
     public function __construct($name, $arguments)
     {
-        $this->name         = $name;
-        $this->arguments    = (array) $arguments;
+        $this->name      = $name;
+        $this->arguments = (array) $arguments;
     }
 
     /**

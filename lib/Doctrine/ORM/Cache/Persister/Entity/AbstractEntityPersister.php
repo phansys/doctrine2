@@ -32,7 +32,6 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Persisters\Entity\EntityPersister;
-
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\Common\Collections\Criteria;
 
@@ -42,7 +41,7 @@ use Doctrine\Common\Collections\Criteria;
  */
 abstract class AbstractEntityPersister implements CachedEntityPersister
 {
-     /**
+    /**
      * @var \Doctrine\ORM\UnitOfWork
      */
     protected $uow;
@@ -117,21 +116,21 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
      */
     public function __construct(EntityPersister $persister, Region $region, EntityManagerInterface $em, ClassMetadata $class)
     {
-        $configuration  = $em->getConfiguration();
-        $cacheConfig    = $configuration->getSecondLevelCacheConfiguration();
-        $cacheFactory   = $cacheConfig->getCacheFactory();
+        $configuration = $em->getConfiguration();
+        $cacheConfig   = $configuration->getSecondLevelCacheConfiguration();
+        $cacheFactory  = $cacheConfig->getCacheFactory();
 
-        $this->class            = $class;
-        $this->region           = $region;
-        $this->persister        = $persister;
-        $this->cache            = $em->getCache();
-        $this->regionName       = $region->getName();
-        $this->uow              = $em->getUnitOfWork();
-        $this->metadataFactory  = $em->getMetadataFactory();
-        $this->cacheLogger      = $cacheConfig->getCacheLogger();
-        $this->timestampRegion  = $cacheFactory->getTimestampRegion();
-        $this->hydrator         = $cacheFactory->buildEntityHydrator($em, $class);
-        $this->timestampKey     = new TimestampCacheKey($this->class->getTableName());
+        $this->class           = $class;
+        $this->region          = $region;
+        $this->persister       = $persister;
+        $this->cache           = $em->getCache();
+        $this->regionName      = $region->getName();
+        $this->uow             = $em->getUnitOfWork();
+        $this->metadataFactory = $em->getMetadataFactory();
+        $this->cacheLogger     = $cacheConfig->getCacheLogger();
+        $this->timestampRegion = $cacheFactory->getTimestampRegion();
+        $this->hydrator        = $cacheFactory->buildEntityHydrator($em, $class);
+        $this->timestampKey    = new TimestampCacheKey($this->class->getTableName());
     }
 
     /**
@@ -227,8 +226,8 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
      */
     public function storeEntityCache($entity, EntityCacheKey $key)
     {
-        $class      = $this->class;
-        $className  = ClassUtils::getClass($entity);
+        $class     = $this->class;
+        $className = ClassUtils::getClass($entity);
 
         if ($className !== $this->class->name) {
             $class = $this->metadataFactory->getMetadataFor($className);
@@ -264,7 +263,6 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
                 if (isset($assoc['cache']) &&
                     ($assoc['type'] & ClassMetadata::TO_ONE) &&
                     ($assoc['fetch'] === ClassMetadata::FETCH_EAGER || ! $assoc['isOwningSide'])) {
-
                     $associations[] = $name;
                 }
             }
@@ -478,8 +476,8 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
             return null;
         }
 
-        $class      = $this->class;
-        $className  = ClassUtils::getClass($entity);
+        $class     = $this->class;
+        $className = ClassUtils::getClass($entity);
 
         if ($className !== $this->class->name) {
             $class = $this->metadataFactory->getMetadataFor($className);
@@ -642,5 +640,4 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
     {
         $this->persister->refresh($id, $entity, $lockMode);
     }
-
 }

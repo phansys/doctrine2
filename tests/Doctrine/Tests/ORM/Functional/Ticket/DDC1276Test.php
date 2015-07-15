@@ -19,22 +19,22 @@ class DDC1276Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $user = new CmsUser();
-        $user->name = "Benjamin";
+        $user           = new CmsUser();
+        $user->name     = "Benjamin";
         $user->username = "beberlei";
-        $user->status = "active";
+        $user->status   = "active";
         $this->_em->persist($user);
 
         for ($i = 0; $i < 2; $i++) {
-            $group = new CmsGroup();
-            $group->name = "group".$i;
+            $group          = new CmsGroup();
+            $group->name    = "group" . $i;
             $user->groups[] = $group;
             $this->_em->persist($group);
         }
         $this->_em->flush();
         $this->_em->clear();
 
-        $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $user->id);
+        $user   = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $user->id);
         $cloned = clone $user;
 
         $this->assertSame($user->groups, $cloned->groups);

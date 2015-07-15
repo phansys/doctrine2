@@ -26,8 +26,8 @@ class EntityRepositoryGeneratorTest extends \Doctrine\Tests\OrmTestCase
      */
     public function setUp()
     {
-        $this->_namespace   = uniqid('doctrine_');
-        $this->_tmpDir      = \sys_get_temp_dir() . DIRECTORY_SEPARATOR . $this->_namespace;
+        $this->_namespace = uniqid('doctrine_');
+        $this->_tmpDir    = \sys_get_temp_dir() . DIRECTORY_SEPARATOR . $this->_namespace;
         \mkdir($this->_tmpDir);
 
         $this->_generator = new EntityGenerator();
@@ -49,7 +49,7 @@ class EntityRepositoryGeneratorTest extends \Doctrine\Tests\OrmTestCase
         $dirs = array();
 
         $ri = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->_tmpDir));
-        foreach ($ri AS $file) {
+        foreach ($ri as $file) {
             /* @var $file \SplFileInfo */
             if ($file->isFile()) {
                 \unlink($file->getPathname());
@@ -164,14 +164,14 @@ class EntityRepositoryGeneratorTest extends \Doctrine\Tests\OrmTestCase
      */
     private function writeEntityClass($className, $newClassName)
     {
-        $cmf    = new ClassMetadataFactory();
-        $em     = $this->_getTestEntityManager();
+        $cmf = new ClassMetadataFactory();
+        $em  = $this->_getTestEntityManager();
 
         $cmf->setEntityManager($em);
 
-        $metadata               = $cmf->getMetadataFor($className);
-        $metadata->namespace    = $this->_namespace;
-        $metadata->name         = $newClassName;
+        $metadata                            = $cmf->getMetadataFor($className);
+        $metadata->namespace                 = $this->_namespace;
+        $metadata->name                      = $newClassName;
         $metadata->customRepositoryClassName = $newClassName . "Repository";
 
         $this->_generator->writeEntityClass($metadata, $this->_tmpDir);
@@ -192,5 +192,4 @@ class EntityRepositoryGeneratorTest extends \Doctrine\Tests\OrmTestCase
 
         return $this->_tmpDir . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . 'Repository.php';
     }
-    
 }

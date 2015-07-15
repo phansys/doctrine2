@@ -25,7 +25,6 @@ namespace Doctrine\Tests\Models\DDC869;
  */
 class DDC869Payment
 {
-
     /**
      * @Id
      * @Column(type="integer")
@@ -46,12 +45,11 @@ class DDC869Payment
            'columnName' => 'id',
         ));
         $metadata->mapField(array(
-           'fieldName'  => 'value',
-           'type'       => 'float',
+           'fieldName' => 'value',
+           'type'      => 'float',
         ));
         $metadata->isMappedSuperclass = true;
         $metadata->setCustomRepositoryClass("Doctrine\Tests\Models\DDC869\DDC869PaymentRepository");
         $metadata->setIdGeneratorType(\Doctrine\ORM\Mapping\ClassMetadataInfo::GENERATOR_TYPE_AUTO);
     }
-
 }

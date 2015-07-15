@@ -38,9 +38,9 @@ class Flight
      */
     public function __construct(City $leavingFrom, City $goingTo)
     {
-        $this->goingTo      = $goingTo;
-        $this->leavingFrom  = $leavingFrom;
-        $this->departure    = new \DateTime();
+        $this->goingTo     = $goingTo;
+        $this->leavingFrom = $leavingFrom;
+        $this->departure   = new \DateTime();
     }
 
     public function getLeavingFrom()

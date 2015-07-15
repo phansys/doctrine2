@@ -120,8 +120,8 @@ class ResolveTargetEntityListener implements EventSubscriber
      */
     private function remapAssociation($classMetadata, $mapping)
     {
-        $newMapping = $this->resolveTargetEntities[$mapping['targetEntity']];
-        $newMapping = array_replace_recursive($mapping, $newMapping);
+        $newMapping              = $this->resolveTargetEntities[$mapping['targetEntity']];
+        $newMapping              = array_replace_recursive($mapping, $newMapping);
         $newMapping['fieldName'] = $mapping['fieldName'];
 
         unset($classMetadata->associationMappings[$mapping['fieldName']]);

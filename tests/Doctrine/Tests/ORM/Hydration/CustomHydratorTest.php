@@ -2,13 +2,14 @@
 
 namespace Doctrine\Tests\ORM\Hydration;
 
-use PDO, Doctrine\ORM\Internal\Hydration\AbstractHydrator;
+use PDO;
+use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 
 class CustomHydratorTest extends HydrationTestCase
 {
     public function testCustomHydrator()
     {
-        $em = $this->_getTestEntityManager();
+        $em     = $this->_getTestEntityManager();
         $config = $em->getConfiguration();
         $config->addCustomHydrationMode('CustomHydrator', 'Doctrine\Tests\ORM\Hydration\CustomHydrator');
 

@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping\ClassMetadata;
  */
 class ManyToManyUnidirectionalAssociationTest extends AbstractManyToManyAssociationTestCase
 {
-    protected $_firstField = 'cart_id';
+    protected $_firstField  = 'cart_id';
     protected $_secondField = 'product_id';
-    protected $_table = 'ecommerce_carts_products';
+    protected $_table       = 'ecommerce_carts_products';
     private $firstProduct;
     private $secondProduct;
     private $firstCart;
@@ -29,7 +29,7 @@ class ManyToManyUnidirectionalAssociationTest extends AbstractManyToManyAssociat
         $this->firstProduct->setName('Doctrine 1.x Manual');
         $this->secondProduct = new ECommerceProduct();
         $this->secondProduct->setName('Doctrine 2.x Manual');
-        $this->firstCart = new ECommerceCart();
+        $this->firstCart  = new ECommerceCart();
         $this->secondCart = new ECommerceCart();
     }
 
@@ -61,10 +61,10 @@ class ManyToManyUnidirectionalAssociationTest extends AbstractManyToManyAssociat
     {
         $this->_createFixture();
 
-        $query = $this->_em->createQuery('SELECT c, p FROM Doctrine\Tests\Models\ECommerce\ECommerceCart c LEFT JOIN c.products p ORDER BY c.id, p.id');
-        $result = $query->getResult();
-        $firstCart = $result[0];
-        $products = $firstCart->getProducts();
+        $query      = $this->_em->createQuery('SELECT c, p FROM Doctrine\Tests\Models\ECommerce\ECommerceCart c LEFT JOIN c.products p ORDER BY c.id, p.id');
+        $result     = $query->getResult();
+        $firstCart  = $result[0];
+        $products   = $firstCart->getProducts();
         $secondCart = $result[1];
 
         $this->assertInstanceOf('Doctrine\Tests\Models\ECommerce\ECommerceProduct', $products[0]);
@@ -77,13 +77,13 @@ class ManyToManyUnidirectionalAssociationTest extends AbstractManyToManyAssociat
     public function testLazyLoadsCollection()
     {
         $this->_createFixture();
-        $metadata = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceCart');
+        $metadata                                           = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceCart');
         $metadata->associationMappings['products']['fetch'] = ClassMetadata::FETCH_LAZY;
 
-        $query = $this->_em->createQuery('SELECT c FROM Doctrine\Tests\Models\ECommerce\ECommerceCart c');
-        $result = $query->getResult();
-        $firstCart = $result[0];
-        $products = $firstCart->getProducts();
+        $query      = $this->_em->createQuery('SELECT c FROM Doctrine\Tests\Models\ECommerce\ECommerceCart c');
+        $result     = $query->getResult();
+        $firstCart  = $result[0];
+        $products   = $firstCart->getProducts();
         $secondCart = $result[1];
 
         $this->assertInstanceOf('Doctrine\Tests\Models\ECommerce\ECommerceProduct', $products[0]);

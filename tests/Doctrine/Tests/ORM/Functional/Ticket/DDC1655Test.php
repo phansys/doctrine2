@@ -18,8 +18,7 @@ class DDC1655Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1655Bar'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1655Baz'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -31,10 +30,10 @@ class DDC1655Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $cm = $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC1655Bar');
         $this->assertEquals(array("postLoad" => array("postLoad", "postSubLoaded")), $cm->lifecycleCallbacks);
 
-        $baz = new DDC1655Baz();
-        $foo = new DDC1655Foo();
+        $baz      = new DDC1655Baz();
+        $foo      = new DDC1655Foo();
         $foo->baz = $baz;
-        $bar = new DDC1655Bar();
+        $bar      = new DDC1655Bar();
         $bar->baz = $baz;
 
         $this->_em->persist($foo);

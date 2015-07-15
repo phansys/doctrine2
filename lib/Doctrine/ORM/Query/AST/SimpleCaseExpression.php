@@ -54,8 +54,8 @@ class SimpleCaseExpression extends Node
      */
     public function __construct($caseOperand, array $simpleWhenClauses, $elseScalarExpression)
     {
-        $this->caseOperand = $caseOperand;
-        $this->simpleWhenClauses = $simpleWhenClauses;
+        $this->caseOperand          = $caseOperand;
+        $this->simpleWhenClauses    = $simpleWhenClauses;
         $this->elseScalarExpression = $elseScalarExpression;
     }
 

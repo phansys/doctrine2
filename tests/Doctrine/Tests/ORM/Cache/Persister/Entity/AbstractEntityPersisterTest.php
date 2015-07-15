@@ -3,12 +3,10 @@
 namespace Doctrine\Tests\ORM\Cache\Persister\Entity;
 
 use Doctrine\Tests\OrmTestCase;
-
 use Doctrine\ORM\Cache\Region;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Persisters\Entity\EntityPersister;
-
 use Doctrine\Tests\Models\Cache\Country;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -97,9 +95,9 @@ abstract class AbstractEntityPersisterTest extends OrmTestCase
         $this->enableSecondLevelCache();
         parent::setUp();
 
-        $this->em               = $this->_getTestEntityManager();
-        $this->region           = $this->createRegion();
-        $this->entityPersister  = $this->getMock(
+        $this->em              = $this->_getTestEntityManager();
+        $this->region          = $this->createRegion();
+        $this->entityPersister = $this->getMock(
             'Doctrine\ORM\Persisters\Entity\EntityPersister',
             $this->entityPersisterMockMethods
         );
@@ -160,7 +158,7 @@ abstract class AbstractEntityPersisterTest extends OrmTestCase
 
         $this->entityPersister->expects($this->once())
             ->method('getSelectSQL')
-            ->with($this->equalTo(array('name'=>'Foo')), $this->equalTo(array(0)), $this->equalTo(1), $this->equalTo(2), $this->equalTo(3), $this->equalTo(array(4)))
+            ->with($this->equalTo(array('name'=> 'Foo')), $this->equalTo(array(0)), $this->equalTo(1), $this->equalTo(2), $this->equalTo(3), $this->equalTo(array(4)))
             ->will($this->returnValue('SELECT * FROM foo WERE name = ?'));
 
         $this->assertEquals('SELECT * FROM foo WERE name = ?', $persister->getSelectSQL(array('name'=>'Foo'), array(0), 1, 2, 3, array(4)));
@@ -183,10 +181,10 @@ abstract class AbstractEntityPersisterTest extends OrmTestCase
 
         $this->entityPersister->expects($this->once())
             ->method('expandParameters')
-            ->with($this->equalTo(array('name'=>'Foo')))
-            ->will($this->returnValue(array('name'=>'Foo')));
+            ->with($this->equalTo(array('name'    => 'Foo')))
+            ->will($this->returnValue(array('name'=> 'Foo')));
 
-        $this->assertEquals(array('name'=>'Foo'), $persister->expandParameters(array('name'=>'Foo')));
+        $this->assertEquals(array('name'=> 'Foo'), $persister->expandParameters(array('name'=>'Foo')));
     }
 
     public function testInvokeExpandCriteriaParameters()
@@ -197,9 +195,9 @@ abstract class AbstractEntityPersisterTest extends OrmTestCase
         $this->entityPersister->expects($this->once())
             ->method('expandCriteriaParameters')
             ->with($this->equalTo($criteria))
-            ->will($this->returnValue(array('name'=>'Foo')));
+            ->will($this->returnValue(array('name'=> 'Foo')));
 
-        $this->assertEquals(array('name'=>'Foo'), $persister->expandCriteriaParameters($criteria));
+        $this->assertEquals(array('name'=> 'Foo'), $persister->expandCriteriaParameters($criteria));
     }
 
     public function testInvokeSelectConditionStatementSQL()
@@ -371,7 +369,7 @@ abstract class AbstractEntityPersisterTest extends OrmTestCase
             ->with($this->equalTo(array()), $this->equalTo('Foo'), $this->equalTo(1), $this->equalTo(2))
             ->will($this->returnValue(array($entity)));
 
-        $this->assertEquals(array($entity), $persister->getManyToManyCollection(array(), 'Foo', 1 ,2));
+        $this->assertEquals(array($entity), $persister->getManyToManyCollection(array(), 'Foo', 1, 2));
     }
 
     public function testInvokeGetOneToManyCollection()
@@ -384,7 +382,7 @@ abstract class AbstractEntityPersisterTest extends OrmTestCase
             ->with($this->equalTo(array()), $this->equalTo('Foo'), $this->equalTo(1), $this->equalTo(2))
             ->will($this->returnValue(array($entity)));
 
-        $this->assertEquals(array($entity), $persister->getOneToManyCollection(array(), 'Foo', 1 ,2));
+        $this->assertEquals(array($entity), $persister->getOneToManyCollection(array(), 'Foo', 1, 2));
     }
 
     public function testInvokeLoadManyToManyCollection()

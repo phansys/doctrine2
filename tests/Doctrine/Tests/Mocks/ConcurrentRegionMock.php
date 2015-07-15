@@ -2,7 +2,6 @@
 
 namespace Doctrine\Tests\Mocks;
 
-
 use Doctrine\ORM\Cache\CollectionCacheEntry;
 use Doctrine\ORM\Cache\ConcurrentRegion;
 use Doctrine\ORM\Cache\LockException;
@@ -18,9 +17,9 @@ use Doctrine\ORM\Cache\Lock;
  */
 class ConcurrentRegionMock implements ConcurrentRegion
 {
-    public $calls       = array();
-    public $exceptions  = array();
-    public $locks       = array();
+    public $calls      = array();
+    public $exceptions = array();
+    public $locks      = array();
 
     /**
      * @var \Doctrine\ORM\Cache\Region 
@@ -166,7 +165,6 @@ class ConcurrentRegionMock implements ConcurrentRegion
         $this->throwException(__FUNCTION__);
 
         if (isset($this->locks[$key->hash])) {
-
             if ($lock !== null && $this->locks[$key->hash]->value === $lock->value) {
                 return $this->region->put($key, $entry);
             }
@@ -202,7 +200,7 @@ class ConcurrentRegionMock implements ConcurrentRegion
 
         $this->throwException(__FUNCTION__);
 
-        if ( ! isset($this->locks[$key->hash])) {
+        if (! isset($this->locks[$key->hash])) {
             return;
         }
 

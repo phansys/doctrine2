@@ -46,7 +46,6 @@ class GenerateRepositoriesCommandTest extends OrmFunctionalTestCase
         )));
 
         $this->application->add(new GenerateRepositoriesCommand());
-
     }
 
     /**
@@ -57,7 +56,7 @@ class GenerateRepositoriesCommandTest extends OrmFunctionalTestCase
         $dirs = array();
 
         $ri = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->path));
-        foreach ($ri AS $file) {
+        foreach ($ri as $file) {
             /* @var $file \SplFileInfo */
             if ($file->isFile()) {
                 \unlink($file->getPathname());
@@ -91,8 +90,8 @@ class GenerateRepositoriesCommandTest extends OrmFunctionalTestCase
         $this->assertTrue(class_exists($cname));
         $this->assertTrue(class_exists('DDC3231User1NoNamespaceRepository'));
 
-        $repo1  = new \ReflectionClass($cname);
-        $repo2  = new \ReflectionClass('DDC3231User1NoNamespaceRepository');
+        $repo1 = new \ReflectionClass($cname);
+        $repo2 = new \ReflectionClass('DDC3231User1NoNamespaceRepository');
 
         $this->assertSame('Doctrine\ORM\EntityRepository', $repo1->getParentClass()->getName());
         $this->assertSame('Doctrine\ORM\EntityRepository', $repo2->getParentClass()->getName());
@@ -114,8 +113,8 @@ class GenerateRepositoriesCommandTest extends OrmFunctionalTestCase
         $this->assertTrue(class_exists($cname));
         $this->assertTrue(class_exists('DDC3231User2NoNamespaceRepository'));
 
-        $repo1  = new \ReflectionClass($cname);
-        $repo2  = new \ReflectionClass('DDC3231User2NoNamespaceRepository');
+        $repo1 = new \ReflectionClass($cname);
+        $repo2 = new \ReflectionClass('DDC3231User2NoNamespaceRepository');
 
         $this->assertSame('Doctrine\Tests\Models\DDC3231\DDC3231EntityRepository', $repo1->getParentClass()->getName());
         $this->assertSame('Doctrine\Tests\Models\DDC3231\DDC3231EntityRepository', $repo2->getParentClass()->getName());
@@ -131,13 +130,12 @@ class GenerateRepositoriesCommandTest extends OrmFunctionalTestCase
             $this->_em->getConfiguration()->setDefaultRepositoryClassName($defaultRepository);
         }
 
-        $command    = $this->application->find('orm:generate-repositories');
-        $tester     = new CommandTester($command);
+        $command = $this->application->find('orm:generate-repositories');
+        $tester  = new CommandTester($command);
         $tester->execute(array(
             'command'   => $command->getName(),
             'dest-path' => $this->path,
             '--filter'  => $filter,
         ));
     }
-
 }

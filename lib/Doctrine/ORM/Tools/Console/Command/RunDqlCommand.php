@@ -90,14 +90,14 @@ EOT
 
         $depth = $input->getOption('depth');
 
-        if ( ! is_numeric($depth)) {
+        if (! is_numeric($depth)) {
             throw new \LogicException("Option 'depth' must contains an integer value");
         }
 
         $hydrationModeName = $input->getOption('hydrate');
-        $hydrationMode = 'Doctrine\ORM\Query::HYDRATE_' . strtoupper(str_replace('-', '_', $hydrationModeName));
+        $hydrationMode     = 'Doctrine\ORM\Query::HYDRATE_' . strtoupper(str_replace('-', '_', $hydrationModeName));
 
-        if ( ! defined($hydrationMode)) {
+        if (! defined($hydrationMode)) {
             throw new \RuntimeException(
                 "Hydration mode '$hydrationModeName' does not exist. It should be either: object. array, scalar or single-scalar."
             );
@@ -106,7 +106,7 @@ EOT
         $query = $em->createQuery($dql);
 
         if (($firstResult = $input->getOption('first-result')) !== null) {
-            if ( ! is_numeric($firstResult)) {
+            if (! is_numeric($firstResult)) {
                 throw new \LogicException("Option 'first-result' must contains an integer value");
             }
 
@@ -114,7 +114,7 @@ EOT
         }
 
         if (($maxResult = $input->getOption('max-result')) !== null) {
-            if ( ! is_numeric($maxResult)) {
+            if (! is_numeric($maxResult)) {
                 throw new \LogicException("Option 'max-result' must contains an integer value");
             }
 

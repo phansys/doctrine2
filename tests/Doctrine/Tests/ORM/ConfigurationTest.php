@@ -68,20 +68,20 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 
     public function testNewDefaultAnnotationDriver()
     {
-        $paths = array(__DIR__);
+        $paths           = array(__DIR__);
         $reflectionClass = new ReflectionClass(__NAMESPACE__ . '\ConfigurationTestAnnotationReaderChecker');
 
         $annotationDriver = $this->configuration->newDefaultAnnotationDriver($paths, false);
-        $reader = $annotationDriver->getReader();
-        $annotation = $reader->getMethodAnnotation(
+        $reader           = $annotationDriver->getReader();
+        $annotation       = $reader->getMethodAnnotation(
             $reflectionClass->getMethod('namespacedAnnotationMethod'),
             'Doctrine\ORM\Mapping\PrePersist'
         );
         $this->assertInstanceOf('Doctrine\ORM\Mapping\PrePersist', $annotation);
 
         $annotationDriver = $this->configuration->newDefaultAnnotationDriver($paths);
-        $reader = $annotationDriver->getReader();
-        $annotation = $reader->getMethodAnnotation(
+        $reader           = $annotationDriver->getReader();
+        $annotation       = $reader->getMethodAnnotation(
             $reflectionClass->getMethod('simpleAnnotationMethod'),
             'Doctrine\ORM\Mapping\PrePersist'
         );

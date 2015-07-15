@@ -28,7 +28,8 @@ class OneToOneSelfReferentialAssociationTest extends \Doctrine\Tests\OrmFunction
         $this->mentor->setName('Obi-wan Kenobi');
     }
 
-    public function testSavesAOneToOneAssociationWithCascadeSaveSet() {
+    public function testSavesAOneToOneAssociationWithCascadeSaveSet()
+    {
         $this->customer->setMentor($this->mentor);
         $this->_em->persist($this->customer);
         $this->_em->flush();
@@ -59,8 +60,8 @@ class OneToOneSelfReferentialAssociationTest extends \Doctrine\Tests\OrmFunction
     {
         $this->_createFixture();
 
-        $query = $this->_em->createQuery('select c, m from Doctrine\Tests\Models\ECommerce\ECommerceCustomer c left join c.mentor m order by c.id asc');
-        $result = $query->getResult();
+        $query    = $this->_em->createQuery('select c, m from Doctrine\Tests\Models\ECommerce\ECommerceCustomer c left join c.mentor m order by c.id asc');
+        $result   = $query->getResult();
         $customer = $result[0];
         $this->assertLoadingOfAssociation($customer);
     }
@@ -73,11 +74,11 @@ class OneToOneSelfReferentialAssociationTest extends \Doctrine\Tests\OrmFunction
     {
         $this->_createFixture();
 
-        $metadata = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceCustomer');
+        $metadata                                         = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceCustomer');
         $metadata->associationMappings['mentor']['fetch'] = ClassMetadata::FETCH_LAZY;
 
-        $query = $this->_em->createQuery("select c from Doctrine\Tests\Models\ECommerce\ECommerceCustomer c where c.name='Luke Skywalker'");
-        $result = $query->getResult();
+        $query    = $this->_em->createQuery("select c from Doctrine\Tests\Models\ECommerce\ECommerceCustomer c where c.name='Luke Skywalker'");
+        $result   = $query->getResult();
         $customer = $result[0];
         $this->assertLoadingOfAssociation($customer);
     }
@@ -116,7 +117,8 @@ class OneToOneSelfReferentialAssociationTest extends \Doctrine\Tests\OrmFunction
         $this->assertEquals('Obi-wan Kenobi', $customer->getMentor()->getName());
     }
 
-    public function assertForeignKeyIs($value) {
+    public function assertForeignKeyIs($value)
+    {
         $foreignKey = $this->_em->getConnection()->executeQuery('SELECT mentor_id FROM ecommerce_customers WHERE id=?', array($this->customer->getId()))->fetchColumn();
         $this->assertEquals($value, $foreignKey);
     }
@@ -141,7 +143,8 @@ class OneToOneSelfReferentialAssociationTest extends \Doctrine\Tests\OrmFunction
 /**
  * @Entity
  */
-class MultiSelfReference {
+class MultiSelfReference
+{
     /** @Id @GeneratedValue(strategy="AUTO") @Column(type="integer") */
     private $id;
     /**
@@ -155,9 +158,24 @@ class MultiSelfReference {
      */
     private $other2;
 
-    public function getId() {return $this->id;}
-    public function setOther1($other1) {$this->other1 = $other1;}
-    public function getOther1() {return $this->other1;}
-    public function setOther2($other2) {$this->other2 = $other2;}
-    public function getOther2() {return $this->other2;}
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setOther1($other1)
+    {
+        $this->other1 = $other1;
+    }
+    public function getOther1()
+    {
+        return $this->other1;
+    }
+    public function setOther2($other2)
+    {
+        $this->other2 = $other2;
+    }
+    public function getOther2()
+    {
+        return $this->other2;
+    }
 }

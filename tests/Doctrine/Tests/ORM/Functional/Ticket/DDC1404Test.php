@@ -7,7 +7,6 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
  */
 class DDC1404Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     protected function setUp()
     {
         parent::setUp();
@@ -19,17 +18,16 @@ class DDC1404Test extends \Doctrine\Tests\OrmFunctionalTestCase
             ));
 
             $this->loadFixtures();
-
         } catch (Exception $exc) {
         }
     }
 
     public function testTicket()
     {
-        $repository     = $this->_em->getRepository(__NAMESPACE__ . '\DDC1404ChildEntity');
-        $queryAll       = $repository->createNamedQuery('all');
-        $queryFirst     = $repository->createNamedQuery('first');
-        $querySecond    = $repository->createNamedQuery('second');
+        $repository  = $this->_em->getRepository(__NAMESPACE__ . '\DDC1404ChildEntity');
+        $queryAll    = $repository->createNamedQuery('all');
+        $queryFirst  = $repository->createNamedQuery('first');
+        $querySecond = $repository->createNamedQuery('second');
 
 
         $this->assertEquals('SELECT p FROM Doctrine\Tests\ORM\Functional\Ticket\DDC1404ChildEntity p', $queryAll->getDQL());
@@ -53,7 +51,6 @@ class DDC1404Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->flush();
     }
-
 }
 
 /**
@@ -66,7 +63,6 @@ class DDC1404Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1404ParentEntity
 {
-
     /**
      * @Id
      * @Column(type="integer")
@@ -81,7 +77,6 @@ class DDC1404ParentEntity
     {
         return $this->id;
     }
-
 }
 
 /**
@@ -94,7 +89,6 @@ class DDC1404ParentEntity
  */
 class DDC1404ChildEntity extends DDC1404ParentEntity
 {
-
     /**
      * @column(type="string")
      */
@@ -123,5 +117,4 @@ class DDC1404ChildEntity extends DDC1404ParentEntity
     {
         $this->name = $name;
     }
-
 }

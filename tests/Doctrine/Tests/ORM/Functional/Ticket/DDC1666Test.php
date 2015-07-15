@@ -18,10 +18,10 @@ class DDC1666Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testGivenOrphanRemovalOneToOne_WhenReplacing_ThenNoUniqueConstraintError()
     {
-        $user = new CmsUser();
-        $user->name = "Benjamin";
+        $user           = new CmsUser();
+        $user->name     = "Benjamin";
         $user->username = "beberlei";
-        $user->status = "something";
+        $user->status   = "something";
         $user->setEmail($email = new CmsEmail());
         $email->setEmail("kontakt@beberlei.de");
 

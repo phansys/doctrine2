@@ -2,11 +2,10 @@
 
 namespace Doctrine\Tests\ORM\Functional;
 
-use Doctrine\Tests\Models\ECommerce\ECommerceCart,
-    Doctrine\Tests\Models\ECommerce\ECommerceFeature,
-    Doctrine\Tests\Models\ECommerce\ECommerceCustomer,
-    Doctrine\Tests\Models\ECommerce\ECommerceProduct;
-
+use Doctrine\Tests\Models\ECommerce\ECommerceCart;
+use Doctrine\Tests\Models\ECommerce\ECommerceFeature;
+use Doctrine\Tests\Models\ECommerce\ECommerceCustomer;
+use Doctrine\Tests\Models\ECommerce\ECommerceProduct;
 use Doctrine\ORM\Mapping\AssociationMapping;
 
 /**
@@ -37,7 +36,7 @@ class StandardEntityPersisterTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\ECommerce\ECommerceCart');
 
         $persister = $this->_em->getUnitOfWork()->getEntityPersister('Doctrine\Tests\Models\ECommerce\ECommerceCart');
-        $newCart = new ECommerceCart();
+        $newCart   = new ECommerceCart();
         $this->_em->getUnitOfWork()->registerManaged($newCart, array('id' => $cardId), array());
         $persister->load(array('customer_id' => $customer->getId()), $newCart, $class->associationMappings['customer']);
         $this->assertEquals('Credit card', $newCart->getPayment());

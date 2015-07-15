@@ -17,7 +17,7 @@ class DDC444Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $classname = __NAMESPACE__ . "\DDC444User";
 
-        $u = new $classname;
+        $u       = new $classname;
         $u->name = "Initial value";
 
         $this->_em->persist($u);
@@ -71,5 +71,3 @@ class DDC444User
      */
     public $name;
 }
-
-

@@ -107,4 +107,3 @@ class CountWalkerTest extends PaginationTestCase
         );
     }
 }
-

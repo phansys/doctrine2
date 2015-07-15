@@ -34,7 +34,7 @@ class DDC1392Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $em->flush();
         $em->clear();
 
-        $fileId = $file->getFileId();
+        $fileId    = $file->getFileId();
         $pictureId = $picture->getPictureId();
 
         $this->assertTrue($fileId > 0);
@@ -55,7 +55,7 @@ class DDC1392Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $em->flush();
 
-        $q = $this->_em->createQuery("SELECT COUNT(e) FROM " . __NAMESPACE__ . '\DDC1392File e');
+        $q      = $this->_em->createQuery("SELECT COUNT(e) FROM " . __NAMESPACE__ . '\DDC1392File e');
         $result = $q->getSingleScalarResult();
 
         self::assertEquals(1, $result);

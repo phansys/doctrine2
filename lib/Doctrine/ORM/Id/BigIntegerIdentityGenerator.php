@@ -63,4 +63,3 @@ class BigIntegerIdentityGenerator extends AbstractIdGenerator
         return true;
     }
 }
-

@@ -28,8 +28,8 @@ class SimpleObjectHydratorTest extends HydrationTestCase
               ),
          );
 
-        $stmt       = new HydratorMockStatement($resultSet);
-        $hydrator   = new \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator($this->_em);
+        $stmt     = new HydratorMockStatement($resultSet);
+        $hydrator = new \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator($this->_em);
         $hydrator->hydrateAll($stmt, $rsm);
     }
 
@@ -41,19 +41,19 @@ class SimpleObjectHydratorTest extends HydrationTestCase
         $rsm->addFieldResult('a', 'a__city', 'city');
         $resultSet = array(
             array(
-                'a__id'   => '1',
-                'a__city' => 'Cracow',
+                'a__id'           => '1',
+                'a__city'         => 'Cracow',
                 'doctrine_rownum' => '1'
             ),
         );
 
-        $expectedEntity = new \Doctrine\Tests\Models\CMS\CmsAddress();
-        $expectedEntity->id = 1;
+        $expectedEntity       = new \Doctrine\Tests\Models\CMS\CmsAddress();
+        $expectedEntity->id   = 1;
         $expectedEntity->city = 'Cracow';
 
-        $stmt       = new HydratorMockStatement($resultSet);
-        $hydrator   = new \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator($this->_em);
-        $result = $hydrator->hydrateAll($stmt, $rsm);
+        $stmt     = new HydratorMockStatement($resultSet);
+        $hydrator = new \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator($this->_em);
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
         $this->assertEquals($result[0], $expectedEntity);
     }
 
@@ -82,8 +82,8 @@ class SimpleObjectHydratorTest extends HydrationTestCase
               ),
          );
 
-        $stmt       = new HydratorMockStatement($resultSet);
-        $hydrator   = new \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator($this->_em);
+        $stmt     = new HydratorMockStatement($resultSet);
+        $hydrator = new \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator($this->_em);
         $hydrator->hydrateAll($stmt, $rsm);
     }
 }

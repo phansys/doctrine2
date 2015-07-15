@@ -3,7 +3,7 @@
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 $metadata->setInheritanceType(\Doctrine\ORM\Mapping\ClassMetadata::INHERITANCE_TYPE_JOINED);
-$metadata->setTableName( 'company_contracts');
+$metadata->setTableName('company_contracts');
 $metadata->setDiscriminatorColumn(array(
     'name' => 'discr',
     'type' => 'string',

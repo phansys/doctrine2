@@ -40,7 +40,7 @@ class DDC3170Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         // $this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
 
-        $productJoined = new DDC3170ProductJoined();
+        $productJoined      = new DDC3170ProductJoined();
         $productSingleTable = new DDC3170ProductSingleTable();
         $this->_em->persist($productJoined);
         $this->_em->persist($productSingleTable);
@@ -53,8 +53,9 @@ class DDC3170Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 ->from(__NAMESPACE__ . '\\DDC3170ProductJoined', 'p')
                 ->getQuery()
                 ->getResult(AbstractQuery::HYDRATE_SIMPLEOBJECT);
-        } catch (HydrationException $e) // Thrown by SimpleObjectHydrator
-        {
+        } catch (HydrationException $e) {
+            // Thrown by SimpleObjectHydrator
+
             $this->fail('Failed correct mapping of discriminator column when using simple object hydration and class table inheritance');
         }
 
@@ -64,8 +65,9 @@ class DDC3170Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 ->from(__NAMESPACE__ . '\\DDC3170ProductSingleTable', 'p')
                 ->getQuery()
                 ->getResult(AbstractQuery::HYDRATE_SIMPLEOBJECT);
-        } catch (HydrationException $e) // Thrown by SimpleObjectHydrator
-        {
+        } catch (HydrationException $e) {
+            // Thrown by SimpleObjectHydrator
+
             $this->fail('Failed correct mapping of discriminator column when using simple object hydration and single table inheritance');
         }
     }

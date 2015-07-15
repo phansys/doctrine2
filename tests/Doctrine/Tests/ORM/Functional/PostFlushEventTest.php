@@ -23,7 +23,7 @@ class PostFlushEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->useModelSet('cms');
         parent::setUp();
         $this->listener = new PostFlushListener();
-        $evm = $this->_em->getEventManager();
+        $evm            = $this->_em->getEventManager();
         $evm->addEventListener(Events::postFlush, $this->listener);
     }
 
@@ -36,7 +36,7 @@ class PostFlushEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testListenerShouldNotBeNotifiedWhenFlushThrowsException()
     {
-        $user = new CmsUser();
+        $user           = new CmsUser();
         $user->username = 'dfreudenberger';
         $this->_em->persist($user);
         $exceptionRaised = false;
@@ -64,9 +64,9 @@ class PostFlushEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     private function createNewValidUser()
     {
-        $user = new CmsUser();
+        $user           = new CmsUser();
         $user->username = 'dfreudenberger';
-        $user->name = 'Daniel Freudenberger';
+        $user->name     = 'Daniel Freudenberger';
         return $user;
     }
 }
@@ -88,9 +88,7 @@ class PostFlushListener
      */
     public function postFlush(PostFlushEventArgs $args)
     {
-        $this->wasNotified = true;
+        $this->wasNotified  = true;
         $this->receivedArgs = $args;
     }
 }
-
-

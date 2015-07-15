@@ -56,13 +56,13 @@ class ECommerceProduct
     private $related;
 
     public $isCloned = false;
-    public $wakeUp = false;
+    public $wakeUp   = false;
 
     public function __construct()
     {
-        $this->features = new ArrayCollection;
+        $this->features   = new ArrayCollection;
         $this->categories = new ArrayCollection;
-        $this->related = new ArrayCollection;
+        $this->related    = new ArrayCollection;
     }
 
     public function getId()

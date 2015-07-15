@@ -14,8 +14,7 @@ class DDC381Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_schemaTool->createSchema(array(
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC381Entity'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -33,7 +32,7 @@ class DDC381Test extends \Doctrine\Tests\OrmFunctionalTestCase
         // explicitly load proxy (getId() does not trigger reload of proxy)
         $id = $entity->getOtherMethod();
 
-        $data = serialize($entity);
+        $data   = serialize($entity);
         $entity = unserialize($data);
 
         $this->assertEquals($persistedId, $entity->getId());
@@ -57,6 +56,5 @@ class DDC381Entity
 
     public function getOtherMethod()
     {
-
     }
 }

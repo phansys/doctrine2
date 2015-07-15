@@ -3,11 +3,9 @@
 namespace Doctrine\Tests\ORM\Functional;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\ORM\Query\Parameter;
-
 use Doctrine\Tests\Models\CMS\CmsUser;
 use Doctrine\Tests\Models\CMS\CmsPhonenumber;
 use Doctrine\Tests\Models\CMS\CmsAddress;
@@ -26,7 +24,8 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
     private $platform = null;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('cms');
         $this->useModelSet('company');
         parent::setUp();
@@ -35,10 +34,10 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testBasicNativeQuery()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
         $this->_em->persist($user);
         $this->_em->flush();
 
@@ -61,15 +60,15 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testBasicNativeQueryWithMetaResult()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
 
-        $addr = new CmsAddress;
+        $addr          = new CmsAddress;
         $addr->country = 'germany';
-        $addr->zip = 10827;
-        $addr->city = 'Berlin';
+        $addr->zip     = 10827;
+        $addr->city    = 'Berlin';
 
 
         $user->setAddress($addr);
@@ -103,12 +102,12 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testJoinedOneToManyNativeQuery()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
 
-        $phone = new CmsPhonenumber;
+        $phone              = new CmsPhonenumber;
         $phone->phonenumber = 424242;
 
         $user->addPhonenumber($phone);
@@ -139,20 +138,19 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $phones = $users[0]->getPhonenumbers();
         $this->assertEquals(424242, $phones[0]->phonenumber);
         $this->assertTrue($phones[0]->getUser() === $users[0]);
-
     }
 
     public function testJoinedOneToOneNativeQuery()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
 
-        $addr = new CmsAddress;
+        $addr          = new CmsAddress;
         $addr->country = 'germany';
-        $addr->zip = 10827;
-        $addr->city = 'Berlin';
+        $addr->zip     = 10827;
+        $addr->city    = 'Berlin';
 
 
         $user->setAddress($addr);
@@ -199,7 +197,7 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $rsm = new ResultSetMapping;
 
-        $q = $this->_em->createNativeQuery('SELECT id, name, status, phonenumber FROM cms_users INNER JOIN cms_phonenumbers ON id = user_id WHERE username = ?', $rsm);
+        $q  = $this->_em->createNativeQuery('SELECT id, name, status, phonenumber FROM cms_users INNER JOIN cms_phonenumbers ON id = user_id WHERE username = ?', $rsm);
         $q2 = $q->setSql('foo', $rsm)
           ->setResultSetMapping($rsm)
           ->expireResultCache(true)
@@ -214,12 +212,12 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testJoinedOneToManyNativeQueryWithRSMBuilder()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
 
-        $phone = new CmsPhonenumber;
+        $phone              = new CmsPhonenumber;
         $phone->phonenumber = 424242;
 
         $user->addPhonenumber($phone);
@@ -260,15 +258,15 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testJoinedOneToOneNativeQueryWithRSMBuilder()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
 
-        $addr = new CmsAddress;
+        $addr          = new CmsAddress;
         $addr->country = 'germany';
-        $addr->zip = 10827;
-        $addr->city = 'Berlin';
+        $addr->zip     = 10827;
+        $addr->city    = 'Berlin';
 
 
         $user->setAddress($addr);
@@ -370,10 +368,10 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $user->username = 'FabioBatSilva';
         $user->status   = 'dev';
 
-        $addr           = new CmsAddress;
-        $addr->country  = 'Brazil';
-        $addr->zip      = 10827;
-        $addr->city     = 'São Paulo';
+        $addr          = new CmsAddress;
+        $addr->country = 'Brazil';
+        $addr->zip     = 10827;
+        $addr->city    = 'São Paulo';
 
         $user->setAddress($addr);
 
@@ -390,8 +388,8 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertCount(1, $result);
         $this->assertInstanceOf('Doctrine\Tests\Models\CMS\CmsAddress', $result[0]);
-        $this->assertEquals($addr->id,  $result[0]->id);
-        $this->assertEquals($addr->city,  $result[0]->city);
+        $this->assertEquals($addr->id, $result[0]->id);
+        $this->assertEquals($addr->city, $result[0]->city);
         $this->assertEquals($addr->country, $result[0]->country);
     }
 
@@ -405,8 +403,8 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $user->username = 'FabioBatSilva';
         $user->status   = 'dev';
 
-        $email          = new CmsEmail();
-        $email->email   = 'fabio.bat.silva@gmail.com';
+        $email        = new CmsEmail();
+        $email->email = 'fabio.bat.silva@gmail.com';
 
         $user->setEmail($email);
 
@@ -455,10 +453,10 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $user->username = 'FabioBatSilva';
         $user->status   = 'dev';
 
-        $addr           = new CmsAddress;
-        $addr->country  = 'Brazil';
-        $addr->zip      = 10827;
-        $addr->city     = 'São Paulo';
+        $addr          = new CmsAddress;
+        $addr->country = 'Brazil';
+        $addr->zip     = 10827;
+        $addr->city    = 'São Paulo';
 
 
         $user->setAddress($addr);
@@ -491,10 +489,10 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testJoinedOneToManyNativeNamedQueryWithResultSetMapping()
     {
-        $user               = new CmsUser;
-        $user->name         = 'Fabio B. Silva';
-        $user->username     = 'FabioBatSilva';
-        $user->status       = 'dev';
+        $user           = new CmsUser;
+        $user->name     = 'Fabio B. Silva';
+        $user->username = 'FabioBatSilva';
+        $user->status   = 'dev';
 
         $phone              = new CmsPhonenumber;
         $phone->phonenumber = 424242;
@@ -527,22 +525,22 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testMixedNativeNamedQueryNormalJoin()
     {
-        $user1                  = new CmsUser;
-        $user1->name            = 'Fabio B. Silva';
-        $user1->username        = 'FabioBatSilva';
-        $user1->status          = 'dev';
+        $user1           = new CmsUser;
+        $user1->name     = 'Fabio B. Silva';
+        $user1->username = 'FabioBatSilva';
+        $user1->status   = 'dev';
 
-        $user2                  = new CmsUser;
-        $user2->name            = 'test tester';
-        $user2->username        = 'test';
-        $user2->status          = 'tester';
+        $user2           = new CmsUser;
+        $user2->name     = 'test tester';
+        $user2->username = 'test';
+        $user2->status   = 'tester';
 
-        $phone1                 = new CmsPhonenumber;
-        $phone2                 = new CmsPhonenumber;
-        $phone3                 = new CmsPhonenumber;
-        $phone1->phonenumber    = 11111111;
-        $phone2->phonenumber    = 22222222;
-        $phone3->phonenumber    = 33333333;
+        $phone1              = new CmsPhonenumber;
+        $phone2              = new CmsPhonenumber;
+        $phone3              = new CmsPhonenumber;
+        $phone1->phonenumber = 11111111;
+        $phone2->phonenumber = 22222222;
+        $phone3->phonenumber = 33333333;
 
         $user1->addPhonenumber($phone1);
         $user1->addPhonenumber($phone2);
@@ -628,16 +626,15 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testMultipleEntityResults()
     {
+        $user           = new CmsUser;
+        $user->name     = 'Fabio B. Silva';
+        $user->username = 'FabioBatSilva';
+        $user->status   = 'dev';
 
-        $user               = new CmsUser;
-        $user->name         = 'Fabio B. Silva';
-        $user->username     = 'FabioBatSilva';
-        $user->status       = 'dev';
-
-        $addr               = new CmsAddress;
-        $addr->country      = 'Brazil';
-        $addr->zip          = 10827;
-        $addr->city         = 'São Paulo';
+        $addr          = new CmsAddress;
+        $addr->country = 'Brazil';
+        $addr->zip     = 10827;
+        $addr->city    = 'São Paulo';
 
         $phone              = new CmsPhonenumber;
         $phone->phonenumber = 424242;
@@ -670,7 +667,6 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals(10827, $result[0][0]->getAddress()->getZipCode());
 
         $this->assertEquals(1, $result[0]['numphones']);
-
     }
 
     /**
@@ -678,14 +674,14 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testNamedNativeQueryInheritance()
     {
-        $contractMetadata   = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyContract');
-        $flexMetadata       = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyFlexContract');
+        $contractMetadata = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyContract');
+        $flexMetadata     = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyFlexContract');
 
-        $contractQueries    = $contractMetadata->getNamedNativeQueries();
-        $flexQueries        = $flexMetadata->getNamedNativeQueries();
+        $contractQueries = $contractMetadata->getNamedNativeQueries();
+        $flexQueries     = $flexMetadata->getNamedNativeQueries();
 
-        $contractMappings   = $contractMetadata->getSqlResultSetMappings();
-        $flexMappings       = $flexMetadata->getSqlResultSetMappings();
+        $contractMappings = $contractMetadata->getSqlResultSetMappings();
+        $flexMappings     = $flexMetadata->getSqlResultSetMappings();
 
 
         // contract queries
@@ -723,7 +719,6 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertEquals('mapping-all-flex', $flexMappings['mapping-all-flex']['name']);
         $this->assertEquals('Doctrine\Tests\Models\Company\CompanyFlexContract', $flexMappings['mapping-all-flex']['entities'][0]['entityClass']);
-
     }
 
     /**
@@ -746,7 +741,7 @@ class NativeQueryTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('Doctrine\Tests\Models\CMS\CmsUser', 'u', array(
-            'id' => 'id1',
+            'id'       => 'id1',
             'username' => 'username2'
         ));
 

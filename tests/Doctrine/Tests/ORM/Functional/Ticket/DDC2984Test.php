@@ -16,9 +16,9 @@ class DDC2984Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         parent::setUp();
         
-        if ( ! Type::hasType('ddc2984_domain_user_id')) {
+        if (! Type::hasType('ddc2984_domain_user_id')) {
             Type::addType(
-                'ddc2984_domain_user_id', 
+                'ddc2984_domain_user_id',
                 __NAMESPACE__ . '\DDC2984UserIdCustomDbalType'
             );
         }
@@ -154,7 +154,7 @@ class DDC2984DomainUserId
     {
         return $this->toString() === $other->toString();
     }
-} 
+}
 
 /**
  * Class DDC2984UserIdCustomDbalType
@@ -190,10 +190,10 @@ class DDC2984UserIdCustomDbalType extends StringType
             return $value;
         }
 
-        if ( ! $value instanceof DDC2984DomainUserId) {
+        if (! $value instanceof DDC2984DomainUserId) {
             throw ConversionException::conversionFailed($value, $this->getName());
         }
 
         return $value->toString();
     }
-} 
+}

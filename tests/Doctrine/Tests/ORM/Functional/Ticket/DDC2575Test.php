@@ -8,8 +8,8 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 class DDC2575Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
     private $rootsEntities = array();
-    private $aEntities = array();
-    private $bEntities = array();
+    private $aEntities     = array();
+    private $bEntities     = array();
 
     protected function setUp()
     {
@@ -22,16 +22,16 @@ class DDC2575Test extends \Doctrine\Tests\OrmFunctionalTestCase
         ));
 
         $entityRoot1 = new DDC2575Root(1);
-        $entityB1 = new DDC2575B(2);
-        $entityA1 = new DDC2575A($entityRoot1, $entityB1);
+        $entityB1    = new DDC2575B(2);
+        $entityA1    = new DDC2575A($entityRoot1, $entityB1);
 
         $this->_em->persist($entityRoot1);
         $this->_em->persist($entityA1);
         $this->_em->persist($entityB1);
 
         $entityRoot2 = new DDC2575Root(3);
-        $entityB2 = new DDC2575B(4);
-        $entityA2 = new DDC2575A($entityRoot2, $entityB2);
+        $entityB2    = new DDC2575B(4);
+        $entityA2    = new DDC2575A($entityRoot2, $entityB2);
 
         $this->_em->persist($entityRoot2);
         $this->_em->persist($entityA2);
@@ -54,12 +54,12 @@ class DDC2575Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testHydrationIssue()
     {
         $repository = $this->_em->getRepository(__NAMESPACE__ . '\DDC2575Root');
-        $qb = $repository->createQueryBuilder('r')
+        $qb         = $repository->createQueryBuilder('r')
             ->select('r, a, b')
             ->leftJoin('r.aRelation', 'a')
             ->leftJoin('a.bRelation', 'b');
 
-        $query = $qb->getQuery();
+        $query  = $qb->getQuery();
         $result = $query->getResult();
         
         $this->assertCount(2, $result);
@@ -105,10 +105,9 @@ class DDC2575Root
 
     public function __construct($id, $value = 0)
     {
-        $this->id = $id;
+        $this->id          = $id;
         $this->sampleField = $value;
     }
-
 }
 
 /**
@@ -132,7 +131,7 @@ class DDC2575A
     public function __construct(DDC2575Root $rootRelation, DDC2575B $bRelation)
     {
         $this->rootRelation = $rootRelation;
-        $this->bRelation = $bRelation;
+        $this->bRelation    = $bRelation;
     }
 }
 
@@ -154,7 +153,7 @@ class DDC2575B
 
     public function __construct($id, $value = 0)
     {
-        $this->id = $id;
+        $this->id          = $id;
         $this->sampleField = $value;
     }
 }

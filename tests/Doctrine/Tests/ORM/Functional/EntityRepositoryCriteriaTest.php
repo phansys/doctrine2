@@ -46,24 +46,24 @@ class EntityRepositoryCriteriaTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function loadFixture()
     {
-        $today = new DateTimeModel();
+        $today           = new DateTimeModel();
         $today->datetime =
-        $today->date =
-        $today->time =
+        $today->date     =
+        $today->time     =
             new \DateTime('today');
         $this->_em->persist($today);
 
-        $tomorrow = new DateTimeModel();
+        $tomorrow           = new DateTimeModel();
         $tomorrow->datetime =
-        $tomorrow->date =
-        $tomorrow->time =
+        $tomorrow->date     =
+        $tomorrow->time     =
             new \DateTime('tomorrow');
         $this->_em->persist($tomorrow);
 
-        $yesterday = new DateTimeModel();
+        $yesterday           = new DateTimeModel();
         $yesterday->datetime =
-        $yesterday->date =
-        $yesterday->time =
+        $yesterday->date     =
+        $yesterday->time     =
             new \DateTime('yesterday');
         $this->_em->persist($yesterday);
 
@@ -81,7 +81,7 @@ class EntityRepositoryCriteriaTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->loadFixture();
 
         $repository = $this->_em->getRepository('Doctrine\Tests\Models\Generic\DateTimeModel');
-        $dates = $repository->matching(new Criteria(
+        $dates      = $repository->matching(new Criteria(
             Criteria::expr()->lte('datetime', new \DateTime('today'))
         ));
 
@@ -90,17 +90,17 @@ class EntityRepositoryCriteriaTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     private function loadNullFieldFixtures()
     {
-        $today = new DateTimeModel();
+        $today           = new DateTimeModel();
         $today->datetime =
-        $today->date =
+        $today->date     =
             new \DateTime('today');
 
         $this->_em->persist($today);
 
-        $tomorrow = new DateTimeModel();
+        $tomorrow           = new DateTimeModel();
         $tomorrow->datetime =
-        $tomorrow->date =
-        $tomorrow->time =
+        $tomorrow->date     =
+        $tomorrow->time     =
             new \DateTime('tomorrow');
         $this->_em->persist($tomorrow);
 
@@ -171,13 +171,13 @@ class EntityRepositoryCriteriaTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testCanContainsWithoutLoadingCollection()
     {
-        $user = new User();
+        $user       = new User();
         $user->name = 'Marco';
         $this->_em->persist($user);
         $this->_em->flush();
 
-        $tweet = new Tweet();
-        $tweet->author = $user;
+        $tweet          = new Tweet();
+        $tweet->author  = $user;
         $tweet->content = 'Criteria is awesome';
         $this->_em->persist($tweet);
         $this->_em->flush();

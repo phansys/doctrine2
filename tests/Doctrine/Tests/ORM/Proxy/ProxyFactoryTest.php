@@ -45,8 +45,8 @@ class ProxyFactoryTest extends \Doctrine\Tests\OrmTestCase
     {
         parent::setUp();
         $this->connectionMock = new ConnectionMock(array(), new DriverMock());
-        $this->emMock = EntityManagerMock::create($this->connectionMock);
-        $this->uowMock = new UnitOfWorkMock($this->emMock);
+        $this->emMock         = EntityManagerMock::create($this->connectionMock);
+        $this->uowMock        = new UnitOfWorkMock($this->emMock);
         $this->emMock->setUnitOfWork($this->uowMock);
         $this->proxyFactory = new ProxyFactory($this->emMock, sys_get_temp_dir(), 'Proxies', AbstractProxyFactory::AUTOGENERATE_ALWAYS);
     }
@@ -55,7 +55,7 @@ class ProxyFactoryTest extends \Doctrine\Tests\OrmTestCase
     {
         $identifier = array('id' => 42);
         $proxyClass = 'Proxies\__CG__\Doctrine\Tests\Models\ECommerce\ECommerceFeature';
-        $persister = $this->getMock('Doctrine\ORM\Persisters\Entity\BasicEntityPersister', array('load'), array(), '', false);
+        $persister  = $this->getMock('Doctrine\ORM\Persisters\Entity\BasicEntityPersister', array('load'), array(), '', false);
         $this->uowMock->setEntityPersister('Doctrine\Tests\Models\ECommerce\ECommerceFeature', $persister);
 
         $proxy = $this->proxyFactory->getProxy('Doctrine\Tests\Models\ECommerce\ECommerceFeature', $identifier);
@@ -140,5 +140,4 @@ class ProxyFactoryTest extends \Doctrine\Tests\OrmTestCase
 
 abstract class AbstractClass
 {
-
 }

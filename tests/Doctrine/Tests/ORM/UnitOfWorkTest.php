@@ -42,21 +42,23 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
      */
     private $_emMock;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         $this->_connectionMock = new ConnectionMock(array(), new DriverMock());
-        $this->_emMock = EntityManagerMock::create($this->_connectionMock);
+        $this->_emMock         = EntityManagerMock::create($this->_connectionMock);
         // SUT
         $this->_unitOfWork = new UnitOfWorkMock($this->_emMock);
         $this->_emMock->setUnitOfWork($this->_unitOfWork);
     }
 
-    protected function tearDown() {
+    protected function tearDown()
+    {
     }
 
     public function testRegisterRemovedOnNewEntityIsIgnored()
     {
-        $user = new ForumUser();
+        $user           = new ForumUser();
         $user->username = 'romanb';
         $this->assertFalse($this->_unitOfWork->isScheduledForDelete($user));
         $this->_unitOfWork->scheduleForDelete($user);
@@ -74,7 +76,7 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
         $userPersister->setMockIdGeneratorType(ClassMetadata::GENERATOR_TYPE_IDENTITY);
 
         // Test
-        $user = new ForumUser();
+        $user           = new ForumUser();
         $user->username = 'romanb';
         $this->_unitOfWork->persist($user);
 
@@ -118,10 +120,10 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
         $avatarPersister->setMockIdGeneratorType(ClassMetadata::GENERATOR_TYPE_IDENTITY);
 
         // Test
-        $user = new ForumUser();
+        $user           = new ForumUser();
         $user->username = 'romanb';
-        $avatar = new ForumAvatar();
-        $user->avatar = $avatar;
+        $avatar         = new ForumAvatar();
+        $user->avatar   = $avatar;
         $this->_unitOfWork->persist($user); // save cascaded to avatar
 
         $this->_unitOfWork->commit();
@@ -187,7 +189,7 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
         $persister = new EntityPersisterMock($this->_emMock, $this->_emMock->getClassMetadata('Doctrine\Tests\ORM\VersionedAssignedIdentifierEntity'));
         $this->_unitOfWork->setEntityPersister('Doctrine\Tests\ORM\VersionedAssignedIdentifierEntity', $persister);
 
-        $e = new VersionedAssignedIdentifierEntity();
+        $e     = new VersionedAssignedIdentifierEntity();
         $e->id = 42;
         $this->assertEquals(UnitOfWork::STATE_NEW, $this->_unitOfWork->getEntityState($e));
         $this->assertFalse($persister->isExistsCalled());
@@ -198,7 +200,7 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
         $persister = new EntityPersisterMock($this->_emMock, $this->_emMock->getClassMetadata('Doctrine\Tests\Models\CMS\CmsPhonenumber'));
         $this->_unitOfWork->setEntityPersister('Doctrine\Tests\Models\CMS\CmsPhonenumber', $persister);
 
-        $ph = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
+        $ph              = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
         $ph->phonenumber = '12345';
 
         $this->assertEquals(UnitOfWork::STATE_NEW, $this->_unitOfWork->getEntityState($ph));
@@ -210,7 +212,7 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
         $this->_unitOfWork->registerManaged($ph, array('phonenumber' => '12345'), array());
         $this->assertEquals(UnitOfWork::STATE_MANAGED, $this->_unitOfWork->getEntityState($ph));
         $this->assertFalse($persister->isExistsCalled());
-        $ph2 = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
+        $ph2              = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
         $ph2->phonenumber = '12345';
         $this->assertEquals(UnitOfWork::STATE_DETACHED, $this->_unitOfWork->getEntityState($ph2));
         $this->assertFalse($persister->isExistsCalled());
@@ -227,7 +229,7 @@ class UnitOfWorkTest extends \Doctrine\Tests\OrmTestCase
         $this->_unitOfWork->setEntityPersister('Doctrine\Tests\Models\Forum\ForumUser', $userPersister);
 
         // Create a test user
-        $user = new ForumUser();
+        $user       = new ForumUser();
         $user->name = 'Jasper';
         $this->_unitOfWork->persist($user);
         $this->_unitOfWork->commit();
@@ -361,30 +363,36 @@ class NotifyChangedEntity implements NotifyPropertyChanged
     /** @OneToMany(targetEntity="NotifyChangedRelatedItem", mappedBy="owner") */
     private $items;
 
-    public function  __construct() {
+    public function __construct()
+    {
         $this->items = new ArrayCollection;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getItems() {
+    public function getItems()
+    {
         return $this->items;
     }
 
-    public function setTransient($value) {
+    public function setTransient($value)
+    {
         if ($value != $this->transient) {
             $this->_onPropertyChanged('transient', $this->transient, $value);
             $this->transient = $value;
         }
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 
-    public function setData($data) {
+    public function setData($data)
+    {
         if ($data != $this->data) {
             $this->_onPropertyChanged('data', $this->data, $data);
             $this->data = $data;
@@ -396,7 +404,8 @@ class NotifyChangedEntity implements NotifyPropertyChanged
         $this->_listeners[] = $listener;
     }
 
-    protected function _onPropertyChanged($propName, $oldValue, $newValue) {
+    protected function _onPropertyChanged($propName, $oldValue, $newValue)
+    {
         if ($this->_listeners) {
             foreach ($this->_listeners as $listener) {
                 $listener->propertyChanged($this, $propName, $oldValue, $newValue);
@@ -418,15 +427,18 @@ class NotifyChangedRelatedItem
     /** @ManyToOne(targetEntity="NotifyChangedEntity", inversedBy="items") */
     private $owner;
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getOwner() {
+    public function getOwner()
+    {
         return $this->owner;
     }
 
-    public function setOwner($owner) {
+    public function setOwner($owner)
+    {
         $this->owner = $owner;
     }
 }

@@ -74,8 +74,8 @@ class OrderBy
      */
     public function add($sort, $order = null)
     {
-        $order = ! $order ? 'ASC' : $order;
-        $this->parts[] = $sort . ' '. $order;
+        $order         = ! $order ? 'ASC' : $order;
+        $this->parts[] = $sort . ' ' . $order;
     }
 
     /**

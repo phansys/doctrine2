@@ -49,7 +49,7 @@ class ArithmeticFactor extends Node
     public function __construct($arithmeticPrimary, $sign = null)
     {
         $this->arithmeticPrimary = $arithmeticPrimary;
-        $this->sign = $sign;
+        $this->sign              = $sign;
     }
 
     /**

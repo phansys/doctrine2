@@ -15,7 +15,7 @@ class DDC1209Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1209_2'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1209_3')
             ));
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
         }
     }
 
@@ -90,10 +90,10 @@ class DDC1209_2
 
     public function __construct(DDC1209_1 $future1)
     {
-        $this->future1 = $future1;
+        $this->future1           = $future1;
         $this->starting_datetime = new DateTime2();
-        $this->during_datetime = new DateTime2();
-        $this->ending_datetime = new DateTime2();
+        $this->during_datetime   = new DateTime2();
+        $this->ending_datetime   = new DateTime2();
     }
 }
 

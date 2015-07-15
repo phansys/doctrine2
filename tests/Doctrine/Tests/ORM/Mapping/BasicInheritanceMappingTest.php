@@ -17,7 +17,8 @@ class BasicInheritanceMappingTest extends \Doctrine\Tests\OrmTestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->cmf = new ClassMetadataFactory();
 
         $this->cmf->setEntityManager($this->_getTestEntityManager());
@@ -93,7 +94,6 @@ class BasicInheritanceMappingTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testSerializationWithPrivateFieldsFromMappedSuperclass()
     {
-
         $class = $this->cmf->getMetadataFor(__NAMESPACE__ . '\\EntitySubClass2');
 
         $class2 = unserialize(serialize($class));
@@ -207,7 +207,8 @@ class BasicInheritanceMappingTest extends \Doctrine\Tests\OrmTestCase
     }
 }
 
-class TransientBaseClass {
+class TransientBaseClass
+{
     private $transient1;
     private $transient2;
 }
@@ -222,7 +223,8 @@ class EntitySubClass extends TransientBaseClass
 }
 
 /** @MappedSuperclass */
-class MappedSuperclassBase {
+class MappedSuperclassBase
+{
     /** @Column(type="integer") */
     private $mapped1;
     /** @Column(type="string") */
@@ -234,10 +236,13 @@ class MappedSuperclassBase {
     private $mappedRelated1;
     private $transient;
 }
-class MappedSuperclassRelated1 {}
+class MappedSuperclassRelated1
+{
+}
 
 /** @Entity */
-class EntitySubClass2 extends MappedSuperclassBase {
+class EntitySubClass2 extends MappedSuperclassBase
+{
     /** @Id @Column(type="integer") */
     private $id;
     /** @Column(type="string") */
@@ -251,7 +256,8 @@ class EntitySubClass2 extends MappedSuperclassBase {
  *  indexes={@Index(name="IDX_MAPPED2_INDEX", columns={"mapped2"})}
  * )
  */
-class MappedSuperclassBaseIndex {
+class MappedSuperclassBaseIndex
+{
     /** @Column(type="string") */
     private $mapped1;
     /** @Column(type="string") */

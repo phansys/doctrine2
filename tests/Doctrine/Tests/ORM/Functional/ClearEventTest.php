@@ -12,7 +12,8 @@ use Doctrine\ORM\Events;
  */
 class ClearEventTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
     }
 

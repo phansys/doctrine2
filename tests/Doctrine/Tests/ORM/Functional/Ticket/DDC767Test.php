@@ -19,18 +19,18 @@ class DDC767Test extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testCollectionChangesInsideTransaction()
     {
-        $user = new CmsUser();
-        $user->name = "beberlei";
-        $user->status = "active";
+        $user           = new CmsUser();
+        $user->name     = "beberlei";
+        $user->status   = "active";
         $user->username = "beberlei";
 
-        $group1 = new CmsGroup();
+        $group1       = new CmsGroup();
         $group1->name = "foo";
 
-        $group2 = new CmsGroup();
+        $group2       = new CmsGroup();
         $group2->name = "bar";
 
-        $group3 = new CmsGroup();
+        $group3       = new CmsGroup();
         $group3->name = "baz";
 
         $user->addGroup($group1);
@@ -65,7 +65,7 @@ class DDC767Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
             $this->_em->flush();
             $this->_em->commit();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $this->_em->rollback();
         }
     }

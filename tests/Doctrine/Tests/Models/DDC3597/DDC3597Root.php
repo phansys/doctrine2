@@ -1,6 +1,7 @@
 <?php
 
 namespace Doctrine\Tests\Models\DDC3597;
+
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
@@ -13,8 +14,8 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
  * @DiscriminatorMap({ "image" = "DDC3597Image"})
  * @HasLifecycleCallbacks
  */
-abstract class DDC3597Root {
-
+abstract class DDC3597Root
+{
     const CLASSNAME = __CLASS__;
 
     /**
@@ -43,7 +44,8 @@ abstract class DDC3597Root {
      *
      * @PrePersist
      */
-    public function _prePersist() {
+    public function _prePersist()
+    {
         $this->updatedAt = $this->createdAt = new \DateTime();
     }
 
@@ -52,14 +54,16 @@ abstract class DDC3597Root {
      *
      * @PreUpdate
      */
-    public function _preUpdate() {
+    public function _preUpdate()
+    {
         $this->updatedAt = new \DateTime();
     }
 
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return (int)$this->id;
     }
 
@@ -67,14 +71,16 @@ abstract class DDC3597Root {
     /**
      * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
     /**
      * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 }

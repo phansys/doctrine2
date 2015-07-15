@@ -18,8 +18,7 @@ class DDC1225Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1225_TestEntity1'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1225_TestEntity2'),
             ));
-        } catch(\PDOException $e) {
-
+        } catch (\PDOException $e) {
         }
     }
 

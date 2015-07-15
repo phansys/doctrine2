@@ -39,7 +39,7 @@ class SqlValueVisitor extends ExpressionVisitor
     /**
      * @var array
      */
-    private $types  = array();
+    private $types = array();
 
     /**
      * Converts a comparison expression into the target query language output.
@@ -50,13 +50,13 @@ class SqlValueVisitor extends ExpressionVisitor
      */
     public function walkComparison(Comparison $comparison)
     {
-        $value          = $this->getValueFromComparison($comparison);
-        $field          = $comparison->getField();
-        $operator       = $comparison->getOperator();
+        $value    = $this->getValueFromComparison($comparison);
+        $field    = $comparison->getField();
+        $operator = $comparison->getOperator();
 
         if (($operator === Comparison::EQ || $operator === Comparison::IS) && $value === null) {
             return;
-        } else if ($operator === Comparison::NEQ && $value === null) {
+        } elseif ($operator === Comparison::NEQ && $value === null) {
             return;
         }
 

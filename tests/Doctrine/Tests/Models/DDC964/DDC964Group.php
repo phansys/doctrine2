@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class DDC964Group
 {
-
     /**
      * @GeneratedValue
      * @Id @Column(type="integer")
@@ -30,7 +29,7 @@ class DDC964Group
 
     public function __construct($name = null)
     {
-        $this->name = $name;
+        $this->name  = $name;
         $this->users = new ArrayCollection();
     }
 
@@ -65,6 +64,4 @@ class DDC964Group
     {
         return $this->users;
     }
-
 }
-

@@ -21,7 +21,6 @@ namespace Doctrine\ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
-
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\QueryExpressionVisitor;
 
@@ -59,14 +58,14 @@ class QueryBuilder
      */
     private $_dqlParts = array(
         'distinct' => false,
-        'select'  => array(),
-        'from'    => array(),
-        'join'    => array(),
-        'set'     => array(),
-        'where'   => null,
-        'groupBy' => array(),
-        'having'  => null,
-        'orderBy' => array()
+        'select'   => array(),
+        'from'     => array(),
+        'join'     => array(),
+        'set'      => array(),
+        'where'    => null,
+        'groupBy'  => array(),
+        'having'   => null,
+        'orderBy'  => array()
     );
 
     /**
@@ -151,7 +150,7 @@ class QueryBuilder
      */
     public function __construct(EntityManagerInterface $em)
     {
-        $this->_em = $em;
+        $this->_em        = $em;
         $this->parameters = new ArrayCollection();
     }
 
@@ -419,7 +418,7 @@ class QueryBuilder
     {
         $aliases = $this->getRootAliases();
 
-        if ( ! isset($aliases[0])) {
+        if (! isset($aliases[0])) {
             throw new \RuntimeException('No alias was set before invoking getRootAlias().');
         }
 
@@ -473,8 +472,9 @@ class QueryBuilder
      * </code>
      * @return array
      */
-    public function getAllAliases() {
-        return array_merge($this->getRootAliases(),array_keys($this->joinRootAliases));
+    public function getAllAliases()
+    {
+        return array_merge($this->getRootAliases(), array_keys($this->joinRootAliases));
     }
 
     /**
@@ -530,8 +530,7 @@ class QueryBuilder
     public function setParameter($key, $value, $type = null)
     {
         $filteredParameters = $this->parameters->filter(
-            function ($parameter) use ($key)
-            {
+            function ($parameter) use ($key) {
                 // Must not be identical because of string to integer conversion
                 return ($key == $parameter->getName());
             }
@@ -609,8 +608,7 @@ class QueryBuilder
     public function getParameter($key)
     {
         $filteredParameters = $this->parameters->filter(
-            function ($parameter) use ($key)
-            {
+            function ($parameter) use ($key) {
                 // Must not be identical because of string to integer conversion
                 return ($key == $parameter->getName());
             }
@@ -685,7 +683,7 @@ class QueryBuilder
     {
         if ($append && ($dqlPartName === "where" || $dqlPartName === "having")) {
             throw new \InvalidArgumentException(
-                "Using \$append = true does not have an effect with 'where' or 'having' ".
+                "Using \$append = true does not have an effect with 'where' or 'having' " .
                 "parts. See QueryBuilder#andWhere() for an example for correct usage."
             );
         }
@@ -826,7 +824,7 @@ class QueryBuilder
     {
         $this->_type = self::DELETE;
 
-        if ( ! $delete) {
+        if (! $delete) {
             return $this;
         }
 
@@ -853,7 +851,7 @@ class QueryBuilder
     {
         $this->_type = self::UPDATE;
 
-        if ( ! $update) {
+        if (! $update) {
             return $this;
         }
 
@@ -1069,7 +1067,7 @@ class QueryBuilder
      */
     public function where($predicates)
     {
-        if ( ! (func_num_args() == 1 && $predicates instanceof Expr\Composite)) {
+        if (! (func_num_args() == 1 && $predicates instanceof Expr\Composite)) {
             $predicates = new Expr\Andx(func_get_args());
         }
 
@@ -1192,7 +1190,7 @@ class QueryBuilder
      */
     public function having($having)
     {
-        if ( ! (func_num_args() == 1 && ($having instanceof Expr\Andx || $having instanceof Expr\Orx))) {
+        if (! (func_num_args() == 1 && ($having instanceof Expr\Andx || $having instanceof Expr\Orx))) {
             $having = new Expr\Andx(func_get_args());
         }
 
@@ -1290,7 +1288,7 @@ class QueryBuilder
     public function addCriteria(Criteria $criteria)
     {
         $allAliases = $this->getAllAliases();
-        if ( ! isset($allAliases[0])) {
+        if (! isset($allAliases[0])) {
             throw new Query\QueryException('No aliases are set before invoking addCriteria().');
         }
 
@@ -1305,16 +1303,15 @@ class QueryBuilder
 
         if ($criteria->getOrderings()) {
             foreach ($criteria->getOrderings() as $sort => $order) {
-
                 $hasValidAlias = false;
-                foreach($allAliases as $alias) {
-                    if(strpos($sort . '.', $alias . '.') === 0) {
+                foreach ($allAliases as $alias) {
+                    if (strpos($sort . '.', $alias . '.') === 0) {
                         $hasValidAlias = true;
                         break;
                     }
                 }
 
-                if(!$hasValidAlias) {
+                if (!$hasValidAlias) {
                     $sort = $allAliases[0] . '.' . $sort;
                 }
 
@@ -1364,7 +1361,7 @@ class QueryBuilder
      */
     private function _getDQLForDelete()
     {
-         return 'DELETE'
+        return 'DELETE'
               . $this->_getReducedDQLQueryPart('from', array('pre' => ' ', 'separator' => ', '))
               . $this->_getReducedDQLQueryPart('where', array('pre' => ' WHERE '))
               . $this->_getReducedDQLQueryPart('orderBy', array('pre' => ' ORDER BY ', 'separator' => ', '));
@@ -1375,7 +1372,7 @@ class QueryBuilder
      */
     private function _getDQLForUpdate()
     {
-         return 'UPDATE'
+        return 'UPDATE'
               . $this->_getReducedDQLQueryPart('from', array('pre' => ' ', 'separator' => ', '))
               . $this->_getReducedDQLQueryPart('set', array('pre' => ' SET ', 'separator' => ', '))
               . $this->_getReducedDQLQueryPart('where', array('pre' => ' WHERE '))
@@ -1396,7 +1393,7 @@ class QueryBuilder
         $fromClauses = array();
 
         // Loop through all FROM clauses
-        if ( ! empty($fromParts)) {
+        if (! empty($fromParts)) {
             $dql .= ' FROM ';
 
             foreach ($fromParts as $from) {
@@ -1500,7 +1497,7 @@ class QueryBuilder
                         $this->_dqlParts[$part][$idx] = clone $element;
                     }
                 }
-            } else if (is_object($elements)) {
+            } elseif (is_object($elements)) {
                 $this->_dqlParts[$part] = clone $elements;
             }
         }

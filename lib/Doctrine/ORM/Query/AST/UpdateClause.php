@@ -52,7 +52,7 @@ class UpdateClause extends Node
     public function __construct($abstractSchemaName, array $updateItems)
     {
         $this->abstractSchemaName = $abstractSchemaName;
-        $this->updateItems = $updateItems;
+        $this->updateItems        = $updateItems;
     }
 
     /**

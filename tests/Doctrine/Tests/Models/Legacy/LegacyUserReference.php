@@ -37,10 +37,10 @@ class LegacyUserReference
         $source->addReference($this);
         $target->addReference($this);
 
-        $this->_source = $source;
-        $this->_target = $target;
+        $this->_source      = $source;
+        $this->_target      = $target;
         $this->_description = $description;
-        $this->_created = new \DateTime("now");
+        $this->_created     = new \DateTime("now");
     }
 
     public function source()

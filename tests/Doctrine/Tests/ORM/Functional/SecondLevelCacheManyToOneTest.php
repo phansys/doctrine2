@@ -162,7 +162,7 @@ class SecondLevelCacheManyToOneTest extends SecondLevelCacheAbstractTest
         $this->assertFalse($this->cache->containsEntity(Token::CLASSNAME, $action->id));
 
         $queryCount = $this->getCurrentQueryCount();
-        $entity = $this->_em->find(Token::CLASSNAME, $token->token);
+        $entity     = $this->_em->find(Token::CLASSNAME, $token->token);
 
         $this->assertInstanceOf(Token::CLASSNAME, $entity);
         $this->assertEquals('token-hash', $entity->token);
@@ -179,7 +179,7 @@ class SecondLevelCacheManyToOneTest extends SecondLevelCacheAbstractTest
         $this->assertNull($this->cache->getEntityCacheRegion(ComplexAction::CLASSNAME));
         $this->assertInstanceOf('Doctrine\ORM\Cache\Region', $this->cache->getEntityCacheRegion(Token::CLASSNAME));
 
-        $token  = new Token('token-hash');
+        $token = new Token('token-hash');
 
         $action1 = new Action('login');
         $action2 = new Action('logout');

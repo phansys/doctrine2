@@ -141,8 +141,8 @@ class SecondLevelCacheTest extends OrmFunctionalTestCase
 
         printf("\n[%s] persist %s countries", number_format(microtime(true) - $startPersist, 6), $size);
 
-        $dql        = 'SELECT c FROM Doctrine\Tests\Models\Cache\Country c WHERE c.name LIKE :name';
-        $startFind  = microtime(true);
+        $dql       = 'SELECT c FROM Doctrine\Tests\Models\Cache\Country c WHERE c.name LIKE :name';
+        $startFind = microtime(true);
 
         for ($i = 0; $i < $times; $i++) {
             $em->createQuery($dql)
@@ -194,14 +194,12 @@ class SecondLevelCacheTest extends OrmFunctionalTestCase
         $em->flush();
         $em->clear();
 
-        printf("\n[%s] persist %s states and %s cities", number_format( microtime(true) - $startPersist, 6), count($states), count($cities));
+        printf("\n[%s] persist %s states and %s cities", number_format(microtime(true) - $startPersist, 6), count($states), count($cities));
 
-        $startFind  = microtime(true);
+        $startFind = microtime(true);
 
         for ($i = 0; $i < $times; $i++) {
-
             foreach ($states as $state) {
-
                 $state = $em->find(State::CLASSNAME, $state->getId());
 
                 foreach ($state->getCities() as $city) {
@@ -236,7 +234,7 @@ class SecondLevelCacheTest extends OrmFunctionalTestCase
 
         printf("\n[%s] persist %s countries", number_format(microtime(true) - $startPersist, 6), $size);
 
-        $startFind  = microtime(true);
+        $startFind = microtime(true);
 
         for ($i = 0; $i <= $times; $i++) {
             foreach ($countries as $country) {
@@ -267,7 +265,7 @@ class SecondLevelCacheTest extends OrmFunctionalTestCase
 
         printf("\n[%s] persist %s countries", number_format(microtime(true) - $startPersist, 6), $size);
 
-        $startFind  = microtime(true);
+        $startFind = microtime(true);
 
         for ($i = 0; $i <= $times; $i++) {
             $list = $rep->findAll();

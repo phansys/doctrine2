@@ -8,7 +8,6 @@ namespace Doctrine\Tests\Models\Quote;
  */
 class Address
 {
-
     /**
      * @Id
      * @GeneratedValue
@@ -28,7 +27,8 @@ class Address
     public $user;
 
 
-    public function setUser(User $user) {
+    public function setUser(User $user)
+    {
         if ($this->user !== $user) {
             $this->user = $user;
             $user->setAddress($this);
@@ -50,5 +50,4 @@ class Address
     {
         return $this->user;
     }
-
 }

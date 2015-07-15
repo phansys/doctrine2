@@ -17,14 +17,14 @@ class DDC849Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->useModelSet('cms');
         parent::setUp();
 
-        $this->user = new CmsUser();
+        $this->user           = new CmsUser();
         $this->user->username = "beberlei";
-        $this->user->name = "Benjamin";
-        $this->user->status = "active";
+        $this->user->name     = "Benjamin";
+        $this->user->status   = "active";
 
-        $this->group1 = new CmsGroup();
+        $this->group1       = new CmsGroup();
         $this->group1->name = "Group 1";
-        $this->group2 = new CmsGroup();
+        $this->group2       = new CmsGroup();
         $this->group2->name = "Group 2";
 
         $this->user->addGroup($this->group1);

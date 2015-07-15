@@ -66,11 +66,11 @@ class ProxyPerformanceTest extends OrmPerformanceTestCase
      */
     public function testProxyForcedInitializationPerformance($entityName)
     {
-        $em              = new MockEntityManager($this->_getEntityManager());
-        $proxyFactory    = $em->getProxyFactory();
+        $em           = new MockEntityManager($this->_getEntityManager());
+        $proxyFactory = $em->getProxyFactory();
         /* @var $user \Doctrine\Common\Proxy\Proxy */
-        $user            = $proxyFactory->getProxy($entityName, array('id' => 1));
-        $initializer     = $user->__getInitializer();
+        $user        = $proxyFactory->getProxy($entityName, array('id' => 1));
+        $initializer = $user->__getInitializer();
 
         $this->setMaxRunningTime(5);
         $start = microtime(true);

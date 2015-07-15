@@ -121,8 +121,8 @@ class EntityRepository implements ObjectRepository, Selectable
      */
     public function createNativeNamedQuery($queryName)
     {
-        $queryMapping   = $this->_class->getNamedNativeQuery($queryName);
-        $rsm            = new Query\ResultSetMappingBuilder($this->_em);
+        $queryMapping = $this->_class->getNamedNativeQuery($queryName);
+        $rsm          = new Query\ResultSetMappingBuilder($this->_em);
         $rsm->addNamedNativeQueryMapping($this->_class, $queryMapping);
 
         return $this->_em->createNativeQuery($queryMapping['query'], $rsm);
@@ -213,18 +213,18 @@ class EntityRepository implements ObjectRepository, Selectable
     {
         switch (true) {
             case (0 === strpos($method, 'findBy')):
-                $by = substr($method, 6);
+                $by     = substr($method, 6);
                 $method = 'findBy';
                 break;
 
             case (0 === strpos($method, 'findOneBy')):
-                $by = substr($method, 9);
+                $by     = substr($method, 9);
                 $method = 'findOneBy';
                 break;
 
             default:
                 throw new \BadMethodCallException(
-                    "Undefined method '$method'. The method name must start with ".
+                    "Undefined method '$method'. The method name must start with " .
                     "either findBy or findOneBy!"
                 );
         }
@@ -254,7 +254,7 @@ class EntityRepository implements ObjectRepository, Selectable
             }
         }
 
-        throw ORMException::invalidFindByCall($this->_entityName, $fieldName, $method.$by);
+        throw ORMException::invalidFindByCall($this->_entityName, $fieldName, $method . $by);
     }
 
     /**

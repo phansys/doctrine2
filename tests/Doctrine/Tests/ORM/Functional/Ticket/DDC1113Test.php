@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class DDC1113Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     public function setUp()
     {
         parent::setUp();
@@ -22,16 +21,15 @@ class DDC1113Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC1113Bus'),
             ));
         } catch (\Exception $e) {
-
         }
     }
 
     public function testIssue()
     {
-        $car = new DDC1113Car();
+        $car         = new DDC1113Car();
         $car->engine = new DDC1113Engine();
 
-        $bus = new DDC1113Bus();
+        $bus         = new DDC1113Bus();
         $bus->engine = new DDC1113Engine();
 
         $this->_em->persist($car);
@@ -44,7 +42,6 @@ class DDC1113Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->remove($car);
         $this->_em->flush();
     }
-
 }
 
 /**
@@ -54,7 +51,6 @@ class DDC1113Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1113Vehicle
 {
-
     /** @Id @GeneratedValue @Column(type="integer") */
     public $id;
 
@@ -65,7 +61,6 @@ class DDC1113Vehicle
 
     /** @OneToOne(targetEntity="DDC1113Engine", cascade={"persist", "remove"}) */
     public $engine;
-
 }
 
 /**
@@ -73,7 +68,6 @@ class DDC1113Vehicle
  */
 class DDC1113Car extends DDC1113Vehicle
 {
-
 }
 
 /**
@@ -81,7 +75,6 @@ class DDC1113Car extends DDC1113Vehicle
  */
 class DDC1113Bus extends DDC1113Vehicle
 {
-
 }
 
 /**
@@ -89,9 +82,6 @@ class DDC1113Bus extends DDC1113Vehicle
  */
 class DDC1113Engine
 {
-
     /** @Id @GeneratedValue @Column(type="integer") */
     public $id;
-
 }
-

@@ -23,7 +23,7 @@ class DDC1548Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($rel);
         $this->_em->flush();
 
-        $e1 = new DDC1548E1();
+        $e1      = new DDC1548E1();
         $e1->rel = $rel;
         $this->_em->persist($e1);
         $this->_em->flush();

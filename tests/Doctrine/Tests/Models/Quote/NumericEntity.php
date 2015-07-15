@@ -27,5 +27,4 @@ class NumericEntity
     {
         $this->value = $value;
     }
-
 }

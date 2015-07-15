@@ -2,7 +2,6 @@
 
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
-
 /**
  * @group DDC-1515
  */
@@ -23,14 +22,14 @@ class DDC1515Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($bar);
         $this->_em->flush();
 
-        $foo = new DDC1515Foo();
+        $foo      = new DDC1515Foo();
         $foo->bar = $bar;
         $this->_em->persist($foo);
         $this->_em->flush();
         $this->_em->clear();
 
         $bar = $this->_em->find(__NAMESPACE__ . '\DDC1515Bar', $bar->id);
-        $this->assertInstanceOf(__NAMESPACE__.'\DDC1515Foo', $bar->foo);
+        $this->assertInstanceOf(__NAMESPACE__ . '\DDC1515Foo', $bar->foo);
     }
 }
 
@@ -60,5 +59,3 @@ class DDC1515Bar
      */
     public $foo;
 }
-
-

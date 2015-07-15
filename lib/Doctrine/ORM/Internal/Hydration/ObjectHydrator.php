@@ -82,7 +82,7 @@ class ObjectHydrator extends AbstractHydrator
      */
     protected function prepare()
     {
-        if ( ! isset($this->_hints[UnitOfWork::HINT_DEFEREAGERLOAD])) {
+        if (! isset($this->_hints[UnitOfWork::HINT_DEFEREAGERLOAD])) {
             $this->_hints[UnitOfWork::HINT_DEFEREAGERLOAD] = true;
         }
 
@@ -92,13 +92,13 @@ class ObjectHydrator extends AbstractHydrator
 
             // Remember which associations are "fetch joined", so that we know where to inject
             // collection stubs or proxies and where not.
-            if ( ! isset($this->_rsm->relationMap[$dqlAlias])) {
+            if (! isset($this->_rsm->relationMap[$dqlAlias])) {
                 continue;
             }
 
             $parent = $this->_rsm->parentAliasMap[$dqlAlias];
 
-            if ( ! isset($this->_rsm->aliasMap[$parent])) {
+            if (! isset($this->_rsm->aliasMap[$parent])) {
                 throw HydrationException::parentObjectOfRelationNotFound($dqlAlias, $parent);
             }
 
@@ -124,7 +124,7 @@ class ObjectHydrator extends AbstractHydrator
                 $class        = $this->getClassMetadata($className);
                 $inverseAssoc = $class->associationMappings[$assoc['inversedBy']];
 
-                if ( ! ($inverseAssoc['type'] & ClassMetadata::TO_ONE)) {
+                if (! ($inverseAssoc['type'] & ClassMetadata::TO_ONE)) {
                     continue;
                 }
 
@@ -142,10 +142,10 @@ class ObjectHydrator extends AbstractHydrator
 
         parent::cleanup();
 
-        $this->identifierMap =
+        $this->identifierMap          =
         $this->initializedCollections =
-        $this->existingCollections =
-        $this->resultPointers = array();
+        $this->existingCollections    =
+        $this->resultPointers         = array();
 
         if ($eagerLoad) {
             $this->_uow->triggerEagerLoads();
@@ -193,7 +193,7 @@ class ObjectHydrator extends AbstractHydrator
             $value = new ArrayCollection((array) $value);
         }
 
-        if ( ! $value instanceof PersistentCollection) {
+        if (! $value instanceof PersistentCollection) {
             $value = new PersistentCollection(
                 $this->_em, $this->_metadataCache[$relation['targetEntity']], $value
             );
@@ -203,7 +203,7 @@ class ObjectHydrator extends AbstractHydrator
             $this->_uow->setOriginalEntityProperty($oid, $fieldName, $value);
 
             $this->initializedCollections[$oid . $fieldName] = $value;
-        } else if (
+        } elseif (
             isset($this->_hints[Query::HINT_REFRESH]) ||
             isset($this->_hints['fetched'][$parentDqlAlias][$fieldName]) &&
              ! $value->isInitialized()
@@ -239,13 +239,13 @@ class ObjectHydrator extends AbstractHydrator
         if (isset($this->_rsm->discriminatorColumns[$dqlAlias])) {
             $fieldName = $this->_rsm->discriminatorColumns[$dqlAlias];
 
-            if ( ! isset($this->_rsm->metaMappings[$fieldName])) {
+            if (! isset($this->_rsm->metaMappings[$fieldName])) {
                 throw HydrationException::missingDiscriminatorMetaMappingColumn($className, $fieldName, $dqlAlias);
             }
 
             $discrColumn = $this->_rsm->metaMappings[$fieldName];
 
-            if ( ! isset($data[$discrColumn])) {
+            if (! isset($data[$discrColumn])) {
                 throw HydrationException::missingDiscriminatorColumn($className, $discrColumn, $dqlAlias);
             }
 
@@ -255,7 +255,7 @@ class ObjectHydrator extends AbstractHydrator
 
             $discrMap = $this->_metadataCache[$className]->discriminatorMap;
 
-            if ( ! isset($discrMap[$data[$discrColumn]])) {
+            if (! isset($discrMap[$data[$discrColumn]])) {
                 throw HydrationException::invalidDiscriminatorValue($data[$discrColumn], array_keys($discrMap));
             }
 
@@ -295,7 +295,7 @@ class ObjectHydrator extends AbstractHydrator
             }
 
             return $this->_uow->tryGetByIdHash(ltrim($idHash), $class->rootEntityName);
-        } else if (isset($class->associationMappings[$class->identifier[0]])) {
+        } elseif (isset($class->associationMappings[$class->identifier[0]])) {
             return $this->_uow->tryGetByIdHash($data[$class->associationMappings[$class->identifier[0]]['joinColumns'][0]['name']], $class->rootEntityName);
         }
 
@@ -327,7 +327,7 @@ class ObjectHydrator extends AbstractHydrator
     protected function hydrateRowData(array $row, array &$result)
     {
         // Initialize
-        $id = $this->idTemplate; // initialize the id-memory
+        $id                 = $this->idTemplate; // initialize the id-memory
         $nonemptyComponents = array();
         // Split the row data into chunks of class data.
         $rowData = $this->gatherRowData($row, $id, $nonemptyComponents);
@@ -345,28 +345,28 @@ class ObjectHydrator extends AbstractHydrator
                 $path = $parentAlias . '.' . $dqlAlias;
 
                 // We have a RIGHT JOIN result here. Doctrine cannot hydrate RIGHT JOIN Object-Graphs
-                if ( ! isset($nonemptyComponents[$parentAlias])) {
+                if (! isset($nonemptyComponents[$parentAlias])) {
                     // TODO: Add special case code where we hydrate the right join objects into identity map at least
                     continue;
                 }
 
-                $parentClass    = $this->_metadataCache[$this->_rsm->aliasMap[$parentAlias]];
-                $relationField  = $this->_rsm->relationMap[$dqlAlias];
-                $relation       = $parentClass->associationMappings[$relationField];
-                $reflField      = $parentClass->reflFields[$relationField];
+                $parentClass   = $this->_metadataCache[$this->_rsm->aliasMap[$parentAlias]];
+                $relationField = $this->_rsm->relationMap[$dqlAlias];
+                $relation      = $parentClass->associationMappings[$relationField];
+                $reflField     = $parentClass->reflFields[$relationField];
 
                 // Get a reference to the parent object to which the joined element belongs.
                 if ($this->_rsm->isMixed && isset($this->rootAliases[$parentAlias])) {
-                    $first = reset($this->resultPointers);
+                    $first        = reset($this->resultPointers);
                     $parentObject = $first[key($first)];
-                } else if (isset($this->resultPointers[$parentAlias])) {
+                } elseif (isset($this->resultPointers[$parentAlias])) {
                     $parentObject = $this->resultPointers[$parentAlias];
                 } else {
                     // Parent object of relation not found, mark as not-fetched again
                     $element = $this->getEntity($data, $dqlAlias);
 
                     // Update result pointer and provide initial fetch data for parent
-                    $this->resultPointers[$dqlAlias] = $element;
+                    $this->resultPointers[$dqlAlias]               = $element;
                     $rowData['data'][$parentAlias][$relationField] = $element;
 
                     // Mark as not-fetched again
@@ -377,7 +377,7 @@ class ObjectHydrator extends AbstractHydrator
                 $oid = spl_object_hash($parentObject);
 
                 // Check the type of the relation (many or single-valued)
-                if ( ! ($relation['type'] & ClassMetadata::TO_ONE)) {
+                if (! ($relation['type'] & ClassMetadata::TO_ONE)) {
                     // PATH A: Collection-valued association
                     $reflFieldValue = $reflField->getValue($parentObject);
 
@@ -385,15 +385,15 @@ class ObjectHydrator extends AbstractHydrator
                         $collKey = $oid . $relationField;
                         if (isset($this->initializedCollections[$collKey])) {
                             $reflFieldValue = $this->initializedCollections[$collKey];
-                        } else if ( ! isset($this->existingCollections[$collKey])) {
+                        } elseif (! isset($this->existingCollections[$collKey])) {
                             $reflFieldValue = $this->initRelatedCollection($parentObject, $parentClass, $relationField, $parentAlias);
                         }
 
-                        $indexExists    = isset($this->identifierMap[$path][$id[$parentAlias]][$id[$dqlAlias]]);
-                        $index          = $indexExists ? $this->identifierMap[$path][$id[$parentAlias]][$id[$dqlAlias]] : false;
-                        $indexIsValid   = $index !== false ? isset($reflFieldValue[$index]) : false;
+                        $indexExists  = isset($this->identifierMap[$path][$id[$parentAlias]][$id[$dqlAlias]]);
+                        $index        = $indexExists ? $this->identifierMap[$path][$id[$parentAlias]][$id[$dqlAlias]] : false;
+                        $indexIsValid = $index !== false ? isset($reflFieldValue[$index]) : false;
 
-                        if ( ! $indexExists || ! $indexIsValid) {
+                        if (! $indexExists || ! $indexIsValid) {
                             if (isset($this->existingCollections[$collKey])) {
                                 // Collection exists, only look for the element in the identity map.
                                 if ($element = $this->getEntityFromIdentityMap($entityName, $data)) {
@@ -420,17 +420,16 @@ class ObjectHydrator extends AbstractHydrator
                             // Update result pointer
                             $this->resultPointers[$dqlAlias] = $reflFieldValue[$index];
                         }
-                    } else if ( ! $reflFieldValue) {
+                    } elseif (! $reflFieldValue) {
                         $reflFieldValue = $this->initRelatedCollection($parentObject, $parentClass, $relationField, $parentAlias);
-                    } else if ($reflFieldValue instanceof PersistentCollection && $reflFieldValue->isInitialized() === false) {
+                    } elseif ($reflFieldValue instanceof PersistentCollection && $reflFieldValue->isInitialized() === false) {
                         $reflFieldValue->setInitialized(true);
                     }
-
                 } else {
                     // PATH B: Single-valued association
                     $reflFieldValue = $reflField->getValue($parentObject);
 
-                    if ( ! $reflFieldValue || isset($this->_hints[Query::HINT_REFRESH]) || ($reflFieldValue instanceof Proxy && !$reflFieldValue->__isInitialized__)) {
+                    if (! $reflFieldValue || isset($this->_hints[Query::HINT_REFRESH]) || ($reflFieldValue instanceof Proxy && !$reflFieldValue->__isInitialized__)) {
                         // we only need to take action if this value is null,
                         // we refresh the entity or its an unitialized proxy.
                         if (isset($nonemptyComponents[$dqlAlias])) {
@@ -448,7 +447,7 @@ class ObjectHydrator extends AbstractHydrator
                                         $targetClass->reflFields[$inverseAssoc['fieldName']]->setValue($element, $parentObject);
                                         $this->_uow->setOriginalEntityProperty(spl_object_hash($element), $inverseAssoc['fieldName'], $parentObject);
                                     }
-                                } else if ($parentClass === $targetClass && $relation['mappedBy']) {
+                                } elseif ($parentClass === $targetClass && $relation['mappedBy']) {
                                     // Special case: bi-directional self-referencing one-one on the same class
                                     $targetClass->reflFields[$relationField]->setValue($element, $parentObject);
                                 }
@@ -472,10 +471,10 @@ class ObjectHydrator extends AbstractHydrator
             } else {
                 // PATH C: Its a root result element
                 $this->rootAliases[$dqlAlias] = true; // Mark as root alias
-                $entityKey = $this->_rsm->entityMappings[$dqlAlias] ?: 0;
+                $entityKey                    = $this->_rsm->entityMappings[$dqlAlias] ?: 0;
 
                 // if this row has a NULL value for the root result id then make it a null result.
-                if ( ! isset($nonemptyComponents[$dqlAlias]) ) {
+                if (! isset($nonemptyComponents[$dqlAlias])) {
                     if ($this->_rsm->isMixed) {
                         $result[] = array($entityKey => null);
                     } else {
@@ -487,7 +486,7 @@ class ObjectHydrator extends AbstractHydrator
                 }
 
                 // check for existing result from the iterations before
-                if ( ! isset($this->identifierMap[$dqlAlias][$id[$dqlAlias]])) {
+                if (! isset($this->identifierMap[$dqlAlias][$id[$dqlAlias]])) {
                     $element = $this->getEntity($data, $dqlAlias);
 
                     if ($this->_rsm->isMixed) {
@@ -517,12 +516,11 @@ class ObjectHydrator extends AbstractHydrator
 
                     // Update result pointer
                     $this->resultPointers[$dqlAlias] = $element;
-
                 } else {
                     // Update result pointer
-                    $index = $this->identifierMap[$dqlAlias][$id[$dqlAlias]];
+                    $index                           = $this->identifierMap[$dqlAlias][$id[$dqlAlias]];
                     $this->resultPointers[$dqlAlias] = $result[$index];
-                    $resultKey = $index;
+                    $resultKey                       = $index;
                 }
             }
 
@@ -531,13 +529,13 @@ class ObjectHydrator extends AbstractHydrator
             }
         }
 
-        if ( ! isset($resultKey) ) {
+        if (! isset($resultKey)) {
             $this->resultCounter++;
         }
 
         // Append scalar values to mixed result sets
         if (isset($rowData['scalars'])) {
-            if ( ! isset($resultKey) ) {
+            if (! isset($resultKey)) {
                 $resultKey = (isset($this->_rsm->indexByMap['scalars']))
                     ? $row[$this->_rsm->indexByMap['scalars']]
                     : $this->resultCounter - 1;
@@ -550,7 +548,7 @@ class ObjectHydrator extends AbstractHydrator
 
         // Append new object to mixed result sets
         if (isset($rowData['newObjects'])) {
-            if ( ! isset($resultKey) ) {
+            if (! isset($resultKey)) {
                 $resultKey = $this->resultCounter - 1;
             }
 
@@ -558,11 +556,11 @@ class ObjectHydrator extends AbstractHydrator
             $scalarCount = (isset($rowData['scalars'])? count($rowData['scalars']): 0);
 
             foreach ($rowData['newObjects'] as $objIndex => $newObject) {
-                $class  = $newObject['class'];
-                $args   = $newObject['args'];
-                $obj    = $class->newInstanceArgs($args);
+                $class = $newObject['class'];
+                $args  = $newObject['args'];
+                $obj   = $class->newInstanceArgs($args);
 
-                if ($scalarCount == 0 && count($rowData['newObjects']) == 1 ) {
+                if ($scalarCount == 0 && count($rowData['newObjects']) == 1) {
                     $result[$resultKey] = $obj;
 
                     continue;

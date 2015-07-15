@@ -58,9 +58,9 @@ class CollectionCacheKey extends CacheKey
     {
         ksort($ownerIdentifier);
 
-        $this->ownerIdentifier  = $ownerIdentifier;
-        $this->entityClass      = (string) $entityClass;
-        $this->association      = (string) $association;
-        $this->hash             = str_replace('\\', '.', strtolower($entityClass)) . '_' . implode(' ', $ownerIdentifier) . '__' .  $association;
+        $this->ownerIdentifier = $ownerIdentifier;
+        $this->entityClass     = (string) $entityClass;
+        $this->association     = (string) $association;
+        $this->hash            = str_replace('\\', '.', strtolower($entityClass)) . '_' . implode(' ', $ownerIdentifier) . '__' .  $association;
     }
 }

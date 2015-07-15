@@ -14,7 +14,8 @@ class DDC353Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC353File'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC353Picture'),
             ));
-        } catch(\Exception $ignored) {}
+        } catch (\Exception $ignored) {
+        }
     }
 
     public function testWorkingCase()
@@ -54,7 +55,7 @@ class DDC353Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $em->flush();
         $em->clear();
 
-        $fileId = $file->getFileId();
+        $fileId    = $file->getFileId();
         $pictureId = $picture->getPictureId();
 
         $this->assertTrue($fileId > 0);

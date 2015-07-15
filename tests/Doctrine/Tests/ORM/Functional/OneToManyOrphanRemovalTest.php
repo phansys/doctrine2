@@ -2,9 +2,9 @@
 
 namespace Doctrine\Tests\ORM\Functional;
 
-use Doctrine\Tests\Models\CMS\CmsUser,
-    Doctrine\Tests\Models\CMS\CmsAddress,
-    Doctrine\Tests\Models\CMS\CmsPhonenumber;
+use Doctrine\Tests\Models\CMS\CmsUser;
+use Doctrine\Tests\Models\CMS\CmsAddress;
+use Doctrine\Tests\Models\CMS\CmsPhonenumber;
 
 /**
  * Tests a bidirectional one-to-many association mapping with orphan removal.
@@ -19,15 +19,15 @@ class OneToManyOrphanRemovalTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         parent::setUp();
 
-        $user = new CmsUser;
-        $user->status = 'dev';
+        $user           = new CmsUser;
+        $user->status   = 'dev';
         $user->username = 'romanb';
-        $user->name = 'Roman B.';
+        $user->name     = 'Roman B.';
 
-        $phone1 = new CmsPhonenumber;
+        $phone1              = new CmsPhonenumber;
         $phone1->phonenumber = '123456';
 
-        $phone2 = new CmsPhonenumber;
+        $phone2              = new CmsPhonenumber;
         $phone2->phonenumber = '234567';
 
         $user->addPhonenumber($phone1);

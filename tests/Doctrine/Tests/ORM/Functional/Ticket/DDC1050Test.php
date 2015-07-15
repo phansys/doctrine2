@@ -19,18 +19,18 @@ class DDC1050Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testPerformance()
     {
         for ($i = 2; $i < 10000; ++$i) {
-            $user = new \Doctrine\Tests\Models\CMS\CmsUser();
-            $user->status = 'developer';
+            $user           = new \Doctrine\Tests\Models\CMS\CmsUser();
+            $user->status   = 'developer';
             $user->username = 'jwage'+$i;
-            $user->name = 'Jonathan';
+            $user->name     = 'Jonathan';
             $this->_em->persist($user);
         }
         $this->_em->flush();
         $this->_em->clear();
 
-        $s = microtime(true);
+        $s     = microtime(true);
         $users = $this->_em->getRepository('Doctrine\Tests\Models\CMS\CmsUser')->findAll();
-        $e = microtime(true);
+        $e     = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 }

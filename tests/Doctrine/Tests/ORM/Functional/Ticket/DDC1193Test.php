@@ -1,7 +1,8 @@
 <?php
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
-use DateTime, Doctrine\DBAL\Types\Type;
+use DateTime;
+use Doctrine\DBAL\Types\Type;
 
 class DDC1193Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
@@ -22,7 +23,7 @@ class DDC1193Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testIssue()
     {
         $company = new DDC1193Company();
-        $person = new DDC1193Person();
+        $person  = new DDC1193Person();
         $account = new DDC1193Account();
 
         $person->account = $account;
@@ -52,7 +53,8 @@ class DDC1193Test extends \Doctrine\Tests\OrmFunctionalTestCase
 }
 
 /** @Entity */
-class DDC1193Company {
+class DDC1193Company
+{
     /**
      * @Id @Column(type="integer")
      * @GeneratedValue
@@ -61,11 +63,11 @@ class DDC1193Company {
 
     /** @OneToOne(targetEntity="DDC1193Person", cascade={"persist", "remove"}) */
     public $member;
-
 }
 
 /** @Entity */
-class DDC1193Person {
+class DDC1193Person
+{
     /**
      * @Id @Column(type="integer")
      * @GeneratedValue
@@ -79,13 +81,11 @@ class DDC1193Person {
 }
 
 /** @Entity */
-class DDC1193Account {
+class DDC1193Account
+{
     /**
      * @Id @Column(type="integer")
      * @GeneratedValue
      */
     public $id;
-
 }
-
-

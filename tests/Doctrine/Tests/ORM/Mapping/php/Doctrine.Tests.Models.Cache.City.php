@@ -13,23 +13,23 @@ $metadata->enableCache(array(
 
 $metadata->mapField(array(
    'fieldName' => 'id',
-   'type' => 'integer',
-   'id' => true,
+   'type'      => 'integer',
+   'id'        => true,
   ));
 
 $metadata->mapField(array(
    'fieldName' => 'name',
-   'type' => 'string',
+   'type'      => 'string',
 ));
 
 
 $metadata->mapOneToOne(array(
-   'fieldName'      => 'state',
-   'targetEntity'   => 'Doctrine\\Tests\\Models\\Cache\\State',
-   'inversedBy'     => 'cities',
-   'joinColumns'    =>
+   'fieldName'    => 'state',
+   'targetEntity' => 'Doctrine\\Tests\\Models\\Cache\\State',
+   'inversedBy'   => 'cities',
+   'joinColumns'  =>
    array(array(
-    'name' => 'state_id',
+    'name'                 => 'state_id',
     'referencedColumnName' => 'id',
    ))
 ));
@@ -38,16 +38,16 @@ $metadata->enableAssociationCache('state', array(
 ));
 
 $metadata->mapManyToMany(array(
-   'fieldName' => 'travels',
+   'fieldName'    => 'travels',
    'targetEntity' => 'Doctrine\\Tests\\Models\\Cache\\Travel',
-   'mappedBy' => 'visitedCities',
+   'mappedBy'     => 'visitedCities',
 ));
 
 $metadata->mapOneToMany(array(
-   'fieldName' => 'attractions',
+   'fieldName'    => 'attractions',
    'targetEntity' => 'Doctrine\\Tests\\Models\\Cache\\Attraction',
-   'mappedBy' => 'city',
-   'orderBy' => array('name' => 'ASC',),
+   'mappedBy'     => 'city',
+   'orderBy'      => array('name' => 'ASC',),
 ));
 $metadata->enableAssociationCache('attractions', array(
     'usage' => ClassMetadataInfo::CACHE_USAGE_READ_ONLY

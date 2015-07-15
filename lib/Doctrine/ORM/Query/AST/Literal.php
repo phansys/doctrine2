@@ -21,7 +21,7 @@ namespace Doctrine\ORM\Query\AST;
 
 class Literal extends Node
 {
-    const STRING = 1;
+    const STRING  = 1;
     const BOOLEAN = 2;
     const NUMERIC = 3;
 
@@ -41,7 +41,7 @@ class Literal extends Node
      */
     public function __construct($type, $value)
     {
-        $this->type = $type;
+        $this->type  = $type;
         $this->value = $value;
     }
 

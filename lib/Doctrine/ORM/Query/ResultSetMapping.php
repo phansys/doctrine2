@@ -183,7 +183,7 @@ class ResultSetMapping
      */
     public function addEntityResult($class, $alias, $resultAlias = null)
     {
-        $this->aliasMap[$alias] = $class;
+        $this->aliasMap[$alias]       = $class;
         $this->entityMappings[$alias] = $resultAlias;
 
         if ($resultAlias !== null) {
@@ -227,7 +227,9 @@ class ResultSetMapping
         $found = false;
 
         foreach (array_merge($this->metaMappings, $this->fieldMappings) as $columnName => $columnFieldName) {
-            if ( ! ($columnFieldName === $fieldName && $this->columnOwnerMap[$columnName] === $alias)) continue;
+            if (! ($columnFieldName === $fieldName && $this->columnOwnerMap[$columnName] === $alias)) {
+                continue;
+            }
 
             $this->addIndexByColumn($alias, $columnName);
             $found = true;
@@ -334,7 +336,7 @@ class ResultSetMapping
         // field name => class name of declaring class
         $this->declaringClasses[$columnName] = $declaringClass ?: $this->aliasMap[$alias];
 
-        if ( ! $this->isMixed && $this->scalarMappings) {
+        if (! $this->isMixed && $this->scalarMappings) {
             $this->isMixed = true;
         }
 
@@ -379,7 +381,7 @@ class ResultSetMapping
         $this->scalarMappings[$columnName] = $alias;
         $this->typeMappings[$columnName]   = $type;
 
-        if ( ! $this->isMixed && $this->fieldMappings) {
+        if (! $this->isMixed && $this->fieldMappings) {
             $this->isMixed = true;
         }
 
@@ -561,7 +563,7 @@ class ResultSetMapping
      */
     public function addMetaResult($alias, $columnName, $fieldName, $isIdentifierColumn = false, $type = null)
     {
-        $this->metaMappings[$columnName] = $fieldName;
+        $this->metaMappings[$columnName]   = $fieldName;
         $this->columnOwnerMap[$columnName] = $alias;
 
         if ($isIdentifierColumn) {
@@ -575,4 +577,3 @@ class ResultSetMapping
         return $this;
     }
 }
-

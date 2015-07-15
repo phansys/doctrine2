@@ -9,8 +9,8 @@ $metadata->setPrimaryTable(array(
 ));
 
 $metadata->mapField(array(
-    'id'         => true,
-    'fieldName'  => 'id',
+    'id'        => true,
+    'fieldName' => 'id',
 ));
 
 $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_AUTO);

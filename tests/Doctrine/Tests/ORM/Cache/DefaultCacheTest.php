@@ -87,7 +87,7 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testContainsEntity()
     {
-        $identifier = array('id'=>1);
+        $identifier = array('id'=> 1);
         $className  = Country::CLASSNAME;
         $cacheEntry = array_merge($identifier, array('name' => 'Brazil'));
 
@@ -101,7 +101,7 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testEvictEntity()
     {
-        $identifier = array('id'=>1);
+        $identifier = array('id'=> 1);
         $className  = Country::CLASSNAME;
         $cacheEntry = array_merge($identifier, array('name' => 'Brazil'));
 
@@ -117,7 +117,7 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testEvictEntityRegion()
     {
-        $identifier = array('id'=>1);
+        $identifier = array('id'=> 1);
         $className  = Country::CLASSNAME;
         $cacheEntry = array_merge($identifier, array('name' => 'Brazil'));
 
@@ -133,7 +133,7 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testEvictEntityRegions()
     {
-        $identifier = array('id'=>1);
+        $identifier = array('id'=> 1);
         $className  = Country::CLASSNAME;
         $cacheEntry = array_merge($identifier, array('name' => 'Brazil'));
 
@@ -148,10 +148,10 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testContainsCollection()
     {
-        $ownerId        = array('id'=>1);
-        $className      = State::CLASSNAME;
-        $association    = 'cities';
-        $cacheEntry     = array(
+        $ownerId     = array('id'=> 1);
+        $className   = State::CLASSNAME;
+        $association = 'cities';
+        $cacheEntry  = array(
             array('id' => 11),
             array('id' => 12),
         );
@@ -166,10 +166,10 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testEvictCollection()
     {
-        $ownerId        = array('id'=>1);
-        $className      = State::CLASSNAME;
-        $association    = 'cities';
-        $cacheEntry     = array(
+        $ownerId     = array('id'=> 1);
+        $className   = State::CLASSNAME;
+        $association = 'cities';
+        $cacheEntry  = array(
             array('id' => 11),
             array('id' => 12),
         );
@@ -186,10 +186,10 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testEvictCollectionRegion()
     {
-        $ownerId        = array('id'=>1);
-        $className      = State::CLASSNAME;
-        $association    = 'cities';
-        $cacheEntry     = array(
+        $ownerId     = array('id'=> 1);
+        $className   = State::CLASSNAME;
+        $association = 'cities';
+        $cacheEntry  = array(
             array('id' => 11),
             array('id' => 12),
         );
@@ -206,10 +206,10 @@ class DefaultCacheTest extends OrmTestCase
 
     public function testEvictCollectionRegions()
     {
-        $ownerId        = array('id'=>1);
-        $className      = State::CLASSNAME;
-        $association    = 'cities';
-        $cacheEntry     = array(
+        $ownerId     = array('id'=> 1);
+        $className   = State::CLASSNAME;
+        $association = 'cities';
+        $cacheEntry  = array(
             array('id' => 11),
             array('id' => 12),
         );
@@ -257,7 +257,6 @@ class DefaultCacheTest extends OrmTestCase
         $method->setAccessible(true);
         $property->setValue($entity, $identifier);
 
-        $this->assertEquals(array('id'=>$identifier), $method->invoke($this->cache, $metadata, $identifier));
+        $this->assertEquals(array('id'=> $identifier), $method->invoke($this->cache, $metadata, $identifier));
     }
-
 }

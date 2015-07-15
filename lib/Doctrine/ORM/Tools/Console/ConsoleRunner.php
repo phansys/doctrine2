@@ -23,7 +23,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Helper\HelperSet;
 use Doctrine\ORM\Version;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
 
@@ -54,7 +53,7 @@ class ConsoleRunner
      *
      * @return void
      */
-    static public function run(HelperSet $helperSet, $commands = array())
+    public static function run(HelperSet $helperSet, $commands = array())
     {
         $cli = self::createApplication($helperSet, $commands);
         $cli->run();
@@ -69,7 +68,7 @@ class ConsoleRunner
      *
      * @return \Symfony\Component\Console\Application
      */
-    static public function createApplication(HelperSet $helperSet, $commands = array())
+    public static function createApplication(HelperSet $helperSet, $commands = array())
     {
         $cli = new Application('Doctrine Command Line Interface', Version::VERSION);
         $cli->setCatchExceptions(true);
@@ -85,7 +84,7 @@ class ConsoleRunner
      *
      * @return void
      */
-    static public function addCommands(Application $cli)
+    public static function addCommands(Application $cli)
     {
         $cli->addCommands(array(
             // DBAL Commands
@@ -112,7 +111,7 @@ class ConsoleRunner
         ));
     }
 
-    static public function printCliConfigTemplate()
+    public static function printCliConfigTemplate()
     {
         echo <<<'HELP'
 You are missing a "cli-config.php" or "config/cli-config.php" file in your
@@ -131,6 +130,5 @@ $entityManager = GetEntityManager();
 return ConsoleRunner::createHelperSet($entityManager);
 
 HELP;
-
     }
 }

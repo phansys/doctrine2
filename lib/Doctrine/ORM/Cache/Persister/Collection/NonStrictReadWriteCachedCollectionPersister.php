@@ -78,7 +78,7 @@ class NonStrictReadWriteCachedCollectionPersister extends AbstractCollectionPers
         $isInitialized = $collection->isInitialized();
         $isDirty       = $collection->isDirty();
 
-        if ( ! $isInitialized && ! $isDirty) {
+        if (! $isInitialized && ! $isDirty) {
             return;
         }
 
@@ -97,8 +97,8 @@ class NonStrictReadWriteCachedCollectionPersister extends AbstractCollectionPers
         $this->persister->update($collection);
 
         $this->queuedCache['update'][spl_object_hash($collection)] = array(
-            'key'   => $key,
-            'list'  => $collection
+            'key'  => $key,
+            'list' => $collection
         );
     }
 }

@@ -17,8 +17,7 @@ class DDC1238Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_schemaTool->createSchema(array(
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1238User'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -95,4 +94,3 @@ class DDC1238User
         $this->name = $name;
     }
 }
-

@@ -16,7 +16,7 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
     {
         $cm = new ClassMetadata('stdClass');
         $cm->initializeReflection(new \Doctrine\Common\Persistence\Mapping\RuntimeReflectionService);
-        $reader = new \Doctrine\Common\Annotations\AnnotationReader(new \Doctrine\Common\Cache\ArrayCache());
+        $reader           = new \Doctrine\Common\Annotations\AnnotationReader(new \Doctrine\Common\Cache\ArrayCache());
         $annotationDriver = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($reader);
 
         $this->setExpectedException('Doctrine\ORM\Mapping\MappingException');
@@ -42,10 +42,10 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
     public function testGetAllClassNamesIsIdempotent()
     {
         $annotationDriver = $this->_loadDriverForCMSModels();
-        $original = $annotationDriver->getAllClassNames();
+        $original         = $annotationDriver->getAllClassNames();
 
         $annotationDriver = $this->_loadDriverForCMSModels();
-        $afterTestReset = $annotationDriver->getAllClassNames();
+        $afterTestReset   = $annotationDriver->getAllClassNames();
 
         $this->assertEquals($original, $afterTestReset);
     }
@@ -56,10 +56,10 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
     public function testGetAllClassNamesIsIdempotentEvenWithDifferentDriverInstances()
     {
         $annotationDriver = $this->_loadDriverForCMSModels();
-        $original = $annotationDriver->getAllClassNames();
+        $original         = $annotationDriver->getAllClassNames();
 
         $annotationDriver = $this->_loadDriverForCMSModels();
-        $afterTestReset = $annotationDriver->getAllClassNames();
+        $afterTestReset   = $annotationDriver->getAllClassNames();
 
         $this->assertEquals($original, $afterTestReset);
     }
@@ -73,7 +73,7 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
         $this->_ensureIsLoaded($rightClassName);
 
         $annotationDriver = $this->_loadDriverForCMSModels();
-        $classes = $annotationDriver->getAllClassNames();
+        $classes          = $annotationDriver->getAllClassNames();
 
         $this->assertContains($rightClassName, $classes);
     }
@@ -87,7 +87,7 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
         $this->_ensureIsLoaded($extraneousClassName);
 
         $annotationDriver = $this->_loadDriverForCMSModels();
-        $classes = $annotationDriver->getAllClassNames();
+        $classes          = $annotationDriver->getAllClassNames();
 
         $this->assertNotContains($extraneousClassName, $classes);
     }
@@ -144,7 +144,7 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
         $factory->setEntityManager($em);
 
         $this->setExpectedException('Doctrine\ORM\Mapping\MappingException',
-            "It is illegal to put an inverse side one-to-many or many-to-many association on ".
+            "It is illegal to put an inverse side one-to-many or many-to-many association on " .
             "mapped superclass 'Doctrine\Tests\ORM\Mapping\InvalidMappedSuperClass#users'");
         $usingInvalidMsc = $factory->getMetadataFor('Doctrine\Tests\ORM\Mapping\UsingInvalidMappedSuperClass');
     }
@@ -162,7 +162,7 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
         $factory->setEntityManager($em);
 
         $this->setExpectedException('Doctrine\ORM\Mapping\MappingException',
-            "It is not supported to define inheritance information on a mapped ".
+            "It is not supported to define inheritance information on a mapped " .
             "superclass 'Doctrine\Tests\ORM\Mapping\MappedSuperClassInheritence'.");
         $usingInvalidMsc = $factory->getMetadataFor('Doctrine\Tests\ORM\Mapping\MappedSuperClassInheritence');
     }
@@ -218,10 +218,10 @@ class AnnotationDriverTest extends AbstractMappingDriverTest
 
     public function testAttributeOverridesMappingWithTrait()
     {
-        $factory       = $this->createClassMetadataFactory();
+        $factory = $this->createClassMetadataFactory();
 
         $metadataWithoutOverride = $factory->getMetadataFor('Doctrine\Tests\Models\DDC1872\DDC1872ExampleEntityWithoutOverride');
-        $metadataWithOverride = $factory->getMetadataFor('Doctrine\Tests\Models\DDC1872\DDC1872ExampleEntityWithOverride');
+        $metadataWithOverride    = $factory->getMetadataFor('Doctrine\Tests\Models\DDC1872\DDC1872ExampleEntityWithOverride');
 
         $this->assertEquals('trait_foo', $metadataWithoutOverride->fieldMappings['foo']['columnName']);
         $this->assertEquals('foo_overridden', $metadataWithOverride->fieldMappings['foo']['columnName']);
@@ -268,7 +268,6 @@ class UsingInvalidMappedSuperClass extends InvalidMappedSuperClass
  */
 class MappedSuperClassInheritence
 {
-
 }
 
 /**
@@ -289,7 +288,6 @@ class AnnotationParent
      */
     public function postLoad()
     {
-
     }
 
     /**
@@ -297,7 +295,6 @@ class AnnotationParent
      */
     public function preUpdate()
     {
-
     }
 }
 
@@ -307,7 +304,6 @@ class AnnotationParent
  */
 class AnnotationChild extends AnnotationParent
 {
-
 }
 
 /**

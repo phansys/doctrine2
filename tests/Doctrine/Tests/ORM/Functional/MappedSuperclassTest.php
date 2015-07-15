@@ -9,7 +9,8 @@ namespace Doctrine\Tests\ORM\Functional;
  */
 class MappedSuperclassTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('directorytree');
         parent::setUp();
     }

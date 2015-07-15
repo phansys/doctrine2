@@ -48,7 +48,6 @@ class CustomTreeWalkersJoinTest extends \Doctrine\Tests\OrmTestCase
             $query->free();
         } catch (\Exception $e) {
             $this->fail($e->getMessage() . ' at "' . $e->getFile() . '" on line ' . $e->getLine());
-
         }
     }
 

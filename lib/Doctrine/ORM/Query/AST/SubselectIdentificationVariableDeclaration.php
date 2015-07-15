@@ -26,7 +26,7 @@ namespace Doctrine\ORM\Query\AST;
  * @since   2.0
  * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
  */
-class SubselectIdentificationVariableDeclaration 
+class SubselectIdentificationVariableDeclaration
 {
     /**
      * @var PathExpression

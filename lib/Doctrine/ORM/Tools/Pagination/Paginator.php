@@ -66,7 +66,7 @@ class Paginator implements \Countable, \IteratorAggregate
             $query = $query->getQuery();
         }
 
-        $this->query = $query;
+        $this->query               = $query;
         $this->fetchJoinCollection = (bool) $fetchJoinCollection;
     }
 
@@ -121,7 +121,7 @@ class Paginator implements \Countable, \IteratorAggregate
         if ($this->count === null) {
             try {
                 $this->count = array_sum(array_map('current', $this->getCountQuery()->getScalarResult()));
-            } catch(NoResultException $e) {
+            } catch (NoResultException $e) {
                 $this->count = 0;
             }
         }
@@ -241,7 +241,7 @@ class Paginator implements \Countable, \IteratorAggregate
         /* @var $countQuery Query */
         $countQuery = $this->cloneQuery($this->query);
 
-        if ( ! $countQuery->hasHint(CountWalker::HINT_DISTINCT)) {
+        if (! $countQuery->hasHint(CountWalker::HINT_DISTINCT)) {
             $countQuery->setHint(CountWalker::HINT_DISTINCT, true);
         }
 
@@ -262,12 +262,12 @@ class Paginator implements \Countable, \IteratorAggregate
         $parser            = new Parser($countQuery);
         $parameterMappings = $parser->parse()->getParameterMappings();
         /* @var $parameters \Doctrine\Common\Collections\Collection|\Doctrine\ORM\Query\Parameter[] */
-        $parameters        = $countQuery->getParameters();
+        $parameters = $countQuery->getParameters();
 
         foreach ($parameters as $key => $parameter) {
             $parameterName = $parameter->getName();
 
-            if( ! (isset($parameterMappings[$parameterName]) || array_key_exists($parameterName, $parameterMappings))) {
+            if (! (isset($parameterMappings[$parameterName]) || array_key_exists($parameterName, $parameterMappings))) {
                 unset($parameters[$key]);
             }
         }

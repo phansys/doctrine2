@@ -4,7 +4,6 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 class DDC440Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     protected function setUp()
     {
         parent::setUp();
@@ -55,8 +54,8 @@ class DDC440Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $id = $client->getId();
         $this->_em->clear();
 
-        $uw = $this->_em->getUnitOfWork();
-        $client = $this->_em->find('Doctrine\Tests\ORM\Functional\Ticket\DDC440Client', $id);
+        $uw           = $this->_em->getUnitOfWork();
+        $client       = $this->_em->find('Doctrine\Tests\ORM\Functional\Ticket\DDC440Client', $id);
         $clientPhones = $client->getPhones();
 
         $p1 = $clientPhones[1];
@@ -75,7 +74,6 @@ class DDC440Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $originalData = $uw->getOriginalEntityData($p2);
         $this->assertEquals($phone2->getNumber(), $originalData['number']);
     }
-
 }
 
 /**
@@ -84,7 +82,6 @@ class DDC440Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC440Phone
 {
-
     /**
      * @Column(name="id", type="integer")
      * @Id
@@ -135,7 +132,6 @@ class DDC440Phone
     {
         $this->id = $value;
     }
-
 }
 
 /**
@@ -144,7 +140,6 @@ class DDC440Phone
  */
 class DDC440Client
 {
-
     /**
      * @Column(name="id", type="integer")
      * @Id
@@ -170,7 +165,6 @@ class DDC440Client
 
     public function __construct()
     {
-
     }
 
     public function setName($value)
@@ -213,5 +207,4 @@ class DDC440Client
     {
         $this->id = $value;
     }
-
 }

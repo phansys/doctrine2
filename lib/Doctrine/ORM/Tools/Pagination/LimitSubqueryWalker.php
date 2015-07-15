@@ -65,10 +65,10 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
     {
         $queryComponents = $this->_getQueryComponents();
         // Get the root entity and alias from the AST fromClause
-        $from      = $AST->fromClause->identificationVariableDeclarations;
-        $fromRoot  = reset($from);
-        $rootAlias = $fromRoot->rangeVariableDeclaration->aliasIdentificationVariable;
-        $rootClass = $queryComponents[$rootAlias]['metadata'];
+        $from              = $AST->fromClause->identificationVariableDeclarations;
+        $fromRoot          = reset($from);
+        $rootAlias         = $fromRoot->rangeVariableDeclaration->aliasIdentificationVariable;
+        $rootClass         = $queryComponents[$rootAlias]['metadata'];
         $selectExpressions = array();
 
         $this->validate($AST);
@@ -104,7 +104,7 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
 
         if (isset($AST->orderByClause)) {
             foreach ($AST->orderByClause->orderByItems as $item) {
-                if ( ! $item->expression instanceof PathExpression) {
+                if (! $item->expression instanceof PathExpression) {
                     continue;
                 }
                 

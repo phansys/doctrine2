@@ -159,8 +159,8 @@ class SecondLevelCacheManyToManyTest extends SecondLevelCacheAbstractTest
         $this->cache->evictCollectionRegion(State::CLASSNAME, 'cities');
         $this->cache->evictCollectionRegion(Traveler::CLASSNAME, 'travels');
 
-        $traveler   = new Traveler('Doctrine Bot');
-        $travel     = new Travel($traveler);
+        $traveler = new Traveler('Doctrine Bot');
+        $travel   = new Travel($traveler);
 
         $travel->addVisitedCity($this->cities[0]);
         $travel->addVisitedCity($this->cities[1]);
@@ -228,19 +228,18 @@ class SecondLevelCacheManyToManyTest extends SecondLevelCacheAbstractTest
 
         $queryCount = $this->getCurrentQueryCount();
 
-        $entitiId   = $this->travels[2]->getId(); //empty travel
-        $entity     = $this->_em->find(Travel::CLASSNAME, $entitiId);
+        $entitiId = $this->travels[2]->getId(); //empty travel
+        $entity   = $this->_em->find(Travel::CLASSNAME, $entitiId);
 
         $this->assertEquals(0, $entity->getVisitedCities()->count());
         $this->assertEquals($queryCount+2, $this->getCurrentQueryCount());
 
         $this->_em->clear();
 
-        $entity     = $this->_em->find(Travel::CLASSNAME, $entitiId);
+        $entity = $this->_em->find(Travel::CLASSNAME, $entitiId);
 
         $queryCount = $this->getCurrentQueryCount();
         $this->assertEquals(0, $entity->getVisitedCities()->count());
         $this->assertEquals($queryCount, $this->getCurrentQueryCount());
-
     }
 }

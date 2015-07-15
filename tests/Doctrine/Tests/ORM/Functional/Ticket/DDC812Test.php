@@ -19,13 +19,13 @@ class DDC812Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testFetchJoinInitializesPreviouslyUninitializedCollectionOfManagedEntity()
     {
         //$this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
-        $article = new CmsArticle;
+        $article        = new CmsArticle;
         $article->topic = "hello";
-        $article->text = "talk talk talk";
+        $article->text  = "talk talk talk";
 
-        $comment = new CmsComment;
-        $comment->topic = "good!";
-        $comment->text = "stuff!";
+        $comment          = new CmsComment;
+        $comment->topic   = "good!";
+        $comment->text    = "stuff!";
         $comment->article = $article;
 
         $this->_em->persist($article);

@@ -146,8 +146,8 @@ EOT
         // Process destination directory
         $destPath = realpath($input->getArgument('dest-path'));
 
-        $toType = $input->getArgument('to-type');
-        $extend = $input->getOption('extend');
+        $toType    = $input->getArgument('to-type');
+        $extend    = $input->getOption('extend');
         $numSpaces = $input->getOption('num-spaces');
 
         $this->convertDoctrine1Schema($fromPaths, $destPath, $toType, $numSpaces, $extend, $output);
@@ -168,32 +168,32 @@ EOT
         foreach ($fromPaths as &$dirName) {
             $dirName = realpath($dirName);
 
-            if ( ! file_exists($dirName)) {
+            if (! file_exists($dirName)) {
                 throw new \InvalidArgumentException(
                     sprintf("Doctrine 1.X schema directory '<info>%s</info>' does not exist.", $dirName)
                 );
             }
 
-            if ( ! is_readable($dirName)) {
+            if (! is_readable($dirName)) {
                 throw new \InvalidArgumentException(
                     sprintf("Doctrine 1.X schema directory '<info>%s</info>' does not have read permissions.", $dirName)
                 );
             }
         }
 
-        if ( ! file_exists($destPath)) {
+        if (! file_exists($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Doctrine 2.X mapping destination directory '<info>%s</info>' does not exist.", $destPath)
             );
         }
 
-        if ( ! is_writable($destPath)) {
+        if (! is_writable($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Doctrine 2.X mapping destination directory '<info>%s</info>' does not have write permissions.", $destPath)
             );
         }
 
-        $cme = $this->getMetadataExporter();
+        $cme      = $this->getMetadataExporter();
         $exporter = $cme->getExporter($toType, $destPath);
 
         if (strtolower($toType) === 'annotation') {
@@ -208,7 +208,7 @@ EOT
         }
 
         $converter = new ConvertDoctrine1Schema($fromPaths);
-        $metadata = $converter->getMetadata();
+        $metadata  = $converter->getMetadata();
 
         if ($metadata) {
             $output->writeln('');

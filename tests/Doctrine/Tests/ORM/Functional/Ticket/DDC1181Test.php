@@ -28,12 +28,12 @@ class DDC1181Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($room2);
         $this->_em->flush();
 
-        $booking1 = new DDC1181Booking;
-        $booking1->hotel = $hotel;
-        $booking1->room = $room1;
-        $booking2 = new DDC1181Booking;
-        $booking2->hotel = $hotel;
-        $booking2->room = $room2;
+        $booking1          = new DDC1181Booking;
+        $booking1->hotel   = $hotel;
+        $booking1->room    = $room1;
+        $booking2          = new DDC1181Booking;
+        $booking2->hotel   = $hotel;
+        $booking2->room    = $room2;
         $hotel->bookings[] = $booking1;
         $hotel->bookings[] = $booking2;
 
@@ -59,7 +59,6 @@ class DDC1181Hotel
      * @var Booking[]
      */
     public $bookings;
-
 }
 
 /**

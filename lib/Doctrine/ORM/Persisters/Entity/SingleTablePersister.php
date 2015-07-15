@@ -58,8 +58,8 @@ class SingleTablePersister extends AbstractEntityInheritancePersister
         $tableAlias = $this->getSQLTableAlias($rootClass->name);
 
          // Append discriminator column
-        $discrColumn    = $this->class->discriminatorColumn['name'];
-        $columnList[]   = $tableAlias . '.' . $discrColumn;
+        $discrColumn  = $this->class->discriminatorColumn['name'];
+        $columnList[] = $tableAlias . '.' . $discrColumn;
 
         $resultColumnName = $this->platform->getSQLResultCasing($discrColumn);
 
@@ -81,14 +81,14 @@ class SingleTablePersister extends AbstractEntityInheritancePersister
 
             // Foreign key columns
             foreach ($subClass->associationMappings as $assoc) {
-                if ( ! $assoc['isOwningSide']
+                if (! $assoc['isOwningSide']
                         || ! ($assoc['type'] & ClassMetadata::TO_ONE)
                         || isset($assoc['inherited'])) {
                     continue;
                 }
 
                 foreach ($assoc['targetToSourceKeyColumns'] as $srcColumn) {
-                    $className      = isset($assoc['inherited']) ? $assoc['inherited'] : $this->class->name;
+                    $className = isset($assoc['inherited']) ? $assoc['inherited'] : $this->class->name;
 
                     $targetClass = $this->em->getClassMetadata($assoc['targetEntity']);
 

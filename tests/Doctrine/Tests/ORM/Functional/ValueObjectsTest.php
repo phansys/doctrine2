@@ -20,7 +20,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC3027Animal'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC3027Dog'),
             ));
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
         }
     }
 
@@ -34,12 +34,12 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testCRUD()
     {
-        $person = new DDC93Person();
-        $person->name = "Tara";
-        $person->address = new DDC93Address();
-        $person->address->street = "United States of Tara Street";
-        $person->address->zip = "12345";
-        $person->address->city = "funkytown";
+        $person                   = new DDC93Person();
+        $person->name             = "Tara";
+        $person->address          = new DDC93Address();
+        $person->address->street  = "United States of Tara Street";
+        $person->address->zip     = "12345";
+        $person->address->city    = "funkytown";
         $person->address->country = new DDC93Country('Germany');
 
         // 1. check saving value objects works
@@ -59,9 +59,9 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals('Germany', $person->address->country->name);
 
         // 3. check changing value objects works
-        $person->address->street = "Street";
-        $person->address->zip = "54321";
-        $person->address->city = "another town";
+        $person->address->street        = "Street";
+        $person->address->zip           = "54321";
+        $person->address->city          = "another town";
         $person->address->country->name = "United States of America";
         $this->_em->flush();
 
@@ -75,7 +75,8 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals('United States of America', $person->address->country->name);
 
         // 4. check deleting works
-        $personId = $person->id;;
+        $personId = $person->id;
+        ;
         $this->_em->remove($person);
         $this->_em->flush();
 
@@ -85,12 +86,12 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testLoadDql()
     {
         for ($i = 0; $i < 3; $i++) {
-            $person = new DDC93Person();
-            $person->name = "Donkey Kong$i";
-            $person->address = new DDC93Address();
-            $person->address->street = "Tree";
-            $person->address->zip = "12345";
-            $person->address->city = "funkytown";
+            $person                   = new DDC93Person();
+            $person->name             = "Donkey Kong$i";
+            $person->address          = new DDC93Address();
+            $person->address->street  = "Tree";
+            $person->address->zip     = "12345";
+            $person->address->city    = "funkytown";
             $person->address->country = new DDC93Country('United States of America');
 
             $this->_em->persist($person);
@@ -99,7 +100,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $dql = "SELECT p FROM " . __NAMESPACE__ . "\DDC93Person p";
+        $dql     = "SELECT p FROM " . __NAMESPACE__ . "\DDC93Person p";
         $persons = $this->_em->createQuery($dql)->getResult();
 
         $this->assertCount(3, $persons);
@@ -112,7 +113,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->assertEquals('United States of America', $person->address->country->name);
         }
 
-        $dql = "SELECT p FROM " . __NAMESPACE__ . "\DDC93Person p";
+        $dql     = "SELECT p FROM " . __NAMESPACE__ . "\DDC93Person p";
         $persons = $this->_em->createQuery($dql)->getArrayResult();
 
         foreach ($persons as $person) {
@@ -137,7 +138,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush($person);
 
         // SELECT
-        $selectDql = "SELECT p FROM " . __NAMESPACE__ ."\\DDC93Person p WHERE p.address.city = :city AND p.address.country.name = :country";
+        $selectDql    = "SELECT p FROM " . __NAMESPACE__ . "\\DDC93Person p WHERE p.address.city = :city AND p.address.country.name = :country";
         $loadedPerson = $this->_em->createQuery($selectDql)
             ->setParameter('city', 'Karlsruhe')
             ->setParameter('country', 'Germany')
@@ -170,7 +171,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
             ->execute();
 
         $this->_em->clear();
-        $this->assertNull($this->_em->find(__NAMESPACE__.'\\DDC93Person', $person->id));
+        $this->assertNull($this->_em->find(__NAMESPACE__ . '\\DDC93Person', $person->id));
     }
     
     public function testPartialDqlOnEmbeddedObjectsField()
@@ -181,7 +182,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
         
         // Prove that the entity was persisted correctly.
-        $dql = "SELECT p FROM " . __NAMESPACE__ ."\\DDC93Person p WHERE p.name = :name";
+        $dql = "SELECT p FROM " . __NAMESPACE__ . "\\DDC93Person p WHERE p.name = :name";
     
         $person = $this->_em->createQuery($dql)
             ->setParameter('name', 'Karl')
@@ -195,7 +196,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         // Clear the EM and prove that the embeddable can be the subject of a partial query.
         $this->_em->clear();
     
-        $dql = "SELECT PARTIAL p.{id,address.city} FROM " . __NAMESPACE__ ."\\DDC93Person p WHERE p.name = :name";
+        $dql = "SELECT PARTIAL p.{id,address.city} FROM " . __NAMESPACE__ . "\\DDC93Person p WHERE p.name = :name";
     
         $person = $this->_em->createQuery($dql)
             ->setParameter('name', 'Karl')
@@ -231,7 +232,7 @@ class ValueObjectsTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($car);
         $this->_em->flush($car);
 
-        $reloadedCar = $this->_em->find(__NAMESPACE__.'\\DDC93Car', $car->id);
+        $reloadedCar = $this->_em->find(__NAMESPACE__ . '\\DDC93Car', $car->id);
         $this->assertEquals($car, $reloadedCar);
     }
 
@@ -325,8 +326,8 @@ class DDC93Person
 
     public function __construct($name = null, DDC93Address $address = null)
     {
-        $this->name = $name;
-        $this->address = $address;
+        $this->name       = $name;
+        $this->address    = $address;
         $this->timestamps = new DDC93Timestamps(new \DateTime);
     }
 }
@@ -417,9 +418,9 @@ class DDC93Address
 
     public function __construct($street = null, $zip = null, $city = null, DDC93Country $country = null)
     {
-        $this->street = $street;
-        $this->zip = $zip;
-        $this->city = $city;
+        $this->street  = $street;
+        $this->zip     = $zip;
+        $this->city    = $city;
         $this->country = $country;
     }
 }
@@ -462,7 +463,7 @@ class DDC3028PersonWithPrefix
 
     public function __construct(DDC3028Id $id = null, DDC3028NestedEmbeddable $nested = null)
     {
-        $this->id = $id;
+        $this->id     = $id;
         $this->nested = $nested;
     }
 }
@@ -482,7 +483,7 @@ class DDC3028PersonEmptyPrefix
 
     public function __construct(DDC3028Id $id = null, DDC3028NestedEmbeddable $nested = null)
     {
-        $this->id = $id;
+        $this->id     = $id;
         $this->nested = $nested;
     }
 }
@@ -542,7 +543,7 @@ class DDC3028NestedEmbeddable
         DDC3028Id $nestedWithEmptyPrefix = null,
         DDC3028Id $nestedWithPrefixFalse = null
     ) {
-        $this->nestedWithPrefix = $nestedWithPrefix;
+        $this->nestedWithPrefix      = $nestedWithPrefix;
         $this->nestedWithEmptyPrefix = $nestedWithEmptyPrefix;
         $this->nestedWithPrefixFalse = $nestedWithPrefixFalse;
     }

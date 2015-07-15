@@ -21,7 +21,7 @@ class DDC1526Test extends \Doctrine\Tests\OrmFunctionalTestCase
         for ($i = 0; $i < 9; $i++) {
             $entity = new DDC1526Menu;
 
-            if (isset ($parents[($i % 3)])) {
+            if (isset($parents[($i % 3)])) {
                 $entity->parent = $parents[($i%3)];
             }
 

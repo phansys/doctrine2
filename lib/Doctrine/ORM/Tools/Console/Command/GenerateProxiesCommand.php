@@ -78,25 +78,25 @@ EOT
             $destPath = $em->getConfiguration()->getProxyDir();
         }
 
-        if ( ! is_dir($destPath)) {
+        if (! is_dir($destPath)) {
             mkdir($destPath, 0777, true);
         }
 
         $destPath = realpath($destPath);
 
-        if ( ! file_exists($destPath)) {
+        if (! file_exists($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Proxies destination directory '<info>%s</info>' does not exist.", $em->getConfiguration()->getProxyDir())
             );
         }
 
-        if ( ! is_writable($destPath)) {
+        if (! is_writable($destPath)) {
             throw new \InvalidArgumentException(
                 sprintf("Proxies destination directory '<info>%s</info>' does not have write permissions.", $destPath)
             );
         }
 
-        if ( count($metadatas)) {
+        if (count($metadatas)) {
             foreach ($metadatas as $metadata) {
                 $output->writeln(
                     sprintf('Processing entity "<info>%s</info>"', $metadata->name)

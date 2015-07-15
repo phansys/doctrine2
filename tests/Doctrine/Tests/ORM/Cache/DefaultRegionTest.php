@@ -8,7 +8,6 @@ use Doctrine\ORM\Cache\Region\DefaultRegion;
 use Doctrine\Tests\Mocks\CacheEntryMock;
 use Doctrine\Tests\Mocks\CacheKeyMock;
 
-
 /**
  * @group DDC-2183
  */
@@ -27,8 +26,8 @@ class DefaultRegionTest extends AbstractRegionTest
 
     public function testSharedRegion()
     {
-        if ( ! extension_loaded('apc') || false === @apc_cache_info()) {
-            $this->markTestSkipped('The ' . __CLASS__ .' requires the use of APC');
+        if (! extension_loaded('apc') || false === @apc_cache_info()) {
+            $this->markTestSkipped('The ' . __CLASS__ . ' requires the use of APC');
         }
 
         $key     = new CacheKeyMock('key');
@@ -77,10 +76,10 @@ class DefaultRegionTest extends AbstractRegionTest
 
     public function testGetMulti()
     {
-        $key1 = new CacheKeyMock('key.1');
+        $key1   = new CacheKeyMock('key.1');
         $value1 = new CacheEntryMock(array('id' => 1, 'name' => 'bar'));
 
-        $key2 = new CacheKeyMock('key.2');
+        $key2   = new CacheKeyMock('key.2');
         $value2 = new CacheEntryMock(array('id' => 2, 'name' => 'bar'));
 
         $this->assertFalse($this->region->contains($key1));

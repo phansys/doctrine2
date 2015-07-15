@@ -152,7 +152,7 @@ class ConnectionMock extends \Doctrine\DBAL\Connection
      */
     public function reset()
     {
-        $this->_inserts = array();
+        $this->_inserts      = array();
         $this->_lastInsertId = 0;
     }
 }

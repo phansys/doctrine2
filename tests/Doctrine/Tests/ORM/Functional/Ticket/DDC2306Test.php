@@ -55,7 +55,7 @@ class DDC2306Test extends \Doctrine\Tests\OrmFunctionalTestCase
         /* @var $address DDC2306Address */
         $address = $this->_em->find(__NAMESPACE__ . '\\DDC2306Address', $address->id);
         /* @var $user DDC2306User|\Doctrine\ORM\Proxy\Proxy */
-        $user    = $address->users->first()->user;
+        $user = $address->users->first()->user;
 
         $this->assertInstanceOf('Doctrine\ORM\Proxy\Proxy', $user);
         $this->assertInstanceOf(__NAMESPACE__ . '\\DDC2306User', $user);
@@ -100,7 +100,8 @@ class DDC2306User
     public $zone;
 
     /** Constructor */
-    public function __construct() {
+    public function __construct()
+    {
         $this->addresses = new ArrayCollection();
     }
 }
@@ -122,7 +123,8 @@ class DDC2306Address
     public $zone;
 
     /** Constructor */
-    public function __construct() {
+    public function __construct()
+    {
         $this->users = new ArrayCollection();
     }
 }

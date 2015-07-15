@@ -13,7 +13,7 @@ class DDC2138Test extends OrmFunctionalTestCase
      */
     public function testForeignKeyOnSTIWithMultipleMapping()
     {
-        $em = $this->_em;
+        $em         = $this->_em;
         $schemaTool = new SchemaTool($em);
 
         $classes = array(
@@ -121,7 +121,7 @@ class DDC2138UserFollowedStructure extends DDC2138UserFollowedObject
      */
     public function __construct(User $user, Structure $followedStructure)
     {
-        $this->user = $user;
+        $this->user              = $user;
         $this->followedStructure = $followedStructure;
     }
 
@@ -173,7 +173,7 @@ class DDC2138UserFollowedUser extends DDC2138UserFollowedObject
      */
     public function __construct(User $user, User $followedUser)
     {
-        $this->user = $user;
+        $this->user         = $user;
         $this->followedUser = $followedUser;
     }
 
@@ -194,7 +194,6 @@ class DDC2138UserFollowedUser extends DDC2138UserFollowedObject
     {
         return $this->followedUser;
     }
-
 }
 
 /**
@@ -229,7 +228,7 @@ class DDC2138User
 
     public function __construct()
     {
-        $this->followedUsers = new ArrayCollection();
+        $this->followedUsers      = new ArrayCollection();
         $this->followedStructures = new ArrayCollection();
     }
 

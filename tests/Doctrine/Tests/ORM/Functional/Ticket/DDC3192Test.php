@@ -38,7 +38,7 @@ class DDC3192Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->persist($currency);
         $this->_em->flush();
 
-        $amount = 50;
+        $amount      = 50;
         $transaction = new DDC3192Transaction($amount, $currency);
 
         $this->_em->persist($transaction);
@@ -123,7 +123,7 @@ class DDC3192Transaction
 
     public function __construct($amount, DDC3192Currency $currency)
     {
-        $this->amount = $amount;
+        $this->amount   = $amount;
         $this->currency = $currency;
     }
 }

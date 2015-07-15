@@ -9,10 +9,10 @@ class DDC2645Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
     public function testIssue()
     {
-        $bar = new DDC2645Bar;
+        $bar     = new DDC2645Bar;
         $bar->id = 123;
 
-        $foo = new DDC2645Foo(1, $bar, 'Foo');
+        $foo  = new DDC2645Foo(1, $bar, 'Foo');
         $foo2 = new DDC2645Foo(1, $bar, 'Bar');
 
         $this->_em->persist($bar);
@@ -39,8 +39,8 @@ class DDC2645Foo
 
     public function __construct($id, $bar, $name)
     {
-        $this->id = $id;
-        $this->bar = $bar;
+        $this->id   = $id;
+        $this->bar  = $bar;
         $this->name = $name;
     }
 }

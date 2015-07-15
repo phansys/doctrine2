@@ -30,9 +30,9 @@ class DDC2252Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function loadFixtures()
     {
-        $this->user         = new DDC2252User;
-        $this->merchant     = new DDC2252MerchantAccount;
-        $this->membership   = new DDC2252Membership($this->user, $this->merchant);
+        $this->user       = new DDC2252User;
+        $this->merchant   = new DDC2252MerchantAccount;
+        $this->membership = new DDC2252Membership($this->user, $this->merchant);
 
         $this->privileges[] = new DDC2252Privilege;
         $this->privileges[] = new DDC2252Privilege;
@@ -141,7 +141,8 @@ class DDC2252MerchantAccount
  * @Entity
  * @Table(name="ddc2252_user_account")
  */
-class DDC2252User {
+class DDC2252User
+{
     /**
      * @Id
      * @Column(type="integer")
@@ -212,9 +213,9 @@ class DDC2252Membership
 
     public function __construct(DDC2252User $user, DDC2252MerchantAccount $merchantAccount)
     {
-        $this->userAccount      = $user;
-        $this->merchantAccount  = $merchantAccount;
-        $this->privileges       = new ArrayCollection();
+        $this->userAccount     = $user;
+        $this->merchantAccount = $merchantAccount;
+        $this->privileges      = new ArrayCollection();
     }
 
     public function addPrivilege($privilege)

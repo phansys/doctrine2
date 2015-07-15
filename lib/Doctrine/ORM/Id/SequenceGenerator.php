@@ -62,7 +62,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
      */
     public function __construct($sequenceName, $allocationSize)
     {
-        $this->_sequenceName = $sequenceName;
+        $this->_sequenceName   = $sequenceName;
         $this->_allocationSize = $allocationSize;
     }
 
@@ -123,7 +123,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
     {
         $array = unserialize($serialized);
 
-        $this->_sequenceName = $array['sequenceName'];
+        $this->_sequenceName   = $array['sequenceName'];
         $this->_allocationSize = $array['allocationSize'];
     }
 }

@@ -21,7 +21,8 @@ class DDC2230Test extends OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC2230User'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC2230Address'),
             ));
-        } catch (ToolsException $e) {}
+        } catch (ToolsException $e) {
+        }
     }
 
     public function testNotifyTrackingNotCalledOnUninitializedProxies()
@@ -94,9 +95,8 @@ class DDC2230Address implements NotifyPropertyChanged
     public $listener;
 
     /** {@inheritDoc} */
-    function addPropertyChangedListener(PropertyChangedListener $listener)
+    public function addPropertyChangedListener(PropertyChangedListener $listener)
     {
         $this->listener = $listener;
     }
 }
-

@@ -19,5 +19,4 @@ class NonStrictReadWriteCachedCollectionPersisterTest extends AbstractCollection
     {
         return new NonStrictReadWriteCachedCollectionPersister($persister, $region, $em, $mapping);
     }
-
 }

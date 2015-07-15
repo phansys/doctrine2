@@ -26,10 +26,10 @@ class MergeCompositeToOneKeyTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testMergingOfEntityWithCompositeIdentifierContainingToOneAssociation()
     {
-        $country = new Country();
+        $country          = new Country();
         $country->country = 'US';
 
-        $state = new CompositeToOneKeyState();
+        $state          = new CompositeToOneKeyState();
         $state->state   = 'CA';
         $state->country = $country;
 

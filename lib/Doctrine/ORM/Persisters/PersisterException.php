@@ -26,7 +26,7 @@ class PersisterException extends ORMException
     /**
      * @return PersisterException
      */
-    static public function matchingAssocationFieldRequiresObject($class, $associationName)
+    public static function matchingAssocationFieldRequiresObject($class, $associationName)
     {
         return new self(sprintf(
             "Cannot match on %s::%s with a non-object value. Matching objects by id is " .

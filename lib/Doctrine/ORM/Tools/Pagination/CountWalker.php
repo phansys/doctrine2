@@ -74,7 +74,7 @@ class CountWalker extends TreeWalkerAdapter
         );
         $pathExpression->type = $pathType;
 
-        $distinct = $this->_getQuery()->getHint(self::HINT_DISTINCT);
+        $distinct                             = $this->_getQuery()->getHint(self::HINT_DISTINCT);
         $AST->selectClause->selectExpressions = array(
             new SelectExpression(
                 new AggregateExpression('count', $pathExpression, $distinct), null
@@ -85,4 +85,3 @@ class CountWalker extends TreeWalkerAdapter
         $AST->orderByClause = null;
     }
 }
-

@@ -2,10 +2,10 @@
 
 namespace Doctrine\Tests\ORM\Functional;
 
-use Doctrine\Tests\Models\CMS\CmsUser,
-    Doctrine\Tests\Models\CMS\CmsAddress,
-    Doctrine\Tests\Models\CMS\CmsPhonenumber,
-    Doctrine\ORM\Query;
+use Doctrine\Tests\Models\CMS\CmsUser;
+use Doctrine\Tests\Models\CMS\CmsAddress;
+use Doctrine\Tests\Models\CMS\CmsPhonenumber;
+use Doctrine\ORM\Query;
 
 /**
  * IdentityMapTest
@@ -17,22 +17,23 @@ use Doctrine\Tests\Models\CMS\CmsUser,
  */
 class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('cms');
         parent::setUp();
     }
 
     public function testBasicIdentityManagement()
     {
-        $user = new CmsUser;
-        $user->status = 'dev';
+        $user           = new CmsUser;
+        $user->status   = 'dev';
         $user->username = 'romanb';
-        $user->name = 'Roman B.';
+        $user->name     = 'Roman B.';
 
-        $address = new CmsAddress;
+        $address          = new CmsAddress;
         $address->country = 'de';
-        $address->zip = 1234;
-        $address->city = 'Berlin';
+        $address->zip     = 1234;
+        $address->city    = 'Berlin';
 
         $user->setAddress($address);
 
@@ -55,20 +56,20 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testSingleValuedAssociationIdentityMapBehaviorWithRefresh()
     {
-        $address = new CmsAddress;
+        $address          = new CmsAddress;
         $address->country = 'de';
-        $address->zip = '12345';
-        $address->city = 'Berlin';
+        $address->zip     = '12345';
+        $address->city    = 'Berlin';
 
-        $user1 = new CmsUser;
-        $user1->status = 'dev';
+        $user1           = new CmsUser;
+        $user1->status   = 'dev';
         $user1->username = 'romanb';
-        $user1->name = 'Roman B.';
+        $user1->name     = 'Roman B.';
 
-        $user2 = new CmsUser;
-        $user2->status = 'dev';
+        $user2           = new CmsUser;
+        $user2->status   = 'dev';
         $user2->username = 'gblanco';
-        $user2->name = 'Guilherme Blanco';
+        $user2->name     = 'Guilherme Blanco';
 
         $address->setUser($user1);
 
@@ -97,20 +98,20 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testSingleValuedAssociationIdentityMapBehaviorWithRefreshQuery()
     {
-        $address = new CmsAddress;
+        $address          = new CmsAddress;
         $address->country = 'de';
-        $address->zip = '12345';
-        $address->city = 'Berlin';
+        $address->zip     = '12345';
+        $address->city    = 'Berlin';
 
-        $user1 = new CmsUser;
-        $user1->status = 'dev';
+        $user1           = new CmsUser;
+        $user1->status   = 'dev';
         $user1->username = 'romanb';
-        $user1->name = 'Roman B.';
+        $user1->name     = 'Roman B.';
 
-        $user2 = new CmsUser;
-        $user2->status = 'dev';
+        $user2           = new CmsUser;
+        $user2->status   = 'dev';
         $user2->username = 'gblanco';
-        $user2->name = 'Guilherme Blanco';
+        $user2->name     = 'Guilherme Blanco';
 
         $address->setUser($user1);
 
@@ -126,7 +127,7 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->getConnection()->executeUpdate('update cms_addresses set user_id = ?', array($user2->getId()));
 
         //select
-        $q = $this->_em->createQuery('select a, u from Doctrine\Tests\Models\CMS\CmsAddress a join a.user u');
+        $q        = $this->_em->createQuery('select a, u from Doctrine\Tests\Models\CMS\CmsAddress a join a.user u');
         $address2 = $q->getSingleResult();
 
         $this->assertSame($address, $address2);
@@ -154,18 +155,18 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testCollectionValuedAssociationIdentityMapBehaviorWithRefreshQuery()
     {
-        $user = new CmsUser;
-        $user->status = 'dev';
+        $user           = new CmsUser;
+        $user->status   = 'dev';
         $user->username = 'romanb';
-        $user->name = 'Roman B.';
+        $user->name     = 'Roman B.';
 
-        $phone1 = new CmsPhonenumber;
+        $phone1              = new CmsPhonenumber;
         $phone1->phonenumber = 123;
 
-        $phone2 = new CmsPhonenumber;
+        $phone2              = new CmsPhonenumber;
         $phone2->phonenumber = 234;
 
-        $phone3 = new CmsPhonenumber;
+        $phone3              = new CmsPhonenumber;
         $phone3->phonenumber = 345;
 
         $user->addPhonenumber($phone1);
@@ -182,7 +183,7 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->getConnection()->executeUpdate('insert into cms_phonenumbers (phonenumber, user_id) VALUES (?,?)', array(999, $user->getId()));
 
         //select
-        $q = $this->_em->createQuery('select u, p from Doctrine\Tests\Models\CMS\CmsUser u join u.phonenumbers p');
+        $q     = $this->_em->createQuery('select u, p from Doctrine\Tests\Models\CMS\CmsUser u join u.phonenumbers p');
         $user2 = $q->getSingleResult();
 
         $this->assertSame($user, $user2);
@@ -206,18 +207,18 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testCollectionValuedAssociationIdentityMapBehaviorWithRefresh()
     {
-        $user = new CmsUser;
-        $user->status = 'dev';
+        $user           = new CmsUser;
+        $user->status   = 'dev';
         $user->username = 'romanb';
-        $user->name = 'Roman B.';
+        $user->name     = 'Roman B.';
 
-        $phone1 = new CmsPhonenumber;
+        $phone1              = new CmsPhonenumber;
         $phone1->phonenumber = 123;
 
-        $phone2 = new CmsPhonenumber;
+        $phone2              = new CmsPhonenumber;
         $phone2->phonenumber = 234;
 
-        $phone3 = new CmsPhonenumber;
+        $phone3              = new CmsPhonenumber;
         $phone3->phonenumber = 345;
 
         $user->addPhonenumber($phone1);
@@ -233,7 +234,7 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->getConnection()->executeUpdate('insert into cms_phonenumbers (phonenumber, user_id) VALUES (?,?)', array(999, $user->getId()));
 
         //select
-        $q = $this->_em->createQuery('select u, p from Doctrine\Tests\Models\CMS\CmsUser u join u.phonenumbers p');
+        $q     = $this->_em->createQuery('select u, p from Doctrine\Tests\Models\CMS\CmsUser u join u.phonenumbers p');
         $user2 = $q->getSingleResult();
 
         $this->assertSame($user, $user2);
@@ -251,4 +252,3 @@ class IdentityMapTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals(4, count($user2->getPhonenumbers()));
     }
 }
-

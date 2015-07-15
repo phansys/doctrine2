@@ -17,7 +17,7 @@ class DDC1757Test extends \Doctrine\Tests\OrmFunctionalTestCase
             ->join('_b.c', '_c')
             ->join('_c.d', '_d');
 
-        $q = $qb->getQuery();
+        $q   = $qb->getQuery();
         $dql = $q->getDQL();
 
         // Show difference between expected and actual queries on error

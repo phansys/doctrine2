@@ -14,14 +14,15 @@ class DDC599Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC599Subitem'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC599Child'),
             ));
-        } catch (\Exception $ignored) {}
+        } catch (\Exception $ignored) {
+        }
     }
 
     public function testCascadeRemoveOnInheritanceHierarchy()
     {
-        $item = new DDC599Subitem;
-        $item->elem = "foo";
-        $child = new DDC599Child;
+        $item          = new DDC599Subitem;
+        $item->elem    = "foo";
+        $child         = new DDC599Child;
         $child->parent = $item;
         $item->getChildren()->add($child);
         $this->_em->persist($item);
@@ -41,12 +42,12 @@ class DDC599Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
 
-        $item2 = new DDC599Subitem;
+        $item2       = new DDC599Subitem;
         $item2->elem = "bar";
         $this->_em->persist($item2);
         $this->_em->flush();
 
-        $child2 = new DDC599Child;
+        $child2         = new DDC599Child;
         $child2->parent = $item2;
         $item2->getChildren()->add($child2);
         $this->_em->persist($child2);

@@ -18,18 +18,18 @@ class DDC345Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testTwoIterateHydrations()
     {
         // Create User
-        $user = new DDC345User;
+        $user       = new DDC345User;
         $user->name = 'Test User';
         $this->_em->persist($user); // $em->flush() does not change much here
 
         // Create Group
-        $group = new DDC345Group;
+        $group       = new DDC345Group;
         $group->name = 'Test Group';
         $this->_em->persist($group); // $em->flush() does not change much here
 
-        $membership = new DDC345Membership;
+        $membership        = new DDC345Membership;
         $membership->group = $group;
-        $membership->user = $user;
+        $membership->user  = $user;
         $membership->state = 'active';
 
         //$this->_em->persist($membership); // COMMENT OUT TO SEE BUG
@@ -134,7 +134,7 @@ class DDC345Membership
     public $updated;
 
     public $prePersistCallCount = 0;
-    public $preUpdateCallCount = 0;
+    public $preUpdateCallCount  = 0;
 
     /** @PrePersist */
     public function doStuffOnPrePersist()
@@ -152,4 +152,3 @@ class DDC345Membership
         $this->updated = new \DateTime;
     }
 }
-

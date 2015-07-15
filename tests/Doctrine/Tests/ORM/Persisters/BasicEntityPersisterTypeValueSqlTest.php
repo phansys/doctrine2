@@ -60,9 +60,9 @@ class BasicEntityPersisterTypeValueSqlTest extends \Doctrine\Tests\OrmTestCase
     {
         $child = new CustomTypeChild();
 
-        $parent = new CustomTypeParent();
+        $parent                = new CustomTypeParent();
         $parent->customInteger = 1;
-        $parent->child = $child;
+        $parent->child         = $child;
 
         $this->_em->getUnitOfWork()->registerManaged($parent, array('id' => 1), array('customInteger' => 0, 'child' => null));
         $this->_em->getUnitOfWork()->registerManaged($child, array('id' => 1), array());
@@ -82,7 +82,7 @@ class BasicEntityPersisterTypeValueSqlTest extends \Doctrine\Tests\OrmTestCase
         $method = new \ReflectionMethod($this->_persister, 'getSelectConditionSQL');
         $method->setAccessible(true);
 
-        $sql = $method->invoke($this->_persister,  array('customInteger' => 1, 'child' => 1));
+        $sql = $method->invoke($this->_persister, array('customInteger' => 1, 'child' => 1));
 
         $this->assertEquals('t0.customInteger = ABS(?) AND t0.child_id = ?', $sql);
     }
@@ -92,8 +92,8 @@ class BasicEntityPersisterTypeValueSqlTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testStripNonAlphanumericCharactersFromSelectColumnListSQL()
     {
-        $persister  = new BasicEntityPersister($this->_em, $this->_em->getClassMetadata('Doctrine\Tests\ORM\Functional\Ticket\DDC1719SimpleEntity'));
-        $method     = new \ReflectionMethod($persister, 'getSelectColumnsSQL');
+        $persister = new BasicEntityPersister($this->_em, $this->_em->getClassMetadata('Doctrine\Tests\ORM\Functional\Ticket\DDC1719SimpleEntity'));
+        $method    = new \ReflectionMethod($persister, 'getSelectColumnsSQL');
         $method->setAccessible(true);
 
         $this->assertEquals('t0."simple-entity-id" AS simpleentityid_1, t0."simple-entity-value" AS simpleentityvalue_2', $method->invoke($persister));
@@ -150,7 +150,7 @@ class BasicEntityPersisterTypeValueSqlTest extends \Doctrine\Tests\OrmTestCase
         $this->assertEquals('SELECT COUNT(*) FROM "ddc-1719-simple-entity" t0 WHERE t0."simple-entity-value" = ?', $statement);
 
         // Using a criteria object
-        $criteria = new Criteria(Criteria::expr()->eq('value', 'bar'));
+        $criteria  = new Criteria(Criteria::expr()->eq('value', 'bar'));
         $statement = $persister->getCountSQL($criteria);
         $this->assertEquals('SELECT COUNT(*) FROM "ddc-1719-simple-entity" t0 WHERE t0."simple-entity-value" = ?', $statement);
     }

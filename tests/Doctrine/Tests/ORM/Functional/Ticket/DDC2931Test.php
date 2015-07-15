@@ -87,7 +87,6 @@ class DDC2931Test extends \Doctrine\Tests\OrmFunctionalTestCase
 /** @Entity */
 class DDC2931User
 {
-
     /** @Id @Column(type="integer") @GeneratedValue(strategy="AUTO") */
     public $id;
 

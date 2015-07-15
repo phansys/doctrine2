@@ -16,25 +16,25 @@ class DDC199Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testPolymorphicLoading()
     {
-        $child = new DDC199ChildClass;
+        $child             = new DDC199ChildClass;
         $child->parentData = 'parentData';
-        $child->childData = 'childData';
+        $child->childData  = 'childData';
         $this->_em->persist($child);
 
-        $related1 = new DDC199RelatedClass;
+        $related1              = new DDC199RelatedClass;
         $related1->relatedData = 'related1';
-        $related1->parent = $child;
+        $related1->parent      = $child;
         $this->_em->persist($related1);
 
-        $related2 = new DDC199RelatedClass;
+        $related2              = new DDC199RelatedClass;
         $related2->relatedData = 'related2';
-        $related2->parent = $child;
+        $related2->parent      = $child;
         $this->_em->persist($related2);
 
         $this->_em->flush();
         $this->_em->clear();
 
-        $query = $this->_em->createQuery('select e,r from Doctrine\Tests\ORM\Functional\Ticket\DDC199ParentClass e join e.relatedEntities r');
+        $query  = $this->_em->createQuery('select e,r from Doctrine\Tests\ORM\Functional\Ticket\DDC199ParentClass e join e.relatedEntities r');
         $result = $query->getResult();
 
         $this->assertEquals(1, count($result));

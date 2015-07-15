@@ -36,20 +36,20 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->useModelSet('ddc2504');
         parent::setUp();
 
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsUser');
-        $class->associationMappings['groups']['fetch'] = ClassMetadataInfo::FETCH_EXTRA_LAZY;
-        $class->associationMappings['groups']['indexBy'] = 'name';
-        $class->associationMappings['articles']['fetch'] = ClassMetadataInfo::FETCH_EXTRA_LAZY;
-        $class->associationMappings['articles']['indexBy'] = 'topic';
-        $class->associationMappings['phonenumbers']['fetch'] = ClassMetadataInfo::FETCH_EXTRA_LAZY;
+        $class                                                 = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsUser');
+        $class->associationMappings['groups']['fetch']         = ClassMetadataInfo::FETCH_EXTRA_LAZY;
+        $class->associationMappings['groups']['indexBy']       = 'name';
+        $class->associationMappings['articles']['fetch']       = ClassMetadataInfo::FETCH_EXTRA_LAZY;
+        $class->associationMappings['articles']['indexBy']     = 'topic';
+        $class->associationMappings['phonenumbers']['fetch']   = ClassMetadataInfo::FETCH_EXTRA_LAZY;
         $class->associationMappings['phonenumbers']['indexBy'] = 'phonenumber';
 
         unset($class->associationMappings['phonenumbers']['cache']);
         unset($class->associationMappings['articles']['cache']);
         unset($class->associationMappings['users']['cache']);
 
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsGroup');
-        $class->associationMappings['users']['fetch'] = ClassMetadataInfo::FETCH_EXTRA_LAZY;
+        $class                                          = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsGroup');
+        $class->associationMappings['users']['fetch']   = ClassMetadataInfo::FETCH_EXTRA_LAZY;
         $class->associationMappings['users']['indexBy'] = 'username';
 
         $this->loadFixture();
@@ -59,16 +59,16 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
     {
         parent::tearDown();
 
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsUser');
-        $class->associationMappings['groups']['fetch'] = ClassMetadataInfo::FETCH_LAZY;
-        $class->associationMappings['articles']['fetch'] = ClassMetadataInfo::FETCH_LAZY;
+        $class                                               = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsUser');
+        $class->associationMappings['groups']['fetch']       = ClassMetadataInfo::FETCH_LAZY;
+        $class->associationMappings['articles']['fetch']     = ClassMetadataInfo::FETCH_LAZY;
         $class->associationMappings['phonenumbers']['fetch'] = ClassMetadataInfo::FETCH_LAZY;
 
         unset($class->associationMappings['groups']['indexBy']);
         unset($class->associationMappings['articles']['indexBy']);
         unset($class->associationMappings['phonenumbers']['indexBy']);
 
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsGroup');
+        $class                                        = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsGroup');
         $class->associationMappings['users']['fetch'] = ClassMetadataInfo::FETCH_LAZY;
 
         unset($class->associationMappings['users']['indexBy']);
@@ -80,14 +80,15 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
      */
     public function testCountNotInitializesCollection()
     {
-        $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
+        $user       = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
         $queryCount = $this->getCurrentQueryCount();
 
         $this->assertFalse($user->groups->isInitialized());
         $this->assertEquals(3, count($user->groups));
         $this->assertFalse($user->groups->isInitialized());
 
-        foreach ($user->groups AS $group) { }
+        foreach ($user->groups as $group) {
+        }
 
         $this->assertEquals($queryCount + 2, $this->getCurrentQueryCount(), "Expecting two queries to be fired for count, then iteration.");
     }
@@ -99,7 +100,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
     {
         $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
 
-        $newGroup = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $newGroup       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $newGroup->name = "Test4";
 
         $user->addGroup($newGroup);
@@ -116,10 +117,11 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
      */
     public function testCountWhenInitialized()
     {
-        $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
+        $user       = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
         $queryCount = $this->getCurrentQueryCount();
 
-        foreach ($user->groups AS $group) { }
+        foreach ($user->groups as $group) {
+        }
 
         $this->assertTrue($user->groups->isInitialized());
         $this->assertEquals(3, count($user->groups));
@@ -195,7 +197,8 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertEquals(1, count($otherGroup));
         $this->assertFalse($user->groups->isInitialized());
 
-        foreach ($user->groups AS $group) { }
+        foreach ($user->groups as $group) {
+        }
 
         $this->assertTrue($user->groups->isInitialized());
         $this->assertEquals(3, count($user->groups));
@@ -209,10 +212,11 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
      */
     public function testSliceInitializedCollection()
     {
-        $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
+        $user       = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
         $queryCount = $this->getCurrentQueryCount();
 
-        foreach ($user->groups AS $group) { }
+        foreach ($user->groups as $group) {
+        }
 
         $someGroups = $user->groups->slice(0, 2);
 
@@ -232,7 +236,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($group->users->isInitialized(), "Pre-Condition");
         $queryCount = $this->getCurrentQueryCount();
 
-        $someUsers = $group->users->slice(0, 2);
+        $someUsers  = $group->users->slice(0, 2);
         $otherUsers = $group->users->slice(2, 2);
 
         $this->assertContainsOnly('Doctrine\Tests\Models\CMS\CmsUser', $someUsers);
@@ -254,7 +258,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
 
         $queryCount = $this->getCurrentQueryCount();
 
-        $someArticle = $user->articles->slice(0, 1);
+        $someArticle  = $user->articles->slice(0, 1);
         $otherArticle = $user->articles->slice(1, 1);
 
         $this->assertEquals($queryCount + 2, $this->getCurrentQueryCount());
@@ -277,9 +281,9 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertEquals($queryCount + 1, $this->getCurrentQueryCount());
 
         // Test One to Many existence with state new
-        $article = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article        = new \Doctrine\Tests\Models\CMS\CmsArticle();
         $article->topic = "Testnew";
-        $article->text = "blub";
+        $article->text  = "blub";
 
         $queryCount = $this->getCurrentQueryCount();
         $this->assertFalse($user->articles->contains($article));
@@ -295,9 +299,9 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($user->articles->isInitialized(), "Post-Condition: Collection is not initialized.");
 
         // Test One to Many existence with state managed
-        $article = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article        = new \Doctrine\Tests\Models\CMS\CmsArticle();
         $article->topic = "How to not fail anymore on tests";
-        $article->text = "That is simple! Just write more tests!";
+        $article->text  = "That is simple! Just write more tests!";
 
         $this->_em->persist($article);
 
@@ -414,7 +418,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($user->groups->isInitialized(), "Post-Condition: Collection is not initialized.");
 
         // Test Many to Many existence with state new
-        $group = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group->name = "A New group!";
 
         $queryCount = $this->getCurrentQueryCount();
@@ -434,7 +438,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($user->groups->isInitialized(), "Post-Condition: Collection is not initialized.");
 
         // Test Many to Many existence with state managed
-        $group = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group->name = "My managed group";
 
         $this->_em->persist($group);
@@ -461,7 +465,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertEquals($queryCount+1, $this->getCurrentQueryCount(), "Checking for contains of managed entity should cause one query to be executed.");
         $this->assertFalse($user->groups->isInitialized(), "Post-Condition: Collection is not initialized.");
 
-        $newUser = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $newUser       = new \Doctrine\Tests\Models\CMS\CmsUser();
         $newUser->name = "A New group!";
 
         $queryCount = $this->getCurrentQueryCount();
@@ -488,9 +492,9 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertEquals($queryCount, $this->getCurrentQueryCount());
 
         // Test One to Many removal with Entity state as new
-        $article = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article        = new \Doctrine\Tests\Models\CMS\CmsArticle();
         $article->topic = "Testnew";
-        $article->text = "blub";
+        $article->text  = "blub";
 
         $queryCount = $this->getCurrentQueryCount();
 
@@ -510,9 +514,9 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($user->articles->isInitialized(), "Post-Condition: Collection is not initialized.");
 
         // Test One to Many removal with Entity state as managed
-        $article = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article        = new \Doctrine\Tests\Models\CMS\CmsArticle();
         $article->topic = "How to not fail anymore on tests";
-        $article->text = "That is simple! Just write more tests!";
+        $article->text  = "That is simple! Just write more tests!";
 
         $this->_em->persist($article);
 
@@ -642,7 +646,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($user->groups->isInitialized(), "Post-Condition: Collection is not initialized.");
 
         // Test Many to Many removal with Entity state as new
-        $group = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group->name = "A New group!";
 
         $queryCount = $this->getCurrentQueryCount();
@@ -664,7 +668,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertFalse($user->groups->isInitialized(), "Post-Condition: Collection is not initialized.");
 
         // Test Many to Many removal with Entity state as managed
-        $group = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group->name = "A New group!";
 
         $this->_em->persist($group);
@@ -693,7 +697,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->assertEquals($queryCount + 1, $this->getCurrentQueryCount(), "Removing a managed entity should cause one query to be executed.");
         $this->assertFalse($user->groups->isInitialized(), "Post-Condition: Collection is not initialized.");
 
-        $newUser = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $newUser       = new \Doctrine\Tests\Models\CMS\CmsUser();
         $newUser->name = "A New group!";
 
         $queryCount = $this->getCurrentQueryCount();
@@ -711,7 +715,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
     {
         $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
 
-        $newGroup = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $newGroup       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $newGroup->name = "Test4";
 
         $user->addGroup($newGroup);
@@ -735,13 +739,13 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
         /* @var $user CmsUser */
 
-        $newGroup = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $newGroup       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $newGroup->name = "Test4";
 
         $user->addGroup($newGroup);
         $this->_em->persist($newGroup);
 
-        $qc = $this->getCurrentQueryCount();
+        $qc     = $this->getCurrentQueryCount();
         $groups = $user->groups->slice(0, 10);
 
         $this->assertEquals(4, count($groups));
@@ -757,7 +761,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId);
         /* @var $user CmsUser */
 
-        $queryCount = $this->getCurrentQueryCount();
+        $queryCount  = $this->getCurrentQueryCount();
         $phonenumber = $user->phonenumbers->get($this->phonenumber);
 
         $this->assertFalse($user->phonenumbers->isInitialized());
@@ -845,7 +849,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
 
     public function testContainsKeyIndexByOneToManyJoinedInheritance()
     {
-        $class = $this->_em->getClassMetadata(DDC2504OtherClass::CLASSNAME);
+        $class                                                 = $this->_em->getClassMetadata(DDC2504OtherClass::CLASSNAME);
         $class->associationMappings['childClasses']['indexBy'] = 'id';
 
         $otherClass = $this->_em->find(DDC2504OtherClass::CLASSNAME, $this->ddc2504OtherClassId);
@@ -875,7 +879,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
     }
     public function testContainsKeyIndexByManyToManyNonOwning()
     {
-        $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId2);
+        $user  = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId2);
         $group = $this->_em->find('Doctrine\Tests\Models\CMS\CmsGroup', $this->groupId);
 
         $queryCount = $this->getCurrentQueryCount();
@@ -889,7 +893,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
 
     public function testContainsKeyIndexByWithPkManyToMany()
     {
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsUser');
+        $class                                           = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsUser');
         $class->associationMappings['groups']['indexBy'] = 'id';
 
         $user = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $this->userId2);
@@ -904,7 +908,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
     }
     public function testContainsKeyIndexByWithPkManyToManyNonOwning()
     {
-        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsGroup');
+        $class                                          = $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsGroup');
         $class->associationMappings['users']['indexBy'] = 'id';
 
         $group = $this->_em->find('Doctrine\Tests\Models\CMS\CmsGroup', $this->groupId);
@@ -947,38 +951,38 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
 
     private function loadFixture()
     {
-        $user1 = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $user1           = new \Doctrine\Tests\Models\CMS\CmsUser();
         $user1->username = "beberlei";
-        $user1->name = "Benjamin";
-        $user1->status = "active";
+        $user1->name     = "Benjamin";
+        $user1->status   = "active";
 
-        $user2 = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $user2           = new \Doctrine\Tests\Models\CMS\CmsUser();
         $user2->username = "jwage";
-        $user2->name = "Jonathan";
-        $user2->status = "active";
+        $user2->name     = "Jonathan";
+        $user2->status   = "active";
 
-        $user3 = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $user3           = new \Doctrine\Tests\Models\CMS\CmsUser();
         $user3->username = "romanb";
-        $user3->name = "Roman";
-        $user3->status = "active";
+        $user3->name     = "Roman";
+        $user3->status   = "active";
 
-        $user4 = new \Doctrine\Tests\Models\CMS\CmsUser();
+        $user4           = new \Doctrine\Tests\Models\CMS\CmsUser();
         $user4->username = "gblanco";
-        $user4->name = "Guilherme";
-        $user4->status = "active";
+        $user4->name     = "Guilherme";
+        $user4->status   = "active";
 
         $this->_em->persist($user1);
         $this->_em->persist($user2);
         $this->_em->persist($user3);
         $this->_em->persist($user4);
 
-        $group1 = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group1       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group1->name = "Test1";
 
-        $group2 = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group2       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group2->name = "Test2";
 
-        $group3 = new \Doctrine\Tests\Models\CMS\CmsGroup();
+        $group3       = new \Doctrine\Tests\Models\CMS\CmsGroup();
         $group3->name = "Test3";
 
         $user1->addGroup($group1);
@@ -993,23 +997,23 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->_em->persist($group2);
         $this->_em->persist($group3);
 
-        $article1 = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article1        = new \Doctrine\Tests\Models\CMS\CmsArticle();
         $article1->topic = "Test1";
-        $article1->text = "Test1";
+        $article1->text  = "Test1";
         $article1->setAuthor($user1);
 
-        $article2 = new \Doctrine\Tests\Models\CMS\CmsArticle();
+        $article2        = new \Doctrine\Tests\Models\CMS\CmsArticle();
         $article2->topic = "Test2";
-        $article2->text = "Test2";
+        $article2->text  = "Test2";
         $article2->setAuthor($user1);
 
         $this->_em->persist($article1);
         $this->_em->persist($article2);
 
-        $phonenumber1 = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
+        $phonenumber1              = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
         $phonenumber1->phonenumber = '12345';
 
-        $phonenumber2 = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
+        $phonenumber2              = new \Doctrine\Tests\Models\CMS\CmsPhonenumber();
         $phonenumber2->phonenumber = '67890';
 
         $this->_em->persist($phonenumber1);
@@ -1018,7 +1022,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $user1->addPhonenumber($phonenumber1);
 
         // DDC-2504
-        $otherClass = new DDC2504OtherClass();
+        $otherClass  = new DDC2504OtherClass();
         $childClass1 = new DDC2504ChildClass();
         $childClass2 = new DDC2504ChildClass();
 
@@ -1035,18 +1039,17 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $this->articleId = $article1->id;
-        $this->userId = $user1->getId();
-        $this->userId2 = $user2->getId();
-        $this->groupId = $group1->id;
+        $this->articleId           = $article1->id;
+        $this->userId              = $user1->getId();
+        $this->userId2             = $user2->getId();
+        $this->groupId             = $group1->id;
         $this->ddc2504OtherClassId = $otherClass->id;
         $this->ddc2504ChildClassId = $childClass1->id;
 
-        $this->username = $user1->username;
-        $this->groupname = $group1->name;
-        $this->topic = $article1->topic;
+        $this->username    = $user1->username;
+        $this->groupname   = $group1->name;
+        $this->topic       = $article1->topic;
         $this->phonenumber = $phonenumber1->phonenumber;
-
     }
 
     /**
@@ -1236,7 +1239,7 @@ class ExtraLazyCollectionTest extends OrmFunctionalTestCase
         $user     = new User();
         $userList = new UserList();
 
-        $user->name     = 'ocramius';
+        $user->name         = 'ocramius';
         $userList->listName = 'PHP Developers to follow closely';
 
         $user->addUserList($userList);

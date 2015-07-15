@@ -3,9 +3,9 @@
 namespace Doctrine\Tests\ORM\Functional;
 
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Tests\Models\CMS\CmsUser,
-    Doctrine\Tests\Models\CMS\CmsGroup,
-    Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Tests\Models\CMS\CmsUser;
+use Doctrine\Tests\Models\CMS\CmsGroup;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Basic many-to-many association tests.
@@ -105,7 +105,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
     {
         $user = $this->addCmsUserGblancoWithGroups(0);
 
-        $group = new CmsGroup;
+        $group       = new CmsGroup;
         $group->name = 'Humans';
 
         // modify directly, addUser() would also (properly) set the owning side
@@ -145,7 +145,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
         $groups = $user->groups->toArray();
         $user->groups->clear();
 
-        foreach ($groups AS $group) {
+        foreach ($groups as $group) {
             $user->groups[] = $group;
         }
 
@@ -176,7 +176,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
     {
         $user = $this->addCmsUserGblancoWithGroups(2);
 
-        $group = new CmsGroup();
+        $group       = new CmsGroup();
         $group->name = 'Developers_Fresh';
         $this->_em->persist($group);
         $this->_em->flush();
@@ -185,7 +185,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
 
         /* @var $freshUser CmsUser */
         $freshUser = $this->_em->find('Doctrine\Tests\Models\CMS\CmsUser', $user->getId());
-        $newGroup = new CmsGroup();
+        $newGroup  = new CmsGroup();
         $newGroup->setName('12Monkeys');
         $freshUser->addGroup($newGroup);
 
@@ -208,7 +208,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
      */
     public function testRemoveUserWithManyGroups()
     {
-        $user = $this->addCmsUserGblancoWithGroups(2);
+        $user   = $this->addCmsUserGblancoWithGroups(2);
         $userId = $user->getId();
 
         $this->_em->remove($user);
@@ -225,7 +225,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
     {
         $user = $this->addCmsUserGblancoWithGroups(2);
 
-        foreach ($user->getGroups() AS $group) {
+        foreach ($user->getGroups() as $group) {
             $this->_em->remove($group);
         }
         $this->_em->flush();
@@ -237,7 +237,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
 
     public function testDereferenceCollectionDelete()
     {
-        $user = $this->addCmsUserGblancoWithGroups(2);
+        $user         = $this->addCmsUserGblancoWithGroups(2);
         $user->groups = null;
 
         $this->_em->flush();
@@ -252,8 +252,8 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
      */
     public function testWorkWithDqlHydratedEmptyCollection()
     {
-        $user = $this->addCmsUserGblancoWithGroups(0);
-        $group = new CmsGroup();
+        $user        = $this->addCmsUserGblancoWithGroups(0);
+        $group       = new CmsGroup();
         $group->name = "Developers0";
         $this->_em->persist($group);
 
@@ -281,13 +281,13 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
      */
     public function addCmsUserGblancoWithGroups($groupCount = 1)
     {
-        $user = new CmsUser;
-        $user->name = 'Guilherme';
+        $user           = new CmsUser;
+        $user->name     = 'Guilherme';
         $user->username = 'gblanco';
-        $user->status = 'developer';
+        $user->status   = 'developer';
 
         for ($i=0; $i < $groupCount; ++$i) {
-            $group = new CmsGroup;
+            $group       = new CmsGroup;
             $group->name = 'Developers_' . $i;
             $user->addGroup($group);
         }
@@ -314,10 +314,10 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
      */
     public function testClearAndResetCollection()
     {
-        $user = $this->addCmsUserGblancoWithGroups(2);
-        $group1 = new CmsGroup;
+        $user         = $this->addCmsUserGblancoWithGroups(2);
+        $group1       = new CmsGroup;
         $group1->name = 'Developers_New1';
-        $group2 = new CmsGroup;
+        $group2       = new CmsGroup;
         $group2->name = 'Developers_New2';
 
         $this->_em->persist($group1);
@@ -327,7 +327,7 @@ class ManyToManyBasicAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCa
 
         $user = $this->_em->find(get_class($user), $user->id);
 
-        $coll = new ArrayCollection(array($group1, $group2));
+        $coll         = new ArrayCollection(array($group1, $group2));
         $user->groups = $coll;
         $this->_em->flush();
         $this->assertInstanceOf('Doctrine\ORM\PersistentCollection', $user->groups,

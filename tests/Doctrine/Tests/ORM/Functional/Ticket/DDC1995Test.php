@@ -31,8 +31,8 @@ class DDC1995Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $dql    = 'SELECT u FROM Doctrine\Tests\Models\Company\CompanyPerson u WHERE u INSTANCE OF ?1';
-        $class  = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyEmployee');
+        $dql   = 'SELECT u FROM Doctrine\Tests\Models\Company\CompanyPerson u WHERE u INSTANCE OF ?1';
+        $class = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyEmployee');
 
         $result = $this->_em->createQuery($dql)
                 ->setParameter(1, $class)
@@ -57,9 +57,9 @@ class DDC1995Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $this->_em->clear();
 
-        $dql     = 'SELECT u FROM Doctrine\Tests\Models\Company\CompanyPerson u WHERE u INSTANCE OF :type';
-        $class1  = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyEmployee');
-        $class2  = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyPerson');
+        $dql    = 'SELECT u FROM Doctrine\Tests\Models\Company\CompanyPerson u WHERE u INSTANCE OF :type';
+        $class1 = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyEmployee');
+        $class2 = $this->_em->getClassMetadata('Doctrine\Tests\Models\Company\CompanyPerson');
 
         $result1 = $this->_em->createQuery($dql)
                 ->setParameter('type', $class1)

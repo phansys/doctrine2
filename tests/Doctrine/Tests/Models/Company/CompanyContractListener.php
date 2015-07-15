@@ -80,5 +80,4 @@ class CompanyContractListener
     {
         $this->postLoadCalls[] = func_get_args();
     }
-
 }

@@ -52,7 +52,7 @@ class DebugUnitOfWorkListener
      */
     public function __construct($file = 'php://output', $context = '')
     {
-        $this->file = $file;
+        $this->file    = $file;
         $this->context = $context;
     }
 
@@ -75,21 +75,21 @@ class DebugUnitOfWorkListener
      */
     public function dumpIdentityMap(EntityManagerInterface $em)
     {
-        $uow = $em->getUnitOfWork();
+        $uow         = $em->getUnitOfWork();
         $identityMap = $uow->getIdentityMap();
 
         $fh = fopen($this->file, "x+");
         if (count($identityMap) == 0) {
-            fwrite($fh, "Flush Operation [".$this->context."] - Empty identity map.\n");
+            fwrite($fh, "Flush Operation [" . $this->context . "] - Empty identity map.\n");
             return;
         }
 
-        fwrite($fh, "Flush Operation [".$this->context."] - Dumping identity map:\n");
+        fwrite($fh, "Flush Operation [" . $this->context . "] - Dumping identity map:\n");
         foreach ($identityMap as $className => $map) {
-            fwrite($fh, "Class: ". $className . "\n");
+            fwrite($fh, "Class: " . $className . "\n");
 
             foreach ($map as $entity) {
-                fwrite($fh, " Entity: " . $this->getIdString($entity, $uow) . " " . spl_object_hash($entity)."\n");
+                fwrite($fh, " Entity: " . $this->getIdString($entity, $uow) . " " . spl_object_hash($entity) . "\n");
                 fwrite($fh, "  Associations:\n");
 
                 $cm = $em->getClassMetadata($className);
@@ -113,15 +113,15 @@ class DebugUnitOfWorkListener
                         if ($value === null) {
                             fwrite($fh, " NULL\n");
                         } elseif ($initialized) {
-                            fwrite($fh, "[INITIALIZED] " . $this->getType($value). " " . count($value) . " elements\n");
+                            fwrite($fh, "[INITIALIZED] " . $this->getType($value) . " " . count($value) . " elements\n");
 
                             foreach ($value as $obj) {
-                                fwrite($fh, "    " . $this->getIdString($obj, $uow) . " " . spl_object_hash($obj)."\n");
+                                fwrite($fh, "    " . $this->getIdString($obj, $uow) . " " . spl_object_hash($obj) . "\n");
                             }
                         } else {
                             fwrite($fh, "[PROXY] " . $this->getType($value) . " unknown element size\n");
                             foreach ($value->unwrap() as $obj) {
-                                fwrite($fh, "    " . $this->getIdString($obj, $uow) . " " . spl_object_hash($obj)."\n");
+                                fwrite($fh, "    " . $this->getIdString($obj, $uow) . " " . spl_object_hash($obj) . "\n");
                             }
                         }
                     }
@@ -157,11 +157,11 @@ class DebugUnitOfWorkListener
     private function getIdString($entity, UnitOfWork $uow)
     {
         if ($uow->isInIdentityMap($entity)) {
-            $ids = $uow->getEntityIdentifier($entity);
+            $ids      = $uow->getEntityIdentifier($entity);
             $idstring = "";
 
             foreach ($ids as $k => $v) {
-                $idstring .= $k."=".$v;
+                $idstring .= $k . "=" . $v;
             }
         } else {
             $idstring = "NEWOBJECT ";

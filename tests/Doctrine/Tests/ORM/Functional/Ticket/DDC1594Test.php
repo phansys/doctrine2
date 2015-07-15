@@ -3,7 +3,6 @@
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\Tests\Models\CMS\CmsComment;
 use Doctrine\Tests\Models\CMS\CmsArticle;
 use Doctrine\Tests\Models\CMS\CmsUser;
@@ -21,17 +20,17 @@ class DDC1594Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $user = new CmsUser();
-        $user->status = 'foo';
+        $user           = new CmsUser();
+        $user->status   = 'foo';
         $user->username = 'foo';
-        $user->name = 'foo';
+        $user->name     = 'foo';
 
         $this->_em->persist($user);
         $this->_em->flush();
 
         $this->_em->clear();
-        $detachedUser = clone $user;
-        $detachedUser->name = 'bar';
+        $detachedUser         = clone $user;
+        $detachedUser->name   = 'bar';
         $detachedUser->status = 'bar';
 
         $newUser = $this->_em->getReference(get_class($user), $user->id);

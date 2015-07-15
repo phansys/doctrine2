@@ -131,11 +131,11 @@ class HydrationCompleteHandlerTest extends PHPUnit_Framework_TestCase
     {
         /* @var $metadata1 \Doctrine\ORM\Mapping\ClassMetadata */
         /* @var $metadata2 \Doctrine\ORM\Mapping\ClassMetadata */
-        $metadata1      = $this->getMock('Doctrine\ORM\Mapping\ClassMetadata', array(), array(), '', false);
-        $metadata2      = $this->getMock('Doctrine\ORM\Mapping\ClassMetadata', array(), array(), '', false);
-        $entity1        = new stdClass();
-        $entity2        = new stdClass();
-        $entityManager  = $this->entityManager;
+        $metadata1     = $this->getMock('Doctrine\ORM\Mapping\ClassMetadata', array(), array(), '', false);
+        $metadata2     = $this->getMock('Doctrine\ORM\Mapping\ClassMetadata', array(), array(), '', false);
+        $entity1       = new stdClass();
+        $entity2       = new stdClass();
+        $entityManager = $this->entityManager;
 
         $this
             ->listenersInvoker

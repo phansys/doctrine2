@@ -13,7 +13,7 @@ class SequenceEmulatedIdentityStrategyTest extends \Doctrine\Tests\OrmFunctional
     {
         parent::setUp();
 
-        if ( ! $this->_em->getConnection()->getDatabasePlatform()->usesSequenceEmulatedIdentityColumns()) {
+        if (! $this->_em->getConnection()->getDatabasePlatform()->usesSequenceEmulatedIdentityColumns()) {
             $this->markTestSkipped(
                 'This test is special to platforms emulating IDENTITY key generation strategy through sequences.'
             );

@@ -24,9 +24,9 @@ class DDC2256Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $config = $this->_em->getConfiguration();
         $config->addEntityNamespace('MyNamespace', 'Doctrine\Tests\ORM\Functional\Ticket');
 
-        $user = new DDC2256User();
-        $user->name = 'user';
-        $group = new DDC2256Group();
+        $user        = new DDC2256User();
+        $user->name  = 'user';
+        $group       = new DDC2256Group();
         $group->name = 'group';
         $user->group = $group;
 
@@ -112,4 +112,3 @@ class DDC2256Group
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }
-

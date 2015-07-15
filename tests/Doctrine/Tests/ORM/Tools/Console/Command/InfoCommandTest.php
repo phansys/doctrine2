@@ -40,8 +40,8 @@ class InfoCommandTest extends OrmFunctionalTestCase
 
         $this->application->add($command);
 
-        $this->command    = $this->application->find('orm:info');
-        $this->tester     = new CommandTester($command);
+        $this->command = $this->application->find('orm:info');
+        $this->tester  = new CommandTester($command);
     }
 
     public function testListAllClasses()

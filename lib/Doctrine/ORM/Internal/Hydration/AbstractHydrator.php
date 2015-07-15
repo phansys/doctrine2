@@ -161,7 +161,7 @@ abstract class AbstractHydrator
     {
         $row = $this->_stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ( ! $row) {
+        if (! $row) {
             $this->cleanup();
 
             return false;
@@ -333,7 +333,7 @@ abstract class AbstractHydrator
 
             // WARNING: BC break! We know this is the desired behavior to type convert values, but this
             // erroneous behavior exists since 2.0 and we're forced to keep compatibility.
-            if ( ! isset($cacheKeyInfo['isScalar'])) {
+            if (! isset($cacheKeyInfo['isScalar'])) {
                 $dqlAlias  = $cacheKeyInfo['dqlAlias'];
                 $type      = $cacheKeyInfo['type'];
                 $fieldName = $dqlAlias . '_' . $fieldName;
@@ -428,7 +428,7 @@ abstract class AbstractHydrator
      */
     protected function getClassMetadata($className)
     {
-        if ( ! isset($this->_metadataCache[$className])) {
+        if (! isset($this->_metadataCache[$className])) {
             $this->_metadataCache[$className] = $this->_em->getClassMetadata($className);
         }
 

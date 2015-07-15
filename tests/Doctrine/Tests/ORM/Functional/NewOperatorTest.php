@@ -55,32 +55,32 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $u3->addPhonenumber(new CmsPhonenumber());
         $u3->addPhonenumber(new CmsPhonenumber());
 
-        $u1->name               = 'Test 1';
-        $u1->username           = '1test';
-        $u1->status             = 'developer';
-        $u1->email->email       = 'email@test1.com';
-        $u1->address->zip       = '111111111';
-        $u1->address->city      = 'Some City 1';
-        $u1->address->country   = 'Some Country 2';
+        $u1->name                         = 'Test 1';
+        $u1->username                     = '1test';
+        $u1->status                       = 'developer';
+        $u1->email->email                 = 'email@test1.com';
+        $u1->address->zip                 = '111111111';
+        $u1->address->city                = 'Some City 1';
+        $u1->address->country             = 'Some Country 2';
         $u1->phonenumbers[0]->phonenumber = "(11) 1111-1111";
 
-        $u2->name               = 'Test 2';
-        $u2->username           = '2test';
-        $u2->status             = 'developer';
-        $u2->email->email       = 'email@test2.com';
-        $u2->address->zip       = '222222222';
-        $u2->address->city      = 'Some City 2';
-        $u2->address->country   = 'Some Country 2';
+        $u2->name                         = 'Test 2';
+        $u2->username                     = '2test';
+        $u2->status                       = 'developer';
+        $u2->email->email                 = 'email@test2.com';
+        $u2->address->zip                 = '222222222';
+        $u2->address->city                = 'Some City 2';
+        $u2->address->country             = 'Some Country 2';
         $u2->phonenumbers[0]->phonenumber = "(22) 1111-1111";
         $u2->phonenumbers[1]->phonenumber = "(22) 2222-2222";
 
-        $u3->name               = 'Test 3';
-        $u3->username           = '3test';
-        $u3->status             = 'developer';
-        $u3->email->email       = 'email@test3.com';
-        $u3->address->zip       = '33333333';
-        $u3->address->city      = 'Some City 3';
-        $u3->address->country   = 'Some Country 3';
+        $u3->name                         = 'Test 3';
+        $u3->username                     = '3test';
+        $u3->status                       = 'developer';
+        $u3->email->email                 = 'email@test3.com';
+        $u3->address->zip                 = '33333333';
+        $u3->address->city                = 'Some City 3';
+        $u3->address->country             = 'Some Country 3';
         $u3->phonenumbers[0]->phonenumber = "(33) 1111-1111";
         $u3->phonenumbers[1]->phonenumber = "(33) 2222-2222";
         $u3->phonenumbers[2]->phonenumber = "(33) 3333-3333";
@@ -739,9 +739,9 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals($this->fixtures[1]->address->country, $result[1][1]->country);
         $this->assertEquals($this->fixtures[2]->address->country, $result[2][1]->country);
 
-        $this->assertEquals($this->fixtures[0]->status,$result[0]['status']);
-        $this->assertEquals($this->fixtures[1]->status,$result[1]['status']);
-        $this->assertEquals($this->fixtures[2]->status,$result[2]['status']);
+        $this->assertEquals($this->fixtures[0]->status, $result[0]['status']);
+        $this->assertEquals($this->fixtures[1]->status, $result[1]['status']);
+        $this->assertEquals($this->fixtures[2]->status, $result[2]['status']);
     }
 
     public function testShouldSupportMultipleNewOperatorsAndSingleScalarWithAliases()
@@ -796,9 +796,9 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals($this->fixtures[1]->address->country, $result[1]['cmsAddress']->country);
         $this->assertEquals($this->fixtures[2]->address->country, $result[2]['cmsAddress']->country);
 
-        $this->assertEquals($this->fixtures[0]->status,$result[0]['cmsUserStatus']);
-        $this->assertEquals($this->fixtures[1]->status,$result[1]['cmsUserStatus']);
-        $this->assertEquals($this->fixtures[2]->status,$result[2]['cmsUserStatus']);
+        $this->assertEquals($this->fixtures[0]->status, $result[0]['cmsUserStatus']);
+        $this->assertEquals($this->fixtures[1]->status, $result[1]['cmsUserStatus']);
+        $this->assertEquals($this->fixtures[2]->status, $result[2]['cmsUserStatus']);
     }
 
     public function testShouldSupportMultipleNewOperatorsAndSingleScalarWithAndWithoutAliases()
@@ -853,9 +853,9 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals($this->fixtures[1]->address->country, $result[1][0]->country);
         $this->assertEquals($this->fixtures[2]->address->country, $result[2][0]->country);
 
-        $this->assertEquals($this->fixtures[0]->status,$result[0]['status']);
-        $this->assertEquals($this->fixtures[1]->status,$result[1]['status']);
-        $this->assertEquals($this->fixtures[2]->status,$result[2]['status']);
+        $this->assertEquals($this->fixtures[0]->status, $result[0]['status']);
+        $this->assertEquals($this->fixtures[1]->status, $result[1]['status']);
+        $this->assertEquals($this->fixtures[2]->status, $result[2]['status']);
     }
 
     public function testShouldSupportMultipleNewOperatorsAndMultipleScalars()
@@ -911,13 +911,13 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals($this->fixtures[1]->address->country, $result[1][1]->country);
         $this->assertEquals($this->fixtures[2]->address->country, $result[2][1]->country);
 
-        $this->assertEquals($this->fixtures[0]->status,$result[0]['status']);
-        $this->assertEquals($this->fixtures[1]->status,$result[1]['status']);
-        $this->assertEquals($this->fixtures[2]->status,$result[2]['status']);
+        $this->assertEquals($this->fixtures[0]->status, $result[0]['status']);
+        $this->assertEquals($this->fixtures[1]->status, $result[1]['status']);
+        $this->assertEquals($this->fixtures[2]->status, $result[2]['status']);
 
-        $this->assertEquals($this->fixtures[0]->username,$result[0]['username']);
-        $this->assertEquals($this->fixtures[1]->username,$result[1]['username']);
-        $this->assertEquals($this->fixtures[2]->username,$result[2]['username']);
+        $this->assertEquals($this->fixtures[0]->username, $result[0]['username']);
+        $this->assertEquals($this->fixtures[1]->username, $result[1]['username']);
+        $this->assertEquals($this->fixtures[2]->username, $result[2]['username']);
     }
 
     public function testShouldSupportMultipleNewOperatorsAndMultipleScalarsWithAliases()
@@ -973,13 +973,13 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals($this->fixtures[1]->address->country, $result[1]['cmsAddress']->country);
         $this->assertEquals($this->fixtures[2]->address->country, $result[2]['cmsAddress']->country);
 
-        $this->assertEquals($this->fixtures[0]->status,$result[0]['cmsUserStatus']);
-        $this->assertEquals($this->fixtures[1]->status,$result[1]['cmsUserStatus']);
-        $this->assertEquals($this->fixtures[2]->status,$result[2]['cmsUserStatus']);
+        $this->assertEquals($this->fixtures[0]->status, $result[0]['cmsUserStatus']);
+        $this->assertEquals($this->fixtures[1]->status, $result[1]['cmsUserStatus']);
+        $this->assertEquals($this->fixtures[2]->status, $result[2]['cmsUserStatus']);
 
-        $this->assertEquals($this->fixtures[0]->username,$result[0]['cmsUserUsername']);
-        $this->assertEquals($this->fixtures[1]->username,$result[1]['cmsUserUsername']);
-        $this->assertEquals($this->fixtures[2]->username,$result[2]['cmsUserUsername']);
+        $this->assertEquals($this->fixtures[0]->username, $result[0]['cmsUserUsername']);
+        $this->assertEquals($this->fixtures[1]->username, $result[1]['cmsUserUsername']);
+        $this->assertEquals($this->fixtures[2]->username, $result[2]['cmsUserUsername']);
     }
 
     public function testShouldSupportMultipleNewOperatorsAndMultipleScalarsWithAndWithoutAliases()
@@ -1035,13 +1035,13 @@ class NewOperatorTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals($this->fixtures[1]->address->country, $result[1][0]->country);
         $this->assertEquals($this->fixtures[2]->address->country, $result[2][0]->country);
 
-        $this->assertEquals($this->fixtures[0]->status,$result[0]['status']);
-        $this->assertEquals($this->fixtures[1]->status,$result[1]['status']);
-        $this->assertEquals($this->fixtures[2]->status,$result[2]['status']);
+        $this->assertEquals($this->fixtures[0]->status, $result[0]['status']);
+        $this->assertEquals($this->fixtures[1]->status, $result[1]['status']);
+        $this->assertEquals($this->fixtures[2]->status, $result[2]['status']);
 
-        $this->assertEquals($this->fixtures[0]->username,$result[0]['cmsUserUsername']);
-        $this->assertEquals($this->fixtures[1]->username,$result[1]['cmsUserUsername']);
-        $this->assertEquals($this->fixtures[2]->username,$result[2]['cmsUserUsername']);
+        $this->assertEquals($this->fixtures[0]->username, $result[0]['cmsUserUsername']);
+        $this->assertEquals($this->fixtures[1]->username, $result[1]['cmsUserUsername']);
+        $this->assertEquals($this->fixtures[2]->username, $result[2]['cmsUserUsername']);
     }
 
     /**

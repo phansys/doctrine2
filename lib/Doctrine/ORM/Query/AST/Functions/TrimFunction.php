@@ -67,10 +67,10 @@ class TrimFunction extends FunctionNode
      */
     public function getSql(SqlWalker $sqlWalker)
     {
-        $stringPrimary  = $sqlWalker->walkStringPrimary($this->stringPrimary);
-        $platform       = $sqlWalker->getConnection()->getDatabasePlatform();
-        $trimMode       = $this->getTrimMode();
-        $trimChar       = ($this->trimChar !== false)
+        $stringPrimary = $sqlWalker->walkStringPrimary($this->stringPrimary);
+        $platform      = $sqlWalker->getConnection()->getDatabasePlatform();
+        $trimMode      = $this->getTrimMode();
+        $trimChar      = ($this->trimChar !== false)
             ? $sqlWalker->getConnection()->quote($this->trimChar)
             : false;
 

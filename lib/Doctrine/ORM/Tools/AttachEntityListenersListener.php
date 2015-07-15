@@ -66,7 +66,7 @@ class AttachEntityListenersListener
         /** @var $metadata \Doctrine\ORM\Mapping\ClassMetadata */
         $metadata = $event->getClassMetadata();
 
-        if ( ! isset($this->entityListeners[$metadata->name])) {
+        if (! isset($this->entityListeners[$metadata->name])) {
             return;
         }
 

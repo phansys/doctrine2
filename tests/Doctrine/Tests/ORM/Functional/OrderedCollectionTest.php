@@ -18,8 +18,8 @@ class OrderedCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $locations = array("Berlin", "Bonn", "Brasilia", "Atlanta");
 
-        foreach ($locations AS $locationName) {
-            $location = new RoutingLocation();
+        foreach ($locations as $locationName) {
+            $location       = new RoutingLocation();
             $location->name = $locationName;
             $this->_em->persist($location);
             $this->locations[$locationName] = $location;
@@ -31,17 +31,17 @@ class OrderedCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $route = new RoutingRoute();
 
-        $leg1 = new RoutingLeg();
-        $leg1->fromLocation = $this->locations['Berlin'];
-        $leg1->toLocation   = $this->locations['Bonn'];
+        $leg1                = new RoutingLeg();
+        $leg1->fromLocation  = $this->locations['Berlin'];
+        $leg1->toLocation    = $this->locations['Bonn'];
         $leg1->departureDate = new \DateTime("now");
-        $leg1->arrivalDate = new \DateTime("now +5 hours");
+        $leg1->arrivalDate   = new \DateTime("now +5 hours");
 
-        $leg2 = new RoutingLeg();
-        $leg2->fromLocation = $this->locations['Bonn'];
-        $leg2->toLocation   = $this->locations['Brasilia'];
+        $leg2                = new RoutingLeg();
+        $leg2->fromLocation  = $this->locations['Bonn'];
+        $leg2->toLocation    = $this->locations['Brasilia'];
         $leg2->departureDate = new \DateTime("now +6 hours");
-        $leg2->arrivalDate = new \DateTime("now +24 hours");
+        $leg2->arrivalDate   = new \DateTime("now +24 hours");
 
         $route->legs[] = $leg2;
         $route->legs[] = $leg1;
@@ -73,15 +73,15 @@ class OrderedCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->flush();
         $routeId = $route->id;
 
-        $booking1 = new RoutingRouteBooking();
+        $booking1                = new RoutingRouteBooking();
         $booking1->passengerName = "Guilherme";
-        $booking2 = new RoutingRouteBooking();
+        $booking2                = new RoutingRouteBooking();
         $booking2->passengerName = "Benjamin";
 
         $route->bookings[] = $booking1;
-        $booking1->route = $route;
+        $booking1->route   = $route;
         $route->bookings[] = $booking2;
-        $booking2->route = $route;
+        $booking2->route   = $route;
 
         $this->_em->persist($booking1);
         $this->_em->persist($booking2);

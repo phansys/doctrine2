@@ -28,8 +28,8 @@ class IndexByAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function loadFixture()
     {
         $this->market = new Market("Some Exchange");
-        $stock1 = new Stock("AAPL", 10, $this->market);
-        $stock2 = new Stock("GOOG", 20, $this->market);
+        $stock1       = new Stock("AAPL", 10, $this->market);
+        $stock2       = new Stock("GOOG", 20, $this->market);
 
         $this->bond = new Bond("MyBond");
         $this->bond->addStock($stock1);
@@ -57,7 +57,7 @@ class IndexByAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testManyToOneDQL()
     {
-        $dql = "SELECT m, s FROM Doctrine\Tests\Models\StockExchange\Market m JOIN m.stocks s WHERE m.id = ?1";
+        $dql    = "SELECT m, s FROM Doctrine\Tests\Models\StockExchange\Market m JOIN m.stocks s WHERE m.id = ?1";
         $market = $this->_em->createQuery($dql)->setParameter(1, $this->market->getId())->getSingleResult();
 
         $this->assertEquals(2, count($market->stocks));
@@ -80,7 +80,7 @@ class IndexByAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testManytoManyDQL()
     {
-        $dql = "SELECT b, s FROM Doctrine\Tests\Models\StockExchange\Bond b JOIN b.stocks s WHERE b.id = ?1";
+        $dql  = "SELECT b, s FROM Doctrine\Tests\Models\StockExchange\Bond b JOIN b.stocks s WHERE b.id = ?1";
         $bond = $this->_em->createQuery($dql)->setParameter(1, $this->bond->getId())->getSingleResult();
 
         $this->assertEquals(2, count($bond->stocks));
@@ -92,7 +92,7 @@ class IndexByAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testDqlOverrideIndexBy()
     {
-        $dql = "SELECT b, s FROM Doctrine\Tests\Models\StockExchange\Bond b JOIN b.stocks s INDEX BY s.id WHERE b.id = ?1";
+        $dql  = "SELECT b, s FROM Doctrine\Tests\Models\StockExchange\Bond b JOIN b.stocks s INDEX BY s.id WHERE b.id = ?1";
         $bond = $this->_em->createQuery($dql)->setParameter(1, $this->bond->getId())->getSingleResult();
 
         $this->assertEquals(2, count($bond->stocks));
@@ -100,4 +100,3 @@ class IndexByAssociationTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertFalse(isset($bond->stocks['GOOG']), "GOOG symbol not exists in re-indexed association.");
     }
 }
-

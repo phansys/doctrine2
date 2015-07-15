@@ -54,9 +54,9 @@ class AggregateExpression extends Node
      */
     public function __construct($functionName, $pathExpression, $isDistinct)
     {
-        $this->functionName = $functionName;
+        $this->functionName   = $functionName;
         $this->pathExpression = $pathExpression;
-        $this->isDistinct = $isDistinct;
+        $this->isDistinct     = $isDistinct;
     }
 
     /**

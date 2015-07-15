@@ -24,7 +24,6 @@ use Doctrine\ORM\EntityRepository;
 
 class DDC869PaymentRepository extends EntityRepository
 {
-
     /**
      * Very complex method
      *

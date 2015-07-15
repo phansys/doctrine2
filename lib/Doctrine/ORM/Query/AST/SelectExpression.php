@@ -53,9 +53,9 @@ class SelectExpression extends Node
      */
     public function __construct($expression, $fieldIdentificationVariable, $hiddenAliasResultVariable = false)
     {
-        $this->expression = $expression;
+        $this->expression                  = $expression;
         $this->fieldIdentificationVariable = $fieldIdentificationVariable;
-        $this->hiddenAliasResultVariable = $hiddenAliasResultVariable;
+        $this->hiddenAliasResultVariable   = $hiddenAliasResultVariable;
     }
 
     /**

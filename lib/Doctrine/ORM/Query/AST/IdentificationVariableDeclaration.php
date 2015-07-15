@@ -53,8 +53,8 @@ class IdentificationVariableDeclaration extends Node
     public function __construct($rangeVariableDecl, $indexBy, array $joins)
     {
         $this->rangeVariableDeclaration = $rangeVariableDecl;
-        $this->indexBy = $indexBy;
-        $this->joins = $joins;
+        $this->indexBy                  = $indexBy;
+        $this->joins                    = $joins;
     }
 
     /**

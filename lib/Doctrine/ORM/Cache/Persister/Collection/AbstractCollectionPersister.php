@@ -36,7 +36,7 @@ use Doctrine\Common\Util\ClassUtils;
  */
 abstract class AbstractCollectionPersister implements CachedCollectionPersister
 {
-     /**
+    /**
      * @var \Doctrine\ORM\UnitOfWork
      */
     protected $uow;
@@ -99,20 +99,20 @@ abstract class AbstractCollectionPersister implements CachedCollectionPersister
      */
     public function __construct(CollectionPersister $persister, Region $region, EntityManagerInterface $em, array $association)
     {
-        $configuration  = $em->getConfiguration();
-        $cacheConfig    = $configuration->getSecondLevelCacheConfiguration();
-        $cacheFactory   = $cacheConfig->getCacheFactory();
+        $configuration = $em->getConfiguration();
+        $cacheConfig   = $configuration->getSecondLevelCacheConfiguration();
+        $cacheFactory  = $cacheConfig->getCacheFactory();
 
-        $this->region           = $region;
-        $this->persister        = $persister;
-        $this->association      = $association;
-        $this->regionName       = $region->getName();
-        $this->uow              = $em->getUnitOfWork();
-        $this->metadataFactory  = $em->getMetadataFactory();
-        $this->cacheLogger      = $cacheConfig->getCacheLogger();
-        $this->hydrator         = $cacheFactory->buildCollectionHydrator($em, $association);
-        $this->sourceEntity     = $em->getClassMetadata($association['sourceEntity']);
-        $this->targetEntity     = $em->getClassMetadata($association['targetEntity']);
+        $this->region          = $region;
+        $this->persister       = $persister;
+        $this->association     = $association;
+        $this->regionName      = $region->getName();
+        $this->uow             = $em->getUnitOfWork();
+        $this->metadataFactory = $em->getMetadataFactory();
+        $this->cacheLogger     = $cacheConfig->getCacheLogger();
+        $this->hydrator        = $cacheFactory->buildCollectionHydrator($em, $association);
+        $this->sourceEntity    = $em->getClassMetadata($association['sourceEntity']);
+        $this->targetEntity    = $em->getClassMetadata($association['targetEntity']);
     }
 
     /**
@@ -164,25 +164,25 @@ abstract class AbstractCollectionPersister implements CachedCollectionPersister
     public function storeCollectionCache(CollectionCacheKey $key, $elements)
     {
         /* @var $targetPersister CachedEntityPersister */
-        $targetPersister    = $this->uow->getEntityPersister($this->targetEntity->rootEntityName);
-        $targetRegion       = $targetPersister->getCacheRegion();
-        $targetHydrator     = $targetPersister->getEntityHydrator();
-        $entry              = $this->hydrator->buildCacheEntry($this->targetEntity, $key, $elements);
+        $targetPersister = $this->uow->getEntityPersister($this->targetEntity->rootEntityName);
+        $targetRegion    = $targetPersister->getCacheRegion();
+        $targetHydrator  = $targetPersister->getEntityHydrator();
+        $entry           = $this->hydrator->buildCacheEntry($this->targetEntity, $key, $elements);
 
         foreach ($entry->identifiers as $index => $entityKey) {
             if ($targetRegion->contains($entityKey)) {
                 continue;
             }
 
-            $class      = $this->targetEntity;
-            $className  = ClassUtils::getClass($elements[$index]);
+            $class     = $this->targetEntity;
+            $className = ClassUtils::getClass($elements[$index]);
 
             if ($className !== $this->targetEntity->name) {
                 $class = $this->metadataFactory->getMetadataFor($className);
             }
 
-            $entity       = $elements[$index];
-            $entityEntry  = $targetHydrator->buildCacheEntry($class, $entityKey, $entity);
+            $entity      = $elements[$index];
+            $entityEntry = $targetHydrator->buildCacheEntry($class, $entityKey, $entity);
 
             $targetRegion->put($entityKey, $entityEntry);
         }

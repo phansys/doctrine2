@@ -312,7 +312,6 @@ class SecondLevelCacheOneToManyTest extends SecondLevelCacheAbstractTest
 
         $this->assertEquals(0, $entity->getCities()->count());
         $this->assertEquals($queryCount, $this->getCurrentQueryCount());
-
     }
 
     public function testOneToManyCount()
@@ -389,9 +388,9 @@ class SecondLevelCacheOneToManyTest extends SecondLevelCacheAbstractTest
         $this->assertNull($this->cache->getEntityCacheRegion(Login::CLASSNAME));
         $this->assertInstanceOf('Doctrine\ORM\Cache\Region', $this->cache->getEntityCacheRegion(Token::CLASSNAME));
 
-        $l1 = new Login('session1');
-        $l2 = new Login('session2');
-        $token  = new Token('token-hash');
+        $l1    = new Login('session1');
+        $l2    = new Login('session2');
+        $token = new Token('token-hash');
         $token->addLogin($l1);
         $token->addLogin($l2);
 

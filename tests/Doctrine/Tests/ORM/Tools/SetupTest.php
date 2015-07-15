@@ -17,12 +17,12 @@ class SetupTest extends \Doctrine\Tests\OrmTestCase
         }
 
         $this->originalAutoloaderCount = count(spl_autoload_functions());
-        $this->originalIncludePath = get_include_path();
+        $this->originalIncludePath     = get_include_path();
     }
 
     public function tearDown()
     {
-        if ( ! $this->originalIncludePath) {
+        if (! $this->originalIncludePath) {
             return;
         }
 
@@ -82,7 +82,7 @@ class SetupTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testConfigureCache()
     {
-        $cache = new ArrayCache();
+        $cache  = new ArrayCache();
         $config = Setup::createAnnotationMetadataConfiguration(array(), true, null, $cache);
 
         $this->assertSame($cache, $config->getResultCacheImpl());

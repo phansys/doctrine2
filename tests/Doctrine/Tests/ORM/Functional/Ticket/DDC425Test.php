@@ -1,7 +1,8 @@
 <?php
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
-use DateTime, Doctrine\DBAL\Types\Type;
+use DateTime;
+use Doctrine\DBAL\Types\Type;
 
 class DDC425Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
@@ -21,7 +22,7 @@ class DDC425Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         //$this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
 
-        $num = $this->_em->createQuery('DELETE '.__NAMESPACE__.'\DDC425Entity e WHERE e.someDatetimeField > ?1')
+        $num = $this->_em->createQuery('DELETE ' . __NAMESPACE__ . '\DDC425Entity e WHERE e.someDatetimeField > ?1')
                 ->setParameter(1, new DateTime, Type::DATETIME)
                 ->getResult();
         $this->assertEquals(0, $num);
@@ -29,7 +30,8 @@ class DDC425Test extends \Doctrine\Tests\OrmFunctionalTestCase
 }
 
 /** @Entity */
-class DDC425Entity {
+class DDC425Entity
+{
     /**
      * @Id @Column(type="integer")
      * @GeneratedValue

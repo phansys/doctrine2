@@ -57,8 +57,8 @@ class LikeExpression extends Node
     public function __construct($stringExpression, $stringPattern, $escapeChar = null)
     {
         $this->stringExpression = $stringExpression;
-        $this->stringPattern = $stringPattern;
-        $this->escapeChar = $escapeChar;
+        $this->stringPattern    = $stringPattern;
+        $this->escapeChar       = $escapeChar;
     }
 
     /**

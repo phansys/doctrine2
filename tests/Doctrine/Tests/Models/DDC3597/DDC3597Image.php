@@ -10,8 +10,8 @@ use Doctrine\Tests\Models\DDC3597\Embeddable\DDC3597Dimension;
  * @author Volker von Hoesslin <volker.von.hoesslin@empora.com>
  * @Entity
  */
-class DDC3597Image extends DDC3597Media {
-
+class DDC3597Image extends DDC3597Media
+{
     const CLASSNAME = __CLASS__;
 
     /**
@@ -23,7 +23,8 @@ class DDC3597Image extends DDC3597Media {
     /**
      * @param string $distributionHash
      */
-    function __construct($distributionHash) {
+    public function __construct($distributionHash)
+    {
         parent::__construct($distributionHash);
         $this->dimension = new DDC3597Dimension();
     }
@@ -31,7 +32,8 @@ class DDC3597Image extends DDC3597Media {
     /**
      * @return DDC3597Dimension
      */
-    public function getDimension() {
+    public function getDimension()
+    {
         return $this->dimension;
     }
 }

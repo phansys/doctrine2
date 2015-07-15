@@ -83,9 +83,9 @@ class StatisticsCacheLoggerTest extends DoctrineTestCase
         $entityRegion = 'my_entity_region';
         $queryRegion  = 'my_query_region';
 
-        $coolKey    = new CollectionCacheKey(State::CLASSNAME, 'cities', array('id' => 1));
-        $entityKey  = new EntityCacheKey(State::CLASSNAME, array('id' => 1));
-        $queryKey   = new QueryCacheKey('my_query_hash');
+        $coolKey   = new CollectionCacheKey(State::CLASSNAME, 'cities', array('id' => 1));
+        $entityKey = new EntityCacheKey(State::CLASSNAME, array('id' => 1));
+        $queryKey  = new QueryCacheKey('my_query_hash');
 
         $this->logger->queryCacheHit($queryRegion, $queryKey);
         $this->logger->queryCachePut($queryRegion, $queryKey);

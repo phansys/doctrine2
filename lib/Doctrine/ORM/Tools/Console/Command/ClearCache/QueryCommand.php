@@ -78,10 +78,10 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->getHelper('em')->getEntityManager();
+        $em          = $this->getHelper('em')->getEntityManager();
         $cacheDriver = $em->getConfiguration()->getQueryCacheImpl();
 
-        if ( ! $cacheDriver) {
+        if (! $cacheDriver) {
             throw new \InvalidArgumentException('No Query cache driver is configured on given EntityManager.');
         }
 

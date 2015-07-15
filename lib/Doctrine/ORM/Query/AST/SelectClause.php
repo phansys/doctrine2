@@ -46,7 +46,7 @@ class SelectClause extends Node
      */
     public function __construct(array $selectExpressions, $isDistinct)
     {
-        $this->isDistinct = $isDistinct;
+        $this->isDistinct        = $isDistinct;
         $this->selectExpressions = $selectExpressions;
     }
 

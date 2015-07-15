@@ -27,7 +27,7 @@ use Doctrine\Tests\OrmTestCase;
  *
  * @covers \Doctrine\ORM\Persisters\Entity\JoinedSubclassPersister
  */
-class JoinedSubClassPersisterTest extends OrmTestCase
+class JoinedSubclassPersisterTest extends OrmTestCase
 {
     /**
      * @var JoinedSubclassPersister

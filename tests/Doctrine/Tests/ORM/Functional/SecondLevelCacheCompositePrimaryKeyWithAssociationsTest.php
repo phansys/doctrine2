@@ -9,7 +9,6 @@ use Doctrine\Tests\Models\GeoNames\Admin1AlternateName;
 
 class SecondLevelCacheCompositePrimaryKeyWithAssociationsTest extends OrmFunctionalTestCase
 {
-
     /**
      * @var \Doctrine\ORM\Cache
      */
@@ -46,7 +45,6 @@ class SecondLevelCacheCompositePrimaryKeyWithAssociationsTest extends OrmFunctio
         $this->_em->flush();
         $this->_em->clear();
         $this->evictRegions();
-
     }
 
     public function testFindByReturnsCachedEntity()

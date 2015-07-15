@@ -12,9 +12,9 @@ class ClassMetadataLoadEventTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testEvent()
     {
-        $em = $this->_getTestEntityManager();
+        $em              = $this->_getTestEntityManager();
         $metadataFactory = $em->getMetadataFactory();
-        $evm = $em->getEventManager();
+        $evm             = $em->getEventManager();
         $evm->addEventListener(Events::loadClassMetadata, $this);
         $classMetadata = $metadataFactory->getMetadataFor('Doctrine\Tests\ORM\Mapping\LoadEventTestEntity');
         $this->assertTrue($classMetadata->hasField('about'));
@@ -25,10 +25,10 @@ class ClassMetadataLoadEventTest extends \Doctrine\Tests\OrmTestCase
     public function loadClassMetadata(\Doctrine\ORM\Event\LoadClassMetadataEventArgs $eventArgs)
     {
         $classMetadata = $eventArgs->getClassMetadata();
-        $field = array(
+        $field         = array(
             'fieldName' => 'about',
-            'type' => 'string',
-            'length' => 255
+            'type'      => 'string',
+            'length'    => 255
         );
         $classMetadata->mapField($field);
     }

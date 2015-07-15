@@ -49,7 +49,7 @@ class CollectionMemberExpression extends Node
      */
     public function __construct($entityExpr, $collValuedPathExpr)
     {
-        $this->entityExpression = $entityExpr;
+        $this->entityExpression               = $entityExpr;
         $this->collectionValuedPathExpression = $collValuedPathExpr;
     }
 

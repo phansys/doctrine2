@@ -41,8 +41,8 @@ class ClearCacheEntityRegionCommandTest extends OrmFunctionalTestCase
 
     public function testClearAllRegion()
     {
-        $command    = $this->application->find('orm:clear-cache:region:entity');
-        $tester     = new CommandTester($command);
+        $command = $this->application->find('orm:clear-cache:region:entity');
+        $tester  = new CommandTester($command);
         $tester->execute(array(
             'command' => $command->getName(),
             '--all'   => true,
@@ -53,11 +53,11 @@ class ClearCacheEntityRegionCommandTest extends OrmFunctionalTestCase
 
     public function testClearByEntityClassName()
     {
-        $command    = $this->application->find('orm:clear-cache:region:entity');
-        $tester     = new CommandTester($command);
+        $command = $this->application->find('orm:clear-cache:region:entity');
+        $tester  = new CommandTester($command);
         $tester->execute(array(
-            'command'       => $command->getName(),
-            'entity-class'  => 'Doctrine\Tests\Models\Cache\Country',
+            'command'      => $command->getName(),
+            'entity-class' => 'Doctrine\Tests\Models\Cache\Country',
         ), array('decorated' => false));
 
         $this->assertEquals('Clearing second-level cache for entity "Doctrine\Tests\Models\Cache\Country"' . PHP_EOL, $tester->getDisplay());
@@ -65,12 +65,12 @@ class ClearCacheEntityRegionCommandTest extends OrmFunctionalTestCase
 
     public function testClearCacheEntryName()
     {
-        $command    = $this->application->find('orm:clear-cache:region:entity');
-        $tester     = new CommandTester($command);
+        $command = $this->application->find('orm:clear-cache:region:entity');
+        $tester  = new CommandTester($command);
         $tester->execute(array(
-            'command'       => $command->getName(),
-            'entity-class'  => 'Doctrine\Tests\Models\Cache\Country',
-            'entity-id'     => 1,
+            'command'      => $command->getName(),
+            'entity-class' => 'Doctrine\Tests\Models\Cache\Country',
+            'entity-id'    => 1,
         ), array('decorated' => false));
 
         $this->assertEquals('Clearing second-level cache entry for entity "Doctrine\Tests\Models\Cache\Country" identified by "1"' . PHP_EOL, $tester->getDisplay());
@@ -78,12 +78,12 @@ class ClearCacheEntityRegionCommandTest extends OrmFunctionalTestCase
 
     public function testFlushRegionName()
     {
-        $command    = $this->application->find('orm:clear-cache:region:entity');
-        $tester     = new CommandTester($command);
+        $command = $this->application->find('orm:clear-cache:region:entity');
+        $tester  = new CommandTester($command);
         $tester->execute(array(
-            'command'       => $command->getName(),
-            'entity-class'  => 'Doctrine\Tests\Models\Cache\Country',
-            '--flush'       => true,
+            'command'      => $command->getName(),
+            'entity-class' => 'Doctrine\Tests\Models\Cache\Country',
+            '--flush'      => true,
         ), array('decorated' => false));
 
         $this->assertEquals('Flushing cache provider configured for entity named "Doctrine\Tests\Models\Cache\Country"' . PHP_EOL, $tester->getDisplay());

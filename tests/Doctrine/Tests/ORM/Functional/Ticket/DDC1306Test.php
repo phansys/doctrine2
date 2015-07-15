@@ -20,25 +20,25 @@ class DDC1306Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $phone = new CmsPhonenumber();
+        $phone              = new CmsPhonenumber();
         $phone->phonenumber = "1234";
 
         // puts user and phone into commit order calculator
         $this->_em->persist($phone);
         $this->_em->flush();
 
-        $address = new \Doctrine\Tests\Models\CMS\CmsAddress();
-        $address->city = "bonn";
+        $address          = new \Doctrine\Tests\Models\CMS\CmsAddress();
+        $address->city    = "bonn";
         $address->country = "Germany";
-        $address->street = "somestreet!";
-        $address->zip = 12345;
+        $address->street  = "somestreet!";
+        $address->zip     = 12345;
 
         $this->_em->persist($address);
 
-        $user = new CmsUser();
+        $user           = new CmsUser();
         $user->username = "beberlei";
-        $user->name = "benjamin";
-        $user->status = "active";
+        $user->name     = "benjamin";
+        $user->status   = "active";
         $user->setAddress($address);
 
         // puts user and address into commit order calculator, but does not calculate user dependencies new

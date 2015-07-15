@@ -83,4 +83,3 @@ class OnClassMetadataNotFoundEventArgs extends ManagerEventArgs
         return $this->className;
     }
 }
-

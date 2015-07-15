@@ -61,11 +61,11 @@ class FileLockRegion implements ConcurrentRegion
      */
     public function __construct(Region $region, $directory, $lockLifetime)
     {
-        if ( ! is_dir($directory) && ! @mkdir($directory, 0777, true)) {
+        if (! is_dir($directory) && ! @mkdir($directory, 0777, true)) {
             throw new \InvalidArgumentException(sprintf('The directory "%s" does not exist and could not be created.', $directory));
         }
 
-        if ( ! is_writable($directory)) {
+        if (! is_writable($directory)) {
             throw new \InvalidArgumentException(sprintf('The directory "%s" is not writable.', $directory));
         }
 
@@ -84,14 +84,14 @@ class FileLockRegion implements ConcurrentRegion
     {
         $filename = $this->getLockFileName($key);
 
-        if ( ! is_file($filename)) {
+        if (! is_file($filename)) {
             return false;
         }
 
-        $time     = $this->getLockTime($filename);
-        $content  = $this->getLockContent($filename);
+        $time    = $this->getLockTime($filename);
+        $content = $this->getLockContent($filename);
 
-        if ( ! $content || ! $time) {
+        if (! $content || ! $time) {
             @unlink($filename);
 
             return false;
@@ -216,7 +216,7 @@ class FileLockRegion implements ConcurrentRegion
     {
         // The check below is necessary because on some platforms glob returns false
         // when nothing matched (even though no errors occurred)
-        $filenames = glob(sprintf("%s/*.%s" , $this->directory, self::LOCK_EXTENSION));
+        $filenames = glob(sprintf("%s/*.%s", $this->directory, self::LOCK_EXTENSION));
 
         if ($filenames) {
             foreach ($filenames as $filename) {
@@ -239,7 +239,7 @@ class FileLockRegion implements ConcurrentRegion
         $lock     = Lock::createLockRead();
         $filename = $this->getLockFileName($key);
 
-        if ( ! @file_put_contents($filename, $lock->value, LOCK_EX)) {
+        if (! @file_put_contents($filename, $lock->value, LOCK_EX)) {
             return null;
         }
 
@@ -255,7 +255,7 @@ class FileLockRegion implements ConcurrentRegion
             return false;
         }
 
-        if ( ! @unlink($this->getLockFileName($key))) {
+        if (! @unlink($this->getLockFileName($key))) {
             return false;
         }
 

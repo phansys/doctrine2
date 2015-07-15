@@ -17,7 +17,7 @@ class DDC2175Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testIssue()
     {
-        $entity = new DDC2175Entity();
+        $entity        = new DDC2175Entity();
         $entity->field = "foo";
 
         $this->_em->persist($entity);

@@ -2,9 +2,9 @@
 
 namespace Doctrine\Tests\ORM\Performance;
 
-use Doctrine\Tests\Mocks\HydratorMockStatement,
-    Doctrine\ORM\Query\ResultSetMapping,
-    Doctrine\ORM\Query;
+use Doctrine\Tests\Mocks\HydratorMockStatement;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query;
 
 /**
  * Tests to prevent serious performance regressions.
@@ -37,41 +37,41 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
+                'u__id'       => '2',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             )
         );
 
         for ($i = 4; $i < 10000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
+                'u__id'       => $i,
+                'u__status'   => 'developer',
                 'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
+                'u__name'     => 'Jonathan',
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ScalarHydrator($this->_em);
 
         $this->setMaxRunningTime(1);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm);
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 
@@ -95,41 +95,41 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
+                'u__id'       => '2',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             )
         );
 
         for ($i = 4; $i < 10000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
+                'u__id'       => $i,
+                'u__status'   => 'developer',
                 'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
+                'u__name'     => 'Jonathan',
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ArrayHydrator($this->_em);
 
         $this->setMaxRunningTime(2);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm);
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 
@@ -161,49 +161,49 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91'
             )
         );
 
         for ($i = 4; $i < 10000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
-                'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
-                'sclr0' => 'JWAGE' . $i,
+                'u__id'          => $i,
+                'u__status'      => 'developer',
+                'u__username'    => 'jwage',
+                'u__name'        => 'Jonathan',
+                'sclr0'          => 'JWAGE' . $i,
                 'p__phonenumber' => '91'
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ArrayHydrator($this->_em);
 
         $this->setMaxRunningTime(3);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm);
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 
@@ -225,41 +225,41 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
+                'u__id'       => '2',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
+                'u__name'     => 'Roman',
             )
         );
 
         for ($i = 4; $i < 10000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
+                'u__id'       => $i,
+                'u__status'   => 'developer',
                 'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
+                'u__name'     => 'Jonathan',
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ObjectHydrator($this->_em);
 
         $this->setMaxRunningTime(3);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm, array(Query::HINT_FORCE_PARTIAL_LOAD => true));
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 
@@ -291,31 +291,31 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
+                'u__id'       => '1',
+                'u__status'   => 'developer',
                 'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'a__id' => '1'
+                'u__name'     => 'Roman',
+                'a__id'       => '1'
             )
         );
 
         for ($i = 2; $i < 10000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
+                'u__id'       => $i,
+                'u__status'   => 'developer',
                 'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
-                'a__id' => $i
+                'u__name'     => 'Jonathan',
+                'a__id'       => $i
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ObjectHydrator($this->_em);
 
         $this->setMaxRunningTime(5);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm);
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 
@@ -345,49 +345,49 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
             ),
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '43',
             ),
             array(
-                'u__id' => '2',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'JWAGE',
+                'u__id'          => '2',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'JWAGE',
                 'p__phonenumber' => '91'
             )
         );
 
         for ($i = 4; $i < 2000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
-                'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
-                'sclr0' => 'JWAGE' . $i,
+                'u__id'          => $i,
+                'u__status'      => 'developer',
+                'u__username'    => 'jwage',
+                'u__name'        => 'Jonathan',
+                'sclr0'          => 'JWAGE' . $i,
                 'p__phonenumber' => '91'
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ObjectHydrator($this->_em);
 
         $this->setMaxRunningTime(1);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm, array(Query::HINT_FORCE_PARTIAL_LOAD => true));
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 
@@ -424,36 +424,35 @@ class HydrationPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         $resultSet = array(
             //row1
             array(
-                'u__id' => '1',
-                'u__status' => 'developer',
-                'u__username' => 'romanb',
-                'u__name' => 'Roman',
-                'sclr0' => 'ROMANB',
+                'u__id'          => '1',
+                'u__status'      => 'developer',
+                'u__username'    => 'romanb',
+                'u__name'        => 'Roman',
+                'sclr0'          => 'ROMANB',
                 'p__phonenumber' => '42',
-                'a__id' => '1'
+                'a__id'          => '1'
             )
         );
 
         for ($i = 2; $i < 2000; ++$i) {
             $resultSet[] = array(
-                'u__id' => $i,
-                'u__status' => 'developer',
-                'u__username' => 'jwage',
-                'u__name' => 'Jonathan',
-                'sclr0' => 'JWAGE' . $i,
+                'u__id'          => $i,
+                'u__status'      => 'developer',
+                'u__username'    => 'jwage',
+                'u__name'        => 'Jonathan',
+                'sclr0'          => 'JWAGE' . $i,
                 'p__phonenumber' => '91',
-                'a__id' => $i
+                'a__id'          => $i
             );
         }
 
-        $stmt = new HydratorMockStatement($resultSet);
+        $stmt     = new HydratorMockStatement($resultSet);
         $hydrator = new \Doctrine\ORM\Internal\Hydration\ObjectHydrator($this->_em);
 
         $this->setMaxRunningTime(1);
-        $s = microtime(true);
+        $s      = microtime(true);
         $result = $hydrator->hydrateAll($stmt, $rsm);
-        $e = microtime(true);
+        $e      = microtime(true);
         echo __FUNCTION__ . " - " . ($e - $s) . " seconds" . PHP_EOL;
     }
 }
-

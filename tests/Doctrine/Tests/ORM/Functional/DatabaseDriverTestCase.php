@@ -12,12 +12,12 @@ abstract class DatabaseDriverTestCase extends OrmFunctionalTestCase
 {
     protected function convertToClassMetadata(array $entityTables, array $manyTables = array())
     {
-        $sm = $this->_em->getConnection()->getSchemaManager();
+        $sm     = $this->_em->getConnection()->getSchemaManager();
         $driver = new \Doctrine\ORM\Mapping\Driver\DatabaseDriver($sm);
         $driver->setTables($entityTables, $manyTables);
 
         $metadatas = array();
-        foreach ($driver->getAllClassNames() AS $className) {
+        foreach ($driver->getAllClassNames() as $className) {
             $class = new ClassMetadataInfo($className);
             $driver->loadMetadataForClass($className, $class);
             $metadatas[$className] = $class;
@@ -33,9 +33,9 @@ abstract class DatabaseDriverTestCase extends OrmFunctionalTestCase
     protected function extractClassMetadata(array $classNames)
     {
         $classNames = array_map('strtolower', $classNames);
-        $metadatas = array();
+        $metadatas  = array();
 
-        $sm = $this->_em->getConnection()->getSchemaManager();
+        $sm     = $this->_em->getConnection()->getSchemaManager();
         $driver = new \Doctrine\ORM\Mapping\Driver\DatabaseDriver($sm);
 
         foreach ($driver->getAllClassNames() as $className) {

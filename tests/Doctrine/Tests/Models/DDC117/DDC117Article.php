@@ -35,8 +35,8 @@ class DDC117Article
 
     public function __construct($title)
     {
-        $this->title = $title;
-        $this->references = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->title        = $title;
+        $this->references   = new \Doctrine\Common\Collections\ArrayCollection();
         $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

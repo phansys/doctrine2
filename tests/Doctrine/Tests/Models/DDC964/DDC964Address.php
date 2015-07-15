@@ -7,7 +7,6 @@ namespace Doctrine\Tests\Models\DDC964;
  */
 class DDC964Address
 {
-
     /**
      * @GeneratedValue
      * @Id @Column(type="integer")
@@ -42,10 +41,10 @@ class DDC964Address
      */
     public function __construct($zip = null, $country = null, $city = null, $street = null)
     {
-        $this->zip      = $zip;
-        $this->country  = $country;
-        $this->city     = $city;
-        $this->street   = $street;
+        $this->zip     = $zip;
+        $this->country = $country;
+        $this->city    = $city;
+        $this->street  = $street;
     }
 
     /**
@@ -119,5 +118,4 @@ class DDC964Address
     {
         $this->street = $street;
     }
-
 }

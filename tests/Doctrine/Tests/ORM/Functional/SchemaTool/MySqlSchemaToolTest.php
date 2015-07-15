@@ -2,15 +2,16 @@
 
 namespace Doctrine\Tests\ORM\Functional\SchemaTool;
 
-use Doctrine\ORM\Tools\SchemaTool,
-    Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 class MySqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         if ($this->_em->getConnection()->getDatabasePlatform()->getName() !== 'mysql') {
-            $this->markTestSkipped('The ' . __CLASS__ .' requires the use of mysql.');
+            $this->markTestSkipped('The ' . __CLASS__ . ' requires the use of mysql.');
         }
     }
 
@@ -25,7 +26,7 @@ class MySqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $sql  = $tool->getCreateSchemaSql($classes);
 
         $this->assertEquals("CREATE TABLE cms_groups (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB", $sql[0]);
         $this->assertEquals("CREATE TABLE cms_users (id INT AUTO_INCREMENT NOT NULL, email_id INT DEFAULT NULL, status VARCHAR(50) DEFAULT NULL, username VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_3AF03EC5F85E0677 (username), UNIQUE INDEX UNIQ_3AF03EC5A832C1C9 (email_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB", $sql[1]);
@@ -49,7 +50,7 @@ class MySqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $sql  = $tool->getCreateSchemaSql($classes);
 
         $this->assertEquals(1, count($sql));
         $this->assertEquals("CREATE TABLE decimal_model (id INT AUTO_INCREMENT NOT NULL, `decimal` NUMERIC(5, 2) NOT NULL, `high_scale` NUMERIC(14, 4) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB", $sql[0]);
@@ -62,7 +63,7 @@ class MySqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $sql  = $tool->getCreateSchemaSql($classes);
 
         $this->assertEquals(1, count($sql));
         $this->assertEquals("CREATE TABLE boolean_model (id INT AUTO_INCREMENT NOT NULL, booleanField TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB", $sql[0]);
@@ -78,11 +79,10 @@ class MySqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $sql  = $tool->getCreateSchemaSql($classes);
 
         $this->assertEquals(0, count($sql));
     }
-
 }
 
 /**
@@ -94,4 +94,3 @@ class MysqlSchemaNamespacedEntity
     /** @Column(type="integer") @Id @GeneratedValue */
     public $id;
 }
-

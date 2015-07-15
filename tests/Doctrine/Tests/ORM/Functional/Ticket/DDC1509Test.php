@@ -9,7 +9,6 @@ use Doctrine\ORM\UnitOfWork;
  */
 class DDC1509Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     protected function setUp()
     {
         parent::setUp();
@@ -21,13 +20,12 @@ class DDC1509Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC1509Picture'),
             ));
         } catch (\Exception $ignored) {
-
         }
     }
 
     public function testFailingCase()
     {
-        $file = new DDC1509File;
+        $file      = new DDC1509File;
         $thumbnail = new DDC1509File;
 
         $picture = new DDC1509Picture;
@@ -49,7 +47,6 @@ class DDC1509Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertNotNull($pic->getThumbnail());
         $this->assertNotNull($pic->getFile());
     }
-
 }
 
 /**
@@ -57,7 +54,6 @@ class DDC1509Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1509Picture
 {
-
     /**
      * @Column(type="integer")
      * @Id
@@ -108,7 +104,6 @@ class DDC1509Picture
     {
         $this->thumbnail = $thumbnail;
     }
-
 }
 
 /**
@@ -119,7 +114,6 @@ class DDC1509Picture
  */
 class DDC1509AbstractFile
 {
-
     /**
      * @Column(type="integer")
      * @Id
@@ -134,7 +128,6 @@ class DDC1509AbstractFile
     {
         return $this->id;
     }
-
 }
 
 /**
@@ -142,5 +135,4 @@ class DDC1509AbstractFile
  */
 class DDC1509File extends DDC1509AbstractFile
 {
-
 }

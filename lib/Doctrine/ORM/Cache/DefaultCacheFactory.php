@@ -118,8 +118,8 @@ class DefaultCacheFactory implements CacheFactory
      */
     public function buildCachedEntityPersister(EntityManagerInterface $em, EntityPersister $persister, ClassMetadata $metadata)
     {
-        $region     = $this->getRegion($metadata->cache);
-        $usage      = $metadata->cache['usage'];
+        $region = $this->getRegion($metadata->cache);
+        $usage  = $metadata->cache['usage'];
 
         if ($usage === ClassMetadata::CACHE_USAGE_READ_ONLY) {
             return new ReadOnlyCachedEntityPersister($persister, $region, $em, $metadata);
@@ -141,8 +141,8 @@ class DefaultCacheFactory implements CacheFactory
      */
     public function buildCachedCollectionPersister(EntityManagerInterface $em, CollectionPersister $persister, array $mapping)
     {
-        $usage      = $mapping['cache']['usage'];
-        $region     = $this->getRegion($mapping['cache']);
+        $usage  = $mapping['cache']['usage'];
+        $region = $this->getRegion($mapping['cache']);
 
         if ($usage === ClassMetadata::CACHE_USAGE_READ_ONLY) {
             return new ReadOnlyCachedCollectionPersister($persister, $region, $em, $mapping);
@@ -220,8 +220,7 @@ class DefaultCacheFactory implements CacheFactory
             : new DefaultRegion($name, $cacheAdapter, $lifetime);
 
         if ($cache['usage'] === ClassMetadata::CACHE_USAGE_READ_WRITE) {
-
-            if ( ! $this->fileLockRegionDirectory) {
+            if (! $this->fileLockRegionDirectory) {
                 throw new \LogicException(
                     'If you what to use a "READ_WRITE" cache an implementation of "Doctrine\ORM\Cache\ConcurrentRegion" is required, ' .
                     'The default implementation provided by doctrine is "Doctrine\ORM\Cache\Region\FileLockRegion" if you what to use it please provide a valid directory, DefaultCacheFactory#setFileLockRegionDirectory(). '

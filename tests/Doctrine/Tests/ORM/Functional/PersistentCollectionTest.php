@@ -18,7 +18,6 @@ class PersistentCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\PersistentCollectionContent'),
             ));
         } catch (\Exception $e) {
-
         }
         PersistentObject::setObjectManager($this->_em);
     }
@@ -26,7 +25,7 @@ class PersistentCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testPersist()
     {
         $collectionHolder = new PersistentCollectionHolder();
-        $content = new PersistentCollectionContent('first element');
+        $content          = new PersistentCollectionContent('first element');
         $collectionHolder->addElement($content);
 
         $this->_em->persist($collectionHolder);
@@ -54,7 +53,7 @@ class PersistentCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         $collectionHolder = $this->_em->find(__NAMESPACE__ . '\PersistentCollectionHolder', $collectionHolder->getId());
-        $collection = $collectionHolder->getRawCollection();
+        $collection       = $collectionHolder->getRawCollection();
 
         $this->assertTrue($collection->isEmpty());
         $this->assertFalse($collection->isInitialized());
@@ -65,7 +64,7 @@ class PersistentCollectionTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         $collectionHolder = $this->_em->find(__NAMESPACE__ . '\PersistentCollectionHolder', $collectionHolder->getId());
-        $collection = $collectionHolder->getRawCollection();
+        $collection       = $collectionHolder->getRawCollection();
 
         $this->assertFalse($collection->isEmpty());
         $this->assertFalse($collection->isInitialized());

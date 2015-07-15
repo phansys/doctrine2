@@ -2,8 +2,8 @@
 
 namespace Doctrine\Tests\ORM\Functional\SchemaTool;
 
-use Doctrine\ORM\Tools\SchemaTool,
-    Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
@@ -12,7 +12,7 @@ class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         parent::setUp();
 
         if ($this->_em->getConnection()->getDatabasePlatform()->getName() !== 'postgresql') {
-            $this->markTestSkipped('The ' . __CLASS__ .' requires the use of postgresql.');
+            $this->markTestSkipped('The ' . __CLASS__ . ' requires the use of postgresql.');
         }
     }
 
@@ -31,8 +31,8 @@ class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsPhonenumber'),
         );
 
-        $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $tool     = new SchemaTool($this->_em);
+        $sql      = $tool->getCreateSchemaSql($classes);
         $sqlCount = count($sql);
 
         $this->assertEquals("CREATE TABLE cms_addresses (id INT NOT NULL, user_id INT DEFAULT NULL, country VARCHAR(50) NOT NULL, zip VARCHAR(50) NOT NULL, city VARCHAR(50) NOT NULL, PRIMARY KEY(id))", array_shift($sql));
@@ -64,7 +64,7 @@ class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $sql  = $tool->getCreateSchemaSql($classes);
 
         $this->assertEquals(2, count($sql));
 
@@ -79,7 +79,7 @@ class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getCreateSchemaSql($classes);
+        $sql  = $tool->getCreateSchemaSql($classes);
 
         $this->assertEquals(2, count($sql));
         $this->assertEquals("CREATE TABLE boolean_model (id INT NOT NULL, booleanField BOOLEAN NOT NULL, PRIMARY KEY(id))", $sql[0]);
@@ -95,13 +95,13 @@ class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         );
 
         $tool = new SchemaTool($this->_em);
-        $sql = $tool->getDropSchemaSQL($classes);
+        $sql  = $tool->getDropSchemaSQL($classes);
 
         $this->assertEquals(14, count($sql));
 
         $dropSequenceSQLs = 0;
 
-        foreach ($sql AS $stmt) {
+        foreach ($sql as $stmt) {
             if (strpos($stmt, "DROP SEQUENCE") === 0) {
                 $dropSequenceSQLs++;
             }
@@ -123,7 +123,7 @@ class PostgreSqlSchemaToolTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $tool->createSchema($classes);
 
         $sql = $tool->getUpdateSchemaSql($classes);
-        $sql = array_filter($sql, function($sql) { return (strpos($sql, "DROP SEQUENCE stonewood.") === 0); });
+        $sql = array_filter($sql, function ($sql) { return (strpos($sql, "DROP SEQUENCE stonewood.") === 0); });
 
         $this->assertCount(0, $sql, implode("\n", $sql));
     }

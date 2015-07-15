@@ -34,9 +34,9 @@ class ProxiesLikeEntitiesTest extends \Doctrine\Tests\OrmFunctionalTestCase
             ));
         } catch (\Exception $e) {
         }
-        $this->user = new CmsUser();
+        $this->user           = new CmsUser();
         $this->user->username = 'ocramius';
-        $this->user->name = 'Marco';
+        $this->user->name     = 'Marco';
         $this->_em->persist($this->user);
         $this->_em->flush();
         $this->_em->clear();
@@ -48,11 +48,11 @@ class ProxiesLikeEntitiesTest extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testPersistUpdate()
     {
         // Considering case (a)
-        $proxy = $this->_em->getProxyFactory()->getProxy('Doctrine\Tests\Models\CMS\CmsUser', array('id' => 123));
+        $proxy                    = $this->_em->getProxyFactory()->getProxy('Doctrine\Tests\Models\CMS\CmsUser', array('id' => 123));
         $proxy->__isInitialized__ = true;
-        $proxy->id = null;
-        $proxy->username = 'ocra';
-        $proxy->name = 'Marco';
+        $proxy->id                = null;
+        $proxy->username          = 'ocra';
+        $proxy->name              = 'Marco';
         $this->_em->persist($proxy);
         $this->_em->flush();
         $this->assertNotNull($proxy->getId());
@@ -87,9 +87,9 @@ class ProxiesLikeEntitiesTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testProxyAsDqlParameterPersist()
     {
-        $proxy = $this->_em->getProxyFactory()->getProxy('Doctrine\Tests\Models\CMS\CmsUser', array('id' => $this->user->getId()));
+        $proxy     = $this->_em->getProxyFactory()->getProxy('Doctrine\Tests\Models\CMS\CmsUser', array('id' => $this->user->getId()));
         $proxy->id = $this->user->getId();
-        $result = $this
+        $result    = $this
             ->_em
             ->createQuery('SELECT u FROM Doctrine\Tests\Models\CMS\CmsUser u WHERE u = ?1')
             ->setParameter(1, $proxy)

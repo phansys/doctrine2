@@ -19,5 +19,4 @@ class DDC3231User1
      * @Column(type="string", length=255)
      */
     protected $name;
-
 }

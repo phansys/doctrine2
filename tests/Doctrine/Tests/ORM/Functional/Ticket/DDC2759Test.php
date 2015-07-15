@@ -21,11 +21,11 @@ class DDC2759Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC2759QualificationMetadata'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC2759MetadataCategory'),
             ));
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return;
         }
 
-        $qualification = new DDC2759Qualification();
+        $qualification         = new DDC2759Qualification();
         $qualificationMetadata = new DDC2759QualificationMetadata($qualification);
 
         $category1 = new DDC2759Category();

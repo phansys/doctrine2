@@ -23,14 +23,14 @@ class DDC2660Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC2660Customer'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC2660CustomerOrder')
             ));
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return;
         }
 
         for ($i = 0; $i < 5; $i++) {
-            $product = new DDC2660Product();
+            $product  = new DDC2660Product();
             $customer = new DDC2660Customer();
-            $order = new DDC2660CustomerOrder($product, $customer, 'name' . $i);
+            $order    = new DDC2660CustomerOrder($product, $customer, 'name' . $i);
 
             $this->_em->persist($product);
             $this->_em->persist($customer);
@@ -117,6 +117,6 @@ class DDC2660CustomerOrder
     {
         $this->product  = $product;
         $this->customer = $customer;
-        $this->name = $name;
+        $this->name     = $name;
     }
 }

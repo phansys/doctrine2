@@ -2,8 +2,8 @@
 
 namespace Doctrine\Tests\ORM\Query;
 
-use Doctrine\ORM\Mapping\ClassMetaData,
-    Doctrine\ORM\Query\Filter\SQLFilter;
+use Doctrine\ORM\Mapping\ClassMetaData;
+use Doctrine\ORM\Query\Filter\SQLFilter;
 
 /**
  * Test case for FilterCollection

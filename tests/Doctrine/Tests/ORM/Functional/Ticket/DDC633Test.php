@@ -14,8 +14,7 @@ class DDC633Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC633Patient'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC633Appointment'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -26,9 +25,9 @@ class DDC633Test extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testOneToOneEager()
     {
-        $app = new DDC633Appointment();
-        $pat = new DDC633Patient();
-        $app->patient = $pat;
+        $app              = new DDC633Appointment();
+        $pat              = new DDC633Patient();
+        $app->patient     = $pat;
         $pat->appointment = $app;
 
         $this->_em->persist($app);
@@ -50,9 +49,9 @@ class DDC633Test extends \Doctrine\Tests\OrmFunctionalTestCase
     public function testDQLDeferredEagerLoad()
     {
         for ($i = 0; $i < 10; $i++) {
-            $app = new DDC633Appointment();
-            $pat = new DDC633Patient();
-            $app->patient = $pat;
+            $app              = new DDC633Appointment();
+            $pat              = new DDC633Patient();
+            $app->patient     = $pat;
             $pat->appointment = $app;
 
             $this->_em->persist($app);
@@ -63,7 +62,7 @@ class DDC633Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $appointments = $this->_em->createQuery("SELECT a FROM " . __NAMESPACE__ . "\DDC633Appointment a")->getResult();
 
-        foreach ($appointments AS $eagerAppointment) {
+        foreach ($appointments as $eagerAppointment) {
             $this->assertInstanceOf('Doctrine\ORM\Proxy\Proxy', $eagerAppointment->patient);
             $this->assertTrue($eagerAppointment->patient->__isInitialized__, "Proxy should already be initialized due to eager loading!");
         }
@@ -82,7 +81,6 @@ class DDC633Appointment
      * @OneToOne(targetEntity="DDC633Patient", inversedBy="appointment", fetch="EAGER")
      */
     public $patient;
-
 }
 
 /**

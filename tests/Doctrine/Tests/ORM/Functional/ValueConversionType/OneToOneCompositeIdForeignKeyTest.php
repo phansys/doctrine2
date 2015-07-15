@@ -22,19 +22,19 @@ class OneToOneCompositeIdForeignKeyTest extends OrmFunctionalTestCase
         $this->useModelSet('vct_onetoone_compositeid_foreignkey');
         parent::setUp();
 
-        $auxiliary = new Entity\AuxiliaryEntity();
+        $auxiliary      = new Entity\AuxiliaryEntity();
         $auxiliary->id4 = 'abc';
 
-        $inversed = new Entity\InversedOneToOneCompositeIdForeignKeyEntity();
-        $inversed->id1 = 'def';
+        $inversed                = new Entity\InversedOneToOneCompositeIdForeignKeyEntity();
+        $inversed->id1           = 'def';
         $inversed->foreignEntity = $auxiliary;
-        $inversed->someProperty = 'some value to be loaded';
+        $inversed->someProperty  = 'some value to be loaded';
 
-        $owning = new Entity\OwningOneToOneCompositeIdForeignKeyEntity();
+        $owning      = new Entity\OwningOneToOneCompositeIdForeignKeyEntity();
         $owning->id2 = 'ghi';
 
         $inversed->associatedEntity = $owning;
-        $owning->associatedEntity = $inversed;
+        $owning->associatedEntity   = $inversed;
 
         $this->_em->persist($auxiliary);
         $this->_em->persist($inversed);

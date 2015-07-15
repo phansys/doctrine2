@@ -4,7 +4,7 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 class DDC3582Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    function testNestedEmbeddablesAreHydratedWithProperClass()
+    public function testNestedEmbeddablesAreHydratedWithProperClass()
     {
         $this->_schemaTool->createSchema([$this->_em->getClassMetadata(DDC3582Entity::CLASSNAME)]);
         $this->_em->persist(new DDC3582Entity('foo'));
@@ -33,7 +33,7 @@ class DDC3582Entity
 
     public function __construct($id)
     {
-        $this->id = $id;
+        $this->id          = $id;
         $this->embeddable1 = new DDC3582Embeddable1();
     }
 }
@@ -46,7 +46,10 @@ class DDC3582Embeddable1
     /** @Embedded(class="DDC3582Embeddable2") @var DDC3582Embeddable2 */
     public $embeddable2;
 
-    public function __construct() { $this->embeddable2 = new DDC3582Embeddable2(); }
+    public function __construct()
+    {
+        $this->embeddable2 = new DDC3582Embeddable2();
+    }
 }
 
 /** @Embeddable */
@@ -57,7 +60,10 @@ class DDC3582Embeddable2
     /** @Embedded(class="DDC3582Embeddable3") @var DDC3582Embeddable3 */
     public $embeddable3;
 
-    public function __construct() { $this->embeddable3 = new DDC3582Embeddable3(); }
+    public function __construct()
+    {
+        $this->embeddable3 = new DDC3582Embeddable3();
+    }
 }
 
 /** @Embeddable */

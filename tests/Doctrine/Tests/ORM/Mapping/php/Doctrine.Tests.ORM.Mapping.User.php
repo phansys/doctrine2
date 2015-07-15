@@ -15,25 +15,25 @@ $metadata->addNamedQuery(array(
     'query' => 'SELECT u FROM __CLASS__ u'
 ));
 $metadata->mapField(array(
-   'id' => true,
-   'fieldName' => 'id',
-   'type' => 'integer',
+   'id'         => true,
+   'fieldName'  => 'id',
+   'type'       => 'integer',
    'columnName' => 'id',
-   'options' => array('foo' => 'bar'),
+   'options'    => array('foo' => 'bar'),
   ));
 $metadata->mapField(array(
-   'fieldName' => 'name',
-   'type' => 'string',
-   'length' => 50,
-   'unique' => true,
-   'nullable' => true,
+   'fieldName'  => 'name',
+   'type'       => 'string',
+   'length'     => 50,
+   'unique'     => true,
+   'nullable'   => true,
    'columnName' => 'name',
-   'options' => array('foo' => 'bar', 'baz' => array('key' => 'val')),
+   'options'    => array('foo' => 'bar', 'baz' => array('key' => 'val')),
   ));
 $metadata->mapField(array(
-   'fieldName' => 'email',
-   'type' => 'string',
-   'columnName' => 'user_email',
+   'fieldName'        => 'email',
+   'type'             => 'string',
+   'columnName'       => 'user_email',
    'columnDefinition' => 'CHAR(32) NOT NULL',
   ));
 $mapping = array('fieldName' => 'version', 'type' => 'integer');
@@ -41,43 +41,43 @@ $metadata->setVersionMapping($mapping);
 $metadata->mapField($mapping);
 $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
 $metadata->mapOneToOne(array(
-   'fieldName' => 'address',
+   'fieldName'    => 'address',
    'targetEntity' => 'Doctrine\\Tests\\ORM\\Mapping\\Address',
-   'cascade' =>
+   'cascade'      =>
    array(
    0 => 'remove',
    ),
-   'mappedBy' => NULL,
-   'inversedBy' => 'user',
+   'mappedBy'    => null,
+   'inversedBy'  => 'user',
    'joinColumns' =>
    array(
    0 =>
    array(
-    'name' => 'address_id',
+    'name'                 => 'address_id',
     'referencedColumnName' => 'id',
-    'onDelete' => 'CASCADE',
+    'onDelete'             => 'CASCADE',
    ),
    ),
    'orphanRemoval' => false,
   ));
 $metadata->mapOneToMany(array(
-   'fieldName' => 'phonenumbers',
+   'fieldName'    => 'phonenumbers',
    'targetEntity' => 'Doctrine\\Tests\\ORM\\Mapping\\Phonenumber',
-   'cascade' =>
+   'cascade'      =>
    array(
    1 => 'persist',
    ),
-   'mappedBy' => 'user',
+   'mappedBy'      => 'user',
    'orphanRemoval' => true,
-   'orderBy' =>
+   'orderBy'       =>
    array(
    'number' => 'ASC',
    ),
   ));
 $metadata->mapManyToMany(array(
-   'fieldName' => 'groups',
+   'fieldName'    => 'groups',
    'targetEntity' => 'Doctrine\\Tests\\ORM\\Mapping\\Group',
-   'cascade' =>
+   'cascade'      =>
    array(
    0 => 'remove',
    1 => 'persist',
@@ -85,31 +85,31 @@ $metadata->mapManyToMany(array(
    3 => 'merge',
    4 => 'detach',
    ),
-   'mappedBy' => NULL,
+   'mappedBy'  => null,
    'joinTable' =>
    array(
-   'name' => 'cms_users_groups',
+   'name'        => 'cms_users_groups',
    'joinColumns' =>
    array(
     0 =>
     array(
-    'name' => 'user_id',
+    'name'                 => 'user_id',
     'referencedColumnName' => 'id',
-    'unique' => false,
-    'nullable' => false,
+    'unique'               => false,
+    'nullable'             => false,
     ),
    ),
    'inverseJoinColumns' =>
    array(
     0 =>
     array(
-    'name' => 'group_id',
+    'name'                 => 'group_id',
     'referencedColumnName' => 'id',
-    'columnDefinition' => 'INT NULL',
+    'columnDefinition'     => 'INT NULL',
     ),
    ),
    ),
-   'orderBy' => NULL,
+   'orderBy' => null,
   ));
 $metadata->table['options'] = array(
     'foo' => 'bar',
@@ -122,7 +122,7 @@ $metadata->table['indexes'] = array(
     'name_idx' => array('columns' => array('name')), 0 => array('columns' => array('user_email'))
 );
 $metadata->setSequenceGeneratorDefinition(array(
-        'sequenceName' => 'tablename_seq',
+        'sequenceName'   => 'tablename_seq',
         'allocationSize' => 100,
-        'initialValue' => 1,
+        'initialValue'   => 1,
     ));

@@ -33,7 +33,7 @@ class FilterCollection
     /**
      * A filter object is in CLEAN state when it has no changed parameters.
      */
-    const FILTERS_STATE_CLEAN  = 1;
+    const FILTERS_STATE_CLEAN = 1;
 
     /**
      * A filter object is in DIRTY state when it has changed parameters.
@@ -78,7 +78,7 @@ class FilterCollection
      */
     public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $em;
+        $this->em     = $em;
         $this->config = $em->getConfiguration();
     }
 
@@ -103,11 +103,11 @@ class FilterCollection
      */
     public function enable($name)
     {
-        if ( ! $this->has($name)) {
+        if (! $this->has($name)) {
             throw new \InvalidArgumentException("Filter '" . $name . "' does not exist.");
         }
 
-        if ( ! $this->isEnabled($name)) {
+        if (! $this->isEnabled($name)) {
             $filterClass = $this->config->getFilterClassName($name);
 
             $this->enabledFilters[$name] = new $filterClass($this->em);
@@ -155,7 +155,7 @@ class FilterCollection
      */
     public function getFilter($name)
     {
-        if ( ! $this->isEnabled($name)) {
+        if (! $this->isEnabled($name)) {
             throw new \InvalidArgumentException("Filter '" . $name . "' is not enabled.");
         }
 

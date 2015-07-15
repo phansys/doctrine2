@@ -49,7 +49,7 @@ class AssignedGenerator extends AbstractIdGenerator
         foreach ($idFields as $idField) {
             $value = $class->getFieldValue($entity, $idField);
 
-            if ( ! isset($value)) {
+            if (! isset($value)) {
                 throw ORMException::entityMissingAssignedIdForField($entity, $idField);
             }
 

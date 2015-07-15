@@ -50,18 +50,18 @@ class IdentityFunction extends FunctionNode
      */
     public function getSql(SqlWalker $sqlWalker)
     {
-        $platform       = $sqlWalker->getEntityManager()->getConnection()->getDatabasePlatform();
-        $quoteStrategy  = $sqlWalker->getEntityManager()->getConfiguration()->getQuoteStrategy();
-        $dqlAlias       = $this->pathExpression->identificationVariable;
-        $assocField     = $this->pathExpression->field;
-        $qComp          = $sqlWalker->getQueryComponent($dqlAlias);
-        $class          = $qComp['metadata'];
-        $assoc          = $class->associationMappings[$assocField];
-        $targetEntity   = $sqlWalker->getEntityManager()->getClassMetadata($assoc['targetEntity']);
-        $joinColumn     = reset($assoc['joinColumns']);
+        $platform      = $sqlWalker->getEntityManager()->getConnection()->getDatabasePlatform();
+        $quoteStrategy = $sqlWalker->getEntityManager()->getConfiguration()->getQuoteStrategy();
+        $dqlAlias      = $this->pathExpression->identificationVariable;
+        $assocField    = $this->pathExpression->field;
+        $qComp         = $sqlWalker->getQueryComponent($dqlAlias);
+        $class         = $qComp['metadata'];
+        $assoc         = $class->associationMappings[$assocField];
+        $targetEntity  = $sqlWalker->getEntityManager()->getClassMetadata($assoc['targetEntity']);
+        $joinColumn    = reset($assoc['joinColumns']);
 
         if ($this->fieldMapping !== null) {
-            if ( ! isset($targetEntity->fieldMappings[$this->fieldMapping])) {
+            if (! isset($targetEntity->fieldMappings[$this->fieldMapping])) {
                 throw new QueryException(sprintf('Undefined reference field mapping "%s"', $this->fieldMapping));
             }
 
@@ -69,8 +69,7 @@ class IdentityFunction extends FunctionNode
             $joinColumn = null;
 
             foreach ($assoc['joinColumns'] as $mapping) {
-
-                if($mapping['referencedColumnName'] === $field['columnName']) {
+                if ($mapping['referencedColumnName'] === $field['columnName']) {
                     $joinColumn = $mapping;
 
                     break;
@@ -86,7 +85,7 @@ class IdentityFunction extends FunctionNode
         $tableName = $sqlWalker->getEntityManager()->getClassMetadata($assoc['sourceEntity'])->getTableName();
 
         $tableAlias = $sqlWalker->getSQLTableAlias($tableName, $dqlAlias);
-        $columnName  = $quoteStrategy->getJoinColumnName($joinColumn, $targetEntity, $platform);
+        $columnName = $quoteStrategy->getJoinColumnName($joinColumn, $targetEntity, $platform);
 
         return $tableAlias . '.' . $columnName;
     }

@@ -23,8 +23,7 @@ class DDC832Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC832JoinedTreeIndex'),
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC832Like'),
             ));
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -32,7 +31,7 @@ class DDC832Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         /* @var $sm \Doctrine\DBAL\Schema\AbstractSchemaManager */
         $platform = $this->_em->getConnection()->getDatabasePlatform();
-        $sm = $this->_em->getConnection()->getSchemaManager();
+        $sm       = $this->_em->getConnection()->getSchemaManager();
         $sm->dropTable($platform->quoteIdentifier('TREE_INDEX'));
         $sm->dropTable($platform->quoteIdentifier('INDEX'));
         $sm->dropTable($platform->quoteIdentifier('LIKE'));
@@ -186,7 +185,7 @@ class DDC832JoinedTreeIndex extends DDC832JoinedIndex
     public function __construct($name, $lft, $rgt)
     {
         $this->name = $name;
-        $this->lft = $lft;
-        $this->rgt = $rgt;
+        $this->lft  = $lft;
+        $this->rgt  = $rgt;
     }
 }

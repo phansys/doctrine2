@@ -1,12 +1,14 @@
 <?php
 
 namespace Doctrine\Tests\ORM\Functional;
+
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Query;
 
 class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         try {
             $this->_schemaTool->createSchema(array(
@@ -22,7 +24,7 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testPreSavePostSaveCallbacksAreInvoked()
     {
-        $entity = new LifecycleCallbackTestEntity;
+        $entity        = new LifecycleCallbackTestEntity;
         $entity->value = 'hello';
         $this->_em->persist($entity);
         $this->_em->flush();
@@ -32,7 +34,7 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->_em->clear();
 
-        $query = $this->_em->createQuery("select e from Doctrine\Tests\ORM\Functional\LifecycleCallbackTestEntity e");
+        $query  = $this->_em->createQuery("select e from Doctrine\Tests\ORM\Functional\LifecycleCallbackTestEntity e");
         $result = $query->getResult();
         $this->assertTrue($result[0]->postLoadCallbackInvoked);
 
@@ -45,7 +47,7 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testPreFlushCallbacksAreInvoked()
     {
-        $entity = new LifecycleCallbackTestEntity;
+        $entity        = new LifecycleCallbackTestEntity;
         $entity->value = 'hello';
         $this->_em->persist($entity);
 
@@ -59,7 +61,7 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $this->assertTrue($entity->preFlushCallbackInvoked);
 
-        $entity->value = 'bye';
+        $entity->value                   = 'bye';
         $entity->preFlushCallbackInvoked = false;
         $this->_em->flush();
 
@@ -90,7 +92,7 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testGetReferenceWithPostLoadEventIsDelayedUntilProxyTrigger()
     {
-        $entity = new LifecycleCallbackTestEntity;
+        $entity        = new LifecycleCallbackTestEntity;
         $entity->value = 'hello';
         $this->_em->persist($entity);
         $this->_em->flush();
@@ -110,7 +112,7 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testPostLoadTriggeredOnRefresh()
     {
-        $entity = new LifecycleCallbackTestEntity;
+        $entity        = new LifecycleCallbackTestEntity;
         $entity->value = 'hello';
         $this->_em->persist($entity);
         $this->_em->flush();
@@ -141,8 +143,8 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $c->entities[] = $e1;
         $c->entities[] = $e2;
-        $e1->cascader = $c;
-        $e2->cascader = $c;
+        $e1->cascader  = $c;
+        $e2->cascader  = $c;
 
         //$this->_em->persist($c);
         $this->_em->flush();
@@ -165,8 +167,8 @@ class LifecycleCallbackTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $c->entities[] = $e1;
         $c->entities[] = $e2;
-        $e1->cascader = $c;
-        $e2->cascader = $c;
+        $e1->cascader  = $c;
+        $e2->cascader  = $c;
 
         $this->_em->flush();
         $this->_em->clear();
@@ -207,8 +209,8 @@ DQL;
 
         $c->entities[] = $e1;
         $c->entities[] = $e2;
-        $e1->cascader = $c;
-        $e2->cascader = $c;
+        $e1->cascader  = $c;
+        $e2->cascader  = $c;
 
         $this->_em->flush();
         $this->_em->clear();
@@ -366,20 +368,39 @@ DQL;
 }
 
 /** @Entity @HasLifecycleCallbacks */
-class LifecycleCallbackTestUser {
+class LifecycleCallbackTestUser
+{
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
     /** @Column(type="string") */
     private $value;
     /** @Column(type="string") */
     private $name;
-    public function getId() {return $this->id;}
-    public function getValue() {return $this->value;}
-    public function setValue($value) {$this->value = $value;}
-    public function getName() {return $this->name;}
-    public function setName($name) {$this->name = $name;}
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getValue()
+    {
+        return $this->value;
+    }
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
     /** @PreUpdate */
-    public function testCallback() {$this->value = 'Hello World';}
+    public function testCallback()
+    {
+        $this->value = 'Hello World';
+    }
 }
 
 /**
@@ -390,11 +411,11 @@ class LifecycleCallbackTestUser {
 class LifecycleCallbackTestEntity
 {
     /* test stuff */
-    public $prePersistCallbackInvoked = false;
+    public $prePersistCallbackInvoked  = false;
     public $postPersistCallbackInvoked = false;
-    public $postLoadCallbackInvoked = false;
-    public $postLoadCascaderNotNull = false;
-    public $preFlushCallbackInvoked = false;
+    public $postLoadCallbackInvoked    = false;
+    public $postLoadCascaderNotNull    = false;
+    public $preFlushCallbackInvoked    = false;
 
     /**
      * @Id @Column(type="integer")
@@ -412,37 +433,44 @@ class LifecycleCallbackTestEntity
      */
     public $cascader;
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
     /** @PrePersist */
-    public function doStuffOnPrePersist() {
+    public function doStuffOnPrePersist()
+    {
         $this->prePersistCallbackInvoked = true;
     }
 
     /** @PostPersist */
-    public function doStuffOnPostPersist() {
+    public function doStuffOnPostPersist()
+    {
         $this->postPersistCallbackInvoked = true;
     }
 
     /** @PostLoad */
-    public function doStuffOnPostLoad() {
+    public function doStuffOnPostLoad()
+    {
         $this->postLoadCallbackInvoked = true;
         $this->postLoadCascaderNotNull = isset($this->cascader);
     }
 
     /** @PreUpdate */
-    public function doStuffOnPreUpdate() {
+    public function doStuffOnPreUpdate()
+    {
         $this->value = 'changed from preUpdate callback!';
     }
 
     /** @PreFlush */
-    public function doStuffOnPreFlush() {
+    public function doStuffOnPreFlush()
+    {
         $this->preFlushCallbackInvoked = true;
     }
 }
@@ -455,7 +483,7 @@ class LifecycleCallbackCascader
 {
     /* test stuff */
     public $postLoadCallbackInvoked = false;
-    public $postLoadEntitiesCount = 0;
+    public $postLoadEntitiesCount   = 0;
 
     /**
      * @Id @Column(type="integer")
@@ -474,22 +502,25 @@ class LifecycleCallbackCascader
     }
 
     /** @PostLoad */
-    public function doStuffOnPostLoad() {
+    public function doStuffOnPostLoad()
+    {
         $this->postLoadCallbackInvoked = true;
-        $this->postLoadEntitiesCount = count($this->entities);
+        $this->postLoadEntitiesCount   = count($this->entities);
     }
 }
 
 /** @MappedSuperclass @HasLifecycleCallbacks */
-class LifecycleCallbackParentEntity {
+class LifecycleCallbackParentEntity
+{
     /** @PrePersist */
-    function doStuff() {
-
+    public function doStuff()
+    {
     }
 }
 
 /** @Entity @Table(name="lc_cb_childentity") */
-class LifecycleCallbackChildEntity extends LifecycleCallbackParentEntity {
+class LifecycleCallbackChildEntity extends LifecycleCallbackParentEntity
+{
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
 }

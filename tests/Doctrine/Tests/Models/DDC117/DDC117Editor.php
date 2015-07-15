@@ -42,7 +42,7 @@ class DDC117Editor
 
     public function __construct($name = "")
     {
-        $this->name = $name;
+        $this->name                  = $name;
         $this->reviewingTranslations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

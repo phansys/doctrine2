@@ -85,5 +85,4 @@ class DDC1734Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         return $this->_em->getProxyFactory()->getProxy($className, $identifier);
     }
-
 }

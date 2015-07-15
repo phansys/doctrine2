@@ -51,9 +51,9 @@ class InputParameter extends Node
             throw \Doctrine\ORM\Query\QueryException::invalidParameterFormat($value);
         }
 
-        $param = substr($value, 1);
+        $param         = substr($value, 1);
         $this->isNamed = ! is_numeric($param);
-        $this->name = $param;
+        $this->name    = $param;
     }
 
     /**

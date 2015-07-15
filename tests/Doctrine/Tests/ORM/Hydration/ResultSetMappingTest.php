@@ -22,10 +22,11 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
      */
     private $_em;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         parent::setUp();
         $this->_rsm = new ResultSetMapping;
-        $this->_em = $this->_getTestEntityManager();
+        $this->_em  = $this->_getTestEntityManager();
     }
 
     /**
@@ -71,8 +72,8 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
     {
         $rms = $this->_rsm;
 
-        $rms->addEntityResult('Doctrine\Tests\Models\CMS\CmsUser','u')
-            ->addJoinedEntityResult('Doctrine\Tests\Models\CMS\CmsPhonenumber','p','u','phonenumbers')
+        $rms->addEntityResult('Doctrine\Tests\Models\CMS\CmsUser', 'u')
+            ->addJoinedEntityResult('Doctrine\Tests\Models\CMS\CmsPhonenumber', 'p', 'u', 'phonenumbers')
             ->addFieldResult('u', 'id', 'id')
             ->addFieldResult('u', 'name', 'name')
             ->setDiscriminatorColumn('name', 'name')
@@ -107,23 +108,23 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
             'inversedBy'    => 'user',
             'orphanRemoval' => false,
             'joinColumns'   => array(array(
-                    'nullable' => true,
+                    'nullable'             => true,
                     'referencedColumnName' => 'id',
                 )
             )
         ));
 
         $cm->addNamedNativeQuery(array(
-            'name'              => 'find-all',
-            'query'             => 'SELECT u.id AS user_id, e.id AS email_id, u.name, e.email, u.id + e.id AS scalarColumn FROM cms_users u INNER JOIN cms_emails e ON e.id = u.email_id',
-            'resultSetMapping'  => 'find-all',
+            'name'             => 'find-all',
+            'query'            => 'SELECT u.id AS user_id, e.id AS email_id, u.name, e.email, u.id + e.id AS scalarColumn FROM cms_users u INNER JOIN cms_emails e ON e.id = u.email_id',
+            'resultSetMapping' => 'find-all',
         ));
         $cm->addSqlResultSetMapping(array(
-            'name'      => 'find-all',
-            'entities'  => array(
+            'name'     => 'find-all',
+            'entities' => array(
                 array(
-                    'entityClass'   => '__CLASS__',
-                    'fields'        => array(
+                    'entityClass' => '__CLASS__',
+                    'fields'      => array(
                         array(
                             'name'  => 'id',
                             'column'=> 'user_id'
@@ -135,8 +136,8 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
                     )
                 ),
                 array(
-                    'entityClass'   => 'CmsEmail',
-                    'fields'        => array(
+                    'entityClass' => 'CmsEmail',
+                    'fields'      => array(
                         array(
                             'name'  => 'id',
                             'column'=> 'email_id'
@@ -148,7 +149,7 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
                     )
                 )
             ),
-            'columns'   => array(
+            'columns' => array(
                 array(
                     'name' => 'scalarColumn'
                 )
@@ -186,18 +187,18 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
         $cm->initializeReflection(new \Doctrine\Common\Persistence\Mapping\RuntimeReflectionService);
 
         $cm->addNamedNativeQuery(array(
-            'name'              => 'find-all',
-            'query'             => 'SELECT u.id AS user_id, e.id AS email_id, u.name, e.email, u.id + e.id AS scalarColumn FROM cms_users u INNER JOIN cms_emails e ON e.id = u.email_id',
-            'resultSetMapping'  => 'find-all',
+            'name'             => 'find-all',
+            'query'            => 'SELECT u.id AS user_id, e.id AS email_id, u.name, e.email, u.id + e.id AS scalarColumn FROM cms_users u INNER JOIN cms_emails e ON e.id = u.email_id',
+            'resultSetMapping' => 'find-all',
         ));
         $cm->addSqlResultSetMapping(array(
-            'name'      => 'find-all',
-            'entities'  => array(
+            'name'     => 'find-all',
+            'entities' => array(
                 array(
-                    'entityClass'   => '__CLASS__',
+                    'entityClass' => '__CLASS__',
                 )
             ),
-            'columns'   => array(
+            'columns' => array(
                 array(
                     'name' => 'scalarColumn'
                 )
@@ -232,9 +233,9 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
         $cm->initializeReflection(new \Doctrine\Common\Persistence\Mapping\RuntimeReflectionService);
 
         $cm->addNamedNativeQuery(array(
-            'name'              => 'find-all',
-            'resultClass'       => '__CLASS__',
-            'query'             => 'SELECT * FROM cms_users',
+            'name'        => 'find-all',
+            'resultClass' => '__CLASS__',
+            'query'       => 'SELECT * FROM cms_users',
         ));
 
         $queryMapping = $cm->getNamedNativeQuery('find-all');
@@ -260,11 +261,10 @@ class ResultSetMappingTest extends \Doctrine\Tests\OrmTestCase
     {
         $this->_rsm->addEntityResult('Doctrine\Tests\Models\Legacy\LegacyUser', 'u');
         $this->_rsm->addJoinedEntityResult('Doctrine\Tests\Models\Legacy', 'lu', 'u', '_references');
-        $this->_rsm->addMetaResult('lu', '_source',  '_source', true);
-        $this->_rsm->addMetaResult('lu', '_target',  '_target', true);
+        $this->_rsm->addMetaResult('lu', '_source', '_source', true);
+        $this->_rsm->addMetaResult('lu', '_target', '_target', true);
         $this->_rsm->addIndexBy('lu', '_source');
 
         $this->assertTrue($this->_rsm->hasIndexBy('lu'));
     }
 }
-

@@ -4,7 +4,6 @@ namespace Doctrine\Tests\ORM\Query;
 
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Parameter;
 
@@ -78,7 +77,7 @@ class QueryTest extends \Doctrine\Tests\OrmTestCase
 
     public function testFluentQueryInterface()
     {
-        $q = $this->_em->createQuery("select a from Doctrine\Tests\Models\CMS\CmsArticle a");
+        $q  = $this->_em->createQuery("select a from Doctrine\Tests\Models\CMS\CmsArticle a");
         $q2 = $q->expireQueryCache(true)
           ->setQueryCacheLifetime(3600)
           ->setQueryCacheDriver(null)
@@ -157,7 +156,7 @@ class QueryTest extends \Doctrine\Tests\OrmTestCase
             9 => "St Julien"
         );
 
-        $query  = $this->_em
+        $query = $this->_em
                 ->createQuery("SELECT a FROM Doctrine\Tests\Models\CMS\CmsAddress a WHERE a.city IN (:cities)")
                 ->setParameter('cities', $cities);
 
@@ -173,7 +172,7 @@ class QueryTest extends \Doctrine\Tests\OrmTestCase
      */
     public function testProcessParameterValueClassMetadata()
     {
-        $query  = $this->_em->createQuery("SELECT a FROM Doctrine\Tests\Models\CMS\CmsAddress a WHERE a.city IN (:cities)");
+        $query = $this->_em->createQuery("SELECT a FROM Doctrine\Tests\Models\CMS\CmsAddress a WHERE a.city IN (:cities)");
         $this->assertEquals(
             'Doctrine\Tests\Models\CMS\CmsAddress',
             $query->processParameterValue($this->_em->getClassMetadata('Doctrine\Tests\Models\CMS\CmsAddress'))
@@ -182,7 +181,7 @@ class QueryTest extends \Doctrine\Tests\OrmTestCase
 
     public function testDefaultQueryHints()
     {
-        $config = $this->_em->getConfiguration();
+        $config       = $this->_em->getConfiguration();
         $defaultHints = array(
             'hint_name_1' => 'hint_value_1',
             'hint_name_2' => 'hint_value_2',

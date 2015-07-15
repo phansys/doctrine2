@@ -21,17 +21,17 @@ class DDC258Test extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         //$this->_em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger);
 
-        $c1 = new DDC258Class1();
-        $c1->title = "Foo";
+        $c1              = new DDC258Class1();
+        $c1->title       = "Foo";
         $c1->description = "Foo";
 
-        $c2 = new DDC258Class2();
-        $c2->title = "Bar";
+        $c2              = new DDC258Class2();
+        $c2->title       = "Bar";
         $c2->description = "Bar";
-        $c2->text = "Bar";
+        $c2->text        = "Bar";
 
-        $c3 = new DDC258Class3();
-        $c3->apples = "Baz";
+        $c3          = new DDC258Class3();
+        $c3->apples  = "Baz";
         $c3->bananas = "Baz";
 
         $this->_em->persist($c1);
@@ -47,18 +47,18 @@ class DDC258Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->assertEquals('Bar', $e2->description);
         $this->assertEquals('Bar', $e2->text);
 
-        $all = $this->_em->getRepository(__NAMESPACE__.'\DDC258Super')->findAll();
+        $all = $this->_em->getRepository(__NAMESPACE__ . '\DDC258Super')->findAll();
 
         foreach ($all as $obj) {
             if ($obj instanceof DDC258Class1) {
                 $this->assertEquals('Foo', $obj->title);
                 $this->assertEquals('Foo', $obj->description);
-            } else if ($obj instanceof DDC258Class2) {
+            } elseif ($obj instanceof DDC258Class2) {
                 $this->assertTrue($e2 === $obj);
                 $this->assertEquals('Bar', $obj->title);
                 $this->assertEquals('Bar', $obj->description);
                 $this->assertEquals('Bar', $obj->text);
-            } else if ($obj instanceof DDC258Class3) {
+            } elseif ($obj instanceof DDC258Class3) {
                 $this->assertEquals('Baz', $obj->apples);
                 $this->assertEquals('Baz', $obj->bananas);
             } else {

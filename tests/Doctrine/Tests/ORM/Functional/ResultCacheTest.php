@@ -13,12 +13,13 @@ use Doctrine\Common\Cache\ArrayCache;
  */
 class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-   /**
+    /**
      * @var \ReflectionProperty
      */
     private $cacheDataReflection;
 
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->cacheDataReflection = new \ReflectionProperty("Doctrine\Common\Cache\ArrayCache", "data");
         $this->cacheDataReflection->setAccessible(true);
         $this->useModelSet('cms');
@@ -36,10 +37,10 @@ class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testResultCache()
     {
-        $user = new CmsUser;
-        $user->name = 'Roman';
+        $user           = new CmsUser;
+        $user->name     = 'Roman';
         $user->username = 'romanb';
-        $user->status = 'dev';
+        $user->status   = 'dev';
         $this->_em->persist($user);
         $this->_em->flush();
 
@@ -108,7 +109,7 @@ class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
         $cache = new \Doctrine\Common\Cache\ArrayCache();
 
         $sqlCount = count($this->_sqlLoggerStack->queries);
-        $query = $this->_em->createQuery('select ux from Doctrine\Tests\Models\CMS\CmsUser ux WHERE ux.id = ?1');
+        $query    = $this->_em->createQuery('select ux from Doctrine\Tests\Models\CMS\CmsUser ux WHERE ux.id = ?1');
         $query->setParameter(1, 1);
         $query->setResultCacheDriver($cache);
         $query->useResultCache(true);
@@ -152,7 +153,7 @@ class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testResultCacheNotDependsOnQueryHints($query)
     {
-        $cache = $query->getResultCacheDriver();
+        $cache      = $query->getResultCacheDriver();
         $cacheCount = $this->getCacheSize($cache);
 
         $query->setHint('foo', 'bar');
@@ -167,7 +168,7 @@ class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testResultCacheDependsOnParameters($query)
     {
-        $cache = $query->getResultCacheDriver();
+        $cache      = $query->getResultCacheDriver();
         $cacheCount = $this->getCacheSize($cache);
 
         $query->setParameter(1, 50);
@@ -182,7 +183,7 @@ class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testResultCacheNotDependsOnHydrationMode($query)
     {
-        $cache = $query->getResultCacheDriver();
+        $cache      = $query->getResultCacheDriver();
         $cacheCount = $this->getCacheSize($cache);
 
         $this->assertNotEquals(\Doctrine\ORM\Query::HYDRATE_ARRAY, $query->getHydrationMode());
@@ -196,20 +197,20 @@ class ResultCacheTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testResultCacheWithObjectParameter()
     {
-        $user1 = new CmsUser;
-        $user1->name = 'Roman';
+        $user1           = new CmsUser;
+        $user1->name     = 'Roman';
         $user1->username = 'romanb';
-        $user1->status = 'dev';
+        $user1->status   = 'dev';
 
-        $user2 = new CmsUser;
-        $user2->name = 'Benjamin';
+        $user2           = new CmsUser;
+        $user2->name     = 'Benjamin';
         $user2->username = 'beberlei';
-        $user2->status = 'dev';
+        $user2->status   = 'dev';
 
-        $article = new CmsArticle();
-        $article->text = "foo";
+        $article        = new CmsArticle();
+        $article->text  = "foo";
         $article->topic = "baz";
-        $article->user = $user1;
+        $article->user  = $user1;
 
         $this->_em->persist($article);
         $this->_em->persist($user1);

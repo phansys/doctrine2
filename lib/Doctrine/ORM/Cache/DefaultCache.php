@@ -80,7 +80,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getEntityPersister($metadata->rootEntityName);
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return null;
         }
 
@@ -95,7 +95,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getCollectionPersister($metadata->getAssociationMapping($association));
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return null;
         }
 
@@ -107,10 +107,10 @@ class DefaultCache implements Cache
      */
     public function containsEntity($className, $identifier)
     {
-        $metadata   = $this->em->getClassMetadata($className);
-        $persister  = $this->uow->getEntityPersister($metadata->rootEntityName);
+        $metadata  = $this->em->getClassMetadata($className);
+        $persister = $this->uow->getEntityPersister($metadata->rootEntityName);
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return false;
         }
 
@@ -125,7 +125,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getEntityPersister($metadata->rootEntityName);
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return;
         }
 
@@ -140,7 +140,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getEntityPersister($metadata->rootEntityName);
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return;
         }
 
@@ -157,7 +157,7 @@ class DefaultCache implements Cache
         foreach ($metadatas as $metadata) {
             $persister = $this->uow->getEntityPersister($metadata->rootEntityName);
 
-            if ( ! ($persister instanceof CachedPersister)) {
+            if (! ($persister instanceof CachedPersister)) {
                 continue;
             }
 
@@ -173,7 +173,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getCollectionPersister($metadata->getAssociationMapping($association));
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return false;
         }
 
@@ -188,7 +188,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getCollectionPersister($metadata->getAssociationMapping($association));
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return;
         }
 
@@ -203,7 +203,7 @@ class DefaultCache implements Cache
         $metadata  = $this->em->getClassMetadata($className);
         $persister = $this->uow->getCollectionPersister($metadata->getAssociationMapping($association));
 
-        if ( ! ($persister instanceof CachedPersister)) {
+        if (! ($persister instanceof CachedPersister)) {
             return;
         }
 
@@ -218,16 +218,14 @@ class DefaultCache implements Cache
         $metadatas = $this->em->getMetadataFactory()->getAllMetadata();
 
         foreach ($metadatas as $metadata) {
-
             foreach ($metadata->associationMappings as $association) {
-
-                if ( ! $association['type'] & ClassMetadata::TO_MANY) {
+                if (! $association['type'] & ClassMetadata::TO_MANY) {
                     continue;
                 }
 
                 $persister = $this->uow->getCollectionPersister($association);
 
-                if ( ! ($persister instanceof CachedPersister)) {
+                if (! ($persister instanceof CachedPersister)) {
                     continue;
                 }
 
@@ -282,7 +280,7 @@ class DefaultCache implements Cache
                 $this->defaultQueryCache = $this->cacheFactory->buildQueryCache($this->em);
         }
 
-        if ( ! isset($this->queryCaches[$regionName])) {
+        if (! isset($this->queryCaches[$regionName])) {
             $this->queryCaches[$regionName] = $this->cacheFactory->buildQueryCache($this->em, $regionName);
         }
 
@@ -297,7 +295,7 @@ class DefaultCache implements Cache
      */
     private function buildEntityCacheKey(ClassMetadata $metadata, $identifier)
     {
-        if ( ! is_array($identifier)) {
+        if (! is_array($identifier)) {
             $identifier = $this->toIdentifierArray($metadata, $identifier);
         }
 
@@ -313,8 +311,9 @@ class DefaultCache implements Cache
      */
     private function buildCollectionCacheKey(ClassMetadata $metadata, $association, $ownerIdentifier)
     {
-        if ( ! is_array($ownerIdentifier)) {
-            $ownerIdentifier = $this->toIdentifierArray($metadata, $ownerIdentifier);;
+        if (! is_array($ownerIdentifier)) {
+            $ownerIdentifier = $this->toIdentifierArray($metadata, $ownerIdentifier);
+            ;
         }
 
         return new CollectionCacheKey($metadata->rootEntityName, $association, $ownerIdentifier);
@@ -338,5 +337,4 @@ class DefaultCache implements Cache
 
         return array($metadata->identifier[0] => $identifier);
     }
-
 }

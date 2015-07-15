@@ -10,12 +10,12 @@ $metadata->setPrimaryTable(array(
   ));
 
 $metadata->mapField(array(
-    'fieldName' => 'content',
-    'type' => 'text',
-    'scale' => 0,
-    'length' => NULL,
-    'unique' => false,
-    'nullable' => false,
-    'precision' => 0,
+    'fieldName'  => 'content',
+    'type'       => 'text',
+    'scale'      => 0,
+    'length'     => null,
+    'unique'     => false,
+    'nullable'   => false,
+    'precision'  => 0,
     'columnName' => 'content',
 ));

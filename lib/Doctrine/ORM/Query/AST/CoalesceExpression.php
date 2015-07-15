@@ -42,7 +42,7 @@ class CoalesceExpression extends Node
      */
     public function __construct(array $scalarExpressions)
     {
-        $this->scalarExpressions  = $scalarExpressions;
+        $this->scalarExpressions = $scalarExpressions;
     }
 
     /**

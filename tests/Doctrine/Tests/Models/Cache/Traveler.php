@@ -44,8 +44,8 @@ class Traveler
      */
     public function __construct($name)
     {
-        $this->name     = $name;
-        $this->travels  = new ArrayCollection();
+        $this->name    = $name;
+        $this->travels = new ArrayCollection();
     }
 
     public function getId()
@@ -94,7 +94,7 @@ class Traveler
      */
     public function addTravel(Travel $item)
     {
-        if ( ! $this->travels->contains($item)) {
+        if (! $this->travels->contains($item)) {
             $this->travels->add($item);
         }
 

@@ -26,7 +26,7 @@ class DDC1654Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testManyToManyRemoveFromCollectionOrphanRemoval()
     {
-        $post = new DDC1654Post();
+        $post             = new DDC1654Post();
         $post->comments[] = new DDC1654Comment();
         $post->comments[] = new DDC1654Comment();
 
@@ -45,7 +45,7 @@ class DDC1654Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testManyToManyRemoveElementFromCollectionOrphanRemoval()
     {
-        $post = new DDC1654Post();
+        $post             = new DDC1654Post();
         $post->comments[] = new DDC1654Comment();
         $post->comments[] = new DDC1654Comment();
 
@@ -67,7 +67,7 @@ class DDC1654Test extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testManyToManyRemoveElementFromReAddToCollectionOrphanRemoval()
     {
-        $post = new DDC1654Post();
+        $post             = new DDC1654Post();
         $post->comments[] = new DDC1654Comment();
         $post->comments[] = new DDC1654Comment();
 
@@ -87,7 +87,7 @@ class DDC1654Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
     public function testManyToManyClearCollectionOrphanRemoval()
     {
-        $post = new DDC1654Post();
+        $post             = new DDC1654Post();
         $post->comments[] = new DDC1654Comment();
         $post->comments[] = new DDC1654Comment();
 
@@ -101,7 +101,6 @@ class DDC1654Test extends \Doctrine\Tests\OrmFunctionalTestCase
 
         $comments = $this->_em->getRepository(__NAMESPACE__ . '\\DDC1654Comment')->findAll();
         $this->assertEquals(0, count($comments));
-
     }
 
     /**
@@ -109,7 +108,7 @@ class DDC1654Test extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testManyToManyClearCollectionReAddOrphanRemoval()
     {
-        $post = new DDC1654Post();
+        $post             = new DDC1654Post();
         $post->comments[] = new DDC1654Comment();
         $post->comments[] = new DDC1654Comment();
 

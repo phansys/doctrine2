@@ -20,7 +20,6 @@ class PersistentObjectTest extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata('Doctrine\Tests\ORM\Functional\PersistentEntity'),
             ));
         } catch (\Exception $e) {
-
         }
         PersistentObject::setObjectManager($this->_em);
     }

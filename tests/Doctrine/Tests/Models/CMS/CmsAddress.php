@@ -95,27 +95,33 @@ class CmsAddress
      */
     public $user;
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
-    public function getZipCode() {
+    public function getZipCode()
+    {
         return $this->zip;
     }
 
-    public function getCity() {
+    public function getCity()
+    {
         return $this->city;
     }
 
-    public function setUser(CmsUser $user) {
+    public function setUser(CmsUser $user)
+    {
         if ($this->user !== $user) {
             $this->user = $user;
             $user->setAddress($this);
@@ -128,62 +134,62 @@ class CmsAddress
            'name' => 'company_person',
         ));
 
-        $metadata->mapField(array (
+        $metadata->mapField(array(
             'id'        => true,
             'fieldName' => 'id',
             'type'      => 'integer',
         ));
 
-        $metadata->mapField(array (
+        $metadata->mapField(array(
             'fieldName' => 'zip',
             'length'    => 50,
         ));
 
-        $metadata->mapField(array (
+        $metadata->mapField(array(
             'fieldName' => 'city',
             'length'    => 50,
         ));
 
         $metadata->mapOneToOne(array(
-            'fieldName'     => 'user',
-            'targetEntity'  => 'CmsUser',
-            'joinColumns'   => array(array('referencedColumnName' => 'id'))
+            'fieldName'    => 'user',
+            'targetEntity' => 'CmsUser',
+            'joinColumns'  => array(array('referencedColumnName' => 'id'))
         ));
 
-        $metadata->addNamedNativeQuery(array (
-            'name'              => 'find-all',
-            'query'             => 'SELECT id, country, city FROM cms_addresses',
-            'resultSetMapping'  => 'mapping-find-all',
+        $metadata->addNamedNativeQuery(array(
+            'name'             => 'find-all',
+            'query'            => 'SELECT id, country, city FROM cms_addresses',
+            'resultSetMapping' => 'mapping-find-all',
         ));
 
-        $metadata->addNamedNativeQuery(array (
-            'name'              => 'find-by-id',
-            'query'             => 'SELECT * FROM cms_addresses WHERE id = ?',
-            'resultClass'       => 'Doctrine\\Tests\\Models\\CMS\\CmsAddress',
+        $metadata->addNamedNativeQuery(array(
+            'name'        => 'find-by-id',
+            'query'       => 'SELECT * FROM cms_addresses WHERE id = ?',
+            'resultClass' => 'Doctrine\\Tests\\Models\\CMS\\CmsAddress',
         ));
 
-        $metadata->addNamedNativeQuery(array (
-            'name'              => 'count',
-            'query'             => 'SELECT COUNT(*) AS count FROM cms_addresses',
-            'resultSetMapping'  => 'mapping-count',
+        $metadata->addNamedNativeQuery(array(
+            'name'             => 'count',
+            'query'            => 'SELECT COUNT(*) AS count FROM cms_addresses',
+            'resultSetMapping' => 'mapping-count',
         ));
 
-        $metadata->addSqlResultSetMapping(array (
-            'name'      => 'mapping-find-all',
-            'columns'   => array(),
-            'entities'  => array ( array (
-                'fields' => array (
-                  array (
-                    'name'      => 'id',
-                    'column'    => 'id',
+        $metadata->addSqlResultSetMapping(array(
+            'name'     => 'mapping-find-all',
+            'columns'  => array(),
+            'entities' => array( array(
+                'fields' => array(
+                  array(
+                    'name'   => 'id',
+                    'column' => 'id',
                   ),
-                  array (
-                    'name'      => 'city',
-                    'column'    => 'city',
+                  array(
+                    'name'   => 'city',
+                    'column' => 'city',
                   ),
-                  array (
-                    'name'      => 'country',
-                    'column'    => 'country',
+                  array(
+                    'name'   => 'country',
+                    'column' => 'country',
                   ),
                 ),
                 'entityClass' => 'Doctrine\Tests\Models\CMS\CmsAddress',
@@ -191,20 +197,20 @@ class CmsAddress
             ),
         ));
 
-        $metadata->addSqlResultSetMapping(array (
-            'name'      => 'mapping-without-fields',
-            'columns'   => array(),
-            'entities'  => array(array (
+        $metadata->addSqlResultSetMapping(array(
+            'name'     => 'mapping-without-fields',
+            'columns'  => array(),
+            'entities' => array(array(
                 'entityClass' => 'Doctrine\\Tests\\Models\\CMS\\CmsAddress',
-                'fields' => array()
+                'fields'      => array()
               )
             )
         ));
 
-        $metadata->addSqlResultSetMapping(array (
-            'name' => 'mapping-count',
-            'columns' =>array (
-                array (
+        $metadata->addSqlResultSetMapping(array(
+            'name'    => 'mapping-count',
+            'columns' => array(
+                array(
                     'name' => 'count',
                 ),
             )

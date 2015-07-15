@@ -19,7 +19,6 @@ class DDC1707Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC1509Picture'),
             ));
         } catch (\Exception $ignored) {
-
         }
     }
 

@@ -212,9 +212,9 @@ class FieldBuilder
     public function setSequenceGenerator($sequenceName, $allocationSize = 1, $initialValue = 1)
     {
         $this->sequenceDef = array(
-            'sequenceName' => $sequenceName,
+            'sequenceName'   => $sequenceName,
             'allocationSize' => $allocationSize,
-            'initialValue' => $initialValue,
+            'initialValue'   => $initialValue,
         );
         return $this;
     }

@@ -30,11 +30,11 @@ namespace Doctrine\ORM\Query\Expr;
  */
 class Join
 {
-    const INNER_JOIN    = 'INNER';
-    const LEFT_JOIN     = 'LEFT';
+    const INNER_JOIN = 'INNER';
+    const LEFT_JOIN  = 'LEFT';
 
-    const ON            = 'ON';
-    const WITH          = 'WITH';
+    const ON   = 'ON';
+    const WITH = 'WITH';
 
     /**
      * @var string
@@ -76,12 +76,12 @@ class Join
      */
     public function __construct($joinType, $join, $alias = null, $conditionType = null, $condition = null, $indexBy = null)
     {
-        $this->joinType       = $joinType;
-        $this->join           = $join;
-        $this->alias          = $alias;
-        $this->conditionType  = $conditionType;
-        $this->condition      = $condition;
-        $this->indexBy        = $indexBy;
+        $this->joinType      = $joinType;
+        $this->join          = $join;
+        $this->alias         = $alias;
+        $this->conditionType = $conditionType;
+        $this->condition     = $condition;
+        $this->indexBy       = $indexBy;
     }
 
     /**

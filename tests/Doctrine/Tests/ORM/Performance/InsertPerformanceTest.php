@@ -12,7 +12,8 @@ use Doctrine\Tests\Models\CMS\CmsUser;
  */
 class InsertPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
 {
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->useModelSet('cms');
         parent::setUp();
     }
@@ -32,10 +33,10 @@ class InsertPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
 
         $batchSize = 20;
         for ($i=1; $i<=10000; ++$i) {
-            $user = new CmsUser;
-            $user->status = 'user';
+            $user           = new CmsUser;
+            $user->status   = 'user';
             $user->username = 'user' . $i;
-            $user->name = 'Mr.Smith-' . $i;
+            $user->name     = 'Mr.Smith-' . $i;
             $this->_em->persist($user);
             if (($i % $batchSize) == 0) {
                 $this->_em->flush();
@@ -51,4 +52,3 @@ class InsertPerformanceTest extends \Doctrine\Tests\OrmPerformanceTestCase
         echo ' Inserted 10000 objects in ' . ($e - $s) . ' seconds' . PHP_EOL;
     }
 }
-

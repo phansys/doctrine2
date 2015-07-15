@@ -19,7 +19,6 @@ class DDC1454Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC1454Picture'),
             ));
         } catch (\Exception $ignored) {
-
         }
     }
 
@@ -28,7 +27,6 @@ class DDC1454Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $pic = new DDC1454Picture();
         $this->_em->getUnitOfWork()->getEntityState($pic);
     }
-
 }
 
 /**
@@ -36,7 +34,6 @@ class DDC1454Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC1454Picture extends DDC1454File
 {
-
 }
 
 /**
@@ -53,15 +50,16 @@ class DDC1454File
      */
     public $fileId;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->fileId = rand();
     }
 
     /**
      * Get fileId
      */
-    public function getFileId() {
+    public function getFileId()
+    {
         return $this->fileId;
     }
-
 }

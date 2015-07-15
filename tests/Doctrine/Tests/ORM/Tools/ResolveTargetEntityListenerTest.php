@@ -29,7 +29,7 @@ class ResolveTargetEntityListenerTest extends \Doctrine\Tests\OrmTestCase
 
         $this->em = $this->_getTestEntityManager();
         $this->em->getConfiguration()->setMetadataDriverImpl($annotationDriver);
-        $this->factory = $this->em->getMetadataFactory();
+        $this->factory  = $this->em->getMetadataFactory();
         $this->listener = new ResolveTargetEntityListener();
     }
 
@@ -100,7 +100,7 @@ class ResolveTargetEntityListenerTest extends \Doctrine\Tests\OrmTestCase
         );
 
         $evm->addEventListener(Events::loadClassMetadata, $this->listener);
-        $cm = $this->factory->getMetadataFor('Doctrine\Tests\ORM\Tools\ResolveTargetEntity');
+        $cm   = $this->factory->getMetadataFor('Doctrine\Tests\ORM\Tools\ResolveTargetEntity');
         $meta = $cm->associationMappings['manyToMany'];
 
         $this->assertSame('Doctrine\Tests\ORM\Tools\TargetEntity', $meta['targetEntity']);

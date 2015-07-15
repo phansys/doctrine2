@@ -21,16 +21,16 @@ class OneToOneCompositeIdTest extends OrmFunctionalTestCase
         $this->useModelSet('vct_onetoone_compositeid');
         parent::setUp();
 
-        $inversed = new Entity\InversedOneToOneCompositeIdEntity();
-        $inversed->id1 = 'abc';
-        $inversed->id2 = 'def';
+        $inversed               = new Entity\InversedOneToOneCompositeIdEntity();
+        $inversed->id1          = 'abc';
+        $inversed->id2          = 'def';
         $inversed->someProperty = 'some value to be loaded';
 
-        $owning = new Entity\OwningOneToOneCompositeIdEntity();
+        $owning      = new Entity\OwningOneToOneCompositeIdEntity();
         $owning->id3 = 'ghi';
 
         $inversed->associatedEntity = $owning;
-        $owning->associatedEntity = $inversed;
+        $owning->associatedEntity   = $inversed;
 
         $this->_em->persist($inversed);
         $this->_em->persist($owning);

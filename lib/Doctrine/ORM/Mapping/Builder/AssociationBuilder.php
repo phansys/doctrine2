@@ -52,7 +52,7 @@ class AssociationBuilder
     {
         $this->builder = $builder;
         $this->mapping = $mapping;
-        $this->type = $type;
+        $this->type    = $type;
     }
 
     /**
@@ -173,12 +173,12 @@ class AssociationBuilder
     public function addJoinColumn($columnName, $referencedColumnName, $nullable = true, $unique = false, $onDelete = null, $columnDef = null)
     {
         $this->joinColumns[] = array(
-            'name' => $columnName,
+            'name'                 => $columnName,
             'referencedColumnName' => $referencedColumnName,
-            'nullable' => $nullable,
-            'unique' => $unique,
-            'onDelete' => $onDelete,
-            'columnDefinition' => $columnDef,
+            'nullable'             => $nullable,
+            'unique'               => $unique,
+            'onDelete'             => $onDelete,
+            'columnDefinition'     => $columnDef,
         );
         return $this;
     }
@@ -221,7 +221,7 @@ class AssociationBuilder
         $cm = $this->builder->getClassMetadata();
         if ($this->type == ClassMetadata::MANY_TO_ONE) {
             $cm->mapManyToOne($mapping);
-        } else if ($this->type == ClassMetadata::ONE_TO_ONE) {
+        } elseif ($this->type == ClassMetadata::ONE_TO_ONE) {
             $cm->mapOneToOne($mapping);
         } else {
             throw new \InvalidArgumentException("Type should be a ToOne Association here");

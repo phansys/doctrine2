@@ -4,7 +4,6 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 class DDC881Test extends \Doctrine\Tests\OrmFunctionalTestCase
 {
-
     protected function setUp()
     {
         parent::setUp();
@@ -16,7 +15,6 @@ class DDC881Test extends \Doctrine\Tests\OrmFunctionalTestCase
                 $this->_em->getClassMetadata(__NAMESPACE__ . '\DDC881Phonecall'),
             ));
         } catch (\Exception $e) {
-
         }
     }
 
@@ -75,21 +73,20 @@ class DDC881Test extends \Doctrine\Tests\OrmFunctionalTestCase
         $this->_em->clear();
 
         // fetch-join that foreign-key/primary-key entity association
-        $dql = "SELECT c, p FROM " . __NAMESPACE__ . "\DDC881PhoneCall c JOIN c.phonenumber p";
+        $dql   = "SELECT c, p FROM " . __NAMESPACE__ . "\DDC881PhoneCall c JOIN c.phonenumber p";
         $calls = $this->_em->createQuery($dql)->getResult();
 
         $this->assertEquals(2, count($calls));
         $this->assertNotInstanceOf('Doctrine\ORM\Proxy\Proxy', $calls[0]->getPhoneNumber());
         $this->assertNotInstanceOf('Doctrine\ORM\Proxy\Proxy', $calls[1]->getPhoneNumber());
 
-        $dql = "SELECT p, c FROM " . __NAMESPACE__ . "\DDC881PhoneNumber p JOIN p.calls c";
+        $dql     = "SELECT p, c FROM " . __NAMESPACE__ . "\DDC881PhoneNumber p JOIN p.calls c";
         $numbers = $this->_em->createQuery($dql)->getResult();
 
         $this->assertEquals(2, count($numbers));
         $this->assertInstanceOf('Doctrine\ORM\PersistentCollection', $numbers[0]->getCalls());
         $this->assertTrue($numbers[0]->getCalls()->isInitialized());
     }
-
 }
 
 /**
@@ -97,7 +94,6 @@ class DDC881Test extends \Doctrine\Tests\OrmFunctionalTestCase
  */
 class DDC881User
 {
-
     /**
      * @Id
      * @Column(type="integer")
@@ -129,7 +125,6 @@ class DDC881User
  */
 class DDC881PhoneNumber
 {
-
     /**
      * @Id
      * @Column(type="integer")
@@ -181,7 +176,6 @@ class DDC881PhoneNumber
  */
 class DDC881PhoneCall
 {
-
     /**
      * @Id
      * @Column(type="integer")

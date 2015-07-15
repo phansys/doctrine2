@@ -36,14 +36,14 @@ class VersionedOneToOneTest extends \Doctrine\Tests\OrmFunctionalTestCase
      */
     public function testSetVersionOnCreate()
     {
-        $secondRelatedEntity = new SecondRelatedEntity();
+        $secondRelatedEntity       = new SecondRelatedEntity();
         $secondRelatedEntity->name = 'Bob';
 
         $this->_em->persist($secondRelatedEntity);
         $this->_em->flush();
 
-        $firstRelatedEntity = new FirstRelatedEntity();
-        $firstRelatedEntity->name = 'Fred';
+        $firstRelatedEntity               = new FirstRelatedEntity();
+        $firstRelatedEntity->name         = 'Fred';
         $firstRelatedEntity->secondEntity = $secondRelatedEntity;
 
         $this->_em->persist($firstRelatedEntity);

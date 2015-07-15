@@ -33,9 +33,9 @@ abstract class AbstractRegionTest extends OrmFunctionalTestCase
     /**
      * @return \Doctrine\ORM\Cache\Region
      */
-    protected abstract function createRegion();
+    abstract protected function createRegion();
 
-    static public function dataProviderCacheValues()
+    public static function dataProviderCacheValues()
     {
         return array(
             array(new CacheKeyMock('key.1'), new CacheEntryMock(array('id'=>1, 'name' => 'bar'))),

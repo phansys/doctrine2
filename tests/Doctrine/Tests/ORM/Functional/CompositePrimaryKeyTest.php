@@ -1,6 +1,7 @@
 <?php
 
 namespace Doctrine\Tests\ORM\Functional;
+
 use Doctrine\Tests\Models\Navigation\NavCountry;
 use Doctrine\Tests\Models\Navigation\NavPointOfInterest;
 use Doctrine\Tests\Models\Navigation\NavTour;
@@ -58,7 +59,7 @@ class CompositePrimaryKeyTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->putGermanysBrandenburderTor();
 
-        $poi = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('lat' => 100, 'long' => 200));
+        $poi   = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('lat' => 100, 'long' => 200));
         $photo = new NavPhotos($poi, "asdf");
         $this->_em->persist($photo);
         $this->_em->flush();
@@ -74,8 +75,8 @@ class CompositePrimaryKeyTest extends \Doctrine\Tests\OrmFunctionalTestCase
     {
         $this->putGermanysBrandenburderTor();
 
-        $poi    = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('lat' => 100, 'long' => 200));
-        $photo  = new NavPhotos($poi, "asdf");
+        $poi   = $this->_em->find('Doctrine\Tests\Models\Navigation\NavPointOfInterest', array('lat' => 100, 'long' => 200));
+        $photo = new NavPhotos($poi, "asdf");
         $this->_em->persist($photo);
         $this->_em->flush();
         $this->_em->clear();

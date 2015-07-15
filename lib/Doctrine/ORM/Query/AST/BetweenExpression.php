@@ -57,8 +57,8 @@ class BetweenExpression extends Node
      */
     public function __construct($expr, $leftExpr, $rightExpr)
     {
-        $this->expression = $expr;
-        $this->leftBetweenExpression = $leftExpr;
+        $this->expression             = $expr;
+        $this->leftBetweenExpression  = $leftExpr;
         $this->rightBetweenExpression = $rightExpr;
     }
 

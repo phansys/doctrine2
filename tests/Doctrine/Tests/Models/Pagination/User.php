@@ -2,7 +2,6 @@
 
 namespace Doctrine\Tests\Models\Pagination;
 
-
 /**
  * @package Doctrine\Tests\Models\Pagination
  *

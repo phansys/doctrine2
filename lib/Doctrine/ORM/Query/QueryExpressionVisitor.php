@@ -20,7 +20,6 @@
 namespace Doctrine\ORM\Query;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Doctrine\Common\Collections\Expr\ExpressionVisitor;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
@@ -38,7 +37,7 @@ class QueryExpressionVisitor extends ExpressionVisitor
      * @var array
      */
     private static $operatorMap = array(
-        Comparison::GT => Expr\Comparison::GT,
+        Comparison::GT  => Expr\Comparison::GT,
         Comparison::GTE => Expr\Comparison::GTE,
         Comparison::LT  => Expr\Comparison::LT,
         Comparison::LTE => Expr\Comparison::LTE
@@ -67,7 +66,7 @@ class QueryExpressionVisitor extends ExpressionVisitor
     public function __construct($queryAliases)
     {
         $this->queryAliases = $queryAliases;
-        $this->expr = new Expr();
+        $this->expr         = new Expr();
     }
 
     /**
@@ -114,7 +113,7 @@ class QueryExpressionVisitor extends ExpressionVisitor
             $expressionList[] = $this->dispatch($child);
         }
 
-        switch($expr->getType()) {
+        switch ($expr->getType()) {
             case CompositeExpression::TYPE_AND:
                 return new Expr\Andx($expressionList);
 
@@ -131,15 +130,14 @@ class QueryExpressionVisitor extends ExpressionVisitor
      */
     public function walkComparison(Comparison $comparison)
     {
-
-        if ( ! isset($this->queryAliases[0])) {
+        if (! isset($this->queryAliases[0])) {
             throw new QueryException('No aliases are set before invoking walkComparison().');
         }
 
         $field = $this->queryAliases[0] . '.' . $comparison->getField();
 
-        foreach($this->queryAliases as $alias) {
-            if(strpos($comparison->getField() . '.', $alias . '.') === 0) {
+        foreach ($this->queryAliases as $alias) {
+            if (strpos($comparison->getField() . '.', $alias . '.') === 0) {
                 $field = $comparison->getField();
                 break;
             }
@@ -147,14 +145,14 @@ class QueryExpressionVisitor extends ExpressionVisitor
 
         $parameterName = str_replace('.', '_', $comparison->getField());
 
-        foreach($this->parameters as $parameter) {
-            if($parameter->getName() === $parameterName) {
+        foreach ($this->parameters as $parameter) {
+            if ($parameter->getName() === $parameterName) {
                 $parameterName .= '_' . count($this->parameters);
                 break;
             }
         }
 
-        $parameter = new Parameter($parameterName, $this->walkValue($comparison->getValue()));
+        $parameter   = new Parameter($parameterName, $this->walkValue($comparison->getValue()));
         $placeholder = ':' . $parameterName;
 
         switch ($comparison->getOperator()) {

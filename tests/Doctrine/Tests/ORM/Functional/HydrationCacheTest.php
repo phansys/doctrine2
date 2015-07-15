@@ -17,10 +17,10 @@ class HydrationCacheTest extends OrmFunctionalTestCase
 
         parent::setUp();
 
-        $user = new CmsUser;
-        $user->name = "Benjamin";
+        $user           = new CmsUser;
+        $user->name     = "Benjamin";
         $user->username = "beberlei";
-        $user->status = 'active';
+        $user->status   = 'active';
 
         $this->_em->persist($user);
         $this->_em->flush();
@@ -30,13 +30,13 @@ class HydrationCacheTest extends OrmFunctionalTestCase
     public function testHydrationCache()
     {
         $cache = new ArrayCache();
-        $dql = "SELECT u FROM Doctrine\Tests\Models\Cms\CmsUser u";
+        $dql   = "SELECT u FROM Doctrine\Tests\Models\Cms\CmsUser u";
 
         $users = $this->_em->createQuery($dql)
                       ->setHydrationCacheProfile(new QueryCacheProfile(null, null, $cache))
                       ->getResult();
 
-        $c = $this->getCurrentQueryCount();
+        $c     = $this->getCurrentQueryCount();
         $users = $this->_em->createQuery($dql)
                       ->setHydrationCacheProfile(new QueryCacheProfile(null, null, $cache))
                       ->getResult();
@@ -85,4 +85,3 @@ class HydrationCacheTest extends OrmFunctionalTestCase
         $this->assertEquals($c, $this->getCurrentQueryCount(), "Should not execute query. Its cached!");
     }
 }
-

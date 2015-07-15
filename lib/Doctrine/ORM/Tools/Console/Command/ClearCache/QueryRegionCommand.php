@@ -45,7 +45,7 @@ class QueryRegionCommand extends Command
         ->setDescription('Clear a second-level cache query region.')
         ->addArgument('region-name', InputArgument::OPTIONAL, 'The query region to clear.')
         ->addOption('all', null, InputOption::VALUE_NONE, 'If defined, all query regions will be deleted/invalidated.')
-        ->addOption('flush', null, InputOption::VALUE_NONE,'If defined, all cache entries will be flushed.');
+        ->addOption('flush', null, InputOption::VALUE_NONE, 'If defined, all cache entries will be flushed.');
 
 
         $this->setHelp(<<<EOT
@@ -88,7 +88,7 @@ EOT
             $name = Cache::DEFAULT_QUERY_REGION_NAME;
         }
 
-        if ( ! $cache instanceof Cache) {
+        if (! $cache instanceof Cache) {
             throw new \InvalidArgumentException('No second-level cache is configured on the given EntityManager.');
         }
 
@@ -96,7 +96,7 @@ EOT
             $queryCache  = $cache->getQueryCache($name);
             $queryRegion = $queryCache->getRegion();
 
-            if ( ! $queryRegion instanceof DefaultRegion) {
+            if (! $queryRegion instanceof DefaultRegion) {
                 throw new \InvalidArgumentException(sprintf(
                     'The option "--flush" expects a "Doctrine\ORM\Cache\Region\DefaultRegion", but got "%s".',
                     is_object($queryRegion) ? get_class($queryRegion) : gettype($queryRegion)

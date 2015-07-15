@@ -19,7 +19,7 @@ class DDC1998Test extends \Doctrine\Tests\OrmFunctionalTestCase
             $this->_em->getClassMetadata(__NAMESPACE__ . '\\DDC1998Entity'),
         ));
 
-        $entity = new DDC1998Entity();
+        $entity     = new DDC1998Entity();
         $entity->id = new DDC1998Id("foo");
 
         $this->_em->persist($entity);

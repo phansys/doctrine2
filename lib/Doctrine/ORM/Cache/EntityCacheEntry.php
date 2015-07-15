@@ -75,8 +75,8 @@ class EntityCacheEntry implements CacheEntry
      */
     public function resolveAssociationEntries(EntityManagerInterface $em)
     {
-        return array_map(function($value) use ($em) {
-            if ( ! ($value instanceof AssociationCacheEntry)) {
+        return array_map(function ($value) use ($em) {
+            if (! ($value instanceof AssociationCacheEntry)) {
                 return $value;
             }
 

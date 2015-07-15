@@ -55,7 +55,7 @@ final class IdentifierFlattener
      */
     public function __construct(UnitOfWork $unitOfWork, ClassMetadataFactory $metadataFactory)
     {
-        $this->unitOfWork = $unitOfWork;
+        $this->unitOfWork      = $unitOfWork;
         $this->metadataFactory = $metadataFactory;
     }
 

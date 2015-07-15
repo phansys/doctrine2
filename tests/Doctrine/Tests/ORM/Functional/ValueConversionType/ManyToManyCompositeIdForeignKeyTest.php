@@ -23,14 +23,14 @@ class ManyToManyCompositeIdForeignKeyTest extends OrmFunctionalTestCase
 
         parent::setUp();
 
-        $auxiliary = new Entity\AuxiliaryEntity();
+        $auxiliary      = new Entity\AuxiliaryEntity();
         $auxiliary->id4 = 'abc';
 
-        $inversed = new Entity\InversedManyToManyCompositeIdForeignKeyEntity();
-        $inversed->id1 = 'def';
+        $inversed                = new Entity\InversedManyToManyCompositeIdForeignKeyEntity();
+        $inversed->id1           = 'def';
         $inversed->foreignEntity = $auxiliary;
 
-        $owning = new Entity\OwningManyToManyCompositeIdForeignKeyEntity();
+        $owning      = new Entity\OwningManyToManyCompositeIdForeignKeyEntity();
         $owning->id2 = 'ghi';
 
         $inversed->associatedEntities->add($owning);

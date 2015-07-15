@@ -9,7 +9,7 @@ class ConvertDoctrine1SchemaCommandTest extends \Doctrine\Tests\OrmTestCase
     public function testExecution()
     {
         $entityGenerator = $this->getMock('Doctrine\ORM\Tools\EntityGenerator');
-        $command = new ConvertDoctrine1SchemaCommand();
+        $command         = new ConvertDoctrine1SchemaCommand();
         $command->setEntityGenerator($entityGenerator);
 
         $output = $this->getMock('Symfony\Component\Console\Output\OutputInterface');

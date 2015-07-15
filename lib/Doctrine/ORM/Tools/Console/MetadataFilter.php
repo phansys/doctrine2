@@ -45,7 +45,7 @@ class MetadataFilter extends \FilterIterator implements \Countable
      *
      * @return array
      */
-    static public function filter(array $metadatas, $filter)
+    public static function filter(array $metadatas, $filter)
     {
         $metadatas = new MetadataFilter(new \ArrayIterator($metadatas), $filter);
 
@@ -72,7 +72,7 @@ class MetadataFilter extends \FilterIterator implements \Countable
             return true;
         }
 
-        $it = $this->getInnerIterator();
+        $it       = $this->getInnerIterator();
         $metadata = $it->current();
 
         foreach ($this->filter as $filter) {
